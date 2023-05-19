@@ -22,7 +22,7 @@ docker build ./ --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${h
 - **Step 1 Docker run**: We need to use `docker run` which helps us run our scirpt in docker image built previously.
 ```
 # Docker run into docker image
-docker run --privileged -v ${WORKSPACE}:/root/workspace -it llm_centos8:latest
+docker run --privileged -v `pwd`:/root/workspace -it llm_centos8:latest
 ```
 
 - **Step 2 Run GPT-j script**: At this step, we could activate our conda env and run GPT-j script with the following configuration: `max-new-tokens=32 num_beams=4`
