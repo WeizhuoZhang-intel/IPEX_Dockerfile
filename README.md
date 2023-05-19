@@ -45,5 +45,5 @@ export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
 source activate llm
 
 # Run GPT-j workload
-numactl -N 0 -m 0 python run_gptj.py --device cpu --ipex --jit --dtype bfloat16 --max-new-tokens 32
+numactl -N 0 -m 0 python run_gptj.py --ipex --jit --dtype bfloat16 --max-new-tokens 32
 ```
