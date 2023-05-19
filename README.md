@@ -30,7 +30,7 @@ docker run --privileged -v `pwd`:/root/workspace -it llm_centos8:latest
 # Env config
 export KMP_BLOCKTIME=1
 export KMP_AFFINITY=granularity=fine,compact,1,0
-# IOMP
+# IOMP & TcMalloc
 export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so
 export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
 ```
