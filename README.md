@@ -7,6 +7,10 @@ We provide the `Dockerfile.llm` used for building docker image with PyTorch, IPE
 - `prompt.json`: prompt.json for run_gptj.py
 - `transformers.patch`: The patch file for transformers v4.26.1. This patch file also enabled our IPEX optimization for transformers and GPT-j.
 
+## ENV
+- **PyTorch**: [20230518 nightly](https://github.com/pytorch/pytorch/commit/329bb2a33e40f4bc76b2e061b180d3234984c91b)
+- **IPEX-CPU**: master branch, commit [de88d93](https://github.com/intel/intel-extension-for-pytorch/commit/de88d938c940da06274ce64079e93d6aefcaa49d)
+
 ## Build Docker image
 - Option 1 (default): you could use `docker build` to build the docker image in your environment.
 ```
