@@ -10,12 +10,12 @@ We provide the `Dockerfile.llm` used for building docker image with PyTorch, IPE
 ## Build Docker image
 - Option 1 (default): you could use `docker build` to build the docker image in your environment.
 ```
-docker build ./ -f DockerFile.llm -t llm_centos8:latest
+docker build ./ -f Dockerfile.llm -t llm_centos8:latest
 ```
 
 - Option 2: If you need to use proxy, please use the following command
 ```
-docker build ./ --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${http_proxy} -f DockerFile.llm -t llm_centos8:latest
+docker build ./ --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${http_proxy} -f Dockerfile.llm -t llm_centos8:latest
 ```
 
 ## Run GPT-j script
