@@ -63,13 +63,13 @@ RUN export PATH=~/anaconda3/bin/:${PATH} && \
     conda install gperftools -c conda-forge -y && \
     pip install intel-openmp matplotlib typing_extensions future six requests dataclasses \
         ninja pyyaml setuptools cmake cffi typing intel-openmp mkl mkl-include numpy cpuid datasets pip install sympy && \
-    pip3 install --pre torch --index-url https://download.pytorch.org/whl/nightly/cpu --no-deps
+    pip3 install https://download.pytorch.org/whl/nightly/cpu/torch-2.1.0.dev20230518%2Bcpu-cp39-cp39-linux_x86_64.whl --no-deps
 
 # Build IPEX
 RUN source /root/anaconda3/bin/activate llm && \
     pip install mkl intel-openmp && \
-    cd /opt/installs && git clone -b master --depth 1 https://github.com/intel/intel-extension-for-pytorch.git ipex-cpu && \
-    cd /opt/installs/ipex-cpu && git submodule sync && git submodule update --init --recursive && \
+    cd /opt/installs && git clone -b master  https://github.com/intel/intel-extension-for-pytorch.git ipex-cpu && \
+    cd /opt/installs/ipex-cpu && git checkout de88d93 && git submodule sync && git submodule update --init --recursive && \
     export DNNL_GRAPH_BUILD_COMPILER_BACKEND=1 && \
     source /opt/rh/gcc-toolset-11/enable && \
     rm -rf /root/anaconda3/lib/libstdc++.so* && \
