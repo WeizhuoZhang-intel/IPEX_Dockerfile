@@ -112,7 +112,7 @@ num_warmup = args.num_warmup
 prompt = [prompt] * args.batch_size
 total_list = []
 with torch.inference_mode(), torch.no_grad(), torch.autocast(
-    device_type=args.device,
+    device_type='cpu',
     enabled=amp_enabled,
     dtype=amp_dtype if amp_enabled else None,
 ):

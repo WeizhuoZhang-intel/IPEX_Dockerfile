@@ -77,9 +77,9 @@ RUN source /root/anaconda3/bin/activate llm && \
     python setup.py install
 
 # Build TPP extension for Pytorch
-RUN source /root/anaconda3/bin/activate llm  && \
+RUN source /root/anaconda3/bin/activate llm && \
     pip install accelerate protobuf==3.20.3 numpy==1.23.5 && \
-    cd /opt/installs && git clone -b main --depth 1 https://github.com/libxsmm/tpp-pytorch-extension.git && \
+    cd /opt/installs && git clone -b gpt_infer --depth 1 https://github.com/libxsmm/tpp-pytorch-extension.git && \
     cd /opt/installs/tpp-pytorch-extension && git submodule update --init && \
     source /opt/rh/gcc-toolset-11/enable && \
     python setup.py install
