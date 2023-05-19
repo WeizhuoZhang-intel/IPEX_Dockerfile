@@ -72,10 +72,13 @@ RUN source /root/anaconda3/bin/activate llm && \
     cd /opt/installs/ipex-cpu && git submodule sync && git submodule update --init --recursive && \
     export DNNL_GRAPH_BUILD_COMPILER_BACKEND=1 && \
     source /opt/rh/gcc-toolset-11/enable && \
+    rm -rf /root/anaconda3/lib/libstdc++.so* && \
+    rm -rf /root/anaconda3/envs/llm/lib/libstdc++.so* && \
     python setup.py install
 
 # Build TPP extension for Pytorch
 RUN source /root/anaconda3/bin/activate llm  && \
+    pip install accelerate protobuf==3.20.3 numpy==1.23.5 && \
     cd /opt/installs && git clone -b main --depth 1 https://github.com/libxsmm/tpp-pytorch-extension.git && \
     cd /opt/installs/tpp-pytorch-extension && git submodule update --init && \
     source /opt/rh/gcc-toolset-11/enable && \
@@ -101,3 +104,4 @@ RUN /root/anaconda3/bin/conda clean -y -all && \
     rm -rf /opt/installs/
 
 ENV BASH_ENV=/opt/.bash_profile
+WORKDIR /root/workspace/

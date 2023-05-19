@@ -11,3 +11,12 @@ docker build ./ -f DockerFile.llm -t llm_centos8:latest
 ```
 docker build ./ --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${http_proxy} -f DockerFile.llm -t llm_centos8:latest
 ```
+
+- How to Run
+```
+# Docker run into docker image
+docker run -v ${WORKSPACE}:/root/workspace -it llm_centos8:latest
+
+# Activate conda env
+source activate llm
+```
