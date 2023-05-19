@@ -25,7 +25,17 @@ docker build ./ --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${h
 docker run --privileged -v `pwd`:/root/workspace -it llm_centos8:latest
 ```
 
-- **Step 2 Run GPT-j script**: At this step, we could activate our conda env and run GPT-j script with the following configuration: `max-new-tokens=32 num_beams=4`
+- **Step 2 Environment Config**: Tcmalloc is a recommended malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.
+```
+# Env config
+export KMP_BLOCKTIME=1
+export KMP_AFFINITY=granularity=fine,compact,1,0
+# IOMP
+export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so
+export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+```
+
+- **Step 3 Run GPT-j script**: At this step, we could activate our conda env and run GPT-j script with the following configuration: `max-new-tokens=32 num_beams=4`
 ```
 # Activate conda env
 source activate llm
