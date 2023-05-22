@@ -31,6 +31,9 @@ docker run --privileged -v `pwd`:/root/workspace -it llm_centos8:latest
 
 - **Step 2 Environment Config**: Tcmalloc is a recommended malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.
 ```
+# Activate conda env
+source activate llm
+
 # Env config
 export KMP_BLOCKTIME=1
 export KMP_AFFINITY="granularity=fine,compact,1,0"
@@ -40,17 +43,16 @@ export LD_PRELOAD=/root/anaconda3/envs/llm/lib/libiomp5.so:/root/anaconda3/envs/
 
 - **Step 3 Run GPT-j script**: At this step, we could activate our conda env and run GPT-j script with the following configuration: `max-new-tokens=32 num_beams=4`
 ```
-# Activate conda env
-source activate llm
+export CORES=$(lscpu | grep "Core(s) per socket" | awk '{print $NF}')
 
 # Run GPT-j workload
 bash run.sh
 
 # Or
-numactl -N 0 -m 0 python run_gptj.py --ipex --jit --dtype bfloat16 --max-new-tokens 32
+OMP_NUM_THREADS=${CORES} numactl -N 0 -m 2 python run_gptj.py --ipex --jit --dtype bfloat16 --max-new-tokens 32
 
 # Run GPT-j workload with TPP
-numactl -N 0 -m 0 python run_gptj.py --use-tpp --jit --dtype bfloat16 --max-new-tokens 32
+OMP_NUM_THREADS=${CORES} numactl -N 0 -m 2 python run_gptj.py --use-tpp --jit --dtype bfloat16 --max-new-tokens 32
 
 # Note: the numactl parameters above should be used for HBM-cache mode. For flat configuration in quad mode use '-N 0 -m 2' to use the HBM memory.
 ```
