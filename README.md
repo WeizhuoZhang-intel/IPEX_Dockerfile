@@ -33,10 +33,9 @@ docker run --privileged -v `pwd`:/root/workspace -it llm_centos8:latest
 ```
 # Env config
 export KMP_BLOCKTIME=1
-export KMP_AFFINITY=granularity=fine,compact,1,0
+export KMP_AFFINITY="granularity=fine,compact,1,0"
 # IOMP & TcMalloc
-export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so
-export LD_PRELOAD=${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+export LD_PRELOAD=/root/anaconda3/envs/llm/lib/libiomp5.so:/root/anaconda3/envs/llm/lib/libtcmalloc.so:${LD_PRELOAD}
 ```
 
 - **Step 3 Run GPT-j script**: At this step, we could activate our conda env and run GPT-j script with the following configuration: `max-new-tokens=32 num_beams=4`

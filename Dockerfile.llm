@@ -104,4 +104,9 @@ RUN /root/anaconda3/bin/conda clean -y -all && \
     rm -rf /opt/installs/
 
 ENV BASH_ENV=/opt/.bash_profile
+# Env config
+ENV KMP_BLOCKTIME=1
+ENV KMP_AFFINITY="granularity=fine,compact,1,0"
+# IOMP & TcMalloc
+ENV LD_PRELOAD=/root/anaconda3/envs/llm/lib/libiomp5.so:/root/anaconda3/envs/llm/lib/libtcmalloc.so:${LD_PRELOAD}
 WORKDIR /root/workspace/
