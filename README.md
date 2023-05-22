@@ -54,5 +54,10 @@ OMP_NUM_THREADS=${CORES} numactl -N 0 -m 0 python run_gptj.py --ipex --jit --dty
 # Run GPT-j workload with TPP
 OMP_NUM_THREADS=${CORES} numactl -N 0 -m 0 python run_gptj.py --use-tpp --jit --dtype bfloat16 --max-new-tokens 32
 
-# Note: the numactl parameters above should be used for HBM-cache mode. For flat configuration in quad mode use '-N 0 -m 2' to use the HBM memory.
+# Note: the numactl parameters above should be used for HBM-cache mode.
+# For flat configuration in quad mode use '-N 0 -m 2' to use the HBM memory.
+# IPEX 
+OMP_NUM_THREADS=${CORES} numactl -N 0 -m 2 python run_gptj.py --ipex --jit --dtype bfloat16 --max-new-tokens 32
+# TPP
+OMP_NUM_THREADS=${CORES} numactl -N 0 -m 2 python run_gptj.py --use-tpp --jit --dtype bfloat16 --max-new-tokens 32
 ```
