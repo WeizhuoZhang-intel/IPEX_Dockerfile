@@ -63,13 +63,13 @@ RUN export PATH=~/anaconda3/bin/:${PATH} && \
     conda install gperftools -c conda-forge -y && \
     pip install intel-openmp matplotlib typing_extensions future six requests dataclasses \
         ninja pyyaml setuptools cmake cffi typing intel-openmp mkl mkl-include numpy cpuid datasets pip install sympy && \
-    pip3 install --pre torch --index-url https://download.pytorch.org/whl/nightly/cpu --no-deps
+    pip3 install https://download.pytorch.org/whl/nightly/cpu/torch-2.1.0.dev20230518%2Bcpu-cp39-cp39-linux_x86_64.whl --no-deps
 
 # Build IPEX
 RUN source /root/anaconda3/bin/activate llm && \
     pip install mkl intel-openmp && \
-    cd /opt/installs && git clone -b master --depth 1 https://github.com/intel/intel-extension-for-pytorch.git ipex-cpu && \
-    cd /opt/installs/ipex-cpu && git submodule sync && git submodule update --init --recursive && \
+    cd /opt/installs && git clone -b master  https://github.com/intel/intel-extension-for-pytorch.git ipex-cpu && \
+    cd /opt/installs/ipex-cpu && git checkout de88d93 && git submodule sync && git submodule update --init --recursive && \
     export DNNL_GRAPH_BUILD_COMPILER_BACKEND=1 && \
     source /opt/rh/gcc-toolset-11/enable && \
     rm -rf /root/anaconda3/lib/libstdc++.so* && \
@@ -77,9 +77,9 @@ RUN source /root/anaconda3/bin/activate llm && \
     python setup.py install
 
 # Build TPP extension for Pytorch
-RUN source /root/anaconda3/bin/activate llm  && \
+RUN source /root/anaconda3/bin/activate llm && \
     pip install accelerate protobuf==3.20.3 numpy==1.23.5 && \
-    cd /opt/installs && git clone -b main --depth 1 https://github.com/libxsmm/tpp-pytorch-extension.git && \
+    cd /opt/installs && git clone -b gpt_infer --depth 1 https://github.com/libxsmm/tpp-pytorch-extension.git && \
     cd /opt/installs/tpp-pytorch-extension && git submodule update --init && \
     source /opt/rh/gcc-toolset-11/enable && \
     python setup.py install
@@ -104,4 +104,9 @@ RUN /root/anaconda3/bin/conda clean -y -all && \
     rm -rf /opt/installs/
 
 ENV BASH_ENV=/opt/.bash_profile
+# Env config
+ENV KMP_BLOCKTIME=1
+ENV KMP_AFFINITY="granularity=fine,compact,1,0"
+# IOMP & TcMalloc
+ENV LD_PRELOAD=/root/anaconda3/envs/llm/lib/libiomp5.so:/root/anaconda3/envs/llm/lib/libtcmalloc.so:${LD_PRELOAD}
 WORKDIR /root/workspace/

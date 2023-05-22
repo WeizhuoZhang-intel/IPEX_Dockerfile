@@ -13,7 +13,7 @@ index d9caf8763..a3e3abd34 100644
  class GELUActivation(nn.Module):
      """
 diff --git a/src/transformers/generation/utils.py b/src/transformers/generation/utils.py
-index 7650276c5..b3e669bef 100644
+index 7650276c5..7d14236c9 100644
 --- a/src/transformers/generation/utils.py
 +++ b/src/transformers/generation/utils.py
 @@ -16,6 +16,8 @@
@@ -35,17 +35,18 @@ index 7650276c5..b3e669bef 100644
          if "past_key_values" in outputs:
              past_key_values = outputs.past_key_values
          elif "mems" in outputs:
-@@ -1175,6 +1180,9 @@ def generate(
+@@ -1175,6 +1180,10 @@ def generate(
          """
          # 1. Handle `generation_config` and kwargs that might update it, and validate the `.generate()` call
          self._validate_model_class()
 +        self.jit = kwargs.pop("jit", False)
 +        self.tp_number = kwargs.pop("TP_number", 1)
 +        self.token_latency = kwargs.pop("token_latency", None)
++        self.use_tpp = kwargs.pop("use_tpp", False)
  
          # priority: `generation_config` argument > `model.generation_config` (the default generation config)
          if generation_config is None:
-@@ -2118,6 +2126,7 @@ def greedy_search(
+@@ -2118,6 +2127,7 @@ def greedy_search(
          ["It might be possible to get a better understanding of the nature of the problem, but it's not"]
          ```"""
          # init values
@@ -53,7 +54,7 @@ index 7650276c5..b3e669bef 100644
          logits_processor = logits_processor if logits_processor is not None else LogitsProcessorList()
          stopping_criteria = stopping_criteria if stopping_criteria is not None else StoppingCriteriaList()
          if max_length is not None:
-@@ -2162,6 +2171,7 @@ def greedy_search(
+@@ -2162,6 +2172,7 @@ def greedy_search(
  
          this_peer_finished = False  # used by synced_gpus only
          while True:
@@ -61,7 +62,7 @@ index 7650276c5..b3e669bef 100644
              if synced_gpus:
                  # Under synced_gpus the `forward` call must continue until all gpus complete their sequence.
                  # The following logic allows an early break if all peers finished generating their sequence
-@@ -2229,6 +2239,7 @@ def greedy_search(
+@@ -2229,6 +2240,7 @@ def greedy_search(
                  unfinished_sequences = unfinished_sequences.mul((sum(next_tokens != i for i in eos_token_id)).long())
  
              # stop when each sentence is finished, or if we exceed the maximum length
@@ -69,7 +70,7 @@ index 7650276c5..b3e669bef 100644
              if unfinished_sequences.max() == 0 or stopping_criteria(input_ids, scores):
                  if not synced_gpus:
                      break
-@@ -2237,7 +2248,7 @@ def greedy_search(
+@@ -2237,7 +2249,7 @@ def greedy_search(
  
          if return_dict_in_generate:
              if self.config.is_encoder_decoder:
@@ -78,7 +79,7 @@ index 7650276c5..b3e669bef 100644
                      sequences=input_ids,
                      scores=scores,
                      encoder_attentions=encoder_attentions,
-@@ -2247,14 +2258,19 @@ def greedy_search(
+@@ -2247,14 +2259,19 @@ def greedy_search(
                      decoder_hidden_states=decoder_hidden_states,
                  )
              else:
@@ -100,7 +101,7 @@ index 7650276c5..b3e669bef 100644
  
      def sample(
          self,
-@@ -2645,6 +2661,7 @@ def beam_search(
+@@ -2645,6 +2662,7 @@ def beam_search(
          ['Wie alt bist du?']
          ```"""
          # init values
@@ -108,7 +109,7 @@ index 7650276c5..b3e669bef 100644
          logits_processor = logits_processor if logits_processor is not None else LogitsProcessorList()
          stopping_criteria = stopping_criteria if stopping_criteria is not None else StoppingCriteriaList()
          if max_length is not None:
-@@ -2707,6 +2724,7 @@ def beam_search(
+@@ -2707,6 +2725,7 @@ def beam_search(
  
          this_peer_finished = False  # used by synced_gpus only
          while True:
@@ -116,7 +117,7 @@ index 7650276c5..b3e669bef 100644
              if synced_gpus:
                  # Under synced_gpus the `forward` call must continue until all gpus complete their sequence.
                  # The following logic allows an early break if all peers finished generating their sequence
-@@ -2718,19 +2736,67 @@ def beam_search(
+@@ -2718,19 +2737,70 @@ def beam_search(
                      break
  
              model_inputs = self.prepare_inputs_for_generation(input_ids, **model_kwargs)
@@ -151,7 +152,10 @@ index 7650276c5..b3e669bef 100644
 +                    first_token = True
 +                if first_token:
 +                    seq_len = input_ids.size()[1]
-+                    model_inputs["past_key_values"] = tuple([(torch.zeros([1,int(self.config.n_head/self.tp_number),1,int(self.config.n_embd/self.config.n_head)]), torch.zeros([1,int(self.config.n_head/self.tp_number),1,int(self.config.n_embd/self.config.n_head)])) for i in range(self.config.n_layer)])
++                    if self.use_tpp:
++                        model_inputs["past_key_values"] = tuple([(torch.zeros([1,1,int(self.config.n_head/self.tp_number)*int(self.config.n_embd/self.config.n_head)]), torch.zeros([1,1,int(self.config.n_head/self.tp_number)*int(self.config.n_embd/self.config.n_head)])) for i in range(self.config.n_layer)])
++                    else:
++                        model_inputs["past_key_values"] = tuple([(torch.zeros([1,int(self.config.n_head/self.tp_number),1,int(self.config.n_embd/self.config.n_head)]), torch.zeros([1,int(self.config.n_head/self.tp_number),1,int(self.config.n_embd/self.config.n_head)])) for i in range(self.config.n_layer)])
 +                    model_inputs["attention_mask"] = model_inputs["attention_mask"][:1,:]
 +                    model_inputs["input_ids"] = model_inputs["input_ids"][:1,:]
 +                    model_inputs["position_ids"] = model_inputs["position_ids"][:1,:]
@@ -197,7 +201,7 @@ index 7650276c5..b3e669bef 100644
              # hack: adjust tokens for Marian. For Marian we have to make sure that the `pad_token_id`
              # cannot be generated both before and after the `nn.functional.log_softmax` operation.
              next_token_logits = self.adjust_logits_during_generation(next_token_logits, cur_len=cur_len)
-@@ -2799,6 +2865,7 @@ def beam_search(
+@@ -2799,6 +2869,7 @@ def beam_search(
  
              # increase cur_len
              cur_len = cur_len + 1
@@ -205,7 +209,7 @@ index 7650276c5..b3e669bef 100644
  
              if beam_scorer.is_done or stopping_criteria(input_ids, scores):
                  if not synced_gpus:
-@@ -2822,7 +2889,7 @@ def beam_search(
+@@ -2822,7 +2893,7 @@ def beam_search(
                  sequence_outputs["sequence_scores"] = None
  
              if self.config.is_encoder_decoder:
@@ -214,7 +218,7 @@ index 7650276c5..b3e669bef 100644
                      sequences=sequence_outputs["sequences"],
                      sequences_scores=sequence_outputs["sequence_scores"],
                      scores=scores,
-@@ -2834,7 +2901,7 @@ def beam_search(
+@@ -2834,7 +2905,7 @@ def beam_search(
                      decoder_hidden_states=decoder_hidden_states,
                  )
              else:
@@ -223,7 +227,7 @@ index 7650276c5..b3e669bef 100644
                      sequences=sequence_outputs["sequences"],
                      sequences_scores=sequence_outputs["sequence_scores"],
                      scores=scores,
-@@ -2843,7 +2910,12 @@ def beam_search(
+@@ -2843,7 +2914,12 @@ def beam_search(
                      hidden_states=decoder_hidden_states,
                  )
          else:
