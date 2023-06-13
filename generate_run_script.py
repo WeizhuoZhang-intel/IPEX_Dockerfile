@@ -12,7 +12,7 @@ free -h
 numactl -H
 sockets_num=$(lscpu |grep 'Socket(s):' |sed 's/[^0-9]//g')
 cores_per_socket=$(lscpu |grep 'Core(s) per socket:' |sed 's/[^0-9]//g')
-phsical_cores_num=$(echo |awk -v sockets_num=${sockets_num}" -v cores_per_socket=${cores_per_socket} '{
+phsical_cores_num=$(echo |awk -v sockets_num=${sockets_num} -v cores_per_socket=${cores_per_socket} '{
     print sockets_num * cores_per_socket;
 }')
 numa_nodes_num=$(numactl -H |grep 'node [0-9]* cpus: [0-9].*' |wc -l)
