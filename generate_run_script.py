@@ -132,7 +132,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('int8'):
             if mode.startswith('gptj'):
                 lines.append("# GPT-J quantization")
-                lines.append(f"python python {data['modelargs'][mode]['scriptname']} --quantize --inc_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
+                lines.append(f"python {data['modelargs'][mode]['scriptname']} --quantize --inc_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
             if mode.startswith('llama'):
                 lines.append("# LLaMA quantization")
                 lines.append(f"python python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
