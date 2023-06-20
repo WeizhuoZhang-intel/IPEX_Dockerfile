@@ -1,7 +1,7 @@
 name: LLM Benchmarking
 hw: SPR-SP/HBM/EMR
 envconfig:
-  LD_PRELOAD: ${CONDA_PREFIX}/lib/libstdc++.so.6:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  LD_PRELOAD: ${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
   KMP_BLOCKTIME: 1
   KMP_AFFINITY: granularity=fine,compact,1,0
   threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
@@ -22,7 +22,7 @@ modelargs:
       - EleutherAI/gpt-j-6B
       - bigscience/bloom
       - decapoda-research/llama-7b-hf
-      - facebook/opt-6.7b,t5-3b
+      - facebook/opt-6.7b
     scriptname: run_generation.py
     device:
       - cpu
@@ -33,7 +33,9 @@ modelargs:
       - bfloat16
       - float32
       - float16
-    inputtokens: 32
+    inputtokens:
+      - 32
+      - 1024
     maxnewtokens: 32
     prompt: None
     greedy: true
@@ -62,7 +64,9 @@ modelargs:
     int8bf16mixed: true
     quantizedmodelpath: "./saved_results/best_model.pt"
     benchmark: true
-    inputtokens: 32
+    inputtokens:
+      - 32
+      - 1024
     prompt: None
     numiter: 100
     numwarmup: 10
@@ -92,7 +96,9 @@ modelargs:
     lambada: true
     accuracy_only: true
     benchmark: true
-    inputtokens: 32
+    inputtokens:
+      - 32
+      - 1024
     prompt: None
     numiter: 100
     numwarmup: 10
@@ -123,7 +129,9 @@ modelargs:
     greedy: true
     ki: true
     maxnewtokens: 32
-    inputtokens: 32
+    inputtokens:
+      - 32
+      - 1024
     prompt: None
     ipex: true
     jit: true
