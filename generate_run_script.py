@@ -156,5 +156,8 @@ def generate_commands(yml_file,mode,extra_kmp):
 
 
 if __name__ == '__main__':
-    for mode in 'default','gptj_int8','llama_int8','deepspeed':
-        generate_commands('bench_preci.yml',mode,args.extra_kmp)
+    #for mode in 'default','gptj_int8','llama_int8','deepspeed':
+    yml_file = 'bench_preci.yml'
+    data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
+    for mode in data['modelargs'].keys():
+        generate_commands(yml_file, mode, args.extra_kmp)
