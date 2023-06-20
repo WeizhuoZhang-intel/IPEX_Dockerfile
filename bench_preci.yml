@@ -29,7 +29,7 @@ modelargs:
       - 32
     maxnewtokens: 32
     prompt: None
-    greedy: true
+    greedy: false
     ipex: true
     jit: true
     numiter: 50
@@ -61,7 +61,7 @@ modelargs:
     numwarmup: 10
     batchsize: 1
     tokenlatency: true
-    greedy: true
+    greedy: false
   llama_int8:
     modelid: decapoda-research/llama-7b-hf
     scriptname: run_llama_int8.py
@@ -91,7 +91,7 @@ modelargs:
     numwarmup: 10
     batchsize: 1
     tokenlatency: true
-    greedy: true
+    greedy: false
   deepspeed:
     modelid:
       - EleutherAI/gpt-j-6B
@@ -107,7 +107,7 @@ modelargs:
     numwarmup: 5
     benchmark: true
     cuda: true
-    greedy: true
+    greedy: false
     ki: true
     maxnewtokens: 32
     inputtokens:
