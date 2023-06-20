@@ -46,7 +46,7 @@ export LD_PRELOAD=/root/anaconda3/envs/llm/lib/libiomp5.so:/root/anaconda3/envs/
 export CORES=$(lscpu | grep "Core(s) per socket" | awk '{print $NF}')
 
 # Run GPT-j workload
-bash run.sh
+bash launch.sh
 
 # Or
 OMP_NUM_THREADS=${CORES} numactl -N 0 -m 0 python run_gptj.py --ipex --jit --dtype bfloat16 --max-new-tokens 32
