@@ -157,4 +157,4 @@ def generate_commands(yml_file,mode,extra_kmp):
 
 if __name__ == '__main__':
     for mode in 'default','gptj_int8','llama_int8','deepspeed':
-        generate_commands('bench.yml',mode,args.extra_kmp)
+        generate_commands('bench_preci.yml',mode,args.extra_kmp)
