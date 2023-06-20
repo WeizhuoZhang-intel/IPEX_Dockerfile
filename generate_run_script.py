@@ -95,7 +95,7 @@ function collect_perf_logs_llm() {
         }
     '))
     printf $1 |tee -a ${log_dir}/summary.log
-    printf ' ${latency[1]},${first_latency},${avg_latency},${p90_latency},${p99_latency} \\n' |tee -a ${log_dir}/summary.log
+    printf " ${latency[1]},${first_latency},${avg_latency},${p90_latency},${p99_latency} \\n" |tee -a ${log_dir}/summary.log
 }
 '''
 
