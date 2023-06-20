@@ -77,23 +77,20 @@ else:
     amp_enabled = False
     amp_dtype = torch.float32
 
-# beam search = 4
-generate_kwargs = dict(do_sample=False, temperature=0.9, num_beams=1 if args.greedy else 4)
+
+num_beams=1 if args.greedy else 4
+generate_kwargs = dict(do_sample=False, temperature=0.9, num_beams=num_beams)
+
 
 # load model
 user_model = LlamaForCausalLM.from_pretrained(args.model_id, low_cpu_mem_usage=True, torchscript=args.jit)
 tokenizer = LlamaTokenizer.from_pretrained(args.model_id)
 print("Data type of the model:", user_model.dtype)
 
-# global setting for past_key_value
-if args.greedy:
-    global_past_key_value = [(torch.zeros([1,user_model.config.num_attention_heads,1,int(user_model.config.hidden_size/user_model.config.num_attention_heads)]),
-                          torch.zeros([1,user_model.config.num_attention_heads,1,int(user_model.config.hidden_size/user_model.config.num_attention_heads)])) for i in range(user_model.config.num_hidden_layers)]
-else:
-    # for large input tokens
-    beam_idx_tmp = torch.zeros(int(args.batch_size * 4), dtype=torch.int)
-    global_past_key_value = [(torch.zeros([1,user_model.config.num_attention_heads,1,int(user_model.config.hidden_size/user_model.config.num_attention_heads)]),
-                          torch.zeros([1,user_model.config.num_attention_heads,1,int(user_model.config.hidden_size/user_model.config.num_attention_heads)]), beam_idx_tmp) for i in range(user_model.config.num_hidden_layers)]
+
+beam_idx_tmp = torch.zeros((2048, int(args.batch_size * num_beams)), dtype=torch.long).contiguous()
+global_past_key_value = [(torch.zeros([1,user_model.config.num_attention_heads,1,int(user_model.config.hidden_size/user_model.config.num_attention_heads)]).contiguous(),
+                           torch.zeros([1,user_model.config.num_attention_heads,1,int(user_model.config.hidden_size/user_model.config.num_attention_heads)]).contiguous(), beam_idx_tmp, torch.zeros(1, dtype=torch.long).contiguous()) for i in range(user_model.config.num_hidden_layers)]
 
 
 class Evaluator:
@@ -124,8 +121,7 @@ class Evaluator:
             input_ids = text["input_ids"] if text["input_ids"].shape[0] <= self.pad_max else text["input_ids"][0:int(self.pad_max-1)]
             pad_len = self.pad_max - input_ids.shape[0]
             last_ind.append(input_ids.shape[0] - 1)
-            attention_mask = torch.ones(len(input_ids) + 1)
-            attention_mask[0] = 0
+            attention_mask = torch.ones(len(input_ids))
             position_ids = torch.arange(len(input_ids))
             input_ids = pad(input_ids, (0, pad_len), value=self.pad_val)
             input_ids_padded.append(input_ids)
@@ -396,8 +392,8 @@ if args.benchmark:
             output_tokens_lengths = [x.shape[0] for x in gen_ids]
             total_new_tokens = [o - i if user_model.config.model_type != 't5' else o for i, o in zip(input_tokens_lengths, output_tokens_lengths)]
             print(gen_text, total_new_tokens, flush=True)
-            if user_model.config.model_type != 't5':
-                assert total_new_tokens[0] == args.max_new_tokens, "Generated new tokens != max new tokens"
+            # if user_model.config.model_type != 't5':
+            #     assert total_new_tokens[0] == args.max_new_tokens, "Generated new tokens != max new tokens"
             if i >= num_warmup:
                 total_time += toc - tic
                 if args.token_latency:

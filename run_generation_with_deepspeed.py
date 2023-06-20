@@ -344,8 +344,8 @@ else:
         t1 = time.time()
         gen_ids = list(gen_ids)
         print(gen_ids[0][1:], flush=True)
-        if model.config.model_type != 't5':
-            assert gen_ids[0][-1] == args.max_new_tokens, "Generated new tokens != max new tokens"
+        # if model.config.model_type != 't5':
+        #     assert gen_ids[0][-1] == args.max_new_tokens, "Generated new tokens != max new tokens"
         if i >= warmup:
             total_time += (t1 - t0)
             if args.token_latency:

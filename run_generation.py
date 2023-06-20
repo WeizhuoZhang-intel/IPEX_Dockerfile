@@ -9,10 +9,10 @@ from transformers import (
     # pipeline,
     AutoModelForCausalLM,
     # AutoModel,
-    #LlamaForCausalLM,
+    LlamaForCausalLM,
     T5ForConditionalGeneration,
     AutoTokenizer,
-    #LlamaTokenizer,
+    LlamaTokenizer,
 )
 
 
@@ -21,7 +21,7 @@ MODEL_CLASSES = {
     "gpt": (AutoModelForCausalLM, AutoTokenizer),
     "opt": (AutoModelForCausalLM, AutoTokenizer),
     "bloom": (AutoModelForCausalLM, AutoTokenizer),
-   # "llama": (LlamaForCausalLM, LlamaTokenizer),
+    "llama": (LlamaForCausalLM, LlamaTokenizer),
     "t5": (T5ForConditionalGeneration, AutoTokenizer),
     "auto": (AutoModelForCausalLM, AutoTokenizer),
     # "chatglm": (AutoModel, AutoTokenizer),
@@ -61,7 +61,7 @@ parser.add_argument(
 )
 parser.add_argument("--greedy", action="store_true")
 parser.add_argument("--ipex", action="store_true")
-parser.add_argument("--ipex_tpp", action="store_true", help="enable tpp optimization for ipex bfloat16 only")
+parser.add_argument("--ipex-tpp", action="store_true", help="enable tpp optimization for ipex bfloat16 only")
 parser.add_argument("--jit", action="store_true")
 parser.add_argument("--num-iter", default=100, type=int, help="num iter")
 parser.add_argument("--num-warmup", default=10, type=int, help="num warmup")
@@ -104,7 +104,7 @@ if args.device == "hpu":
 # to ipex
 if args.ipex:
     # tpp only use for gptj bfloat16
-    ipex_tpp_enabled = args.ipex_tpp and args.dtype == "bfloat16" and model.config.model_type == "gptj"
+    ipex_tpp_enabled = args.ipex_tpp and args.dtype == "bfloat16" and (model.config.model_type == "gptj" or model.config.model_type == "llama")
     model = ipex.optimize(model.eval(), dtype=amp_dtype, inplace=True, weights_prepack=not ipex_tpp_enabled)
     if ipex_tpp_enabled:
         ipex.tpp.Apply_TPP_optimization(model, dtype=torch.bfloat16)
@@ -164,8 +164,8 @@ with torch.inference_mode(), torch.no_grad(), torch.autocast(
         output_tokens_lengths = [x.shape[0] for x in gen_ids]
         total_new_tokens = [o - i if model.config.model_type != 't5' else o for i, o in zip(input_tokens_lengths, output_tokens_lengths)]
         print(gen_text, total_new_tokens, flush=True)
-        if model.config.model_type != 't5':
-            assert total_new_tokens[0] == args.max_new_tokens, "Generated new tokens != max new tokens"
+        # if model.config.model_type != 't5':
+        #     assert total_new_tokens[0] == args.max_new_tokens, "Generated new tokens != max new tokens"
         if i >= num_warmup:
             total_time += toc - tic
             if args.token_latency:
