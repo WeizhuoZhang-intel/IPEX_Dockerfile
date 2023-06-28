@@ -1,4 +1,4 @@
-[submodule "intel-nlp-toolkit."]
+[submodule "intel-nlp-toolkit"]
 	shallow = true
 [submodule "intel-nlp-toolkit"]
 	path = intel-nlp-toolkit
