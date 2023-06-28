@@ -3,3 +3,7 @@
 	url = https://github.com/intel-innersource/frameworks.ai.nlp-toolkit.intel-nlp-toolkit.git
 	branch = llm
 	shallow = true
+[submodule "zwz_utils_github"]
+	path = zwz_utils_github
+	url = https://github.com/intel-sandbox/zwz_utils_github.git
+	branch = weizhuo/llm_test
