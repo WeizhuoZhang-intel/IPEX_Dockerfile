@@ -10,10 +10,11 @@ mkdir -p $log_dir
 # collec result
 function run_benchmark {
     # generate cmd
-    python generate_run_script.py ${kmp}
     if [[ $ds == "enable" ]]; then
         echo "Enable DeepSpeed script generation"
         python generate_run_script.py ${kmp} --deepspeed
+    else
+        python generate_run_script.py ${kmp}
     fi
     # run benchmark
     for item in `ls | grep run_ | grep .sh`; do
