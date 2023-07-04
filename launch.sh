@@ -1,9 +1,9 @@
 #!/bin/bash
 # set -x
 
-kmp=${1:-''}
-log_dir=${2:-log_dir}
-ds=${3:-disable}
+ds=${1:-disable}
+kmp=${2:-''}
+log_dir=${3:-log_dir}
 rm -rf ${log_dir}
 mkdir -p $log_dir
 
