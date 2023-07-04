@@ -3,6 +3,7 @@ import argparse
 import yaml
 parser = argparse.ArgumentParser("Generation script", add_help=False)
 parser.add_argument("-k","--extra_kmp",action="store_true",default=False,help="llm extra kmp configuration")
+parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="only for deepspeed")
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -148,7 +149,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
-                        lines.append(f"deepspeed --bind_cores_to_rank python {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
+                        lines.append(f"deepspeed --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")                        
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
@@ -158,6 +159,8 @@ def generate_commands(yml_file,mode,extra_kmp):
 if __name__ == '__main__':
     #for mode in 'default','gptj_int8','llama_int8','deepspeed':
     yml_file = 'bench_preci.yml'
+    if args.deepspeed:
+        yml_file = 'bench_ds_preci.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)
