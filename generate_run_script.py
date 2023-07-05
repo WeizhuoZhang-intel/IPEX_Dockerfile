@@ -4,6 +4,8 @@ import yaml
 parser = argparse.ArgumentParser("Generation script", add_help=False)
 parser.add_argument("-k","--extra_kmp",action="store_true",default=False,help="llm extra kmp configuration")
 parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="only for deepspeed")
+parser.add_argument("--nightly",action="store_true",default=False,help="only for nightly regular track")
+parser.add_argument("--weekly",action="store_true",default=False,help="only for weekly regular track")
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -95,8 +97,9 @@ function collect_perf_logs_llm() {
             }
         }
     '))
+    peak_memory=$(grep '^Total' ${log_dir}/mem-usage.log |sed 's/[^0-9. ]//g' |awk 'BEGIN{peak=0}{if($NF > peak){peak = $NF}}END{print peak / 1024}') || peak_memory=0
     printf $1 |tee -a ${log_dir}/summary.log
-    printf " ${latency[1]},${first_latency},${avg_latency},${p90_latency},${p99_latency} \\n" |tee -a ${log_dir}/summary.log
+    printf " ${latency[1]},${first_latency},${avg_latency},${p90_latency},${p99_latency},${peak_memory} \\n" |tee -a ${log_dir}/summary.log
 }
 '''
 
@@ -128,7 +131,16 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
+                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> ${log_dir}/mem-usage.log 2>&1 || true &")
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
+                        lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
+        if mode == "tpp":
+            lines.append("# Run workload")
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> ${log_dir}/mem-usage.log 2>&1 || true &")
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex-tpp --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
         if mode.endswith('int8'):
             if mode.startswith('gptj'):
@@ -139,6 +151,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"python python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
             lines.append("# Run workload")
             for input_token in data['modelargs'][mode]['inputtokens']:
+                lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> ${log_dir}/mem-usage.log 2>&1 || true &")
                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized_model_path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --benchmark --jit --int8 --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
                 lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log")        
         if mode == 'deepspeed':
@@ -149,6 +162,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
+                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> ${log_dir}/mem-usage.log 2>&1 || true &")
                         lines.append(f"deepspeed --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")                        
         lines.append("")
@@ -161,6 +175,10 @@ if __name__ == '__main__':
     yml_file = 'bench_preci.yml'
     if args.deepspeed:
         yml_file = 'bench_ds_preci.yml'
+    if args.nightly:
+        yml_file = 'bench_nightly.yml'
+    if args.weekly:
+        yml_file = 'bench_weekly.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)
