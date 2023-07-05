@@ -22,6 +22,7 @@ cores_per_node=$(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$thr
 collect_result = '''
 function collect_perf_logs_llm() {
     # latency
+    sleep 5s
     latency=($(grep -i 'inference latency:' $log_dir/$1 |sed -e 's/.*atency://;s/[^0-9.]//g;s/\.$//' |awk '
         BEGIN {
             num = 0;
