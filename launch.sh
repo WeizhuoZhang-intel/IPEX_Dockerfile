@@ -11,7 +11,7 @@ function run_benchmark {
     # generate cmd
     if [[ $ds == "enable" ]]; then
         echo "Enable DeepSpeed script generation"
-        python generate_run_script.py --deepspeed
+        python generate_run_script.py -d
     else
         python generate_run_script.py
     fi
