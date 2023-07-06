@@ -99,7 +99,7 @@ function collect_perf_logs_llm() {
         }
     '))
  
-    peak_memory=$(grep '^Total' ${log_dir}/mem-usage-$log_dir/$1 |sed 's/[^0-9. ]//g' |awk 'BEGIN{peak=0}{if($NF > peak){peak = $NF}}END{print peak / 1024}') || peak_memory=0
+    peak_memory=$(grep '^Total' ${log_dir}/mem-usage-$1 |sed 's/[^0-9. ]//g' |awk 'BEGIN{peak=0}{if($NF > peak){peak = $NF}}END{print peak / 1024}') || peak_memory=0
     printf $1 |tee -a ${log_dir}/summary.log
     printf " ${latency[1]},${first_latency},${avg_latency},${p90_latency},${p99_latency},${peak_memory} \\n" |tee -a ${log_dir}/summary.log
 }
