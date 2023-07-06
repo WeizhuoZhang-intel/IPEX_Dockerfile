@@ -32,12 +32,11 @@ modelargs:
       - 32
       - 1024
       - 2016
-    greedy:
-      -True
-      -False
     maxnewtokens: 32
     prompt: None
-    greedy: true
+    greedy: 
+      - true
+      - false
     ipex: true
     jit: true
     numiter: 50
@@ -66,15 +65,14 @@ modelargs:
       - 32
       - 1024
       - 2016
-    greedy:
-      -True
-      -False
     prompt: None
     numiter: 100
     numwarmup: 10
     batchsize: 1
     tokenlatency: true
-    greedy: true
+    greedy: 
+      - true
+      - false
   llama_int8:
     modelid:
       - decapoda-research/llama-7b-hf
@@ -104,15 +102,14 @@ modelargs:
       - 32
       - 1024
       - 2016
-    greedy:
-      -True
-      -False
     prompt: None
     numiter: 100
     numwarmup: 10
     batchsize: 1
     tokenlatency: true
-    greedy: true
+    greedy: 
+      - true
+      - false
   deepspeed:
     modelid:
       - EleutherAI/gpt-j-6B
@@ -129,16 +126,15 @@ modelargs:
     numwarmup: 5
     benchmark: true
     cuda: true
-    greedy: true
+    greedy: 
+      - true
+      - false
     ki: true
     maxnewtokens: 32
     inputtokens:
       - 32
       - 1024
       - 2016
-    greedy:
-      -True
-      -False
     prompt: None
     ipex: true
     jit: true
@@ -160,16 +156,15 @@ modelargs:
     numwarmup: 5
     benchmark: true
     cuda: true
-    greedy: true
+    greedy: 
+      - true
+      - false
     ki: true
     maxnewtokens: 32
     inputtokens:
       - 32
       - 1024
       - 2016
-    greedy:
-      -True
-      -False
     prompt: None
     ipex: true
     jit: true

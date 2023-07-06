@@ -134,7 +134,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
-                            for beam in data['modelargs'][mode]['beam']:
+                            for beam in data['modelargs'][mode]['greedy']:
                                 lines.append("sudo rm -rf $log_dir/mem-usage.log")
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}_greedy_{beam}.log 2>&1 || true &")
                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --greedy {beam} --dtype {dtype} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}_greedy_{beam}.log")
