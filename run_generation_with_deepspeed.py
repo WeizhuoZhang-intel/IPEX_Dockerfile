@@ -183,7 +183,7 @@ if args.benchmark:
 
 # Construct model with fake meta tensors, later will be replaced during ds-inference ckpt load
 with deepspeed.OnDevice(dtype=load_dtype, device="meta"):
-    model = model_class[0].from_config(config, torch_dtype=load_dtype)
+    model = model_class[0].from_pretrained(model_name, config=config, torch_dtype=load_dtype)
 
 if args.benchmark:
     deepspeed.runtime.utils.see_memory_usage("post-from-pretrained", force=True)
