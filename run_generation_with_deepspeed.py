@@ -1,4 +1,3 @@
-
 import gc
 import json
 import math
@@ -29,7 +28,8 @@ from transformers import (
 
 # supported models now
 MODEL_CLASSES = {
-    "gpt": (AutoModelForCausalLM, AutoTokenizer),
+    "gpt-j": (AutoModelForCausalLM, AutoTokenizer),
+    "gpt-neox": (AutoModelForCausalLM, AutoTokenizer),
     "opt": (AutoModelForCausalLM, AutoTokenizer),
     "bloom": (AutoModelForCausalLM, AutoTokenizer),
     "llama": (LlamaForCausalLM, LlamaTokenizer),
@@ -71,6 +71,7 @@ parser.add_argument('--max-new-tokens', default=32, type=int, help="output max n
 parser.add_argument('--input-tokens', default='32', type=str)
 parser.add_argument('--prompt', default=None, type=str)
 parser.add_argument('--ipex', action='store_true', help="ipex is not enabled now")
+parser.add_argument("--ipex-tpp", action="store_true", help="enable tpp optimization for ipex bfloat16 only")
 parser.add_argument('--jit', action='store_true')
 parser.add_argument('--print-memory', action='store_true')
 parser.add_argument("--token-latency", action="store_true")
@@ -112,6 +113,7 @@ def print_rank0(*msg):
 
 ### Model loading and instantiating on GPUs
 def get_repo_root(model_name_or_path):
+    return model_name_or_path
     # checks if online or not
     if is_offline_mode():
         print_rank0("Offline mode: forcing local_files_only=True")
@@ -165,7 +167,9 @@ print_rank0(f"*** Loading the model {model_name}")
 model_type = next((x for x in MODEL_CLASSES.keys() if x in model_name.lower()), 'auto')
 model_class = MODEL_CLASSES[model_type]
 tokenizer = model_class[1].from_pretrained(model_name)
-config = AutoConfig.from_pretrained(model_name, return_dict=not args.jit)
+config = AutoConfig.from_pretrained(model_name, torchscript=args.jit)
+if not hasattr(config, "text_max_length") and args.prompt is None:
+    config.text_max_length = int(args.input_tokens) + int(args.max_new_tokens)
 
 # XXX: can't automatically derive dtype via config's `from_pretrained`
 # dtype = torch.bfloat16 if model_name in ["bigscience/bloom", "bigscience/bigscience-small-testing"] else torch.float16
@@ -182,7 +186,7 @@ if args.benchmark:
     deepspeed.runtime.utils.see_memory_usage("pre-from-pretrained", force=True)
 
 # Construct model with fake meta tensors, later will be replaced during ds-inference ckpt load
-with deepspeed.OnDevice(dtype=load_dtype, device="meta"):
+with deepspeed.OnDevice(dtype=load_dtype, device=args.device):
     model = model_class[0].from_pretrained(model_name, config=config, torch_dtype=load_dtype)
 
 if args.benchmark:
@@ -250,6 +254,10 @@ if args.benchmark:
 
 # to ipex
 if args.ipex:
+    ipex_tpp_enabled = args.ipex_tpp and args.dtype == "bfloat16"
+    if ipex_tpp_enabled:
+        ipex.tpp.Apply_TPP_optimization(model, dtype=torch.bfloat16, distributed=True if world_size > 1 else False)
+        print("---- Use IPEX TPP optimizaiton")
     model = ipex.optimize(model.eval(), dtype=infer_dtype, inplace=True)
 
 ### Generate
@@ -266,6 +274,8 @@ if args.prompt is not None:
     input_sentences.append(args.prompt)
 elif model_type == "auto":
     raise SystemExit("[ERROR] model prompt is not supported, please use --prompt for this model: " + args.model_id)
+elif int(args.input_tokens) > 8192:
+    prompt = prompt_pool[model_type]["8192"] * int(int(args.input_tokens) / 8192)
 elif args.input_tokens in prompt_pool[model_type]:
     input_sentences.append(prompt_pool[model_type][args.input_tokens])
 else:
@@ -367,4 +377,3 @@ else:
         print("Average 2... latency: %.3f sec." % average_2n_latency)
         print("P90 2... latency: %.3f sec." % p90_latency)
         print("P99 2... latency: %.3f sec." % p99_latency)
-
