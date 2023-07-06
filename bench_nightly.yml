@@ -28,11 +28,13 @@ modelargs:
     dtype:
       - bfloat16
       - float32
-      - float16
     inputtokens:
       - 32
       - 1024
       - 2016
+    greedy:
+      -True
+      -False
     maxnewtokens: 32
     prompt: None
     greedy: true
@@ -64,6 +66,9 @@ modelargs:
       - 32
       - 1024
       - 2016
+    greedy:
+      -True
+      -False
     prompt: None
     numiter: 100
     numwarmup: 10
@@ -99,6 +104,9 @@ modelargs:
       - 32
       - 1024
       - 2016
+    greedy:
+      -True
+      -False
     prompt: None
     numiter: 100
     numwarmup: 10
@@ -128,6 +136,9 @@ modelargs:
       - 32
       - 1024
       - 2016
+    greedy:
+      -True
+      -False
     prompt: None
     ipex: true
     jit: true
@@ -156,6 +167,9 @@ modelargs:
       - 32
       - 1024
       - 2016
+    greedy:
+      -True
+      -False
     prompt: None
     ipex: true
     jit: true
