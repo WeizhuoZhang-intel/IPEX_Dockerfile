@@ -27,7 +27,6 @@ modelargs:
       - cpu
     dtype:
       - bfloat16
-      - float32
     inputtokens:
       - 32
       - 1024
