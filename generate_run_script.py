@@ -6,6 +6,7 @@ parser.add_argument("-k","--extra_kmp",action="store_true",default=False,help="l
 parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="only for deepspeed")
 parser.add_argument("--nightly",action="store_true",default=False,help="only for nightly regular track")
 parser.add_argument("--weekly",action="store_true",default=False,help="only for weekly regular track")
+parser.add_argument("--debug",action="store_true",default=False,help="only for weekly regular track")
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -205,6 +206,8 @@ if __name__ == '__main__':
         yml_file = 'bench_nightly.yml'
     if args.weekly:
         yml_file = 'bench_weekly.yml'
+    if args.debug:
+        yml_file = 'bench_debug.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)
