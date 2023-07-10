@@ -169,11 +169,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{input_token}_greedy_{beam}.log 2>&1 || true &")
                     if beam == True:
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized_model_path \
-                        {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --greedy  --benchmark --jit --int8 --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}_greedy_{beam}.log")
+                        {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --greedy  --benchmark --jit --int8 --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_default_{input_token}_greedy_{beam}.log")
                     else:
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized_model_path \
-                        {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --benchmark --jit --int8 --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}_greedy_{beam}.log")
-                    lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}_greedy_{beam}.log")        
+                        {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --benchmark --jit --int8 --token-latency 2>&1 | tee -a $log_dir/llm_default_{mode}_{input_token}_greedy_{beam}.log")
+                    lines.append(f"collect_perf_logs_llm llm_default_{mode}_{input_token}_greedy_{beam}.log")        
         if mode == 'deepspeed':
             lines.append("# DS Env config")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
