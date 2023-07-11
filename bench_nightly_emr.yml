@@ -29,14 +29,12 @@ modelargs:
       - bfloat16
     localrank:
       - 2
-      - 4
     batchsize: 1
     numiter: 50
     numwarmup: 5
     benchmark: true
     cuda: true
     greedy: 
-      - true
       - false
     ki: true
     maxnewtokens: 32
