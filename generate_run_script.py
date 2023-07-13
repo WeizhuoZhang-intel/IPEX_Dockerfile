@@ -162,7 +162,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --quantize --inc_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
             if mode.startswith('llama'):
                 lines.append("# LLaMA quantization")
-                lines.append(f"python python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
+                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
