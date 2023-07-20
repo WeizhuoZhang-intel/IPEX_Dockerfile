@@ -65,7 +65,12 @@ RUN export PATH=~/anaconda3/bin/:${PATH} && \
     conda install gperftools -c conda-forge -y && \
     pip install intel-openmp matplotlib typing_extensions future six requests dataclasses \
         ninja pyyaml setuptools cmake cffi typing intel-openmp mkl mkl-include numpy cpuid datasets pip install sympy && \
-   pip install accelerate protobuf==3.20.3 numpy==1.23.5
+    pip install accelerate protobuf==3.20.3 numpy==1.23.5
+    python -m pip install transformers==4.28.1 cpuid accelerate datasets sentencepiece protobuf==3.20.3
+    
+    python -m pip install torch==2.1.0.dev20230711+cpu torchvision==0.16.0.dev20230711+cpu torchaudio==2.1.0.dev20230711+cpu --index-url https://download.pytorch.org/whl/nightly/cpu
+    python -m pip install https://intel-extension-for-pytorch.s3.amazonaws.com/ipex_dev/cpu/intel_extension_for_pytorch-2.1.0.dev0%2Bcpu.llm-cp39-cp39-linux_x86_64.whl
+    conda install -y libstdcxx-ng=12 -c conda-forge
 
 RUN /root/anaconda3/bin/conda clean -y -all && \
     yum clean all && \
