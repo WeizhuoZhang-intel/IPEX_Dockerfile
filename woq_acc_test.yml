@@ -1,0 +1,45 @@
+name: LLM Benchmarking
+hw: SPR-SP/HBM/EMR
+envconfig:
+  LD_PRELOAD: ${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so:${CONDA_PREFIX}/lib/libtcmalloc.so
+  KMP_BLOCKTIME: INF
+  KMP_AFFINITY: granularity=fine,compact,1,0
+  threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
+  cores_per_node: $(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+  sockets_num: $(lscpu |grep 'Socket(s):' |sed 's/[^0-9]//g')
+  cores_per_socket: $(lscpu |grep 'Core(s) per socket:' |sed 's/[^0-9]//g')
+  phsical_cores_num: $(echo |awk -v sockets_num=${sockets_num} -v cores_per_socket=${cores_per_socket} '{print sockets_num * cores_per_socket;}')
+  LLM_EXTRA_KMP:
+    KMP_TPAUSE: 0
+    KMP_SETTINGS: 1
+    KMP_FORJOIN_BARRIER_PATTERN: dist,dist
+    KMP_PLAIN_BARRIER_PATTERN: dist,dist
+    KMP_REDUCTION_BARRIER_PATTERN: dist,dist
+launcher:
+  OMP_NUM_THREADS: ${phsical_cores_num}
+  numactlN: 0
+  numactlM: 0
+modelargs:
+  woqacc:
+    modelid:
+      - EleutherAI/gpt-neox-20b    
+    scriptname: run_gpt-neox_int8.py
+    device:
+      - cpu
+    dtype:
+      - float32
+    inputtokens:
+      - 32
+      - 1024
+      - 2016
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - true
+      - false
+    ipex: true
+    jit: true
+    numiter: 50
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: true
