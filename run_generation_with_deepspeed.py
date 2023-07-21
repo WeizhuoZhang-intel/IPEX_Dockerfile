@@ -15,12 +15,9 @@ from huggingface_hub import snapshot_download
 from transformers.models.bloom.modeling_bloom import BloomBlock as BloomBlock
 from transformers.utils import is_offline_mode
 from transformers import (
-    # pipeline,
     AutoConfig,
     AutoModelForCausalLM,
-    # AutoModel,
     LlamaForCausalLM,
-    T5ForConditionalGeneration,
     AutoTokenizer,
     LlamaTokenizer,
 )
@@ -30,50 +27,67 @@ from transformers import (
 MODEL_CLASSES = {
     "gpt-j": (AutoModelForCausalLM, AutoTokenizer),
     "gpt-neox": (AutoModelForCausalLM, AutoTokenizer),
-    "opt": (AutoModelForCausalLM, AutoTokenizer),
-    "bloom": (AutoModelForCausalLM, AutoTokenizer),
     "llama": (LlamaForCausalLM, LlamaTokenizer),
-    "t5": (T5ForConditionalGeneration, AutoTokenizer),
     "auto": (AutoModelForCausalLM, AutoTokenizer),
-    # "chatglm": (AutoModel, AutoTokenizer),
 }
 
 # the Deepspeed team made these so it's super fast to load (~1 minute), rather than wait 10-20min loading time.
-tp_presharded_models = ["microsoft/bloom-deepspeed-inference-int8", "microsoft/bloom-deepspeed-inference-fp16"]
+tp_presharded_models = [
+    "microsoft/bloom-deepspeed-inference-int8",
+    "microsoft/bloom-deepspeed-inference-fp16",
+]
 
 t_start = time.time()
 
 parser = ArgumentParser()
 
-parser.add_argument('-m', '--model-id',
+parser.add_argument(
+    "-m",
+    "--model-id",
     type=str,
-    default='bigscience/bloom',
-    help="the huggingface mdoel id"
-)
-parser.add_argument('--device',
-    type=str,
-    choices=["cpu", "cuda"],
-    help="cpu or cuda, same as --cuda or not",
-    default='cpu',
+    default="bigscience/bloom",
+    help="the huggingface mdoel id",
 )
 parser.add_argument(
-    "--dtype", type=str, help="float16 or bfloat16 or int8", choices=["int8", "float16", "bfloat16"], default="float16"
+    "--device",
+    type=str,
+    choices=["cpu"],
+    help="cpu",
+    default="cpu",
 )
-parser.add_argument("--local_rank", required=False, type=int, help="used by dist launchers")
-parser.add_argument("--batch_size", "--batch-size", default=1, type=int, help="batch size")
+parser.add_argument(
+    "--dtype",
+    type=str,
+    help="float16 or bfloat16 or int8",
+    choices=["int8", "float16", "bfloat16", "float32"],
+    default="float16",
+)
+parser.add_argument(
+    "--local_rank", required=False, type=int, help="used by dist launchers"
+)
+parser.add_argument(
+    "--batch-size", "--batch-size", default=1, type=int, help="batch size"
+)
 parser.add_argument("--num-iter", default=50, type=int, help="num iter")
 parser.add_argument("--num-warmup", default=5, type=int, help="num warmup")
-parser.add_argument("--benchmark", action="store_true", help="additionally run benchmark")
-parser.add_argument("--cuda", action="store_true", help="run in cuda")
+parser.add_argument(
+    "--benchmark", action="store_true", help="additionally run benchmark"
+)
 parser.add_argument("--greedy", action="store_true")
 parser.add_argument("--ki", action="store_true")
-parser.add_argument('--max-new-tokens', default=32, type=int, help="output max new tokens")
-parser.add_argument('--input-tokens', default='32', type=str)
-parser.add_argument('--prompt', default=None, type=str)
-parser.add_argument('--ipex', action='store_true', help="ipex is not enabled now")
-parser.add_argument("--ipex-tpp", action="store_true", help="enable tpp optimization for ipex bfloat16 only")
-parser.add_argument('--jit', action='store_true')
-parser.add_argument('--print-memory', action='store_true')
+parser.add_argument(
+    "--max-new-tokens", default=32, type=int, help="output max new tokens"
+)
+parser.add_argument("--input-tokens", default="32", type=str)
+parser.add_argument("--prompt", default=None, type=str)
+parser.add_argument("--ipex", action="store_true", help="ipex is not enabled now")
+parser.add_argument(
+    "--ipex-weight-only-quantization",
+    action="store_true",
+    help="enable ipex WOQ optimization (int8 mix fp32)",
+)
+parser.add_argument("--jit", action="store_true")
+parser.add_argument("--print-memory", action="store_true")
 parser.add_argument("--token-latency", action="store_true")
 args = parser.parse_args()
 
@@ -82,16 +96,12 @@ num_tokens = args.max_new_tokens
 # import extension
 if args.ipex:
     import intel_extension_for_pytorch as ipex
+
     try:
         ipex._C.disable_jit_linear_repack()
     except Exception:
         pass
-if args.jit:
-    torch._C._jit_set_texpr_fuser_enabled(False)
 
-if args.cuda or args.device == "cuda":
-    args.cuda = True
-    args.device == "cuda"
 
 def get_int_from_env(env_keys, default):
     """Returns the first positive env value found in the `env_keys` list or the default."""
@@ -101,24 +111,29 @@ def get_int_from_env(env_keys, default):
             return val
     return default
 
-local_rank = get_int_from_env(["LOCAL_RANK","MPI_LOCALRANKID"], "0")
-world_size = get_int_from_env(["WORLD_SIZE","PMI_SIZE"], "1")
+
+local_rank = get_int_from_env(["LOCAL_RANK", "MPI_LOCALRANKID"], "0")
+world_size = get_int_from_env(["WORLD_SIZE", "PMI_SIZE"], "1")
 
 deepspeed.init_distributed(get_accelerator().communication_backend_name())
+
 
 def print_rank0(*msg):
     if local_rank != 0:
         return
     print(*msg)
 
+
 ### Model loading and instantiating on GPUs
 def get_repo_root(model_name_or_path):
-    return model_name_or_path
+    local_prefix = ("/", "./", "../")
+    if model_name_or_path.startswith(local_prefix):
+        return model_name_or_path
     # checks if online or not
     if is_offline_mode():
         print_rank0("Offline mode: forcing local_files_only=True")
     # download only on first process
-    allow_patterns=["*.bin", "*.model", "*.json", "*.txt", "*.py", "*LICENSE"]
+    allow_patterns = ["*.bin", "*.model", "*.json", "*.txt", "*.py", "*LICENSE"]
     if local_rank == 0:
         snapshot_download(
             model_name_or_path,
@@ -144,7 +159,11 @@ def get_checkpoint_files(model_name_or_path):
 
     # extensions: .bin | .pt
     # creates a list of paths from all downloaded files in cache dir
-    file_list = [str(entry) for entry in Path(cached_repo_dir).rglob("*.[bp][it][n]") if entry.is_file()]
+    file_list = [
+        str(entry)
+        for entry in Path(cached_repo_dir).rglob("*.[bp][it][n]")
+        if entry.is_file()
+    ]
     return file_list
 
 
@@ -158,13 +177,16 @@ elif args.dtype == "bfloat16":
 elif args.dtype == "int8":
     load_dtype = torch.half
     infer_dtype = torch.int8
+elif args.dtype == "float32":
+    load_dtype = torch.float32
+    infer_dtype = torch.float32
 
 tp_presharded_mode = True if model_name in tp_presharded_models else False
 
 # print(get_checkpoint_files(model_name))
 
 print_rank0(f"*** Loading the model {model_name}")
-model_type = next((x for x in MODEL_CLASSES.keys() if x in model_name.lower()), 'auto')
+model_type = next((x for x in MODEL_CLASSES.keys() if x in model_name.lower()), "auto")
 model_class = MODEL_CLASSES[model_type]
 tokenizer = model_class[1].from_pretrained(model_name)
 config = AutoConfig.from_pretrained(model_name, torchscript=args.jit)
@@ -186,8 +208,16 @@ if args.benchmark:
     deepspeed.runtime.utils.see_memory_usage("pre-from-pretrained", force=True)
 
 # Construct model with fake meta tensors, later will be replaced during ds-inference ckpt load
-with deepspeed.OnDevice(dtype=load_dtype, device=args.device):
-    model = model_class[0].from_pretrained(model_name, config=config, torch_dtype=load_dtype)
+with deepspeed.OnDevice(dtype=load_dtype, device="meta"):
+    # Even inside the meta device context, from_pretrained still loads the
+    # model to cpu instead of meta device. Use from_config instead to solve the issue for big models.
+    # We add the instance type check here since some of the models haven't yet supported from_config.
+    if model_class[0] == AutoModelForCausalLM:
+        model = model_class[0].from_config(config).to(load_dtype)
+    else:
+        model = model_class[0].from_pretrained(
+            model_name, config=config, low_cpu_mem_usage=True, torch_dtype=load_dtype
+        )
 
 if args.benchmark:
     deepspeed.runtime.utils.see_memory_usage("post-from-pretrained", force=True)
@@ -254,11 +284,22 @@ if args.benchmark:
 
 # to ipex
 if args.ipex:
-    ipex_tpp_enabled = args.ipex_tpp and args.dtype == "bfloat16"
-    if ipex_tpp_enabled:
-        ipex.tpp.Apply_TPP_optimization(model, dtype=torch.bfloat16, distributed=True if world_size > 1 else False)
-        print("---- Use IPEX TPP optimizaiton")
-    model = ipex.optimize(model.eval(), dtype=infer_dtype, inplace=True)
+    ipex_woq_enabled = args.ipex_weight_only_quantization and args.dtype == "float32"
+    model = ipex._optimize_transformers(
+        model.eval(),
+        dtype=infer_dtype if not ipex_woq_enabled else torch.int8,
+        inplace=True,
+    )
+    if ipex_woq_enabled:
+        from intel_extension_for_pytorch.quantization import convert, prepare
+
+        lowp_mode = ipex.quantization.WoqLowpMode.BF16
+        qconfig = ipex.quantization.get_weight_only_quant_qconfig_mapping(
+            lowp_mode=lowp_mode
+        )
+        model = prepare(model.eval(), qconfig, inplace=True, bn_folding=False)
+        with torch.no_grad():
+            model = convert(model.eval(), inplace=True).eval()
 
 ### Generate
 
@@ -268,35 +309,113 @@ print_rank0(f"*** Starting to generate {num_tokens} tokens with bs={args.batch_s
 # input tokens
 input_sentences = []
 current_path = pathlib.Path(__file__).parent.resolve()
-with open(str(current_path) + '/prompt.json') as f:
+with open(str(current_path) + "/prompt.json") as f:
     prompt_pool = json.load(f)
 if args.prompt is not None:
     input_sentences.append(args.prompt)
 elif model_type == "auto":
-    raise SystemExit("[ERROR] model prompt is not supported, please use --prompt for this model: " + args.model_id)
+    raise SystemExit(
+        "[ERROR] model prompt is not supported, please use --prompt for this model: "
+        + args.model_id
+    )
 elif int(args.input_tokens) > 8192:
     prompt = prompt_pool[model_type]["8192"] * int(int(args.input_tokens) / 8192)
 elif args.input_tokens in prompt_pool[model_type]:
     input_sentences.append(prompt_pool[model_type][args.input_tokens])
 else:
-    raise SystemExit('[ERROR] Plese use --prompt if want to use custom input.')
+    raise SystemExit("[ERROR] Plese use --prompt if want to use custom input.")
 
 
 if args.batch_size > len(input_sentences):
     # dynamically extend to support larger bs by repetition
     input_sentences *= math.ceil(args.batch_size / len(input_sentences))
-
-generate_kwargs = dict(max_new_tokens=num_tokens,
-                       do_sample=False, num_beams=1 if args.greedy else 4)
+num_beams = 1 if args.greedy else 4
+generate_kwargs = dict(max_new_tokens=num_tokens, do_sample=False, num_beams=num_beams)
 if args.token_latency:
-    generate_kwargs["token_latency"] = True
+    if not hasattr(model.config, "token_latency"):
+        model.config.token_latency = True
+
 if args.jit:
-    generate_kwargs["jit"] = True
+    torch._C._jit_set_texpr_fuser_enabled(False)
+    past_key_values = None
+    import re
+
+    if re.search("GPTJ", model.config.architectures[0]):
+        beam_idx_tmp = torch.zeros(
+            (2048, int(args.batch_size * num_beams)), dtype=torch.long
+        ).contiguous()
+        past_key_values = tuple(
+            [
+                (
+                    torch.zeros([1, 1, 1, 1]).contiguous(),
+                    torch.zeros([1, 1, 1, 1]).contiguous(),
+                    beam_idx_tmp,
+                    torch.zeros(1, dtype=torch.long).contiguous(),
+                )
+                for i in range(model.config.n_layer)
+            ]
+        )
+    elif re.search("llama", model.config.architectures[0], re.IGNORECASE):
+        beam_idx_tmp = torch.zeros(
+            (2048, int(args.batch_size * num_beams)), dtype=torch.long
+        ).contiguous()
+        past_key_values = tuple(
+            [
+                (
+                    torch.zeros([1, 32, 1, 128]).contiguous(),
+                    torch.zeros([1, 32, 1, 128]).contiguous(),
+                    beam_idx_tmp,
+                    torch.zeros(1, dtype=torch.long).contiguous(),
+                )
+                for i in range(model.config.num_hidden_layers)
+            ]
+        )
+    elif re.search("gptneox", model.config.architectures[0], re.IGNORECASE):
+        beam_idx_tmp = torch.zeros(
+            (2048, int(args.batch_size * num_beams)), dtype=torch.long
+        ).contiguous()
+        past_key_values = tuple(
+            [
+                (
+                    torch.zeros([1, 1, 1, 1]).contiguous(),
+                    torch.zeros([1, 1, 1, 1]).contiguous(),
+                    beam_idx_tmp,
+                    torch.zeros(1, dtype=torch.long).contiguous(),
+                )
+                for i in range(model.config.num_hidden_layers)
+            ]
+        )
+    else:
+        print("does not support jit yet on your model, please re-run without jit")
+        exit(0)
+    example_inputs = None
+    input_ids = torch.ones(32).to(torch.long)
+    attention_mask = torch.ones(len(input_ids))
+    position_ids = torch.arange(len(input_ids))
+    example_inputs = {
+        "input_ids": input_ids.unsqueeze(0),
+        "attention_mask": attention_mask.unsqueeze(0),
+        "position_ids": position_ids.unsqueeze(0),
+        "past_key_values": past_key_values,
+    }
+
+    with torch.inference_mode(), torch.no_grad(), torch.autocast(
+        device_type=args.device,
+        enabled=infer_dtype is torch.bfloat16,
+        dtype=infer_dtype if infer_dtype is torch.bfloat16 else None,
+    ):
+        trace_model = torch.jit.trace(
+            model, example_kwarg_inputs=example_inputs, strict=False, check_trace=False
+        )
+        trace_model = torch.jit.freeze(trace_model)
+        setattr(model, "trace_graph", trace_model)
 print_rank0(f"Generate args {generate_kwargs}")
 
 
 inputs = input_sentences[: args.batch_size]
-input_size = tokenizer.batch_encode_plus(inputs, return_tensors="pt").input_ids.size(dim=1)
+input_size = tokenizer.batch_encode_plus(inputs, return_tensors="pt").input_ids.size(
+    dim=1
+)
 print("*** Prompt size: ", input_size)
 
 
@@ -306,7 +425,9 @@ def generate():
     input_tokens = tokenizer.batch_encode_plus(inputs, return_tensors="pt")
     for t in input_tokens:
         if torch.is_tensor(input_tokens[t]):
-            input_tokens[t] = input_tokens[t].to(get_accelerator().current_device_name())
+            input_tokens[t] = input_tokens[t].to(
+                get_accelerator().current_device_name()
+            )
 
     outputs = model.generate(**input_tokens, **generate_kwargs)
     gen_ids = outputs[0] if args.token_latency else outputs
@@ -314,7 +435,10 @@ def generate():
     input_tokens_lengths = [x.shape[0] for x in input_tokens.input_ids]
     output_tokens_lengths = [x.shape[0] for x in gen_ids]
 
-    total_new_tokens = [o - i if model.config.model_type != 't5' else o for i, o in zip(input_tokens_lengths, output_tokens_lengths)]
+    total_new_tokens = [
+        o - i if model.config.model_type != "t5" else o
+        for i, o in zip(input_tokens_lengths, output_tokens_lengths)
+    ]
     gen_text = tokenizer.batch_decode(gen_ids, skip_special_tokens=True)
 
     return zip(inputs, gen_text, total_new_tokens), outputs
@@ -349,31 +473,29 @@ else:
     for i in range(cycles):
         t0 = time.time()
         gen_ids, outputs = generate()
-        if args.cuda:
-            torch.cuda.synchronize()
         t1 = time.time()
         gen_ids = list(gen_ids)
-        print(gen_ids[0][1:], flush=True)
-        # if model.config.model_type != 't5':
-        #     assert gen_ids[0][-1] == args.max_new_tokens, "Generated new tokens != max new tokens"
+        print_rank0(gen_ids[0][1:])
+        print_rank0("Iteration: %d, Time: %.6f sec" % (i, t1 - t0))
         if i >= warmup:
-            total_time += (t1 - t0)
+            total_time += t1 - t0
             if args.token_latency:
                 total_list.append(outputs[1])
 
     latency = total_time / (cycles - warmup)
-    print("\n", "-"*10, "Summary:", "-"*10)
-    print("Inference latency: %.3f sec." % latency)
+    print_rank0("\n", "-" * 10, "Summary:", "-" * 10)
+    print_rank0("Inference latency: %.3f sec." % latency)
     if args.token_latency:
         import numpy as np
         from itertools import chain
+
         first_latency = np.mean([x[0] for x in total_list])
         average_2n = list(chain(*[x[1:] for x in total_list]))
         average_2n.sort()
         average_2n_latency = np.mean(average_2n)
-        p90_latency = average_2n[int(len(average_2n)*0.9)]
-        p99_latency = average_2n[int(len(average_2n)*0.99)]
-        print("First token average latency: %.3f sec." % first_latency)
-        print("Average 2... latency: %.3f sec." % average_2n_latency)
-        print("P90 2... latency: %.3f sec." % p90_latency)
-        print("P99 2... latency: %.3f sec." % p99_latency)
+        p90_latency = average_2n[int(len(average_2n) * 0.9)]
+        p99_latency = average_2n[int(len(average_2n) * 0.99)]
+        print_rank0("First token average latency: %.3f sec." % first_latency)
+        print_rank0("Average 2... latency: %.3f sec." % average_2n_latency)
+        print_rank0("P90 2... latency: %.3f sec." % p90_latency)
+        print_rank0("P99 2... latency: %.3f sec." % p99_latency)
