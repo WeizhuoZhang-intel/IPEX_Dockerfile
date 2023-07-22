@@ -230,8 +230,8 @@ class Evaluator:
             total += label.size(0)
             hit += (pred == label).sum().item()
             if i % 50 == 0:
-                print(hit / total)
-                print("Processed minibatch:", i)
+                print(hit / total,flush=True)
+                print("Processed minibatch:", i,flush=True)
 
         acc = hit / total
         print(acc)

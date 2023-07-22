@@ -84,3 +84,25 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: true
+  woqllama:
+    modelid:
+      - decapoda-research/llama-7b-hf
+      - decapoda-research/llama-13b-hf
+    scriptname: run_llama_int8.py
+    device:
+      - cpu
+    dtype:
+      - float32
+    inputtokens:
+      - 32
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - true
+      - false
+    ipex: true
+    jit: true
+    numiter: 50
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: true
