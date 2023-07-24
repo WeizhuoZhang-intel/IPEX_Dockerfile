@@ -45,7 +45,8 @@ modelargs:
     batchsize: 1
     tokenlatency: true
   gptj_int8:
-    modelid: EleutherAI/gpt-j-6B
+    modelid: 
+      - EleutherAI/gpt-j-6B
     scriptname: run_gptj_int8.py
     device:
       - cpu
