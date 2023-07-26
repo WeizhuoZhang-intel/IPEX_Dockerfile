@@ -35,7 +35,7 @@ RUN dnf --disablerepo '*' --enablerepo=extras swap centos-linux-repos centos-str
     yum -y install git openssl-devel make gcc-c++ automake autoconf libtool python3 python3-pip \
          graphviz numactl* mesa-libGL && \
     yum -y groupinstall "Development Tools" && \
-    yum -y install gcc-toolset-11* cmake expect libfabric && \
+    yum -y install gcc-toolset-12.3* cmake expect libfabric && \
     yum -y install libsndfile
 
 # Build LLVM for IPEX Semi-compiler
