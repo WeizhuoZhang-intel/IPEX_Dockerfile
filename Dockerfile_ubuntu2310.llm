@@ -1,0 +1,79 @@
+# Copyright (c) 2023 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+#
+# THIS IS A GENERATED DOCKERFILE.
+#
+# This file was assembled from multiple pieces, whose use is documented
+# throughout. Please refer to the TensorFlow dockerfiles documentation
+# for more information.
+#
+# ============================================================================
+# How to build: 
+#   docker build ./ -f Dockerfile_ubuntu2310.llm -t llm_ubuntu2310:latest
+# If you need to use proxy, please use the following command
+#   docker build ./ --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${http_proxy} -f Dockerfile_ubuntu2310.llm -t llm_ubuntu2310:latest
+
+FROM ubuntu:23.10
+SHELL ["/bin/bash", "-c"]
+WORKDIR /opt/installs/
+ENV http_proxy=http://child-prc.intel.com:913
+ENV https_proxy=http://child-prc.intel.com:913
+RUN apt-get update && apt-get install -y software-properties-common && \
+    add-apt-repository ppa:ubuntu-toolchain-r/test && apt-get install -y --no-install-recommends \
+    build-essential cmake ninja-build gcc-12 g++-12 git curl ca-certificates \
+    python3-dev python3-pip doxygen graphviz wget vim
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 80 --slave /usr/bin/g++ g++ /usr/bin/g++-12
+    
+# Build LLVM for IPEX Semi-compiler
+RUN cd /opt/installs && git clone --depth 1 --branch llvmorg-13.0.0 https://github.com/llvm/llvm-project && \
+    cd llvm-project && mkdir build && cd build && \
+    cmake ../llvm -DCMAKE_INSTALL_PREFIX=/opt/llvm -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_INCLUDE_TESTS=OFF -DLLVM_INCLUDE_EXAMPLES=OFF -DLLVM_ENABLE_TERMINFO=OFF -DCMAKE_CXX_FLAGS="-D_GLIBCXX_USE_CXX11_ABI=0" && \
+    make install -j && \
+    ln -s /opt/llvm/bin/llvm-config /usr/local/bin/llvm-config-13
+
+# Prepare the Conda environment
+RUN cd /opt/installs && wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O anaconda3.sh && \
+    chmod +x anaconda3.sh && \
+    ./anaconda3.sh -b -p ~/anaconda3 && \
+    rm ./anaconda3.sh
+
+ENV PATH=~/anaconda3/bin/:${PATH}
+RUN export PATH=~/anaconda3/bin/:${PATH} && \
+    conda config --add channels intel && \
+    conda install -c intel -y intel-openmp && \
+    conda create -yn llm python=3.9 && \
+    source ~/anaconda3/bin/activate llm && \
+    pip install pip && \
+    pip install lark-parser hypothesis tornado tqdm  Pillow  yacs opencv-python pycocotools cityscapesscripts unidecode inflect \
+	    librosa==0.8.1 toml soundfile==0.10.3.post1 ipdb sox tensorboard==2.0.0 jinja2 psutil pytest scikit-learn onnx && \
+    conda config --add channels intel && \
+    conda install -y openblas  && \
+    conda install gperftools -c conda-forge -y && \
+    pip install intel-openmp matplotlib typing_extensions future six requests dataclasses \
+        ninja pyyaml setuptools cmake cffi typing intel-openmp mkl mkl-include numpy cpuid datasets pip install sympy && \
+   pip install accelerate protobuf==3.20.3 numpy==1.23.5
+
+RUN /root/anaconda3/bin/conda clean -y -all && \
+    rm -rf /opt/installs/
+
+ENV BASH_ENV=/opt/.bash_profile
+# Env config
+ENV KMP_BLOCKTIME=1
+ENV KMP_AFFINITY="granularity=fine,compact,1,0"
+# IOMP & TcMalloc
+ENV LD_PRELOAD=/root/anaconda3/envs/llm/lib/libiomp5.so:/root/anaconda3/envs/llm/lib/libtcmalloc.so:${LD_PRELOAD}
+WORKDIR /root/workspace/
+ENV WORKSPACE=/root/workspace
