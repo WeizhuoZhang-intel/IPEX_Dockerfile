@@ -2,7 +2,8 @@
 # set -x
 
 ds=${1:-disable}
-log_dir=${2:-log_dir}
+kmp=${2:-''}
+log_dir=${3:-log_dir}
 rm -rf ${log_dir}
 mkdir -p $log_dir
 
@@ -11,9 +12,9 @@ function run_benchmark {
     # generate cmd
     if [[ $ds == "enable" ]]; then
         echo "Enable DeepSpeed script generation"
-        python generate_run_script.py -d
+        python generate_run_script.py ${kmp} --deepspeed
     else
-        python generate_run_script.py
+        python generate_run_script.py ${kmp}
     fi
     # run benchmark
     for item in `ls | grep run_ | grep .sh`; do
