@@ -60,11 +60,6 @@ parser.add_argument(
 parser.add_argument(
     "--prompt", default=None, type=str, help="input prompt for self-defined if needed"
 )
-parser.add_argument(
-    "--ipex-weight-only-quantization",
-    action="store_true",
-    help="no use and enabled always",
-)
 parser.add_argument("--greedy", action="store_true")
 parser.add_argument("--ipex", action="store_true")
 parser.add_argument("--jit", action="store_true")
@@ -323,53 +318,6 @@ def eval_func(traced_model):
     print("Accuracy:", acc)
     print("Latency (sec):", latency)
     return acc
-
-if args.ipex_weight_only_quantization:
-
-    def convert_woq(m, qconfig, inplace=True):
-        import copy
-
-        def _convert(m):
-            from intel_extension_for_pytorch.nn.modules import IpexWoqLinear
-
-            if isinstance(m, torch.nn.Linear):
-                m.qconfig = qconfig.global_qconfig
-                m_new = IpexWoqLinear.from_float(m)
-                return m_new
-            m_new = m
-
-            for name, child in m.named_children():
-                setattr(m_new, name, _convert(child))
-            return m_new
-
-        if not inplace:
-            m_new = copy.deepcopy(m)
-        else:
-            m_new = m
-        return _convert(m_new)
-
-    example_inputs = None
-    input_ids = torch.ones(32).to(torch.long)
-    attention_mask = torch.ones(len(input_ids))
-    position_ids = torch.arange(len(input_ids))
-    example_inputs = (
-        input_ids.unsqueeze(0),
-        attention_mask.unsqueeze(0),
-        position_ids.unsqueeze(0),
-        tuple(past_key_values),
-    )
-
-    from intel_extension_for_pytorch.quantization import prepare, convert
-
-    lowp_mode = ipex.quantization.WoqLowpMode.BF16
-    qconfig = ipex.quantization.get_weight_only_quant_qconfig_mapping(
-        lowp_mode=lowp_mode
-    )
-    with torch.no_grad():
-        convert_model = convert_woq(user_model.eval(), qconfig)
-        self_jit = torch.jit.trace(convert_model.eval(), example_inputs, strict=False)
-        self_jit = torch.jit.freeze(self_jit.eval())
-        self_jit.save(args.output_dir + "/best_model.pt")
 
 
 if args.accuracy_only:

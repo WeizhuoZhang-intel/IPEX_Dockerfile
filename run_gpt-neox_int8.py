@@ -40,7 +40,7 @@ parser.add_argument(
 )
 parser.add_argument("--dataset", nargs="?", default="lambada", const="lambada")
 parser.add_argument("--split", nargs="?", default="validation", const="validation")
-parser.add_argument("--output-dir", nargs="?", default="./saved_results")
+parser.add_argument("--output-dir", nargs="?", default="./save_results")
 parser.add_argument(
     "--ipex-weight-only-quantization",
     action="store_true",
@@ -53,7 +53,7 @@ parser.add_argument(
     action="store_true",
     help="by default it is int8-fp32 mixed, to enable int8 mixed amp bf16 (work on platforms like SPR)",
 )
-parser.add_argument("--quantized-model-path", default="./saved_result/best_model.pt")
+parser.add_argument("--quantized-model-path", default="./save_result/best_nexo_model.pt")
 parser.add_argument("--lambada", action="store_true")
 parser.add_argument("--accuracy-only", action="store_true")
 parser.add_argument("--benchmark", action="store_true")
@@ -64,6 +64,7 @@ parser.add_argument("--num-warmup", default=10, type=int, help="num warmup")
 parser.add_argument("--batch-size", default=1, type=int, help="batch size")
 parser.add_argument("--token-latency", action="store_true")
 parser.add_argument("--greedy", action="store_true")
+parser.add_argument("--profile", action="store_true")
 args = parser.parse_args()
 
 
@@ -205,33 +206,86 @@ class Evaluator:
             shuffle=False,
             collate_fn=self.collate_batch,
         )
+        if args.profile:
+            print('--------------profile detail--------------------')
+            def trace_handler(p):
+                output = p.key_averages().table(sort_by="self_cpu_time_total")
+                print(output)
+                import pathlib
+                import os
+                timeline_dir = str(pathlib.Path.cwd()) + '/timeline/'
+                if not os.path.exists(timeline_dir):
+                    try:
+                        os.makedirs(timeline_dir)
+                    except:
+                        pass
+                timeline_file = timeline_dir + 'timeline-' + str(torch.backends.quantized.engine) + '-' + \
+                            'llm-' + str(p.step_num) + '-' + str(os.getpid()) + '.json'
+                p.export_chrome_trace(timeline_file)
 
-        for i, (
-            (input_ids, attention_mask, position_ids, past_key_values),
-            last_ind,
-        ) in enumerate(test_dataloader):
-            label = input_ids[torch.arange(len(last_ind)), last_ind]
-            input_ids[torch.arange(len(last_ind)), last_ind] = self.pad_val
-            pad_len = self.pad_max - last_ind - 1
-            start = time.time()
+            with torch.profiler.profile(
+                activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA],
+                record_shapes=True,
+                schedule=torch.profiler.schedule(
+                    wait=int(args.num_iter/2),
+                    warmup=2,
+                    active=1,
+                ),
+                on_trace_ready=trace_handler,
+            ) as p:
+                for i, (
+                    (input_ids, attention_mask, position_ids, past_key_values),
+                    last_ind,
+                ) in enumerate(test_dataloader):
+                    label = input_ids[torch.arange(len(last_ind)), last_ind]
+                    input_ids[torch.arange(len(last_ind)), last_ind] = self.pad_val
+                    pad_len = self.pad_max - last_ind - 1
+                    start = time.time()
 
-            outputs = model(
-                input_ids,
-                attention_mask=attention_mask,
-                position_ids=position_ids,
-                past_key_values=past_key_values,
-            )
+                    outputs = model(
+                        input_ids,
+                        attention_mask=attention_mask,
+                        position_ids=position_ids,
+                        past_key_values=past_key_values,
+                    )
 
-            latency += time.time() - start
+                    latency += time.time() - start
+                    p.step()
+                    last_token_logits = outputs[0][torch.arange(len(last_ind)), -2 - pad_len, :]
 
-            last_token_logits = outputs[0][torch.arange(len(last_ind)), -2 - pad_len, :]
+                    pred = last_token_logits.argmax(dim=-1)
+                    total += label.size(0)
+                    hit += (pred == label).sum().item()
+                    if i % 50 == 0:
+                        print(hit / total)
+                        print("Processed minibatch:", i)
+        else:
+            for i, (
+                (input_ids, attention_mask, position_ids, past_key_values),
+                last_ind,
+            ) in enumerate(test_dataloader):
+                label = input_ids[torch.arange(len(last_ind)), last_ind]
+                input_ids[torch.arange(len(last_ind)), last_ind] = self.pad_val
+                pad_len = self.pad_max - last_ind - 1
+                start = time.time()
 
-            pred = last_token_logits.argmax(dim=-1)
-            total += label.size(0)
-            hit += (pred == label).sum().item()
-            if i % 50 == 0:
-                print(hit / total)
-                print("Processed minibatch:", i)
+                outputs = model(
+                    input_ids,
+                    attention_mask=attention_mask,
+                    position_ids=position_ids,
+                    past_key_values=past_key_values,
+                )
+
+                latency += time.time() - start
+
+                last_token_logits = outputs[0][torch.arange(len(last_ind)), -2 - pad_len, :]
+
+                pred = last_token_logits.argmax(dim=-1)
+                total += label.size(0)
+                hit += (pred == label).sum().item()
+                if i % 50 == 0:
+                    print(hit / total)
+                    print("Processed minibatch:", i)
 
         acc = hit / total
         print(acc)
@@ -340,7 +394,7 @@ if args.ipex_weight_only_quantization:
         convert_model = convert_woq(user_model.eval(), qconfig)
         self_jit = torch.jit.trace(convert_model.eval(), example_inputs, strict=False)
         self_jit = torch.jit.freeze(self_jit.eval())
-        self_jit.save(args.output_dir + "/best_model.pt")
+        self_jit.save(args.output_dir + "/best_neox_model.pt")
 
 
 if args.accuracy_only:
