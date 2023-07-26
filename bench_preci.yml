@@ -36,6 +36,26 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: true
+  default_2016_32:
+    modelid:
+      - EleutherAI/gpt-j-6B
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    inputtokens:
+      - 2016
+    maxnewtokens: 32
+    prompt: None
+    greedy: false
+    ipex: true
+    jit: true
+    numiter: 50
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: true
+ 
   gptj_int8:
     modelid: EleutherAI/gpt-j-6B
     scriptname: run_gptj_int8.py

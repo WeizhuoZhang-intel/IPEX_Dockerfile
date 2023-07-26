@@ -123,7 +123,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(fetch_device_info)
         lines.append(collect_result)    
         lines.append("")
-        if mode == "default":
+        if mode.startswith('default'):
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
