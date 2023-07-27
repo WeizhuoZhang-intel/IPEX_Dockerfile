@@ -137,7 +137,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             lines.append("# Run workload")
             lines.append("export CCL_WORKER_COUNT=1")
-            lines.append("export CCL_PROCESS_LAUNCHER=non")
+            lines.append("export CCL_PROCESS_LAUNCHER=none")
             lines.append("export CCL_ATL_TRANSPORT=ofi")
             lines.append("export CCL_ATL_SHM=1")
             lines.append("export CCL_WORKER_AFFINITY=0,32")
