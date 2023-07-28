@@ -27,7 +27,6 @@ modelargs:
       - bfloat16
     inputtokens:
       - 32
-      - 2016
     maxnewtokens: 32
     prompt: None
     greedy: false
@@ -81,7 +80,8 @@ modelargs:
     ki: true
     maxnewtokens: 32
     inputtokens:
-      - 32    
+      - 32
+      - 2016
     prompt: None
     ipex: true
     jit: true
