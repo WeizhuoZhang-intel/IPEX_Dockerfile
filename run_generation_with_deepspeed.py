@@ -1,4 +1,3 @@
-
 import gc
 import json
 import math
@@ -58,7 +57,7 @@ parser.add_argument('--device',
     default='cpu',
 )
 parser.add_argument(
-    "--dtype", type=str, help="float16 or bfloat16 or int8", choices=["int8", "float16", "bfloat16", "float32"], default="float16"
+    "--dtype", type=str, help="float16 or bfloat16 or int8", choices=["int8", "float16", "bfloat16"], default="float16"
 )
 parser.add_argument("--local_rank", required=False, type=int, help="used by dist launchers")
 parser.add_argument("--batch_size", "--batch-size", default=1, type=int, help="batch size")
@@ -73,7 +72,6 @@ parser.add_argument('--input-tokens', default='32', type=str)
 parser.add_argument('--prompt', default=None, type=str)
 parser.add_argument('--ipex', action='store_true', help="ipex is not enabled now")
 parser.add_argument("--ipex-tpp", action="store_true", help="enable tpp optimization for ipex bfloat16 only")
-parser.add_argument("--ipex-woq", action="store_true", help="enable ipex WOQ optimization (int8 mix fp32)")
 parser.add_argument('--jit', action='store_true')
 parser.add_argument('--print-memory', action='store_true')
 parser.add_argument("--token-latency", action="store_true")
@@ -115,6 +113,7 @@ def print_rank0(*msg):
 
 ### Model loading and instantiating on GPUs
 def get_repo_root(model_name_or_path):
+    return model_name_or_path
     # checks if online or not
     if is_offline_mode():
         print_rank0("Offline mode: forcing local_files_only=True")
@@ -159,9 +158,6 @@ elif args.dtype == "bfloat16":
 elif args.dtype == "int8":
     load_dtype = torch.half
     infer_dtype = torch.int8
-elif args.dtype == "float32":
-    load_dtype = torch.float32
-    infer_dtype = torch.float32
 
 tp_presharded_mode = True if model_name in tp_presharded_models else False
 
@@ -190,14 +186,8 @@ if args.benchmark:
     deepspeed.runtime.utils.see_memory_usage("pre-from-pretrained", force=True)
 
 # Construct model with fake meta tensors, later will be replaced during ds-inference ckpt load
-with deepspeed.OnDevice(dtype=load_dtype, device="meta"):
-    # Even inside the meta device context, from_pretrained still loads the
-    # model to cpu instead of meta device. Use from_config instead to solve the issue for big models.
-    # We add the instance type check here since some of the models haven't yet supported from_config.
-    if model_class[0] == AutoModelForCausalLM:
-        model = model_class[0].from_config(config).to(load_dtype)
-    else:
-        model = model_class[0].from_pretrained(model_name, config=config, low_cpu_mem_usage=True, torch_dtype=load_dtype)
+with deepspeed.OnDevice(dtype=load_dtype, device=args.device):
+    model = model_class[0].from_pretrained(model_name, config=config, torch_dtype=load_dtype)
 
 if args.benchmark:
     deepspeed.runtime.utils.see_memory_usage("post-from-pretrained", force=True)
@@ -268,17 +258,7 @@ if args.ipex:
     if ipex_tpp_enabled:
         ipex.tpp.Apply_TPP_optimization(model, dtype=torch.bfloat16, distributed=True if world_size > 1 else False)
         print("---- Use IPEX TPP optimizaiton")
-    
-    ipex_woq_enabled = args.ipex_woq and args.dtype == "float32"
-    if ipex_woq_enabled:
-        from intel_extension_for_pytorch.quantization import convert, prepare
-        qconfig = ipex.quantization.get_weight_only_quant_qconfig_mapping()
-        model = prepare(model.eval(), qconfig, inplace=True, bn_folding=False)
-        with torch.no_grad():
-            model = convert(model.eval(), inplace=True).eval()
-        
-    if not ipex_woq_enabled:
-        model = ipex.optimize(model.eval(), dtype=infer_dtype, inplace=True)
+    model = ipex.optimize(model.eval(), dtype=infer_dtype, inplace=True)
 
 ### Generate
 
@@ -374,7 +354,6 @@ else:
         t1 = time.time()
         gen_ids = list(gen_ids)
         print(gen_ids[0][1:], flush=True)
-        print("Iteration: %d, Time: %.6f sec" % (i, t1 - t0), flush=True)
         # if model.config.model_type != 't5':
         #     assert gen_ids[0][-1] == args.max_new_tokens, "Generated new tokens != max new tokens"
         if i >= warmup:
