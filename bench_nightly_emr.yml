@@ -19,6 +19,8 @@ launcher:
 modelargs:
   deepspeed:
     modelid:
+      - EleutherAI/gpt-j-6B
+      - decapoda-research/llama-7b-hf
       - decapoda-research/llama-13b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
@@ -26,7 +28,7 @@ modelargs:
     dtype:
       - bfloat16
     localrank:
-      - 4
+      - 2
     batchsize: 1
     numiter: 50
     numwarmup: 5
