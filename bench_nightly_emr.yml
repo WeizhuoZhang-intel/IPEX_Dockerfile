@@ -85,7 +85,7 @@ modelargs:
     device:
       - cpu
     dtype:
-      - float32
+      - int8
     localrank:
       - 4
     batchsize: 1
@@ -114,7 +114,7 @@ modelargs:
     device:
       - cpu
     dtype:
-      - float32
+      - int8
     localrank:
       - 2
     batchsize: 1
