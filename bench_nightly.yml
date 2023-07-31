@@ -34,7 +34,7 @@ modelargs:
     maxnewtokens: 32
     prompt: None
     greedy: 
-      - true
+      # - true
       - false
     ipex: true
     jit: true
