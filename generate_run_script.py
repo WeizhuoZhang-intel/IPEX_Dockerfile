@@ -115,6 +115,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("set -x")
         lines.append("# Env config")
         lines.append("export WORKDIR=/root/workspace")
+        lines.append("export HF_HOME=/root/.cache/huggingface")
         lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
@@ -157,12 +158,13 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex-tpp --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
                             lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
         if mode.endswith('int8'):
-            if mode.startswith('gptj'):
-                lines.append("# GPT-J quantization")
-                lines.append(f"python {data['modelargs'][mode]['scriptname']} --quantize --inc_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
-            if mode.startswith('llama'):
-                lines.append("# LLaMA quantization")
-                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
+            for model_id in data['modelargs'][mode]['modelid']:
+                if mode.startswith('gptj') and "gpt" in model_id:
+                    lines.append("# GPT-J quantization")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --quantize --inc_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
+                if mode.startswith('llama') and "llama" in model_id:
+                    lines.append("# LLaMA quantization")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
