@@ -21,7 +21,7 @@ modelargs:
     modelid:
       - EleutherAI/gpt-j-6B
       - decapoda-research/llama-7b-hf
-      # - decapoda-research/llama-13b-hf
+      - decapoda-research/llama-13b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -41,7 +41,7 @@ modelargs:
     inputtokens:
       - 32
       - 1024
-      # - 2016
+      - 2016
     prompt: None
     ipex: true
     jit: true
