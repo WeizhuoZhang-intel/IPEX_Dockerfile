@@ -150,10 +150,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for numa in data['modelargs'][mode]['localrank']:
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log 2>&1 || true &")
                                 if beam == True:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
+                                    lines.append(f"deepspeed --enable_each_rank_log --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
                                     --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
                                 else:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                    lines.append(f"deepspeed --enable_each_rank_log --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                     --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
                                 lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log")                        
         lines.append(f"sleep 5s")
