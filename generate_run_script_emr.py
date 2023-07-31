@@ -119,7 +119,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
-        lines.append("export DNNL_VERBOSE=1")
+        # lines.append("export DNNL_VERBOSE=1")
         if extra_kmp:
             lines.append(f"export KMP_TPAUSE={data['envconfig']['LLM_EXTRA_KMP']['KMP_TPAUSE']}")
             lines.append(f"export KMP_SETTINGS={data['envconfig']['LLM_EXTRA_KMP']['KMP_SETTINGS']}")
