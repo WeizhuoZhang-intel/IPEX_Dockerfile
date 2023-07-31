@@ -17,31 +17,31 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  # default:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B
-  #     - decapoda-research/llama-7b-hf
-  #     - decapoda-research/llama-13b-hf      
-  #   scriptname: run_generation.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #   inputtokens:
-  #     - 32
-  #     - 1024
-  #     - 2016
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - true
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numiter: 50
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: true
+  default:
+    modelid:
+      - EleutherAI/gpt-j-6B
+      - decapoda-research/llama-7b-hf
+      # - decapoda-research/llama-13b-hf      
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    inputtokens:
+      - 32
+      - 1024
+      # - 2016
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - true
+      - false
+    ipex: true
+    jit: true
+    numiter: 50
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: true
   # gptj_int8:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
@@ -110,36 +110,36 @@ modelargs:
   #   greedy: 
   #     - true
   #     - false
-  deepspeed:
-    modelid:
-      - EleutherAI/gpt-j-6B
-      - decapoda-research/llama-7b-hf
-      # - decapoda-research/llama-13b-hf
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    localrank:
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      # - true
-      - false
-    ki: true
-    maxnewtokens: 32
-    inputtokens:
-      - 32
-      - 1024
-      # - 2016
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
+  # deepspeed:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #     - decapoda-research/llama-7b-hf
+  #     # - decapoda-research/llama-13b-hf
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #   localrank:
+  #   batchsize: 1
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   cuda: true
+  #   greedy: 
+  #     # - true
+  #     - false
+  #   ki: true
+  #   maxnewtokens: 32
+  #   inputtokens:
+  #     - 32
+  #     - 1024
+  #     # - 2016
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
   # tpp:
   #   modelid:
   #     - EleutherAI/gpt-j-6B
