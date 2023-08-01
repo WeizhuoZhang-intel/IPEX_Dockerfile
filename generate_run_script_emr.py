@@ -25,7 +25,7 @@ collect_result = '''
 function collect_perf_logs_llm() {
     # latency
     sleep 5s
-    latency=($(grep -i 'inference latency:' $log_dir/$1 |sed -e 's/.*atency://;s/[^0-9.]//g;s/\.$//' |awk '
+    latency=($(grep -i 'Inference latency:' $log_dir/$1 |sed -e 's/.*atency: //;s/[^0-9.]//g;s/\.$//' |awk '
         BEGIN {
             num = 0;
             sum = 0;
