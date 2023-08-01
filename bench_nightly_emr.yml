@@ -110,7 +110,7 @@ modelargs:
   #   tokenlatency: true
   deepspeed4bf16:
     modelid:
-      - decapoda-research/llama-13b-hf
+      - meta-llama/Llama-2-7b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -130,8 +130,8 @@ modelargs:
     inputtokens:
       - 32
       - 128
-      - 1024
-      - 2016
+      # - 1024
+      # - 2016
     prompt: None
     ipex: true
     jit: true
