@@ -27,6 +27,7 @@ modelargs:
       - cpu
     dtype:
       - bfloat16
+      - float32
     localrank:
       - 2
     batchsize: 1
