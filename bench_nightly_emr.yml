@@ -139,7 +139,7 @@ modelargs:
   #   tokenlatency: true
   deepspeed:
     modelid:
-      - meta-llama/Llama-2-7b-hf
+      - decapoda-research/llama-7b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
