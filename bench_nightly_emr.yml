@@ -140,6 +140,7 @@ modelargs:
   deepspeed:
     modelid:
       - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -158,9 +159,6 @@ modelargs:
     maxnewtokens: 32
     inputtokens:
       - 32
-      - 128
-      - 1024
-      - 2048
     prompt: None
     ipex: true
     jit: true
