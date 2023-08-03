@@ -164,6 +164,10 @@ modelargs:
     maxnewtokens: 32
     inputtokens:
       - 32
+      - 128
+      - 1024
+      - 2016
+      - 2048
     prompt: None
     ipex: true
     jit: true
