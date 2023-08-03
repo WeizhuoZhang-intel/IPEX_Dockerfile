@@ -30,34 +30,6 @@ modelargs:
       - int8
     localrank:
       - 2
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      - false
-    ki: true
-    maxnewtokens: 32
-    inputtokens:
-      - 32
-      - 128
-      - 1024
-      - 2016
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
-  deepspeed2S:
-    modelid:
-      - decapoda-research/llama-13b-hf
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    localrank:
       - 4
     batchsize: 1
     numiter: 50
@@ -78,45 +50,17 @@ modelargs:
     jit: true
     printmemory: true
     tokenlatency: true
-  deepspeedneox2s:
+   deepspeedneox:
     modelid:
       - EleutherAI/gpt-neox-20b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
     dtype:
-      - int8
-    localrank:
-      - 4
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      - false
-    ki: true
-    maxnewtokens: 32
-    inputtokens:
-      - 32
-      - 128
-      - 1024
-      - 2016
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
-  deepspeedneox1s:
-    modelid:
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - int8
+      - float32
     localrank:
       - 2
+      - 4
     batchsize: 1
     numiter: 50
     numwarmup: 5
@@ -135,4 +79,5 @@ modelargs:
     ipex: true
     jit: true
     printmemory: true
-    tokenlatency: true
+    tokenlatency: true  
+  

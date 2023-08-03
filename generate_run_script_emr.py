@@ -10,6 +10,7 @@ parser.add_argument("--debug",action="store_true",default=False,help="only for w
 parser.add_argument("--emr_nightly",action="store_true",default=False,help="only for emr nightly regular track")
 args = parser.parse_args()
 
+
 fetch_device_info = '''
 sockets_num=$(lscpu |grep 'Socket(s):' |sed 's/[^0-9]//g')
 cores_per_socket=$(lscpu |grep 'Core(s) per socket:' |sed 's/[^0-9]//g')
@@ -19,6 +20,61 @@ phsical_cores_num=$(echo |awk -v sockets_num=${sockets_num} -v cores_per_socket=
 numa_nodes_num=$(numactl -H |grep 'node [0-9]* cpus: [0-9].*' |wc -l)
 threads_per_core=$(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
 cores_per_node=$(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+'''
+
+deepspeed_ccl_func = '''
+function deepspeed_core_config() {
+    sockets_num=$(lscpu |grep 'Socket(s):' |sed 's/[^0-9]//g')
+    cores_per_socket=$(lscpu |grep 'Core(s) per socket:' |sed 's/[^0-9]//g')
+    numa_nodes_num=$(numactl -H |grep 'node [0-9]* cpus: [0-9].*' |wc -l)
+    threads_per_core=$(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
+    cores_per_node=$(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+    local_rank=$1
+    OOB_TOTAL_CORES_USE=$((${cores_per_node}*${local_rank}))
+    hbm_index=0
+    cores_per_instance=${cores_per_node}
+    numa_nodes_use_=1,$local_rank
+
+    device_array=($(numactl -H |grep "node [0-9]* cpus:" |sed "s/.*node//;s/cpus://" |sed -n "${numa_nodes_use_}p" |\\
+                    awk -v cpn=${cores_per_node} '{for(i=1;i<=cpn+1;i++) {printf(" %s ",$i)} printf("\\n");}' |grep '[0-9]' |\\
+                    awk -v cpi=${cores_per_instance} -v cpn=${cores_per_node} -v cores=${OOB_TOTAL_CORES_USE} -v hi=${hbm_index} '{
+                if(cores == "") { if(cpi > cpn) {cores = cpi}else {cores = NF} }
+                for( i=2; i<=cores; i++ ) {
+                    if($i != "") {
+                        if((i-1) % cpi == 0) {
+                            print $i";"$1+hi
+                        }else {
+                            printf $i","
+                        }
+                    }
+                }
+            }' |sed "s/,$//"))
+
+    echo ${device_array}
+    export LLM_DEEPSPEED_COMM_CORES=0
+    deepspeed_cores_list=($(echo ${device_array[@]} |sed 's/ /\\n/g' |awk -F ';' '{print $1}' |awk -F ',' -v cores=$LLM_DEEPSPEED_COMM_CORES 'BEGIN{
+                    busy = "";
+                    idle = "";
+                }{
+                    for (i=1;i<=NF;i++) {
+                        if(i==1) {
+                            idle = idle","$i;
+                            if(cores==0) {
+                                busy = busy","$i;
+                            }
+                        }else {
+                            if(i>cores) {
+                                busy = busy","$i;
+                            }
+                        }
+                    }
+                }END{
+                    printf("%s\\n%s", idle, busy);
+                }' |sed 's/^,//'))
+
+    echo $deepspeed_cores_list
+    # return $deepspeed_cores_list
+}
 '''
 
 collect_result = '''
@@ -129,7 +185,8 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("mkdir -p $log_dir")
         lines.append("# device info")
         lines.append(fetch_device_info)
-        lines.append(collect_result)    
+        lines.append(collect_result)   
+        lines.append(deepspeed_ccl_func) 
         lines.append("")
         if mode == 'deepspeed':
             lines.append("# DS Env config")
@@ -139,96 +196,54 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export CCL_WORKER_COUNT=1")
             lines.append("export CCL_PROCESS_LAUNCHER=none")
             lines.append("export CCL_ATL_TRANSPORT=ofi")
-            lines.append("export CCL_ATL_SHM=1")
-            lines.append("export CCL_WORKER_AFFINITY=0,32")
+            lines.append("export CCL_ATL_SHM=1")           
             lines.append("export DS_SHM_ALLREDUCE=1")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for beam in data['modelargs'][mode]['greedy']:
                             for numa in data['modelargs'][mode]['localrank']:
+                                lines.append(f"export local_rank={numa}")
+                                lines.append("deepspeed_core_config ${local_rank}")
+                                lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                                lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log 2>&1 || true &")
                                 if beam == True:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
+                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list ${core_list} {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
                                     --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
                                 else:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list ${core_list} {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                     --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
                                 lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log")                        
-        if mode == 'deepspeed2S':
-            lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")
-            lines.append("export CCL_WORKER_COUNT=1")
-            lines.append("export CCL_PROCESS_LAUNCHER=none")
-            lines.append("export CCL_ATL_TRANSPORT=ofi")
-            lines.append("export CCL_ATL_SHM=1")
-            lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
-            lines.append("export DS_SHM_ALLREDUCE=1")
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            for numa in data['modelargs'][mode]['localrank']:
-                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log 2>&1 || true &")
-                                if beam == True:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
-                                    --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                else:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                    --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log")     
-        if mode == 'deepspeedneox2s':
-            lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")
-            lines.append("export CCL_WORKER_COUNT=1")
-            lines.append("export CCL_PROCESS_LAUNCHER=none")
-            lines.append("export CCL_ATL_TRANSPORT=ofi")
-            lines.append("export CCL_ATL_SHM=1")
-            lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
-            lines.append("export DS_SHM_ALLREDUCE=1")
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            for numa in data['modelargs'][mode]['localrank']:
-                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log 2>&1 || true &")
-                                if beam == True:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
-                                    --ipex --ipex-woq --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                else:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                    --ipex --ipex-woq --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log")  
-        if mode == 'deepspeedneox1s':
-            lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")
-            lines.append("export CCL_WORKER_COUNT=1")
-            lines.append("export CCL_PROCESS_LAUNCHER=none")
-            lines.append("export CCL_ATL_TRANSPORT=ofi")
-            lines.append("export CCL_ATL_SHM=1")
-            lines.append("export CCL_WORKER_AFFINITY=0,32")
-            lines.append("export DS_SHM_ALLREDUCE=1")
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            for numa in data['modelargs'][mode]['localrank']:
-                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log 2>&1 || true &")
-                                if beam == True:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-67 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
-                                    --ipex --ipex-woq --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                else:
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                    --ipex --ipex-woq --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log")  
-        
-        lines.append(f"sleep 5s")
+        if mode == 'deepspeedneox':
+        lines.append("# DS Env config")
+        lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+        lines.append("unset KMP_AFFINITY")
+        lines.append("# Run workload")
+        lines.append("export CCL_WORKER_COUNT=1")
+        lines.append("export CCL_PROCESS_LAUNCHER=none")
+        lines.append("export CCL_ATL_TRANSPORT=ofi")
+        lines.append("export CCL_ATL_SHM=1")
+        lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
+        lines.append("export DS_SHM_ALLREDUCE=1")
+        for model_id in data['modelargs'][mode]['modelid']:
+            for dtype in data['modelargs'][mode]['dtype']:
+                for input_token in data['modelargs'][mode]['inputtokens']:
+                    for beam in data['modelargs'][mode]['greedy']:
+                        for numa in data['modelargs'][mode]['localrank']:
+                            lines.append(f"export local_rank={numa}")
+                            lines.append("deepspeed_core_config ${local_rank}")
+                            lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                            lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")                            
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log 2>&1 || true &")
+                            if beam == True:
+                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list ${core_list} {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
+                                --ipex --ipex-woq --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
+                            else:
+                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list ${core_list} {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                --ipex --ipex-woq --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
+                            lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log")  
+    lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
     return generated_file
