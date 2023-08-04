@@ -20,99 +20,101 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  # deepspeed:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B
-  #     - decapoda-research/llama-7b-hf
-  #     - decapoda-research/llama-13b-hf
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     - float32
-  #   localrank:
-  #     - 2
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 1024
-  #     - 2016
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # deepspeed4int8:
-  #   modelid:
-  #     - EleutherAI/gpt-neox-20b
-  #     - decapoda-research/llama-13b-hf
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - float32
-  #   localrank:
-  #     - 4
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 1024
-  #     - 2016
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # deepspeed2int8:
-  #   modelid:
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - float32
-  #   localrank:
-  #     - 2
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 1024
-  #     - 2016
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
+  deepspeed:
+    modelid:
+      - EleutherAI/gpt-j-6B
+      # - decapoda-research/llama-7b-hf
+      # - decapoda-research/llama-13b-hf
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+      - float32
+    localrank:
+      - 2
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 32
+    inputtokens:
+      - 32
+      - 128
+      - 1024
+      - 2016
+      - 2048
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  deepspeed4int8:
+    modelid:
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - float32
+    localrank:
+      - 4
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 32
+    inputtokens:
+      - 32
+      - 128
+      - 1024
+      - 2016
+      - 2048
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  deepspeed2int8:
+    modelid:
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - float32
+    localrank:
+      - 2
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 32
+    inputtokens:
+      - 32
+      - 128
+      - 1024
+      - 2016
+      - 2048
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
   # deepspeed4bf16:
   #   modelid:
   #     - decapoda-research/llama-13b-hf
@@ -142,37 +144,37 @@ modelargs:
   #   jit: true
   #   printmemory: true
   #   tokenlatency: true
-  deepspeed:
-    modelid:
-      # - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    localrank:
-      - 2
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      - false
-    ki: true
-    maxnewtokens: 32
-    inputtokens:
-      - 32
-      - 128
-      - 1024
-      - 2016
-      - 2048
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
+  # deepspeed:
+  #   modelid:
+  #     # - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   cuda: true
+  #   greedy: 
+  #     - false
+  #   ki: true
+  #   maxnewtokens: 32
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 1024
+  #     - 2016
+  #     - 2048
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
   # deepspeed4:
   #   modelid:
   #     - meta-llama/Llama-2-13b-hf
