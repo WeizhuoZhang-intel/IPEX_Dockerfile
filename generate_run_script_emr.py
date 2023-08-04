@@ -143,7 +143,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export CCL_ATL_SHM=1")
             lines.append("export CCL_WORKER_AFFINITY=0,32")
             lines.append("export DS_SHM_ALLREDUCE=1")
-            lines.append("export FI_PROVIDER=sockets")
+            # lines.append("export FI_PROVIDER=sockets")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
