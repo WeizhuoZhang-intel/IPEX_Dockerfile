@@ -44,8 +44,8 @@ modelargs:
     modelid:
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_int8.py
-    outdir: "/bhavanis/int8_gpt"
-    bestpath: "/bhavanis/int8_gpt/best_model.pt"
+    outdir: "/qmodel/int8_gpt"
+    bestpath: "/qmodel/int8_gpt/best_model.pt"
     device:
       - cpu
     dtype:
@@ -70,8 +70,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/bhavanis/int8_llama7"
-    bestpath: "/bhavanis/int8_llama7/best_model.pt"
+    outdir: "/qmodel/int8_llama7"
+    bestpath: "/qmodel/int8_llama7/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -91,8 +91,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/bhavanis/int8_llama13"
-    bestpath: "/bhavanis/int8_llama13/best_model.pt"
+    outdir: "/qmodel/int8_llama13"
+    bestpath: "/qmodel/int8_llama13/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -107,8 +107,8 @@ modelargs:
     modelid:
       - EleutherAI/gpt-neox-20b
     scriptname: run_gpt-neox_int8.py
-    outdir: "/bhavanis/int8_neox"
-    bestpath: "/bhavanis/int8_neox/best_model.pt"
+    outdir: "/qmodel/int8_neox"
+    bestpath: "/qmodel/int8_neox/best_model.pt"
     device:
       - cpu
     dtype:
@@ -128,8 +128,8 @@ modelargs:
     modelid:
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_int8.py
-    outdir: "/bhavanis/int8_gpt_woq"
-    bestpath: "/bhavanis/int8_gpt_woq/best_model.pt"
+    outdir: "/qmodel/int8_gpt_woq"
+    bestpath: "/qmodel/int8_gpt_woq/best_model.pt"
     device:
       - cpu
     dtype:
@@ -160,8 +160,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/bhavanis/int8_llama7_woq"
-    bestpath: "/bhavanis/int8_llama7_woq/best_model.pt"
+    outdir: "/qmodel/int8_llama7_woq"
+    bestpath: "/qmodel/int8_llama7_woq/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -181,8 +181,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/bhavanis/int8_llama13_woq"
-    bestpath: "/bhavanis/int8_llama13_woq/best_model.pt"
+    outdir: "/qmodel/int8_llama13_woq"
+    bestpath: "/qmodel/int8_llama13_woq/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     lowpmode:
@@ -200,8 +200,8 @@ modelargs:
     modelid:
       - EleutherAI/gpt-neox-20b
     scriptname: run_gpt-neox_int8.py
-    outdir: "/bhavanis/int8_neox_woq"
-    bestpath: "/bhavanis/int8_neox_woq/best_model.pt"
+    outdir: "/qmodel/int8_neox_woq"
+    bestpath: "/qmodel/int8_neox_woq/best_model.pt"
     device:
       - cpu
     dtype:
