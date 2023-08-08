@@ -182,14 +182,6 @@ if __name__ == '__main__':
     yml_file = 'bench_preci.yml'
     if args.deepspeed:
         yml_file = 'bench_ds_preci.yml'
-    if args.nightly:
-        yml_file = 'bench_nightly.yml'
-    if args.weekly:
-        yml_file = 'bench_weekly.yml'
-    if args.debug:
-        yml_file = 'bench_debug.yml'
-    if args.emr_nightly:
-        yml_file = 'bench_nightly_emr.yml'
     if args.accuracy_nightly:
         yml_file = 'bench_nightly_accuracy.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
