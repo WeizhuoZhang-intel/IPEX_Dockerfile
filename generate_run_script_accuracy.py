@@ -138,9 +138,39 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
-                    lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --iter_num {data['modelargs'][mode]['numiter']} --ipex --jit --tasks lambada_openai \
+                    lines.append(f"numactl -m 0 -N 0 python {data['modelargs'][mode]['scriptname']} --accuracy-only -m {model_id} --dtype {dtype} --iter_num {data['modelargs'][mode]['numiter']} --ipex --jit --tasks lambada_openai \
                                  2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_accuracy.log")
-                    
+        if mode.endswith('int8'):
+            lines.append("# DS Env config")
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            lines.append("unset KMP_AFFINITY")
+            lines.append("# Run workload")    
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+
+                    lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
+
+                    lines.append(f"numactl -m 0 -N 0 python run_accuracy_iter.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --iter_num {data['modelargs'][mode]['numiter']} --ipex --jit --tasks lambada_openai \
+                                 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy.log")
+        if mode.endswith('woq'):
+            lines.append("# DS Env config")
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            lines.append("unset KMP_AFFINITY")
+            lines.append("# Run workload")    
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for lowp in data['modelargs'][mode]['lowpmode']:
+                        
+                        dir = {data['modelargs'][mode]['outdir']} + "_" + lowp
+                        path = dir + "/best_model.pt"
+
+                        lines.append(f"mkdir {dir}")
+
+                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {dir} --jit --int8 -m {model_id} --lowp-mode {lowp}")
+
+                        lines.append(f"numactl -m 0 -N 0 python run_accuracy_iter.py --accuracy-only -m {model_id} --quantized-model-path {path} --dtype {dtype} --iter_num {data['modelargs'][mode]['numiter']} --ipex --jit --tasks lambada_openai \
+                                    2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy_lowp_{lowp}.log")
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])

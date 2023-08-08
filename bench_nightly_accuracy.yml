@@ -34,7 +34,186 @@ modelargs:
     maxnewtokens: 32
     prompt: None
     greedy: 
-      - true
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  gpt_int8:
+    modelid:
+      - EleutherAI/gpt-j-6B
+    scriptname: run_gpt-j_int8.py
+    outdir: "/bhavanis/int8_gpt"
+    bestpath: "/bhavanis/int8_gpt/best_model.pt"
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  llama7_int8:
+    modelid:
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/bhavanis/int8_llama7"
+    bestpath: "/bhavanis/int8_llama7/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  llama13_int8:
+    modelid:
+      - meta-llama/Llama-2-13b-hf  
+    scriptname: run_llama_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/bhavanis/int8_llama13"
+    bestpath: "/bhavanis/int8_llama13/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  neox_int8:
+    modelid:
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_gpt-neox_int8.py
+    outdir: "/bhavanis/int8_neox"
+    bestpath: "/bhavanis/int8_neox/best_model.pt"
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  gpt_int8_woq:
+    modelid:
+      - EleutherAI/gpt-j-6B
+    scriptname: run_gpt-j_int8.py
+    outdir: "/bhavanis/int8_gpt_woq"
+    bestpath: "/bhavanis/int8_gpt_woq/best_model.pt"
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    lowpmode:
+      - BF16
+      - INT8
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  llama7_int8_woq:
+    modelid:
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_int8.py
+    lowpmode:
+      - BF16
+      - INT8
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/bhavanis/int8_llama7_woq"
+    bestpath: "/bhavanis/int8_llama7_woq/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  llama13_int8_woq:
+    modelid:
+      - meta-llama/Llama-2-13b-hf  
+    scriptname: run_llama_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/bhavanis/int8_llama13_woq"
+    bestpath: "/bhavanis/int8_llama13_woq/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    lowpmode:
+      - BF16
+      - INT8
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  neox_int8_woq:
+    modelid:
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_gpt-neox_int8.py
+    outdir: "/bhavanis/int8_neox_woq"
+    bestpath: "/bhavanis/int8_neox_woq/best_model.pt"
+    device:
+      - cpu
+    dtype:
+      - int8
+    lowpmode:
+      - BF16
+      - INT8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
       - false
     ipex: true
     jit: true
