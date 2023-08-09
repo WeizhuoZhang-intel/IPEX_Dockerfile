@@ -22,7 +22,9 @@ modelargs:
       # - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf  
-      - EleutherAI/gpt-neox-20b
+      # - EleutherAI/gpt-neox-20b
+      - facebook/opt-6.7b
+      - facebook/opt-30b
     scriptname: run_accuracy_iter.py
     device:
       - cpu
@@ -82,27 +84,27 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  llama13_int8:
-    modelid:
-      - meta-llama/Llama-2-13b-hf  
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel/int8_llama13"
-    bestpath: "/qmodel/int8_llama13/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # llama13_int8:
+  #   modelid:
+  #     - meta-llama/Llama-2-13b-hf  
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel/int8_llama13"
+  #   bestpath: "/qmodel/int8_llama13/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # neox_int8:
   #   modelid:
   #     - EleutherAI/gpt-neox-20b
