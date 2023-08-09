@@ -165,7 +165,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         # dir = {data['modelargs'][mode]['outdir']} + "_" + lowp
                         # path = dir + "/best_model.pt"
 
-                        lines.append(f"mkdir {dir}")
+                        lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
 
                         lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
 
