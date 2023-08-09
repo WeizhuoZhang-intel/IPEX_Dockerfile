@@ -105,27 +105,27 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  # neox_int8:
-  #   modelid:
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: run_gpt-neox_int8.py
-  #   outdir: "/qmodel/int8_neox"
-  #   bestpath: "/qmodel/int8_neox/best_model.pt"
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
+  neox_int8:
+    modelid:
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_gpt-neox_int8.py
+    outdir: "/qmodel/int8_neox"
+    bestpath: "/qmodel/int8_neox/best_model.pt"
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
   # gpt_woq:
   #   modelid:
   #     - EleutherAI/gpt-j-6B
@@ -198,27 +198,27 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  neox_woq:
-    modelid:
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_gpt-neox_int8.py
-    outdir: "/qmodel/int8_neox_woq"
-    bestpath: "/qmodel/int8_neox_woq/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    lowpmode:
-      - BF16
-      - INT8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # neox_woq:
+  #   modelid:
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_gpt-neox_int8.py
+  #   outdir: "/qmodel/int8_neox_woq"
+  #   bestpath: "/qmodel/int8_neox_woq/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   lowpmode:
+  #     - BF16
+  #     - INT8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
