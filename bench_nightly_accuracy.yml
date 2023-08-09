@@ -19,9 +19,9 @@ launcher:
 modelargs:
   default:
     modelid:
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf  
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf  
       - EleutherAI/gpt-neox-20b
     scriptname: run_accuracy_iter.py
     device:
@@ -40,48 +40,48 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  gpt_int8:
-    modelid:
-      - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_int8.py
-    outdir: "/qmodel/int8_gpt"
-    bestpath: "/qmodel/int8_gpt/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama7_int8:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel/int8_llama7"
-    bestpath: "/qmodel/int8_llama7/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # gpt_int8:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_int8.py
+  #   outdir: "/qmodel/int8_gpt"
+  #   bestpath: "/qmodel/int8_gpt/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama7_int8:
+  #   modelid:
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel/int8_llama7"
+  #   bestpath: "/qmodel/int8_llama7/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   llama13_int8:
     modelid:
       - meta-llama/Llama-2-13b-hf  
@@ -124,7 +124,7 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  gpt_int8_woq:
+  gpt_woq:
     modelid:
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_int8.py
@@ -148,7 +148,7 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  llama7_int8_woq:
+  llama7_woq:
     modelid:
       - meta-llama/Llama-2-7b-hf
     scriptname: run_llama_int8.py
@@ -172,7 +172,7 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  llama13_int8_woq:
+  llama13_woq:
     modelid:
       - meta-llama/Llama-2-13b-hf  
     scriptname: run_llama_int8.py
@@ -196,7 +196,7 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  neox_int8_woq:
+  neox_woq:
     modelid:
       - EleutherAI/gpt-neox-20b
     scriptname: run_gpt-neox_int8.py
