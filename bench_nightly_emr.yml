@@ -22,11 +22,13 @@ launcher:
 modelargs:
   deepspeed:
     modelid:
-      - EleutherAI/gpt-j-6B
+      # - EleutherAI/gpt-j-6B
       # - decapoda-research/llama-7b-hf
       # - decapoda-research/llama-13b-hf
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      - facebook/opt-6.7b
+      - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -56,8 +58,9 @@ modelargs:
     tokenlatency: true
   deepspeed4int8:
     modelid:
-      - EleutherAI/gpt-neox-20b
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - meta-llama/Llama-2-13b-hf
+      - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -90,7 +93,9 @@ modelargs:
     tokenlatency: true
   deepspeed2int8:
     modelid:
-      - EleutherAI/gpt-neox-20b
+      # - EleutherAI/gpt-neox-20b
+      - facebook/opt-6.7b
+      - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
