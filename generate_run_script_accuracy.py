@@ -139,7 +139,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
-                    lines.append(f"numactl -m 0 -N 0 python {data['modelargs'][mode]['scriptname']} --accuracy-only -m {model_id} --dtype {dtype} --iter_num {data['modelargs'][mode]['numiter']} --ipex --jit --tasks lambada_openai \
+                    lines.append(f"numactl -m 0 -N 0 python {data['modelargs'][mode]['scriptname']} --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                  2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_accuracy.log")
         if mode.endswith('int8'):
             lines.append("# DS Env config")
@@ -152,7 +152,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
 
-                    lines.append(f"numactl -m 0 -N 0 python run_accuracy_iter.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --iter_num {data['modelargs'][mode]['numiter']} --ipex --jit --tasks lambada_openai \
+                    lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                  2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy.log")
         if mode == 'gpt_woq'or mode == 'llama13_woq' or mode == 'llama7_woq' or mode == 'neox_woq':
             lines.append("# DS Env config")
@@ -166,11 +166,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                         # dir = {data['modelargs'][mode]['outdir']} + "_" + lowp
                         # path = dir + "/best_model.pt"
 
-                        lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
+                        # lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
 
-                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
+                        # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
 
-                        lines.append(f"numactl -m 0 -N 0 python run_accuracy_iter.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --iter_num {data['modelargs'][mode]['numiter']} --ipex --jit --tasks lambada_openai \
+                        lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy_woq.log")
         lines.append(f"sleep 5s")
         lines.append("")
