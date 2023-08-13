@@ -267,48 +267,48 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  opt30_int8:
-    modelid:
-      - facebook/opt-30b
-    scriptname: run_opt_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel/int8_opt30"
-    bestpath: "/qmodel/int8_opt30/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  opt30_woq:
-    modelid:
-      - facebook/opt-30b
-    scriptname: run_opt_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel/int8_opt30_woq"
-    bestpath: "/qmodel/int8_opt30_woq/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    lowpmode:
-      - BF16
-      - INT8
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # opt30_int8:
+  #   modelid:
+  #     - facebook/opt-30b
+  #   scriptname: run_opt_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel/int8_opt30"
+  #   bestpath: "/qmodel/int8_opt30/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # opt30_woq:
+  #   modelid:
+  #     - facebook/opt-30b
+  #   scriptname: run_opt_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel/int8_opt30_woq"
+  #   bestpath: "/qmodel/int8_opt30_woq/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   lowpmode:
+  #     - BF16
+  #     - INT8
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
