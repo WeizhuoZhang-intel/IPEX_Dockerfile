@@ -130,8 +130,8 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("mkdir -p $log_dir")
         lines.append("# device info")
         lines.append(fetch_device_info)
-        lines.append(collect_result)    
-        lines.append("")
+        lines.append(collect_result)  
+        lines.append("export TRANSFORMERS_OFFLINE=0")
         if mode == "default":
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
