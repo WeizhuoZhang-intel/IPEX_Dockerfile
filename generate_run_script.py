@@ -162,10 +162,10 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 if mode.startswith('gptj') and "gpt" in model_id:
                     lines.append("# GPT-J quantization")
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --quantize --inc_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --quantize --inc_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed -m {model_id}")
                 if mode.startswith('llama') and "llama" in model_id:
                     lines.append("# LLaMA quantization")
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed -m {model_id}")
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
@@ -173,10 +173,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                         lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log 2>&1 || true &")
                         if beam == True:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized_model_path \
-                            {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --greedy  --benchmark --jit --int8 -m {model_id} --token-latency 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")
+                            {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --greedy  --benchmark --jit --int8-bf16-mixed -m {model_id} --token-latency 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")
                         else:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized_model_path \
-                            {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --benchmark --jit --int8 -m {model_id} --token-latency 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")
+                            {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --benchmark --jit --int8-bf16-mixed -m {model_id} --token-latency 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")
                         lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")        
         if mode == 'deepspeed':
             lines.append("# DS Env config")
