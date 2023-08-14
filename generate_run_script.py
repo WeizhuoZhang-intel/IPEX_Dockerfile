@@ -163,11 +163,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                 if mode.startswith('gptj') and "gpt" in model_id:
                     lines.append("# GPT-J quantization")
                     lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark")
                 if mode.startswith('llama') and "llama" in model_id:
                     lines.append("# LLaMA quantization")
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
             lines.append("# Run workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
