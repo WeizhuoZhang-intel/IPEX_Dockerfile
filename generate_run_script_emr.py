@@ -144,7 +144,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export DS_SHM_ALLREDUCE=1")
 
             for rank in data['modelargs'][mode]['localrank']:
-                if rank == '2':
+                if rank == 2:
                     lines.append("export CCL_WORKER_AFFINITY=0,32")
                     for model_id in data['modelargs'][mode]['modelid']:
                         for dtype in data['modelargs'][mode]['dtype']:
@@ -161,7 +161,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{rank}_BF16.log") 
                                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{rank}_BF16.log")
 
-                if rank == '4':
+                if rank == 4:
                     lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
                     for model_id in data['modelargs'][mode]['modelid']:
                         for dtype in data['modelargs'][mode]['dtype']:
