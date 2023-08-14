@@ -162,8 +162,8 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append("# GPT-J quantization")
                 lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
-                for input_token in data['modelargs'][mode]['inputtokens']:
+                # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
+                # for input_token in data['modelargs'][mode]['inputtokens']:
                     for beam in data['modelargs'][mode]['greedy']:
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency \
                          2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")
