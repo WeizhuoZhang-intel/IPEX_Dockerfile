@@ -49,7 +49,7 @@ modelargs:
       - cpu
     dtype: int8
     maxnewtokens: 32
-    outputdir: "./mixed_gpt"
+    outputdir: "/qmodel/mixed_gpt"
     quantize: true
     lambada: true
     ipex: true
@@ -58,7 +58,7 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "./mixed_gpt/best_model.pt"
+    quantizedmodelpath: "/qmodel/mixed_gpt/best_model.pt"
     benchmark: true
     inputtokens:
       - 32
