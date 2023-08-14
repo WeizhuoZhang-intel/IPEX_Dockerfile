@@ -1,7 +1,8 @@
 name: LLM Benchmarking
 hw: SPR-SP/HBM/EMR
 envconfig:
-  LD_PRELOAD: ${CONDA_PREFIX}/lib/libstdc++.so.6:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  # LD_PRELOAD: ${CONDA_PREFIX}/lib/libstdc++.so.6:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  LD_PRELOAD: ${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
   KMP_BLOCKTIME: 1
   KMP_AFFINITY: granularity=fine,compact,1,0
   threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
