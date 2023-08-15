@@ -190,7 +190,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# DS Env config")
             lines.append("source /root/oneCCL_install/env/setvars.sh")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append(f"export LD_LIBRARY_PATH=${ONECCL_DIR}/lib:$LD_LIBRARY_PATH")
+            lines.append(f"export LD_LIBRARY_PATH=/root/oneCCL_install/lib:$LD_LIBRARY_PATH")
             lines.append("unset KMP_AFFINITY")
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:
