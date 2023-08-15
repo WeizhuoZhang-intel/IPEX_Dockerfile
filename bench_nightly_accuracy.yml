@@ -379,11 +379,11 @@ modelargs:
   #   tokenlatency: false
   deepspeed:
     modelid:
-      - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
+      # - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf  
       # - EleutherAI/gpt-neox-20b
-      # - facebook/opt-6.7b
+      - facebook/opt-6.7b
       # - facebook/opt-30b  
     scriptname: run_accuracy_with_deepspeed.py
     device:
