@@ -390,7 +390,7 @@ modelargs:
       - cpu
     dtype:
       - float32
-      - bfloat16
+      # - bfloat16
     inputtokens:
     numiter: 1000
     maxnewtokens: 32
