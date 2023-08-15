@@ -72,6 +72,39 @@ modelargs:
     greedy: 
       # - true
       - false
+  gptj1_int8:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run_gpt-j_int8.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+      - 128
+      - 512
+      - 1024
+    outputdir: "/qmodel/mixed_gpt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/qmodel/mixed_gpt/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 1024
+    prompt: None
+    numiter: 100
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false
   # llama_int8:
   #   modelid:
   #     - decapoda-research/llama-7b-hf
