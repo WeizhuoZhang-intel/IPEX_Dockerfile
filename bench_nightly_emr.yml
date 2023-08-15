@@ -55,7 +55,7 @@ modelargs:
     jit: true
     printmemory: true
     tokenlatency: true
-llamadeepspeed:
+  llamadeepspeed:
     modelid:
       - meta-llama/Llama-2-13b-hf
     scriptname: run_generation_with_deepspeed.py
