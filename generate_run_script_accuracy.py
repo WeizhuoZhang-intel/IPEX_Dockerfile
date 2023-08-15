@@ -186,7 +186,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy_woq.log")
 
-        if mode == 'deepspeed':
+        if mode.endswith('deepspeed'):
             lines.append("# DS Env config")
             lines.append("source /root/oneCCL_install/env/setvars.sh")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
