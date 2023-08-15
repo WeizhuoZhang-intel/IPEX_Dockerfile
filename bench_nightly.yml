@@ -48,7 +48,8 @@ modelargs:
     device:
       - cpu
     dtype: int8
-    maxnewtokens: 32
+    maxnewtokens: 
+      - 32
     outputdir: "/qmodel/mixed_gpt"
     quantize: true
     lambada: true
