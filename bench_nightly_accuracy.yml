@@ -383,7 +383,7 @@ modelargs:
       - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf  
       # - EleutherAI/gpt-neox-20b
-      - facebook/opt-6.7b
+      # - facebook/opt-6.7b
       # - facebook/opt-30b  
     scriptname: run_accuracy_with_deepspeed.py
     device:
@@ -394,9 +394,9 @@ modelargs:
     inputtokens:
     numiter: 1000
     maxnewtokens: 32
-    shardpath: "/qmodel/shard_gpt"
-    outdir: "/qmodel/ds_gpt"
-    bestpath: "/qmodel/ds_gpt/best_model.pt"
+    shardpath: "/qmodel/shard_llama7"
+    outdir: "/qmodel/ds_llama7"
+    bestpath: "/qmodel/ds_llama7/best_model.pt"
     prompt: None
     greedy: 
       - false
