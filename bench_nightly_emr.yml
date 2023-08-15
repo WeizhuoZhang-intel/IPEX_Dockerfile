@@ -134,7 +134,6 @@ modelargs:
       - float32
     localrank:
       - 2
-      - 4
     batchsize: 1
     numiter: 50
     numwarmup: 5
@@ -146,6 +145,10 @@ modelargs:
     maxnewtokens: 
       - 32
     inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
       - 2016
       - 2048
       - 4096
