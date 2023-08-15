@@ -394,6 +394,7 @@ modelargs:
     inputtokens:
     numiter: 1000
     maxnewtokens: 32
+    shardpath: "/qmodel/shard_gpt"
     outdir: "/qmodel/ds_gpt"
     bestpath: "/qmodel/ds_gpt/best_model.pt"
     prompt: None
