@@ -185,6 +185,25 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                         lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy_woq.log")
+
+        if mode == 'deepspeed':
+            lines.append("# DS Env config")
+            lines.append("source /root/oneCCL_install/env/setvars.sh")
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            lines.append(f"export LD_LIBRARY_PATH=${ONECCL_DIR}/lib:$LD_LIBRARY_PATH")
+            lines.append("unset KMP_AFFINITY")
+            lines.append("# Run workload")    
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    lines.append(f"mkdir {data['modelargs'][mode]['shardpath']}")
+                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
+                    lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
+                    lines.append(f"deepspeed --bind_cores_to_rank run_generation_with_deepspeed.py -m {data['modelargs'][mode]['shardpath']} --output-dir {data['modelargs'][mode]['outdir']} --dtype float32 --ipex --jit --ipex-weight-only-quantization")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
+
+                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_accuracy_with_deepspeed.py --device cpu --model {data['modelargs'][mode]['shardpath']} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only \
+                                2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_dswoq_{dtype}_accuracy.log"")
+        
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
