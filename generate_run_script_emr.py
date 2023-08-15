@@ -161,6 +161,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                             --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
                                             lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
+    
 
                 if rank == 4:
                     lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
