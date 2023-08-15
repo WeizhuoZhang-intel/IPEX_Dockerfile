@@ -379,9 +379,9 @@ modelargs:
   #   tokenlatency: false
   deepspeed:
     modelid:
-      # - EleutherAI/gpt-j-6B
+      - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf  
+      # - meta-llama/Llama-2-13b-hf  
       # - EleutherAI/gpt-neox-20b
       # - facebook/opt-6.7b
       # - facebook/opt-30b  
@@ -389,14 +389,14 @@ modelargs:
     device:
       - cpu
     dtype:
-      - float32
-      # - bfloat16
+      # - float32
+      - bfloat16
     inputtokens:
     numiter: 1000
     maxnewtokens: 32
-    shardpath: "/qmodel/shard_llama13"
-    outdir: "/qmodel/ds_llama13"
-    bestpath: "/qmodel/ds_llama13/best_model.pt"
+    shardpath: "/qmodel/shard_gpt"
+    outdir: "/qmodel/ds_gpt"
+    bestpath: "/qmodel/ds_gpt/best_model.pt"
     prompt: None
     greedy: 
       - false
@@ -405,90 +405,80 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  ndeepspeed:
-    modelid:
-      # - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf  
-      - EleutherAI/gpt-neox-20b
-      # - facebook/opt-6.7b
-      # - facebook/opt-30b  
-    scriptname: run_accuracy_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - float32
+  # ndeepspeed:
+  #   modelid:
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_accuracy_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - float32
       # - bfloat16
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    shardpath: "/qmodel/shard_neox"
-    outdir: "/qmodel/ds_neox"
-    bestpath: "/qmodel/ds_neox/best_model.pt"
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  sdeepspeed:
-    modelid:
-      # - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf  
-      # - EleutherAI/gpt-neox-20b
-      - facebook/opt-6.7b
-      # - facebook/opt-30b  
-    scriptname: run_accuracy_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - float32
-      # - bfloat16
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    shardpath: "/qmodel/shard_opt7"
-    outdir: "/qmodel/ds_opt7"
-    bestpath: "/qmodel/ds_opt7/best_model.pt"
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  sedeepspeed:
-    modelid:
+    # inputtokens:
+    # numiter: 1000
+    # maxnewtokens: 32
+    # shardpath: "/qmodel/shard_neox"
+    # outdir: "/qmodel/ds_neox"
+    # bestpath: "/qmodel/ds_neox/best_model.pt"
+    # prompt: None
+    # greedy: 
+    #   - false
+    # ipex: true
+    # jit: true
+    # numwarmup: 5
+    # batchsize: 1
+    # tokenlatency: false
+  # sdeepspeed:
+  #   modelid:
       # - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf  
       # - EleutherAI/gpt-neox-20b
       # - facebook/opt-6.7b
-      - facebook/opt-30b  
-    scriptname: run_accuracy_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - float32
-      # - bfloat16
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    shardpath: "/qmodel/shard_opt30"
-    outdir: "/qmodel/ds_opt30"
-    bestpath: "/qmodel/ds_opt30/best_model.pt"
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+      # - facebook/opt-30b  
+    # scriptname: run_accuracy_with_deepspeed.py
+    # device:
+    #   - cpu
+    # dtype:
+    #   - float32
+    #   # - bfloat16
+    # inputtokens:
+    # numiter: 1000
+    # maxnewtokens: 32
+    # shardpath: "/qmodel/shard_opt7"
+    # outdir: "/qmodel/ds_opt7"
+    # bestpath: "/qmodel/ds_opt7/best_model.pt"
+    # prompt: None
+    # greedy: 
+    #   - false
+    # ipex: true
+    # jit: true
+    # numwarmup: 5
+    # batchsize: 1
+    # tokenlatency: false
+  # sedeepspeed:
+  #   modelid:
+  #     - facebook/opt-30b  
+  #   scriptname: run_accuracy_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - float32
+  #     # - bfloat16
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   shardpath: "/qmodel/shard_opt30"
+  #   outdir: "/qmodel/ds_opt30"
+  #   bestpath: "/qmodel/ds_opt30/best_model.pt"
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # llama13_mixed:
   #   modelid:
   #     - meta-llama/Llama-2-13b-hf
