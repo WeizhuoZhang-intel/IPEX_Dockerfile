@@ -127,7 +127,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"export KMP_PLAIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_PLAIN_BARRIER_PATTERN']}")
             lines.append(f"export KMP_REDUCTION_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_REDUCTION_BARRIER_PATTERN']}")
         lines.append("log_dir=${1:-log_dir}")
-        lines.append("mkdir -p $log_dir")
+        lines.append("sudo mkdir -p $log_dir")
         lines.append("# device info")
         lines.append(fetch_device_info)
         lines.append(collect_result)    
