@@ -142,7 +142,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export CCL_ATL_TRANSPORT=ofi")
             lines.append("export CCL_ATL_SHM=1")
             lines.append("export DS_SHM_ALLREDUCE=1")
-
+            lines.append("export TRANSFORMERS_OFFLINE=0")
             for rank in data['modelargs'][mode]['localrank']:
                 if rank == 2:
                     lines.append("export CCL_WORKER_AFFINITY=0,32")
