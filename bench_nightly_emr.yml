@@ -31,7 +31,6 @@ modelargs:
       - cpu
     dtype:
       - bfloat16
-      - float32
     localrank:
       - 2
       - 4
@@ -98,7 +97,6 @@ modelargs:
       - cpu
     dtype:
       - bfloat16
-      - float32
     localrank:
       - 2
     batchsize: 1
@@ -114,10 +112,37 @@ modelargs:
       - 128
       - 1024
     inputtokens:
+      - 1024
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  max23deepspeed:
+    modelid:
+      - EleutherAI/gpt-j-6b
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+      - float32
+    localrank:
+      - 2
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
       - 32
       - 128
       - 512
-      - 1024
     prompt: None
     ipex: true
     jit: true
