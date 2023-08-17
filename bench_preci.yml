@@ -58,7 +58,7 @@ modelargs:
  
   gptj_int8:
     modelid: EleutherAI/gpt-j-6B
-    scriptname: run_gptj_int8.py
+    scriptname: run_gpt-j_int8.py
     device:
       - cpu
     dtype: int8
