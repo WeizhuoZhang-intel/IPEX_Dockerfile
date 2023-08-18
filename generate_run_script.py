@@ -163,7 +163,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append("# GPT-J quantization")
                 lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
-                # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
+                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output in data['modelargs'][mode]['maxnewtokens']:
                         for beam in data['modelargs'][mode]['greedy']:
