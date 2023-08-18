@@ -116,6 +116,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("set -x")
         lines.append("# Env config")
         lines.append("export WORKDIR=/root/workspace")
+        lines.append("# source $HOME/oneCCL_install/env/setvars.sh")
         lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
