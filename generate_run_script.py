@@ -119,6 +119,9 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
+        lines.append("export TRANSFORMERS_OFFLINE=0")
+        lines.append("pip install --upgrade huggingface_hub")
+        lines.append("huggingface-cli login --token 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")
         # lines.append("export DNNL_VERBOSE=1")
         if extra_kmp:
             lines.append(f"export KMP_TPAUSE={data['envconfig']['LLM_EXTRA_KMP']['KMP_TPAUSE']}")
@@ -133,83 +136,160 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(fetch_device_info)
         lines.append(collect_result)    
         lines.append("")
-        if mode == "default":
-            lines.append("# Run workload")
+        if mode.endswith('default'):
+            lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
-                            for beam in data['modelargs'][mode]['greedy']:                               
-                                lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log 2>&1 || true &")
-                                if beam == True:
-                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --greedy --dtype {dtype} --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
-                                else:
-                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
-                                lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
-        if mode == "tpp":
-            lines.append("# Run workload")
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log 2>&1 || true &")
-                            if beam == True:
-                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python \
-                                {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --greedy --dtype {dtype} \
-                                --ipex-tpp --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
-                            else:
-                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex-tpp --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
-                            lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log 2>&1 || true &")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu \
+                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --dtype {dtype} --ipex --jit --token-latency \
+                                            2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log")
+
         if mode.endswith('int8'):
+            lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append("# GPT-J quantization")
                 lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
+                if model_id == "EleutherAI/gpt-neox-20b":
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8 --lowp-mode 'BF16' -m {model_id}")
+                else:
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output in data['modelargs'][mode]['maxnewtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency \
-                             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output}_greedy_{beam}.log")
-                # if mode.startswith('llama') and "llama" in model_id:
-                #     lines.append("# LLaMA quantization")
-                #     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8 -m {model_id}")
-            # lines.append("# Run workload")
-            # for model_id in data['modelargs'][mode]['modelid']:
-            #     for input_token in data['modelargs'][mode]['inputtokens']:
-            #         for beam in data['modelargs'][mode]['greedy']:
-            #             lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log 2>&1 || true &")
-            #             if beam == True:
-            #                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized_model_path \
-            #                 {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --greedy  --benchmark --jit --int8 -m {model_id} --token-latency 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")
-            #             else:
-            #                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized_model_path \
-            #                 {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --benchmark --jit --int8 -m {model_id} --token-latency 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}_greedy_{beam}.log")
-                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output}_greedy_{beam}.log") 
-        if mode.endswith('bf16'):
-            for model_id in data['modelargs'][mode]['modelid']:
-                # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
-                for input_token in data['modelargs'][mode]['inputtokens']:
-                    for output in data['modelargs'][mode]['maxnewtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --input-tokens {input_token} --max-new-tokens {output} --jit -m {model_id} --dtype bfloat16 --lambada --benchmark --token-latency \
-                             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16_{input_token}-{output}_greedy_{beam}.log")
-        
-        if mode == 'deepspeed':
-            lines.append("# DS Env config")
+                        lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log 2>&1 || true &")
+                        if model_id == "EleutherAI/gpt-neox-20b":
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
+                                        --input-tokens {input_token} --max-new-tokens {output} --jit int8 -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
+                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woqint8_{input_token}-{output}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woqint8_{input_token}-{output}.log")
+                        else:
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
+                                        --input-tokens {input_token} --max-new-tokens {output} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
+                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woqmixed_{input_token}-{output}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woqmixed_{input_token}-{output}.log")
+
+        if mode.endswith('2s'):
+            lines.append("# Run Workload")
+
+            lines.append("export CCL_WORKER_COUNT=1")
+            lines.append("export CCL_PROCESS_LAUNCHER=none")
+            lines.append("export CCL_ATL_TRANSPORT=ofi")
+            lines.append("export CCL_ATL_SHM=1")
+
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            lines.append("export CCL_WORKER_AFFINITY=0,56")
+
+            lines.append("export DS_SHM_ALLREDUCE=1")
             lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")
+
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log 2>&1 || true &")
-                            if beam == True:
-                                lines.append(f"deepspeed --enable_each_rank_log=/root/workspace/IPEX_Dockerfile/log_dir/ --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
-                                --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log") 
-                            else:
-                                lines.append(f"deepspeed --enable_each_rank_log=/root/workspace/IPEX_Dockerfile/log_dir/ --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log") 
-                            lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")                        
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log 2>&1 || true &")
+                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators 2 --bind_core_list 0-111 {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                         --max-new-tokens {output_token} --ipex --jit --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log") 
+                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log")
+
+        if mode.endswith('2swoq'):
+            lines.append("# Run Workload")
+
+            lines.append("export CCL_WORKER_COUNT=1")
+            lines.append("export CCL_PROCESS_LAUNCHER=none")
+            lines.append("export CCL_ATL_TRANSPORT=ofi")
+            lines.append("export CCL_ATL_SHM=1")
+
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            lines.append("export CCL_WORKER_AFFINITY=0,56")
+
+            lines.append("export DS_SHM_ALLREDUCE=1")
+            lines.append("unset KMP_AFFINITY")
+
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}.log 2>&1 || true &")
+                            if model_id == "EleutherAI/gpt-neox-20b":
+                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators 2 --bind_core_list 0-111 {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            --max-new-tokens {output_token} --ipex --jit --ipex-weight-only-quantization --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}.log") 
+                                lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}.log")
+                            
+
+
+        # if mode == "default":
+        #     lines.append("# Run workload")
+        #     for model_id in data['modelargs'][mode]['modelid']:
+        #         for dtype in data['modelargs'][mode]['dtype']:
+        #             for input_token in data['modelargs'][mode]['inputtokens']:
+        #                     for beam in data['modelargs'][mode]['greedy']:                               
+        #                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log 2>&1 || true &")
+        #                         if beam == True:
+        #                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --greedy --dtype {dtype} --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
+        #                         else:
+        #                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
+        #                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
+        # if mode == "tpp":
+        #     lines.append("# Run workload")
+        #     for model_id in data['modelargs'][mode]['modelid']:
+        #         for dtype in data['modelargs'][mode]['dtype']:
+        #             for input_token in data['modelargs'][mode]['inputtokens']:
+        #                 for beam in data['modelargs'][mode]['greedy']:
+        #                     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log 2>&1 || true &")
+        #                     if beam == True:
+        #                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python \
+        #                         {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --greedy --dtype {dtype} \
+        #                         --ipex-tpp --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
+        #                     else:
+        #                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex-tpp --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
+        #                     lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")
+
+
+
+        # if mode.endswith('int8'):
+        #     for model_id in data['modelargs'][mode]['modelid']:
+        #         lines.append("# GPT-J quantization")
+        #         lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+        #         lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
+        #         for input_token in data['modelargs'][mode]['inputtokens']:
+        #             for output in data['modelargs'][mode]['maxnewtokens']:
+        #                 for beam in data['modelargs'][mode]['greedy']:
+        #                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency \
+        #                      2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output}_greedy_{beam}.log")
+
+        #                     lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output}_greedy_{beam}.log") 
+        # if mode.endswith('bf16'):
+        #     for model_id in data['modelargs'][mode]['modelid']:
+        #         # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
+        #         for input_token in data['modelargs'][mode]['inputtokens']:
+        #             for output in data['modelargs'][mode]['maxnewtokens']:
+        #                 for beam in data['modelargs'][mode]['greedy']:
+        #                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --input-tokens {input_token} --max-new-tokens {output} --jit -m {model_id} --dtype bfloat16 --lambada --benchmark --token-latency \
+        #                      2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16_{input_token}-{output}_greedy_{beam}.log")
+        
+        # if mode == 'deepspeed':
+        #     lines.append("# DS Env config")
+        #     lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+        #     lines.append("unset KMP_AFFINITY")
+        #     lines.append("# Run workload")
+        #     for model_id in data['modelargs'][mode]['modelid']:
+        #         for dtype in data['modelargs'][mode]['dtype']:
+        #             for input_token in data['modelargs'][mode]['inputtokens']:
+        #                 for beam in data['modelargs'][mode]['greedy']:
+        #                     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log 2>&1 || true &")
+        #                     if beam == True:
+        #                         lines.append(f"deepspeed --enable_each_rank_log=/root/workspace/IPEX_Dockerfile/log_dir/ --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
+        #                         --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log") 
+        #                     else:
+        #                         lines.append(f"deepspeed --enable_each_rank_log=/root/workspace/IPEX_Dockerfile/log_dir/ --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+        #                         --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log") 
+        #                     lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}.log")     
+
+
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
