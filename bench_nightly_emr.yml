@@ -20,15 +20,6 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-
-EleutherAI/gpt-j-6B	autoTP	2	fp32,bf16, woq bf16 mixed	32/128/512/1024	32
-EleutherAI/gpt-j-6B	autoTP	2	fp32,bf16	1024	32/128/512/1024
-meta-llama/Llama-2-7b-hf	autoTP	2	fp32,bf16, woq bf16 mixed	32/128/512/1024/2048/4096	32
-meta-llama/Llama-2-13b-hf	autoTP	2,4	fp32,bf16, woq bf16 mixed	32/128/512/1024/2048	32
-facebook/opt-6.7b	autoTP	2	fp32,bf16, woq bf16 mixed	32/128/512/1024	32
-facebook/opt-30b	autoTP	2,4	fp32,bf16, woq bf16 mixed	32/128/512/1024	32
-EleutherAI/gpt-neox-20b	autoTP	2,4	fp32,woq int8	32/128/512/1024	32
-
 # ---------------------------------EleutherAI/gpt-j-6B---------------------------------- 
   edeepspeed:
     modelid:
