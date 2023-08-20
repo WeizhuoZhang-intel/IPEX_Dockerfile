@@ -91,6 +91,8 @@ modelargs:
       - float32
     maxnewtokens: 
       - 32
+    localrank:
+      - 2
     outputdir: "/root/workspace/qmodel/mixed_gpt"
     quantize: true
     lambada: true
@@ -156,6 +158,8 @@ modelargs:
       - cpu
     dtype: 
       - float32
+    localrank:
+      - 2
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama7"
