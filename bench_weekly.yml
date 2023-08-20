@@ -17,30 +17,6 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  # default:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B   
-  #   scriptname: run_generation.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #   inputtokens:
-  #     - 32
-  #     - 1024
-  #     - 2016
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - true
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numiter: 50
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: true
-# ---------------------------------EleutherAI/gpt-j-6B---------------------------------- 
   gptj_default:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -140,7 +116,6 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-# ---------------------------------meta-llama/Llama-2-7b-hf---------------------------------- 
 
   llama7_default:
     modelid: 
@@ -213,8 +188,6 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-
-# ---------------------------------meta-llama/Llama-2-13b-hf---------------------------------- 
 
   llama13_default:
     modelid: 
@@ -353,7 +326,6 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
-# ---------------------------------facebook/opt-6.7b---------------------------------- 
   opt7_default:
     modelid: 
       - facebook/opt-6.7b
@@ -425,7 +397,6 @@ modelargs:
   #   greedy: 
   #     - false
 
-# ---------------------------------facebook/opt-30b---------------------------------- 
   opt30_default:
     modelid: 
       - facebook/opt-30b
@@ -566,7 +537,6 @@ modelargs:
   #     # - true
   #     - false
 
-# ---------------------------------EleutherAI/gpt-neox-20b---------------------------------- 
   neox_int8:
     modelid: 
       - EleutherAI/gpt-neox-20b
