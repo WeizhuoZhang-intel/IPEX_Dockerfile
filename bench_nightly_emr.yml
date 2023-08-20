@@ -20,7 +20,6 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-# ---------------------------------EleutherAI/gpt-j-6B---------------------------------- 
   edeepspeed:
     modelid:
       - EleutherAI/gpt-j-6B
@@ -115,8 +114,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-    
-# ---------------------------------meta-llama/Llama-2-7b-hf---------------------------------- 
+      
   ldeepspeed:
     modelid:
       - meta-llama/Llama-2-7b-hf
@@ -185,8 +183,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-      
-# ---------------------------------meta-llama/Llama-2-13b-hf---------------------------------- 
+  
   l13deepspeed:
     modelid:
       - meta-llama/Llama-2-13b-hf
@@ -258,7 +255,6 @@ modelargs:
       # - true
       - false
 
-# ---------------------------------facebook/opt-6.7b---------------------------------- 
   optdeepspeed:
     modelid:
       - facebook/opt-6.7b
@@ -325,8 +321,8 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-# ---------------------------------facebook/opt-30b---------------------------------- 
-  optdeepspeed:
+      
+  opt30deepspeed:
     modelid:
       - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
@@ -391,7 +387,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-# ---------------------------------EleutherAI/gpt-neox-20b---------------------------------- 
+      
   neox_int8:
     modelid: 
       - EleutherAI/gpt-neox-20b
