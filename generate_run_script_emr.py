@@ -155,19 +155,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for input_token in data['modelargs'][mode]['inputtokens']:
                                 for beam in data['modelargs'][mode]['greedy']:
                                     for maxtoken in data['modelargs'][mode]['maxnewtokens']:
-                                        # if dtype == "bfloat16":
-                                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
-                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                            --max-new-tokens {maxtoken} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
-                                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
-
-
-                                        # elif dtype == "float32":
-                                        #     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
-                                        #     lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                        #     --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
-                                        #     lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
-    
+                                        lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
+                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                        --max-new-tokens {maxtoken} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
+                                        lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
 
                 if rank == 4:
                     lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
@@ -176,16 +167,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for input_token in data['modelargs'][mode]['inputtokens']:
                                 for beam in data['modelargs'][mode]['greedy']:
                                     for maxtoken in data['modelargs'][mode]['maxnewtokens']:
-                                        # if dtype == "bfloat16":
-                                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
-                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                            --max-new-tokens {maxtoken} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
-                                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
-                                        # elif dtype == "float32":
-                                        #     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
-                                        #     lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                        #     --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
-                                        #     lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
+                                        lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
+                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                        --max-new-tokens {maxtoken} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
+                                        lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
 
         if mode.endswith('int8'):
             lines.append("# DS Env config")
@@ -210,14 +195,14 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     for maxtoken in data['modelargs'][mode]['maxnewtokens']:  
                                         if model_id == "EleutherAI/gpt-neox-20b":
                                             lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
-                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype float32 --input-tokens {input_token} \
+                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark  -m {model_id} --dtype float32 --input-tokens {input_token} \
                                             --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
                                         else:
-                                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woqmixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
-                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
-                                            --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqmixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
-                                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqmixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
+                                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
+                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                            --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
+                                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
 
                 if rank == 4:
                     lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
@@ -226,96 +211,17 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for input_token in data['modelargs'][mode]['inputtokens']:
                                 for beam in data['modelargs'][mode]['greedy']:
                                     for maxtoken in data['modelargs'][mode]['maxnewtokens']:  
-                                        lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
-                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                        --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
-                                        lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")          
+                                        if model_id == "EleutherAI/gpt-neox-20b":
+                                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
+                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
+                                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")          
+                                        else:
+                                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log 2>&1 || true &")
+                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                            --max-new-tokens {maxtoken} --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log") 
+                                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{maxtoken}_greedy_{beam}_NUMA_{rank}_BF16.log")
 
-            # lines.append("export FI_PROVIDER=sockets")
-            # for model_id in data['modelargs'][mode]['modelid']:
-            #     for dtype in data['modelargs'][mode]['dtype']:
-            #         for input_token in data['modelargs'][mode]['inputtokens']:
-            #             for beam in data['modelargs'][mode]['greedy']:
-            #                 for numa in data['modelargs'][mode]['localrank']:
-            #                     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_BF16.log 2>&1 || true &")
-            #                     if dtype == "bfloat16":
-            #                         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-            #                         --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_BF16.log") 
-            #                     elif dtype == "float32":
-            #                         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-            #                         --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_BF16.log") 
-                                
-                                # if beam == True:
-                                #     lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --greedy --dtype {dtype} --input-tokens {input_token} \
-                                #     --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                # else:
-                                #     lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                #     --ipex --jit --token-latency --profile 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                # lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_BF16.log")     
-        if mode == 'deepspeed4int8':
-            lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")
-            lines.append("export CCL_WORKER_COUNT=1")
-            lines.append("export CCL_PROCESS_LAUNCHER=none")
-            lines.append("export CCL_ATL_TRANSPORT=ofi")
-            lines.append("export CCL_ATL_SHM=1")
-            lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
-            lines.append("export DS_SHM_ALLREDUCE=1")
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            for numa in data['modelargs'][mode]['localrank']:
-                                for lowp in data['modelargs'][mode]['lowpmode']:
-                                    lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_{lowp}.log 2>&1 || true &")
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                        --ipex --jit --ipex-weight-only-quantization --token-latency --lowp-mode {lowp} 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_{lowp}.log") 
-
-                                    lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_{lowp}.log")   
-
-        if mode == 'deepspeed2int8':
-            lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")
-            lines.append("export CCL_WORKER_COUNT=1")
-            lines.append("export CCL_PROCESS_LAUNCHER=none")
-            lines.append("export CCL_ATL_TRANSPORT=ofi")
-            lines.append("export CCL_ATL_SHM=1")
-            lines.append("export CCL_WORKER_AFFINITY=0,32")
-            lines.append("export DS_SHM_ALLREDUCE=1")
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            for numa in data['modelargs'][mode]['localrank']:
-                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log 2>&1 || true &")
-                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-63 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                --ipex --jit --ipex-weight-only-quantization --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log") 
-                                lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}.log")  
-        if mode == 'deepspeed4bf16':
-            lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")
-            lines.append("export CCL_WORKER_COUNT=1")
-            lines.append("export CCL_PROCESS_LAUNCHER=none")
-            lines.append("export CCL_ATL_TRANSPORT=ofi")
-            lines.append("export CCL_ATL_SHM=1")
-            lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
-            lines.append("export DS_SHM_ALLREDUCE=1")
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    for input_token in data['modelargs'][mode]['inputtokens']:
-                        for beam in data['modelargs'][mode]['greedy']:
-                            for numa in data['modelargs'][mode]['localrank']:
-                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_BF16.log 2>&1 || true &")
-                                if dtype == "bfloat16":
-                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-127 {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                    --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_BF16.log") 
-                                lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','-')}_{dtype}_{input_token}_greedy_{beam}_NUMA_{numa}_BF16.log")  
         # if mode == 'deepspeed4':
         #     lines.append("# DS Env config")
         #     lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
@@ -354,9 +260,9 @@ if __name__ == '__main__':
     if args.nightly:
         yml_file = 'bench_nightly.yml'
     if args.weekly:
-        yml_file = 'bench_weekly.yml'
+        yml_file = 'bench_emr_weekly.yml'
     if args.debug:
-        yml_file = 'bench_debug.yml'
+        yml_file = 'bench_emr_debug.yml'
     if args.emr_nightly:
         yml_file = 'bench_nightly_emr.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
