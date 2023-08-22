@@ -63,7 +63,6 @@ modelargs:
       - cpu
     dtype: int8
     maxnewtokens: 32
-    outputdir: "./saved_results"
     quantize: true
     lambada: true
     ipex: true
@@ -72,7 +71,6 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "./saved_results/best_model.pt"
     benchmark: true
     inputtokens:
       - 32
