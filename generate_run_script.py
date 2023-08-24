@@ -133,13 +133,13 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('int8'):
             if mode.startswith('gptj'):
                 lines.append("# GPT-J quantization")
-                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --jit --int8")
+                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --jit --int8-bf16-mixed")
             if mode.startswith('llama'):
                 lines.append("# LLaMA quantization")
                 lines.append(f"python python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
             lines.append("# Run workload")
             for input_token in data['modelargs'][mode]['inputtokens']:
-                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --jit --int8 --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
+                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --jit --int8-bf16-mixed --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
                 lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log")        
         if mode == 'deepspeed':
             lines.append("# DS Env config")
