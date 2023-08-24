@@ -253,6 +253,37 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
+  k70deepspeed:
+    modelid:
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 2
+      - 4
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
   llama70_int8:
     modelid: 
       - meta-llama/Llama-2-70b-hf
@@ -266,6 +297,7 @@ modelargs:
     outputdir: "/root/workspace/qmodel/mixed_llama70"
     quantize: true
     localrank:
+      - 2
       - 4
     lambada: true
     ipex: true
@@ -281,7 +313,6 @@ modelargs:
       - 128
       - 512
       - 1024
-      - 2048
     prompt: None
     numiter: 50
     numwarmup: 10

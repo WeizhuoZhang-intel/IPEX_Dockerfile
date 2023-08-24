@@ -590,6 +590,9 @@ modelargs:
     benchmark: true
     inputtokens:
       - 32
+      - 128
+      - 512
+      - 1024
     prompt: None
     numiter: 50
     numwarmup: 10
@@ -607,9 +610,6 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-      - 128
-      - 512
-      - 1024
     outputdir: "/root/workspace/qmodel/mixed_llama70"
     quantize: true
     lambada: true
