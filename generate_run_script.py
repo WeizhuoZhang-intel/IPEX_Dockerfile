@@ -128,7 +128,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
-                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --jit --token-latency --benchmark 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
         if mode.endswith('int8'):
             if mode.startswith('gptj'):
