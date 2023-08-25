@@ -49,14 +49,14 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
-  opt1_2swoq:
+  opt1_2s:
     modelid: 
       - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
     dtype: 
-      - int8
+      - bfloat16
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt30"
@@ -80,14 +80,14 @@ modelargs:
     greedy: 
       # - true
       - false
-  opt2_2swoq:
+  opt2_2s:
     modelid: 
       - facebook/opt-6.7b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
     dtype: 
-      - int8
+      - bfloat16
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
