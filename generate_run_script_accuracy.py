@@ -205,23 +205,15 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
-                    # lines.append(f"mkdir {data['modelargs'][mode]['shardpath']}")
-                    # lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
-                    # lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
-                    # lines.append(f"deepspeed --bind_cores_to_rank run_generation_with_deepspeed.py -m {data['modelargs'][mode]['shardpath']} --output-dir {data['modelargs'][mode]['outdir']} --prompt mint --dtype float32 --ipex --jit --ipex-weight-only-quantization")
-                    # lines.append(f"python run_generation_with_deepspeed.py --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
-
-                    # lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_accuracy_with_deepspeed.py --device cpu --model {data['modelargs'][mode]['shardpath']} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype float32 --profile --ipex --jit --tasks lambada_openai --accuracy-only \
-                    #             2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_dswoq_{dtype}_accuracy.log")
                     if dtype == "bfloat16" and model_id != "EleutherAI/gpt-neox-20b":      
-                        lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only \
+                        lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --ipex-weight-only-quantization --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only \
                                     2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_accuracy.log")
                     elif dtype == "int8":
                         if model_id == "EleutherAI/gpt-neox-20b":
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --dtype float32 --ipex --jit --tasks lambada_openai --accuracy-only \
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --ipex-weight-only-quantization --dtype float32 --ipex --jit --tasks lambada_openai --accuracy-only \
                                         2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqint8_accuracy.log")
                         else:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only \
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --ipex-weight-only-quantization --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only \
                                         2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_accuracy.log")
 
 
