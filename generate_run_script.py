@@ -215,7 +215,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
-                            if model_id == "EleutherAI/gpt-neox-20b":
+                            if model_id != "EleutherAI/gpt-neox-20b":
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log 2>&1 || true &")
                                 lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators 2 --bind_core_list 0-111 {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --dtype float32 --input-tokens {input_token} \
                                             --max-new-tokens {output_token} --ipex --jit --ipex-weight-only-quantization --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log") 
