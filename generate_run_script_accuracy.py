@@ -119,11 +119,12 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
         # lines.append("export DNNL_VERBOSE=1")
 
-        lines.append(f"export KMP_TPAUSE={data['envconfig']['LLM_EXTRA_KMP']['KMP_TPAUSE']}")
-        lines.append(f"export KMP_SETTINGS={data['envconfig']['LLM_EXTRA_KMP']['KMP_SETTINGS']}")
-        lines.append(f"export KMP_FORJOIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_FORJOIN_BARRIER_PATTERN']}")
-        lines.append(f"export KMP_PLAIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_PLAIN_BARRIER_PATTERN']}")
-        lines.append(f"export KMP_REDUCTION_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_REDUCTION_BARRIER_PATTERN']}")
+        if extra_kmp:
+            lines.append(f"export KMP_TPAUSE={data['envconfig']['LLM_EXTRA_KMP']['KMP_TPAUSE']}")
+            lines.append(f"export KMP_SETTINGS={data['envconfig']['LLM_EXTRA_KMP']['KMP_SETTINGS']}")
+            lines.append(f"export KMP_FORJOIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_FORJOIN_BARRIER_PATTERN']}")
+            lines.append(f"export KMP_PLAIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_PLAIN_BARRIER_PATTERN']}")
+            lines.append(f"export KMP_REDUCTION_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_REDUCTION_BARRIER_PATTERN']}")
         lines.append("export TRANSFORMERS_OFFLINE=1")
         
         lines.append("log_dir=${1:-log_dir}")
@@ -134,16 +135,16 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("")
         if mode == 'default':
             lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+
             lines.append("unset KMP_AFFINITY")
             lines.append("# Run workload")
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     lines.append(f"numactl -m 0 -N 0 python {data['modelargs'][mode]['scriptname']} --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                  2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_accuracy.log")
         if mode.endswith('mixed'):
             lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             lines.append("unset KMP_AFFINITY")
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:
@@ -151,22 +152,31 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                     lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8-bf16-mixed -m {model_id} --lowp-mode 'BF16'")
-
+                    lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
                     lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
-                                 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_mixed_{dtype}_accuracy.log")
+                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woqbf16mixed_{dtype}_accuracy.log")
         if mode.endswith('int8'):
             lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")    
+            lines.append("# Run workload")  
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
 
-                    lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
+                    if model_id == "EleutherAI/gpt-neox-20b":
+                        lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
+                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8-bf16-mixed -m {model_id} --lowp-mode 'BF16'")
+                        lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+                        lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
+                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woqint8_{dtype}_accuracy.log")
+                    else:
+                        lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
+                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8-bf16-mixed -m {model_id} --lowp-mode 'BF16'")
+                        lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+                        lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
+                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16mixed_{dtype}_accuracy.log")
+                    
 
-                    lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --ipex --jit --tasks lambada_openai \
-                                 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy.log")
         if mode == 'gpt_woq'or mode == 'llama13_woq' or mode == 'llama7_woq' or mode == 'neox_woq':
             lines.append("# DS Env config")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
@@ -203,9 +213,18 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                     # lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_accuracy_with_deepspeed.py --device cpu --model {data['modelargs'][mode]['shardpath']} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype float32 --profile --ipex --jit --tasks lambada_openai --accuracy-only \
                     #             2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_dswoq_{dtype}_accuracy.log")
-                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only \
-                                2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_accuracy.log")
-        
+                    if dtype == "bfloat16" and model_id != "EleutherAI/gpt-neox-20b":      
+                        lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only \
+                                    2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_accuracy.log")
+                    elif dtype == "int8":
+                        if model_id == "EleutherAI/gpt-neox-20b":
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --dtype float32 --ipex --jit --tasks lambada_openai --accuracy-only \
+                                        2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqint8_accuracy.log")
+                        else:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank run_acc.py --device cpu --model {model_id} --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only \
+                                        2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_accuracy.log")
+
+
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
