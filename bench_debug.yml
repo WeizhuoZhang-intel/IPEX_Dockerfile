@@ -51,7 +51,8 @@ modelargs:
   #     - false
   opt1_2s:
     modelid: 
-      - facebook/opt-6.7b
+      - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-13b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -82,7 +83,7 @@ modelargs:
       - false
   opt2_2swoq:
     modelid: 
-      - facebook/opt-6.7b
+      - meta-llama/Llama-2-7b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
