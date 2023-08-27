@@ -125,6 +125,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"export KMP_FORJOIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_FORJOIN_BARRIER_PATTERN']}")
             lines.append(f"export KMP_PLAIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_PLAIN_BARRIER_PATTERN']}")
             lines.append(f"export KMP_REDUCTION_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_REDUCTION_BARRIER_PATTERN']}")
+
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
         lines.append("huggingface-cli login --token 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")   
@@ -139,6 +140,9 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# DS Env config")
 
             lines.append("unset KMP_AFFINITY")
+            lines.append("export TRANSFORMERS_OFFLINE=0")
+            lines.append("pip install --upgrade huggingface_hub")
+            lines.append("huggingface-cli login --token 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")   
             lines.append("# Run workload")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -148,6 +152,9 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('mixed'):
             lines.append("# DS Env config")
             lines.append("unset KMP_AFFINITY")
+            lines.append("export TRANSFORMERS_OFFLINE=0")
+            lines.append("pip install --upgrade huggingface_hub")
+            lines.append("huggingface-cli login --token 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")   
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
@@ -160,6 +167,9 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('int8'):
             lines.append("# DS Env config")
             lines.append("unset KMP_AFFINITY")
+            lines.append("export TRANSFORMERS_OFFLINE=0")
+            lines.append("pip install --upgrade huggingface_hub")
+            lines.append("huggingface-cli login --token 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")   
             lines.append("# Run workload")  
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
             for model_id in data['modelargs'][mode]['modelid']:
@@ -179,24 +189,24 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16mixed_{dtype}_accuracy.log")
                     
 
-        if mode == 'gpt_woq'or mode == 'llama13_woq' or mode == 'llama7_woq' or mode == 'neox_woq':
-            lines.append("# DS Env config")
-            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-            lines.append("unset KMP_AFFINITY")
-            lines.append("# Run workload")    
-            for model_id in data['modelargs'][mode]['modelid']:
-                for dtype in data['modelargs'][mode]['dtype']:
-                    # for lowp in data['modelargs'][mode]['lowpmode']:
+        # if mode == 'gpt_woq'or mode == 'llama13_woq' or mode == 'llama7_woq' or mode == 'neox_woq':
+        #     lines.append("# DS Env config")
+        #     lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+        #     lines.append("unset KMP_AFFINITY")
+        #     lines.append("# Run workload")    
+        #     for model_id in data['modelargs'][mode]['modelid']:
+        #         for dtype in data['modelargs'][mode]['dtype']:
+        #             # for lowp in data['modelargs'][mode]['lowpmode']:
                         
-                        # dir = {data['modelargs'][mode]['outdir']} + "_" + lowp
-                        # path = dir + "/best_model.pt"
+        #                 # dir = {data['modelargs'][mode]['outdir']} + "_" + lowp
+        #                 # path = dir + "/best_model.pt"
 
-                        # lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
+        #                 # lines.append(f"mkdir {data['modelargs'][mode]['outdir']}")
 
-                        # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
+        #                 # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8 -m {model_id}")
 
-                        lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --ipex --jit --tasks lambada_openai \
-                                    2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy_woq.log")
+        #                 lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --ipex --jit --tasks lambada_openai \
+        #                             2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_smooth_{dtype}_accuracy_woq.log")
 
         if mode.endswith('deepspeed'):
             lines.append("# DS Env config")
@@ -204,6 +214,9 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             lines.append(f"export LD_LIBRARY_PATH=/root/oneCCL_install/lib:$LD_LIBRARY_PATH")
             lines.append("unset KMP_AFFINITY")
+            lines.append("export TRANSFORMERS_OFFLINE=0")
+            lines.append("pip install --upgrade huggingface_hub")
+            lines.append("huggingface-cli login --token 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")   
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
