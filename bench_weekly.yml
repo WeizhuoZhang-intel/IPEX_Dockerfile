@@ -635,7 +635,7 @@ modelargs:
     greedy: 
       # - true
       - false
-  neox_2sint8:
+  neox_2swoq:
     modelid: 
       - EleutherAI/gpt-neox-20b
     scriptname: run_generation_with_deepspeed.py
