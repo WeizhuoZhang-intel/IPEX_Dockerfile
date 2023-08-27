@@ -34,6 +34,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 1
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -99,6 +101,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 1
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -131,6 +135,8 @@ modelargs:
       - 1024
     outputdir: "/root/workspace/qmodel/mixed_gpt"
     quantize: true
+    localrank:
+      - 1
     lambada: true
     ipex: true
     jit: true
@@ -181,6 +187,8 @@ modelargs:
     numiter: 50
     numwarmup: 10
     batchsize: 1
+    localrank:
+      - 1
     tokenlatency: true
     greedy: 
       # - true
@@ -201,6 +209,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 1
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -236,6 +246,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 1
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -271,6 +283,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 1
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -305,6 +319,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 1
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -339,6 +355,8 @@ modelargs:
     lambada: true
     ipex: true
     jit: true
+    localrank:
+      - 2
     int8: true
     incsmoothquant: true
     ipexsmmothquant: true
@@ -375,6 +393,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 2
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -411,6 +431,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 1
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -493,6 +515,8 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
+    localrank:
+      - 1
     batchsize: 1
     tokenlatency: true
     greedy: 
@@ -560,6 +584,8 @@ modelargs:
       - 512
       - 1024
     prompt: None
+    localrank:
+      - 2
     numiter: 50
     numwarmup: 10
     batchsize: 1
@@ -630,6 +656,8 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
+    localrank:
+      - 1
     batchsize: 1
     tokenlatency: true
     greedy: 
@@ -665,6 +693,8 @@ modelargs:
     numiter: 50
     numwarmup: 10
     batchsize: 1
+    localrank:
+      - 2
     tokenlatency: true
     greedy: 
       # - true

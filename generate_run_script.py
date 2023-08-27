@@ -277,9 +277,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
                             for numa in data['modelargs'][mode]['localrank']:
+                                lines.append(f"export local_rank={numa}")
                                 lines.append("deepspeed_core_config ${local_rank}")
                                 lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+
                                 if model_id == "EleutherAI/gpt-neox-20b":
                                     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log 2>&1 || true &")
                                     lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --dtype float32 --input-tokens {input_token} \

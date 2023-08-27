@@ -189,6 +189,7 @@ modelargs:
       - int8
     localrank:
       - 2
+      - 4
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama13"
