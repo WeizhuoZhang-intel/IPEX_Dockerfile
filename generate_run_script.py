@@ -20,6 +20,61 @@ threads_per_core=$(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
 cores_per_node=$(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
 '''
 
+deepspeed_ccl_func = '''
+function deepspeed_core_config() {
+    sockets_num=$(lscpu |grep 'Socket(s):' |sed 's/[^0-9]//g')
+    cores_per_socket=$(lscpu |grep 'Core(s) per socket:' |sed 's/[^0-9]//g')
+    numa_nodes_num=$(numactl -H |grep 'node [0-9]* cpus: [0-9].*' |wc -l)
+    threads_per_core=$(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
+    cores_per_node=$(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+    local_rank=$1
+    OOB_TOTAL_CORES_USE=$((${cores_per_node}*${local_rank}))
+    hbm_index=0
+    cores_per_instance=${cores_per_node}
+    numa_nodes_use_=1,$local_rank
+
+    device_array=($(numactl -H |grep "node [0-9]* cpus:" |sed "s/.*node//;s/cpus://" |sed -n "${numa_nodes_use_}p" |\\
+                    awk -v cpn=${cores_per_node} '{for(i=1;i<=cpn+1;i++) {printf(" %s ",$i)} printf("\\n");}' |grep '[0-9]' |\\
+                    awk -v cpi=${cores_per_instance} -v cpn=${cores_per_node} -v cores=${OOB_TOTAL_CORES_USE} -v hi=${hbm_index} '{
+                if(cores == "") { if(cpi > cpn) {cores = cpi}else {cores = NF} }
+                for( i=2; i<=cores; i++ ) {
+                    if($i != "") {
+                        if((i-1) % cpi == 0) {
+                            print $i";"$1+hi
+                        }else {
+                            printf $i","
+                        }
+                    }
+                }
+            }' |sed "s/,$//"))
+
+    echo ${device_array}
+    export LLM_DEEPSPEED_COMM_CORES=0
+    deepspeed_cores_list=($(echo ${device_array[@]} |sed 's/ /\\n/g' |awk -F ';' '{print $1}' |awk -F ',' -v cores=$LLM_DEEPSPEED_COMM_CORES 'BEGIN{
+                    busy = "";
+                    idle = "";
+                }{
+                    for (i=1;i<=NF;i++) {
+                        if(i==1) {
+                            idle = idle","$i;
+                            if(cores==0) {
+                                busy = busy","$i;
+                            }
+                        }else {
+                            if(i>cores) {
+                                busy = busy","$i;
+                            }
+                        }
+                    }
+                }END{
+                    printf("%s\\n%s", idle, busy);
+                }' |sed 's/^,//'))
+
+    echo $deepspeed_cores_list
+    # return $deepspeed_cores_list
+}
+'''
+
 collect_result = '''
 function collect_perf_logs_llm() {
     # latency
@@ -136,6 +191,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("# device info")
         lines.append(fetch_device_info)
         lines.append(collect_result)    
+        lines.append(deepspeed_ccl_func)
         lines.append("")
         if mode.endswith('default'):
             lines.append("# Run Workload")
@@ -191,11 +247,16 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for numa in data['modelargs'][mode]['localrank']:
+                                lines.append(f"export local_rank={numa}")
+                                lines.append("deepspeed_core_config ${local_rank}")
+                                lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                                lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
-                            lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_2_BF16.log 2>&1 || true &")
-                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators 2 --bind_core_list 0-111 {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
-                                         --max-new-tokens {output_token} --ipex --jit --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_2_BF16.log") 
-                            lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_2_BF16.log")
+                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log 2>&1 || true &")
+                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list 0-({numa}*{data['envconfig']['cores_per_node']}-1) {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            --max-new-tokens {output_token} --ipex --jit --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log") 
+                                lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log")
 
         if mode.endswith('2swoq'):
             lines.append("# Run Workload")

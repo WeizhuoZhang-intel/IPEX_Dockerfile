@@ -146,10 +146,10 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
-  llama13_int8:
+  llama13_2s:
     modelid: 
       - meta-llama/Llama-2-13b-hf
-    scriptname: run_llama_int8.py
+    scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
     dtype: int8
@@ -168,6 +168,8 @@ modelargs:
     benchmark: true
     inputtokens:
       - 32
+    localrank:
+      - 2
     prompt: None
     numiter: 50
     numwarmup: 10
