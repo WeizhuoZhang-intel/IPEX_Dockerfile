@@ -445,6 +445,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 2
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
@@ -480,6 +482,8 @@ modelargs:
     jit: true
     int8: true
     incsmoothquant: true
+    localrank:
+      - 2
     ipexsmmothquant: true
     int8bf16mixed: true
     quantizedmodelpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
@@ -546,6 +550,8 @@ modelargs:
     lambada: true
     ipex: true
     jit: true
+    localrank:
+      - 2
     int8: true
     incsmoothquant: true
     ipexsmmothquant: true
@@ -634,6 +640,7 @@ modelargs:
     greedy: 
       # - true
       - false
-
+    localrank:
+      - 2
 
  

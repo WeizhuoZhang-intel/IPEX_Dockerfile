@@ -187,9 +187,6 @@ modelargs:
       - cpu
     dtype: 
       - int8
-    localrank:
-      - 2
-      - 3
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama13"
@@ -206,6 +203,7 @@ modelargs:
     inputtokens:
       - 32
     localrank:
+      - 3
       - 2
     prompt: None
     numiter: 50

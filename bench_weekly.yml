@@ -709,7 +709,6 @@ modelargs:
       - bfloat16
     localrank:
       - 2
-      - 4
     batchsize: 1
     numiter: 50
     numwarmup: 5
@@ -744,7 +743,6 @@ modelargs:
     quantize: true
     localrank:
       - 2
-      - 4
     lambada: true
     ipex: true
     jit: true
