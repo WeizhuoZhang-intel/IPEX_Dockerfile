@@ -37,7 +37,7 @@ modelargs:
     benchmark: true
     cuda: true
     greedy: 
-      - false
+      - true
     ki: true
     maxnewtokens: 
       - 32
@@ -67,7 +67,7 @@ modelargs:
     benchmark: true
     cuda: true
     greedy: 
-      - false
+      - true
     ki: true
     maxnewtokens: 
       - 32
@@ -115,8 +115,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - false
-      
+      - true 
   ldeepspeed:
     modelid:
       - meta-llama/Llama-2-7b-hf
@@ -186,8 +185,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - false
-  
+      - true
   l13deepspeed:
     modelid:
       - meta-llama/Llama-2-13b-hf
@@ -205,7 +203,7 @@ modelargs:
     benchmark: true
     cuda: true
     greedy: 
-      - false
+      - true
     ki: true
     maxnewtokens: 
       - 32
@@ -257,8 +255,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       # - true
-      - false
-
+      - true
   optdeepspeed:
     modelid:
       - facebook/opt-6.7b
@@ -276,7 +273,7 @@ modelargs:
     benchmark: true
     cuda: true
     greedy: 
-      - false
+      - true
     ki: true
     maxnewtokens: 
       - 32
@@ -324,8 +321,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - false
-      
+      - true
   opt30deepspeed:
     modelid:
       - facebook/opt-30b
@@ -342,7 +338,7 @@ modelargs:
     benchmark: true
     cuda: true
     greedy: 
-      - false
+      - true
     ki: true
     maxnewtokens: 
       - 32
@@ -390,8 +386,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - false
-      
+      - true
   neox_int8:
     modelid: 
       - EleutherAI/gpt-neox-20b
@@ -427,9 +422,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - false
-
-
+      - true
   # deepspeed:
   #   modelid:
   #     # - meta-llama/Llama-2-7b-hf
@@ -758,3 +751,70 @@ modelargs:
   #   jit: true
   #   printmemory: true
   #   tokenlatency: true
+  k70deepspeed:
+    modelid:
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 2
+      - 4
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - true
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  llama70_int8:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - float32
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/mixed_llama70"
+    quantize: true
+    localrank:
+      - 2
+      - 4
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - true

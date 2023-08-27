@@ -125,7 +125,9 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"export KMP_FORJOIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_FORJOIN_BARRIER_PATTERN']}")
             lines.append(f"export KMP_PLAIN_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_PLAIN_BARRIER_PATTERN']}")
             lines.append(f"export KMP_REDUCTION_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_REDUCTION_BARRIER_PATTERN']}")
-        lines.append("export TRANSFORMERS_OFFLINE=1")
+        lines.append("export TRANSFORMERS_OFFLINE=0")
+        lines.append("pip install --upgrade huggingface_hub")
+        lines.append("huggingface-cli login --token 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")   
         
         lines.append("log_dir=${1:-log_dir}")
         lines.append("mkdir -p $log_dir")
