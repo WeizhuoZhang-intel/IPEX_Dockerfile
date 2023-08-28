@@ -154,7 +154,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --jit --int8-bf16-mixed --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
                 lines.append("ut_result=${PIPESTATUS[0]}")
                 lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log $ut_result $quant_peak_mem")
-                lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}_mprofile.dat")
+                lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{input_token}.dat")
         elif mode.startswith('deepspeed'):
             lines.append("# DS Env config")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
