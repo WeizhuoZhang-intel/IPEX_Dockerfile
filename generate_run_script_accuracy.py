@@ -159,7 +159,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
 
-                    lines.append(f"mkdir -r {data['modelargs'][mode]['outdir']}")
+                    lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8-bf16-mixed -m {model_id} --lowp-mode 'BF16'")
                     lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
                     lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
