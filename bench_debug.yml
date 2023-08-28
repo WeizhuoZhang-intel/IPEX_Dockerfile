@@ -179,50 +179,17 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
-  falcon_int8:
-    modelid: 
-      - tiiuae/falcon-40b 
-    scriptname: run_falcon_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/int8_falcon"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/int8_falcon/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-    localrank:
-      - 2
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      # - true
-      - false
-  # llama13_default:
+  # falcon_int8:
   #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run_generation_with_deepspeed.py
+  #     - tiiuae/falcon-40b 
+  #   scriptname: run_falcon_int8.py
   #   device:
   #     - cpu
   #   dtype: 
   #     - int8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/root/workspace/qmodel/mixed_llama13"
+  #   outputdir: "/root/workspace/qmodel/int8_falcon"
   #   quantize: true
   #   lambada: true
   #   ipex: true
@@ -231,7 +198,7 @@ modelargs:
   #   incsmoothquant: true
   #   ipexsmmothquant: true
   #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+  #   quantizedmodelpath: "/root/workspace/qmodel/int8_falcon/best_model.pt"
   #   benchmark: true
   #   inputtokens:
   #     - 32
@@ -245,3 +212,32 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
+  opt7_int8:
+    modelid: 
+      - facebook/opt-6.7b
+    scriptname: run_opt_int8.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/mixed_opt7"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt7/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - false
