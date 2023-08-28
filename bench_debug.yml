@@ -203,7 +203,6 @@ modelargs:
     inputtokens:
       - 32
     localrank:
-      - 3
       - 2
     prompt: None
     numiter: 50
