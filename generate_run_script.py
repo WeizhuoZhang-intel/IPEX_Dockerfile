@@ -216,7 +216,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output_token in data['modelargs'][mode]['maxnewtokens']:
                         
-                        if model_id == "EleutherAI/gpt-neox-20b":
+                        if model_id == "EleutherAI/gpt-neox-20b" or model_id == "tiiuae/falcon-40b":
                             lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log 2>&1 || true &")
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
                                         --input-tokens {input_token} --max-new-tokens {input_token} --jit --int8 -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
