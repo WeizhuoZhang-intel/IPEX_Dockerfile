@@ -19,6 +19,7 @@ cores_per_node=$(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$thr
 
 collect_result = '''
 function collect_perf_logs_llm() {
+    ut_result=$2
     # latency
     latency=($(grep -i 'inference latency:' $log_dir/$1 |sed -e 's/.*atency://;s/[^0-9.]//g;s/\.$//' |awk '
         BEGIN {
@@ -96,7 +97,7 @@ function collect_perf_logs_llm() {
         }
     '))
     printf $1 |tee -a ${log_dir}/summary.log
-    printf " ${latency[1]},${first_latency},${avg_latency},${p90_latency},${p99_latency} \\n" |tee -a ${log_dir}/summary.log
+    printf " ${latency[1]},${first_latency},${avg_latency},${p90_latency},${p99_latency},${ut_result} \\n" |tee -a ${log_dir}/summary.log
 }
 '''
 
@@ -129,8 +130,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --jit --token-latency --benchmark 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
-                        lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
-        if mode.endswith('int8'):
+                        lines.append("ut_result=${PIPESTATUS[0]}")
+                        lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log ${ut_result}")
+        elif mode.endswith('int8'):
+            # int8 test for GPT-J and LLaMA
             if mode.startswith('gptj'):
                 lines.append("# GPT-J quantization")
                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --jit --int8-bf16-mixed")
@@ -140,8 +143,9 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run workload")
             for input_token in data['modelargs'][mode]['inputtokens']:
                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --jit --int8-bf16-mixed --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
-                lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log")        
-        if mode == 'deepspeed':
+                lines.append("ut_result=${PIPESTATUS[0]}")
+                lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log ${ut_result}")
+        elif mode.startswith('deepspeed'):
             lines.append("# DS Env config")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             lines.append("unset KMP_AFFINITY")
@@ -150,7 +154,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         lines.append(f"deepspeed --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} --ipex --jit --token-latency 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
-                        lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")                        
+                        lines.append("ut_result=${PIPESTATUS[0]}")
+                        lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log ${ut_result}")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
     return generated_file
