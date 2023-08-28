@@ -182,6 +182,7 @@ modelargs:
   llama13_2swoq:
     modelid: 
       - meta-llama/Llama-2-13b-hf
+      - tiiuae/falcon-40b 
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
