@@ -19,15 +19,15 @@ launcher:
 modelargs:
   default:
     modelid:
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
       - facebook/opt-6.7b
     scriptname: run_accuracy.py
     device:
       - cpu
     dtype:
-      - float32
+      # - float32
       - bfloat16
     inputtokens:
     numiter: 1000
@@ -40,17 +40,80 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  gpt_mixed:
+  # gpt_mixed:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_int8.py
+  #   outdir: "/root/workspace/qmodel/mixed_gpt"
+  #   bestpath: "/root/workspace/qmodel/mixed_gpt/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama7_mixed:
+  #   modelid:
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/root/workspace/qmodel/mixed_llama7"
+  #   bestpath: "/root/workspace/qmodel/mixed_llama7/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama13_mixed:
+  #   modelid:
+  #     - meta-llama/Llama-2-13b-hf  
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/root/workspace/qmodel/mixed_llama13"
+  #   bestpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  opt_mixed:
     modelid:
-      - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_int8.py
-    outdir: "/root/workspace/qmodel/mixed_gpt"
-    bestpath: "/root/workspace/qmodel/mixed_gpt/best_model.pt"
+      - facebook/opt-6.7b
+    scriptname: run_opt_int8.py
     device:
       - cpu
     dtype:
       - int8
     inputtokens:
+    outdir: "/root/workspace/qmodel/mixed_opt7"
+    bestpath: "/root/workspace/qmodel/mixed_opt7/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -61,158 +124,118 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  llama7_mixed:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/root/workspace/qmodel/mixed_llama7"
-    bestpath: "/root/workspace/qmodel/mixed_llama7/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama13_mixed:
-    modelid:
-      - meta-llama/Llama-2-13b-hf  
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/root/workspace/qmodel/mixed_llama13"
-    bestpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  gpt_int8:
-    modelid:
-      - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_int8.py
-    outdir: "/root/workspace/qmodel/int8_gpt"
-    bestpath: "/root/workspace/qmodel/int8_gpt/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama7_int8:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/root/workspace/qmodel/int8_llama7"
-    bestpath: "/root/workspace/qmodel/int8_llama7/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama13_int8:
-    modelid:
-      - meta-llama/Llama-2-13b-hf  
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/root/workspace/qmodel/int8_llama13"
-    bestpath: "/root/workspace/qmodel/int8_llama13/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  neox_int8:
-    modelid:
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_gpt-neox_int8.py
-    outdir: "/root/workspace/qmodel/int8_neox"
-    bestpath: "/root/workspace/qmodel/int8_neox/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  deepspeed:
-    modelid:
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf  
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_accuracy_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    shardpath: "/qmodel/shard_opt7"
-    outdir: "/qmodel/ds_opt7"
-    bestpath: "/qmodel/ds_opt7/best_model.pt"
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # gpt_int8:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_int8.py
+  #   outdir: "/root/workspace/qmodel/int8_gpt"
+  #   bestpath: "/root/workspace/qmodel/int8_gpt/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama7_int8:
+  #   modelid:
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/root/workspace/qmodel/int8_llama7"
+  #   bestpath: "/root/workspace/qmodel/int8_llama7/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama13_int8:
+  #   modelid:
+  #     - meta-llama/Llama-2-13b-hf  
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/root/workspace/qmodel/int8_llama13"
+  #   bestpath: "/root/workspace/qmodel/int8_llama13/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # neox_int8:
+  #   modelid:
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_gpt-neox_int8.py
+  #   outdir: "/root/workspace/qmodel/int8_neox"
+  #   bestpath: "/root/workspace/qmodel/int8_neox/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # deepspeed:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf  
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_accuracy_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   shardpath: "/qmodel/shard_opt7"
+  #   outdir: "/qmodel/ds_opt7"
+  #   bestpath: "/qmodel/ds_opt7/best_model.pt"
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+
+
   # ndeepspeed:
   #   modelid:
   #     - EleutherAI/gpt-neox-20b
