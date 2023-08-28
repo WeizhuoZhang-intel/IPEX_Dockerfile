@@ -147,7 +147,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             if mode.startswith('llama'):
                 lines.append("# LLaMA quantization")
                 lines.append(f"mprof run python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
-            lines.append(f"quant_peak_mem=$(mprof peak | grep mprofile | awk '{print $2}')")
+            lines.append("quant_peak_mem=$(mprof peak | grep mprofile | awk '{print $2}')")
             lines.append("# Run workload")
             lines.append(f"mprof clean")
             for input_token in data['modelargs'][mode]['inputtokens']:
