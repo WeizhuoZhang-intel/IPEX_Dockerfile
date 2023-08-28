@@ -209,7 +209,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
-                if model_id == "EleutherAI/gpt-neox-20b":
+                if model_id == "EleutherAI/gpt-neox-20b" or model_id == "tiiuae/falcon-40b":
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8 --lowp-mode 'BF16' -m {model_id}")
                 else:
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --lowp-mode 'BF16' -m {model_id}")
