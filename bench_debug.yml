@@ -112,11 +112,11 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
-  llama7_deepspeed:
+  llama7_2s:
     modelid: 
+      - EleutherAI/gpt-neox-20b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - EleutherAI/gpt-neox-20b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
