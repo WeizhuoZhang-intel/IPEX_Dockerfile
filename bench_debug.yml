@@ -115,7 +115,7 @@ modelargs:
   llama7_2s:
     modelid: 
       - EleutherAI/gpt-neox-20b
-      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
@@ -276,33 +276,33 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
-  gptj_default:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/mixed_gpt"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_gpt/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - false
+  # gptj_default:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/mixed_gpt"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_gpt/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - false
