@@ -20,13 +20,12 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  deepspeedint8:
+  deepspeed:
     modelid:
       - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
       - facebook/opt-6.7b
-      - EleutherAI/gpt-neox-20b
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
