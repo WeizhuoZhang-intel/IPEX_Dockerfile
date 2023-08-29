@@ -130,6 +130,8 @@ modelargs:
     ipex: true
     jit: true
     int8: true
+    localrank:
+      - 2
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
