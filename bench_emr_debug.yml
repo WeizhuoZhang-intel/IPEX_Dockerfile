@@ -20,17 +20,47 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  deepspeed:
+  # deepspeed:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - facebook/opt-6.7b
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - woq
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   cuda: true
+  #   greedy: 
+  #     - false
+  #   ki: true
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 32
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
+  quad_int4:
     modelid:
-      - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - facebook/opt-6.7b
-    scriptname: run_generation_with_deepspeed.py
+    scriptname: run_llama_int8.py
     device:
       - cpu
     dtype:
-      - woq
+      - woq3
+      - woq2
+      - int8
+      - bf16
     localrank:
       - 2
     batchsize: 1
@@ -40,11 +70,17 @@ modelargs:
     cuda: true
     greedy: 
       - false
+      - true
     ki: true
+    outputdir: "/root/workspace/qmodel/mixed_llama7"
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama7/best_model.pt"
     maxnewtokens: 
       - 32
     inputtokens:
-      - 32
+      - 128
+      - 512
+      - 1024
+      - 2016
     prompt: None
     ipex: true
     jit: true
