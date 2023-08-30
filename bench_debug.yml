@@ -51,7 +51,6 @@ modelargs:
   #     - false
   # opt1_2s:
   #   modelid: 
-  #     - EleutherAI/gpt-j-6B
   #     - meta-llama/Llama-2-13b-hf
   #   scriptname: run_generation_with_deepspeed.py
   #   device:
@@ -65,6 +64,8 @@ modelargs:
   #   lambada: true
   #   ipex: true
   #   jit: true
+  #   localrank:
+  #     - 2
   #   int8: true
   #   incsmoothquant: true
   #   ipexsmmothquant: true
@@ -246,7 +247,7 @@ modelargs:
   #     - false
   llama13_2swoq:
     modelid: 
-      - EleutherAI/gpt-neox-20b
+      - meta-llama/Llama-2-13b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
