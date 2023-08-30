@@ -57,9 +57,9 @@ modelargs:
     device:
       - cpu
     dtype:
-      - woq3
-      - woq2
-      - int8
+      # - woq3
+      # - woq2
+      # - int8
       - bf16
     localrank:
       - 2
