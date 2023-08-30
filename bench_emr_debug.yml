@@ -69,8 +69,8 @@ modelargs:
     benchmark: true
     cuda: true
     greedy: 
-      - false
-      - true
+      - 4
+      - 1
     ki: true
     outputdir: "/root/workspace/qmodel/mixed_llama7"
     quantizedmodelpath: "/root/workspace/qmodel/mixed_llama7/best_model.pt"
