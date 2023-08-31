@@ -252,12 +252,12 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - bfloat16
+      - int8
     maxnewtokens: 
       - 32
     localrank:
       - 2
-    outputdir: "/root/workspace/qmodel/int8_neox"
+    outputdir: "/root/workspace/qmodel/mixed_llama13"
     quantize: true
     lambada: true
     ipex: true
@@ -266,10 +266,13 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/int8_neox/best_model.pt"
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
     benchmark: true
     inputtokens:
       - 32
+      - 128
+      - 512
+      - 1024
     prompt: None
     numiter: 50
     numwarmup: 10
