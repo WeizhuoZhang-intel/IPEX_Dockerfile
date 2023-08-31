@@ -7,6 +7,7 @@ parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="o
 parser.add_argument("--nightly",action="store_true",default=False,help="only for nightly regular track")
 parser.add_argument("--weekly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--debug",action="store_true",default=False,help="only for weekly regular track")
+parser.add_argument("--publicds",action="store_true",default=False,help="only for nightly regular track public deepspeed")
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -381,6 +382,8 @@ if __name__ == '__main__':
         yml_file = 'bench_weekly.yml'
     if args.debug:
         yml_file = 'bench_debug.yml'
+    if args.publicds:
+        yml_file = 'bench_publicds_nightly.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)
