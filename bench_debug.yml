@@ -432,6 +432,8 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
+    localrank:
+      - 2
     batchsize: 1
     tokenlatency: true
     greedy: 
