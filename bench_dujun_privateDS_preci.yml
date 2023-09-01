@@ -1,0 +1,133 @@
+name: LLM Benchmarking
+hw: SPR-SP/HBM/EMR
+envconfig:
+  LD_PRELOAD: ${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  KMP_BLOCKTIME: 1
+  KMP_AFFINITY: granularity=fine,compact,1,0
+  threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
+  cores_per_node: $(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+  LLM_EXTRA_KMP:
+    KMP_TPAUSE: 0
+    KMP_SETTINGS: 1
+    KMP_FORJOIN_BARRIER_PATTERN: dist,dist
+    KMP_PLAIN_BARRIER_PATTERN: dist,dist
+    KMP_REDUCTION_BARRIER_PATTERN: dist,dist
+launcher:
+  OMP_NUM_THREADS: ${cores_per_node}
+  numactlN: 0
+  numactlM: 0
+modelargs:
+  default:
+    modelid:
+      - EleutherAI/gpt-j-6B
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    inputtokens:
+      - 32
+      - 2016
+    maxnewtokens: 32
+    prompt: None
+    greedy: false
+    ipex: true
+    jit: true
+    numiter: 50
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: true
+  default:
+    modelid:
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    inputtokens:
+      - 32
+      - 2048
+    maxnewtokens: 32
+    prompt: None
+    greedy: false
+    ipex: true
+    jit: true
+    numiter: 50
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: true
+  gptj_int8:
+    modelid: EleutherAI/gpt-j-6B
+    scriptname: run_gptj_int8.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 32
+    outputdir: "./saved_results"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "./saved_results/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+    prompt: None
+    numiter: 100
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: false
+  deepspeed:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run_generation_with_deepspeed.py
+    device: 
+      - cpu
+    dtype: 
+      - bfloat16
+    localrank:
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: true
+    ki: false
+    maxnewtokens: 32
+    inputtokens:
+      - 2016
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  deepspeed:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device: 
+      - cpu
+    dtype: 
+      - bfloat16
+    localrank:
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: true
+    ki: false
+    maxnewtokens: 32
+    inputtokens:
+      - 2048
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true  

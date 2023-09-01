@@ -4,6 +4,7 @@
 ds=${1:-disable}
 kmp=${2:-''}
 log_dir=${3:-log_dir}
+yml_file=${4:-''}
 rm -rf ${log_dir}
 mkdir -p $log_dir
 
@@ -12,7 +13,7 @@ function run_benchmark {
     # generate cmd
     if [[ $ds == "enable" ]]; then
         echo "Enable DeepSpeed script generation"
-        python generate_run_script.py ${kmp} --deepspeed
+        python generate_run_script.py ${kmp} --deepspeed ${yml_file}
     else
         python generate_run_script.py ${kmp}
     fi
