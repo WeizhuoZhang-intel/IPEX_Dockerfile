@@ -98,7 +98,7 @@ modelargs:
       - 32
     localrank:
       - 3
-    outputdir: "/root/workspace/qmodel/mixed_llama13"
+    outputdir: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
