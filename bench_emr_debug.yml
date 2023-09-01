@@ -97,7 +97,7 @@ modelargs:
     maxnewtokens: 
       - 32
     localrank:
-      - 2
+      - 3
     outputdir: "/root/workspace/qmodel/mixed_llama13"
     quantize: true
     lambada: true
