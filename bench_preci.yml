@@ -27,7 +27,7 @@ modelargs:
       - bfloat16
     inputtokens:
       - 32
-      # - 2016
+      - 2016
     maxnewtokens: 32
     prompt: None
     greedy: false
@@ -38,26 +38,26 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     
-  # default_llama:
-  #   modelid:
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_generation.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #   inputtokens:
-  #     - 32
-  #     - 2016
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: false
-  #   ipex: true
-  #   jit: true
-  #   numiter: 50
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: true
+  default_llama:
+    modelid:
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    inputtokens:
+      - 32
+      - 2016
+    maxnewtokens: 32
+    prompt: None
+    greedy: false
+    ipex: true
+    jit: true
+    numiter: 50
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: true
 
   gptj_int8:
     modelid: EleutherAI/gpt-j-6B
@@ -102,35 +102,34 @@ modelargs:
     ki: true
     maxnewtokens: 32
     inputtokens:
-      # - 2016
-      - 32
+      - 2016
     prompt: None
     ipex: true
     jit: true
     printmemory: true
     tokenlatency: true  
 
-  # deepspeed_llama:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device: 
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   localrank:
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: true
-  #   ki: true
-  #   maxnewtokens: 32
-  #   inputtokens:
-  #     - 2016
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true  
+  deepspeed_llama:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device: 
+      - cpu
+    dtype: 
+      - bfloat16
+    localrank:
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: true
+    ki: true
+    maxnewtokens: 32
+    inputtokens:
+      - 2016
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true  
