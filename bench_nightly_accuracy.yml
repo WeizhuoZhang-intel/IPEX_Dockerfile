@@ -44,8 +44,8 @@ modelargs:
     modelid:
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_int8.py
-    outdir: "/root/workspace/qmodel/mixed_gpt"
-    bestpath: "/root/workspace/qmodel/mixed_gpt/best_model.pt"
+    outdir: "/qmodel/mixed_gpt"
+    bestpath: "/qmodel/mixed_gpt/best_model.pt"
     device:
       - cpu
     dtype:
@@ -70,8 +70,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/root/workspace/qmodel/mixed_llama7"
-    bestpath: "/root/workspace/qmodel/mixed_llama7/best_model.pt"
+    outdir: "/qmodel/mixed_llama7"
+    bestpath: "/qmodel/mixed_llama7/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -91,8 +91,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/root/workspace/qmodel/mixed_llama13"
-    bestpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+    outdir: "/qmodel/mixed_llama13"
+    bestpath: "/qmodel/mixed_llama13/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -112,8 +112,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/root/workspace/qmodel/mixed_opt7"
-    bestpath: "/root/workspace/qmodel/mixed_opt7/best_model.pt"
+    outdir: "/qmodel/mixed_opt7"
+    bestpath: "/qmodel/mixed_opt7/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -133,8 +133,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/root/workspace/qmodel/int8_neox"
-    bestpath: "/root/workspace/qmodel/int8_neox/best_model.pt"
+    outdir: "/qmodel/int8_neox"
+    bestpath: "/qmodel/int8_neox/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -154,8 +154,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/root/workspace/qmodel/mixed_opt30"
-    bestpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
+    outdir: "/qmodel/mixed_opt30"
+    bestpath: "/qmodel/mixed_opt30/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
