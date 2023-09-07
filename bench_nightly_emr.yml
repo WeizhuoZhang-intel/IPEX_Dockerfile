@@ -3,8 +3,6 @@ hw: SPR-SP/HBM/EMR
 envconfig:
   # LD_PRELOAD: ${CONDA_PREFIX}/lib/libstdc++.so.6:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so:${CONDA_PREFIX}/lib/libtcmalloc.so
   LD_PRELOAD: ${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
-  # KMP_BLOCKTIME: 1
-  
   KMP_BLOCKTIME: INF
   KMP_AFFINITY: granularity=fine,compact,1,0
   threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
@@ -31,6 +29,7 @@ modelargs:
     localrank:
       - 2
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -61,6 +60,7 @@ modelargs:
     localrank:
       - 2
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -93,6 +93,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_gpt"
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     quantize: true
     lambada: true
     ipex: true
@@ -126,6 +127,7 @@ modelargs:
     localrank:
       - 2
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -160,6 +162,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama7"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -196,6 +199,7 @@ modelargs:
       - 2
       - 4
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -227,6 +231,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama13"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
     quantize: true
     localrank:
       - 2
@@ -265,6 +270,7 @@ modelargs:
       - 2
       - 4
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -295,6 +301,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama70"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
     quantize: true
     localrank:
       - 2
@@ -331,6 +338,7 @@ modelargs:
     localrank:
       - 2
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-6.7b"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -361,6 +369,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-6.7b"
     localrank:
       - 2
     quantize: true
@@ -396,6 +405,7 @@ modelargs:
     localrank:
       - 4
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -428,6 +438,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt30"
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
     quantize: true
     lambada: true
     ipex: true
@@ -464,6 +475,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/int8_neox"
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-neox-20b"
     quantize: true
     lambada: true
     ipex: true
