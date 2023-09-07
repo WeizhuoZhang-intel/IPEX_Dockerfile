@@ -203,6 +203,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_llama7"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -235,6 +236,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_llama7"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -335,6 +337,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_llama13"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -370,6 +373,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_llama13"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -469,6 +473,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -501,6 +506,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -599,6 +605,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt30"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -635,6 +642,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt30"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -705,6 +713,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/int8_neox"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -870,6 +879,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_falcon"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
@@ -900,6 +910,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_falcon"
+    shardpath: "/root/workspace/qmodel/shard_model"
     quantize: true
     lambada: true
     ipex: true
