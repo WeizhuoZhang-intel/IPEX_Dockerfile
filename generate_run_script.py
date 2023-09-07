@@ -128,6 +128,10 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("# device info")
         lines.append(fetch_device_info)
         lines.append(collect_result)    
+
+        lines.append("pip install --upgrade huggingface_hub")
+        ilnes.append("huggingface-cli login --token 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")
+        
         lines.append("")
         if mode.startswith('default'):
             lines.append("# Run workload")
