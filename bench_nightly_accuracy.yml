@@ -61,48 +61,48 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  llama7_mixed:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel/mixed_llama7"
-    bestpath: "/qmodel/mixed_llama7/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama13_mixed:
-    modelid:
-      - meta-llama/Llama-2-13b-hf  
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel/mixed_llama13"
-    bestpath: "/qmodel/mixed_llama13/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # llama7_mixed:
+  #   modelid:
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel/mixed_llama7"
+  #   bestpath: "/qmodel/mixed_llama7/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama13_mixed:
+  #   modelid:
+  #     - meta-llama/Llama-2-13b-hf  
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel/mixed_llama13"
+  #   bestpath: "/qmodel/mixed_llama13/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # opt_mixed:
   #   modelid:
   #     - facebook/opt-6.7b
@@ -124,27 +124,27 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  # neox_int8:
-  #   modelid:
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: run_gpt-neox_int8.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   outdir: "/qmodel/int8_neox"
-  #   bestpath: "/qmodel/int8_neox/best_model.pt"
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
+  neox_int8:
+    modelid:
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_gpt-neox_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel/int8_neox"
+    bestpath: "/qmodel/int8_neox/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
   # opt_mixed:
   #   modelid:
   #     - facebook/opt-30b
@@ -194,28 +194,28 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  # ndeepspeed:
-  #   modelid:
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: run_accuracy_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   shardpath: "/qmodel/shard_neox"
-  #   outdir: "/qmodel/ds_neox"
-  #   bestpath: "/qmodel/ds_neox/best_model.pt"
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
+  ndeepspeed:
+    modelid:
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_accuracy_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    shardpath: "/qmodel/shard_neox"
+    outdir: "/qmodel/ds_neox"
+    bestpath: "/qmodel/ds_neox/best_model.pt"
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
   # sdeepspeed:
   #   modelid:
       # - EleutherAI/gpt-j-6B
