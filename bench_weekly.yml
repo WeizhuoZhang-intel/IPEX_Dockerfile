@@ -98,9 +98,6 @@ modelargs:
     dtype: 
       - bfloat16
     maxnewtokens: 
-      - 32
-      - 128
-      - 512
       - 1024
     outputdir: "/root/workspace/qmodel/mixed_gpt"
     quantize: true
@@ -116,6 +113,9 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/mixed_gpt/best_model.pt"
     benchmark: true
     inputtokens:
+      - 32
+      - 128
+      - 512
       - 1024
     prompt: None
     numiter: 50
@@ -135,10 +135,6 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-      - 128
-      - 512
-      - 1024
-      - 2048
     outputdir: "/root/workspace/qmodel/mixed_gpt"
     quantize: true
     lambada: true
@@ -152,6 +148,10 @@ modelargs:
     benchmark: true
     inputtokens:
       - 32
+      - 128
+      - 512
+      - 1024
+      - 2048
     prompt: None
     numiter: 50
     numwarmup: 10
