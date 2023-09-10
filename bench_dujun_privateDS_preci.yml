@@ -18,8 +18,7 @@ launcher:
   numactlM: 0
 modelargs:
   default:
-    modelid:
-      - EleutherAI/gpt-j-6B
+    modelid: EleutherAI/gpt-j-6B
     scriptname: run_generation.py
     device:
       - cpu
@@ -38,8 +37,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
   default:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
+    modelid: meta-llama/Llama-2-7b-hf
     scriptname: run_generation.py
     device:
       - cpu
@@ -84,8 +82,7 @@ modelargs:
     tokenlatency: true
     greedy: false
   deepspeed:
-    modelid: 
-      - EleutherAI/gpt-j-6B
+    modelid: EleutherAI/gpt-j-6B
     scriptname: run_generation_with_deepspeed.py
     device: 
       - cpu
@@ -108,8 +105,7 @@ modelargs:
     printmemory: true
     tokenlatency: true
   deepspeed:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
+    modelid: meta-llama/Llama-2-7b-hf
     scriptname: run_generation_with_deepspeed.py
     device: 
       - cpu
