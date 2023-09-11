@@ -541,7 +541,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
-  opt7_int8:
+  opt7_int8static:
     modelid: 
       - facebook/opt-6.7b
     scriptname: run_opt_int8.py
