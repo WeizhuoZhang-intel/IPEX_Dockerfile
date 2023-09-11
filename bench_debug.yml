@@ -605,72 +605,72 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - true
-  falcon_2s:
-    modelid: 
-      - tiiuae/falcon-40b 
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b "
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - true
-    localrank:
-      - 2
-  e2falcon_2s:
-    modelid: 
-      - tiiuae/falcon-40b 
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/mint"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - true
-    localrank:
-      - 2
+  # falcon_2s:
+  #   modelid: 
+  #     - tiiuae/falcon-40b 
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/mixed_falcon"
+  #   shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b "
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - true
+  #   localrank:
+  #     - 2
+  # e2falcon_2s:
+  #   modelid: 
+  #     - tiiuae/falcon-40b 
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/mixed_falcon"
+  #   shardpath: "/root/workspace/qmodel/shard/mint"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - true
+  #   localrank:
+  #     - 2
   # falcon_int8:
   #   modelid: 
   #     - tiiuae/falcon-40b 
@@ -703,42 +703,78 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - True
-  # bloom_2s:
-  #   modelid: 
-  #     - bigscience/bloom-7b1
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   localrank:
-  #     - 2
-  #   outputdir: "/root/workspace/qmodel/mixed_bloom"
-  #   shardpath: "/root/workspace/qmodel/shard/bigscience/bloom-7b1"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_bloom/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - false
+  bloom_2s:
+    modelid: 
+      - bigscience/bloom-7b1
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    localrank:
+      - 2
+    outputdir: "/root/workspace/qmodel/mixed_bloom"
+    shardpath: "/root/workspace/qmodel/shard/bigscience/bloom-7b1"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_bloom/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      # - 128
+      # - 512
+      # - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - false
+  bloom_2s1:
+    modelid: 
+      - bigscience/bloom-7b1
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    localrank:
+      - 2
+    outputdir: "/root/workspace/qmodel/mixed_bloom"
+    shardpath: "/root/workspace/qmodel/shard/bigscience/bloom-7b1"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_bloom/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      # - 128
+      # - 512
+      # - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - false
   # bloom_2swoq:
   #   modelid: 
   #     - bigscience/bloom-7b1

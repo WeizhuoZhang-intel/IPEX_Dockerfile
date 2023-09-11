@@ -303,6 +303,34 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {data['modelargs'][mode]['shardpath']} --dtype {dtype} --input-tokens {input_token} \
                                             --max-new-tokens {output_token} --ipex --jit --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log") 
                                 lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log")
+        if mode.endswith('2s1'):
+            lines.append("# Run Workload")
+
+            lines.append("export CCL_WORKER_COUNT=1")
+            lines.append("export CCL_PROCESS_LAUNCHER=none")
+            lines.append("export CCL_ATL_TRANSPORT=ofi")
+            lines.append("export CCL_ATL_SHM=1")
+
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            # lines.append("export CCL_WORKER_AFFINITY=0,56")
+
+            lines.append("export DS_SHM_ALLREDUCE=1")
+            lines.append("unset KMP_AFFINITY")
+
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for numa in data['modelargs'][mode]['localrank']:
+                                lines.append(f"export local_rank={numa}")
+                                lines.append("deepspeed_core_config ${local_rank}")
+                                lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                                lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                      
+                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log 2>&1 || true &")
+                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            --max-new-tokens {output_token} --ipex --jit --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log") 
+                                lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log")
 
         if mode.endswith('2swoq'):
             lines.append("# Run Workload")
