@@ -541,7 +541,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - true
-  falcon_2swoq:
+  falcon_2s:
     modelid: 
       - tiiuae/falcon-40b 
     scriptname: run_generation_with_deepspeed.py
