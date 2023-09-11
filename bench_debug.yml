@@ -552,7 +552,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/falcon"
+    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b "
     quantize: true
     lambada: true
     ipex: true
