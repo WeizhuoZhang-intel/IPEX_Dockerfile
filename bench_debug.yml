@@ -612,7 +612,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - int8
+      - bfloat16
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_falcon"
@@ -645,7 +645,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - int8
+      - bfloat16
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_falcon"
