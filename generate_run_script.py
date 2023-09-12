@@ -209,6 +209,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('int8'):
             lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                 lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
                 if model_id == "EleutherAI/gpt-neox-20b":
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8 --lowp-mode 'BF16' -m {model_id}")
@@ -242,6 +243,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('int8static'):
             lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 if model_id == "EleutherAI/gpt-neox-20b":
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8 --lowp-mode 'BF16' -m {model_id}")
