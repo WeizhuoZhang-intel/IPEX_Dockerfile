@@ -218,7 +218,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if model_id == "EleutherAI/gpt-neox-20b":
                             lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 --weight-type INT8 --lowp-mode BF16 -m {model_id}")
                         elif model_id == "tiiuae/falcon-40b":
-                            lines.append(f"python run_falcon_int8.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-type INT8 --lowp-mode BF16 -m <MODEL_ID> --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
+                            lines.append(f"python run_falcon_quantization.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-type INT8 --lowp-mode BF16 -m <MODEL_ID> --config-file /root/workspace/IPEX_Dockerfile/tiiuae_falcon-40b_config.json")
                         else:
                             lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-type INT8 --lowp-mode BF16 -m {model_id}")
 
@@ -226,7 +226,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if model_id == "EleutherAI/gpt-neox-20b":
                             lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 --weight-type INT4 --lowp-mode INT8 -m {model_id}")
                         elif model_id == "tiiuae/falcon-40b":
-                            lines.append(f"python run_falcon_int8.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-type INT4 --lowp-mode INT8 -m <MODEL_ID> --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
+                            lines.append(f"python run_falcon_quantization.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-type INT4 --lowp-mode INT8 -m <MODEL_ID> --config-file /root/workspace/IPEX_Dockerfile/tiiuae_falcon-40b_config.json")
                         else:
                             lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-type INT4 --lowp-mode INT8 -m {model_id}")
 
