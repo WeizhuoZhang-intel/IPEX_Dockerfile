@@ -18,41 +18,6 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  gptj_default:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/gpt"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/gpt/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-      - True
   gptj1_default:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -905,6 +870,41 @@ modelargs:
       - true
     localrank:
       - 2
+  gptj_default:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/gpt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/gpt/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+      - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+      - True
   # bloom_default:
   #   modelid: 
   #     - bigscience/bloom-7b1
