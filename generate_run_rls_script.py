@@ -528,7 +528,7 @@ if __name__ == '__main__':
     if args.weekly:
         yml_file = 'bench_weekly.yml'
     if args.debug:
-        yml_file = 'bench_debug.yml'
+        yml_file = 'bench_rls_debug.yml'
     if args.publicds:
         yml_file = 'bench_publicds_nightly.yml'
     if args.rls:
