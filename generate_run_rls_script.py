@@ -172,9 +172,9 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export WORKDIR=/data/root/workspace")
-        # lines.append("export HF_HOME=/root/.cache/huggingface")
-        lines.append("export HF_HOME=/data/datasets/huggingface")
+        lines.append("export WORKDIR=/root/workspace")
+        lines.append("export HF_HOME=/root/.cache/huggingface")
+        # lines.append("export HF_HOME=/data/datasets/huggingface")
         lines.append("# source $HOME/oneCCL_install/env/setvars.sh")
         lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
@@ -191,7 +191,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"export KMP_REDUCTION_BARRIER_PATTERN={data['envconfig']['LLM_EXTRA_KMP']['KMP_REDUCTION_BARRIER_PATTERN']}")
         lines.append("log_dir=${1:-log_dir}")
         lines.append("mkdir -p $log_dir")
-        lines.append("mkdir -p /data/root/workspace/qmodel")
+        lines.append("mkdir -p /root/workspace/qmodel")
         lines.append("# device info")
         lines.append(fetch_device_info)
         lines.append(collect_result)    
@@ -320,11 +320,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_BF16.log 2>&1 || true &")
                                 if beam == False:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
-                                                --input-tokens {input_token} --max-new-tokens {output_token} --int8-bf16-mixed -m {model_id} --benchmark --token-latency --num-iter 20 \
+                                                --input-tokens {input_token} --max-new-tokens {output_token} --int8-bf16-mixed -m {model_id} --benchmark --token-latency --num-iter 50 \
                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_BF16.log")
                                 elif beam == True:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
-                                                --input-tokens {input_token} --max-new-tokens {output_token} --int8-bf16-mixed -m {model_id} --greedy --benchmark --token-latency --num-iter 20 \
+                                                --input-tokens {input_token} --max-new-tokens {output_token} --int8-bf16-mixed -m {model_id} --greedy --benchmark --token-latency --num-iter 50 \
                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_BF16.log")                                    
                                 lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_BF16.log")
 
