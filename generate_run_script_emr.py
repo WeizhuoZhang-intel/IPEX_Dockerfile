@@ -285,6 +285,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
                             for beam in data['modelargs'][mode]['greedy']:  
+                                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
                                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                                 if dtype == "int8":
                                     lines.append(f"python run_llama_int8.py --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed -m {model_id}")

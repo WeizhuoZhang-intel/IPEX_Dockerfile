@@ -19,6 +19,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
+  iternum: 50
 modelargs:
   edeepspeed:
     modelid:
@@ -32,12 +33,13 @@ modelargs:
     localrank:
       - 2
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     numiter: 50
     numwarmup: 5
     benchmark: true
     cuda: true
     greedy: 
-      - true
+      - False
     ki: true
     maxnewtokens: 
       - 32
@@ -45,36 +47,6 @@ modelargs:
       - 32
       - 128
       - 512
-      - 1024
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
-  gdeepspeed:
-    modelid:
-      - EleutherAI/gpt-j-6B
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    localrank:
-      - 2
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      - true
-    ki: true
-    maxnewtokens: 
-      - 32
-      - 128
-      - 512
-      - 1024
-    inputtokens:
       - 1024
     prompt: None
     ipex: true
@@ -94,6 +66,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_gpt"
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     quantize: true
     lambada: true
     ipex: true
@@ -115,7 +88,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true 
+      - False 
   ldeepspeed:
     modelid:
       - meta-llama/Llama-2-7b-hf
@@ -128,6 +101,7 @@ modelargs:
     localrank:
       - 2
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -162,6 +136,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama7"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -185,7 +160,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true
+      - False
   l13deepspeed:
     modelid:
       - meta-llama/Llama-2-13b-hf
@@ -201,9 +176,10 @@ modelargs:
     numiter: 50
     numwarmup: 5
     benchmark: true
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
     cuda: true
     greedy: 
-      - true
+      - False
     ki: true
     maxnewtokens: 
       - 32
@@ -229,6 +205,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama13"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
     quantize: true
     localrank:
       - 2
@@ -254,8 +231,8 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      # - true
-      - true
+      # - False
+      - False
   optdeepspeed:
     modelid:
       - facebook/opt-6.7b
@@ -268,12 +245,13 @@ modelargs:
     localrank:
       - 2
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-6.7b"
     numiter: 50
     numwarmup: 5
     benchmark: true
     cuda: true
     greedy: 
-      - true
+      - False
     ki: true
     maxnewtokens: 
       - 32
@@ -298,6 +276,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-6.7b"
     localrank:
       - 2
     quantize: true
@@ -321,7 +300,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true
+      - False
   opt30deepspeed:
     modelid:
       - facebook/opt-30b
@@ -333,12 +312,13 @@ modelargs:
     localrank:
       - 4
     batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
     numiter: 50
     numwarmup: 5
     benchmark: true
     cuda: true
     greedy: 
-      - true
+      - False
     ki: true
     maxnewtokens: 
       - 32
@@ -356,6 +336,7 @@ modelargs:
     modelid: 
       - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
     device:
       - cpu
     dtype: 
@@ -386,7 +367,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true
+      - False
   neox_int8:
     modelid: 
       - EleutherAI/gpt-neox-20b
@@ -401,6 +382,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-neox-20b"
     quantize: true
     lambada: true
     ipex: true
@@ -422,339 +404,12 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true
-  # deepspeed:
-  #   modelid:
-  #     # - meta-llama/Llama-2-7b-hf
-  #     # - meta-llama/Llama-2-13b-hf
-  #     # - facebook/opt-6.7b
-  #     - facebook/opt-30b
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #   localrank:
-  #     - 4
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # llamadeepspeed:
-  #   modelid:
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     - float32
-  #   localrank:
-  #     - 2
-  #     - 4
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #     - 2048
-  #     - 4096
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # maxdeepspeed:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6b
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #   localrank:
-  #     - 2
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   inputtokens:
-  #     - 1024
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # max23deepspeed:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6b
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     - float32
-  #   localrank:
-  #     - 2
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # max1deepspeed:
-  #   modelid:
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     - float32
-  #   localrank:
-  #     - 2
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #     - 2048
-  #     - 4096
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # max3deepspeed:
-  #   modelid:
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     - float32
-  #   localrank:
-  #     - 2
-  #     - 4
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #     - 2048
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # neoxdeepspeed:
-  #   modelid:
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - float32
-  #   localrank:
-  #     - 2
-  #     - 4
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  
-  # deepspeed4int8:
-  #   modelid:
-  #     # - EleutherAI/gpt-neox-20b
-  #     # - meta-llama/Llama-2-13b-hf
-  #     - facebook/opt-30b
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - float32
-  #   localrank:
-  #     - 4
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 32
-  #   lowpmode:
-  #     - BF16
-  #     - INT8
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 1024
-  #     - 2016
-  #     - 2048
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
-  # deepspeed2int8:
-  #   modelid:
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-    #   - meta-llama/Llama-2-13b-hf
-    # scriptname: run_generation_with_deepspeed.py
-    # device:
-    #   - cpu
-    # dtype:
-    #   - float32
-    # localrank:
-    #   - 2
-    # batchsize: 1
-    # numiter: 50
-    # numwarmup: 5
-    # benchmark: true
-    # cuda: true
-    # greedy: 
-    #   - false
-    # ki: true
-    # maxnewtokens: 32
-    # lowpmode:
-    #   - BF16
-    #   - INT8
-    # inputtokens:
-      # - 32
-      # - 128
-      # - 1024
-    #   - 2016
-    #   - 2048
-    # prompt: None
-    # ipex: true
-    # jit: true
-    # printmemory: true
-    # tokenlatency: true
-  # deepspeed4bf16:
-  #   modelid:
-  #     - decapoda-research/llama-13b-hf
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #   localrank:
-  #     - 4
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 1024
-  #     - 2016
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
+      - False
   k70deepspeed:
     modelid:
       - meta-llama/Llama-2-70b-hf
     scriptname: run_generation_with_deepspeed.py
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
     device:
       - cpu
     dtype:
@@ -768,7 +423,7 @@ modelargs:
     benchmark: true
     cuda: true
     greedy: 
-      - true
+      - False
     ki: true
     maxnewtokens: 
       - 32
@@ -786,6 +441,7 @@ modelargs:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: run_generation_with_deepspeed.py
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
     device:
       - cpu
     dtype: 
@@ -817,4 +473,4 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true
+      - False
