@@ -836,7 +836,7 @@ modelargs:
   #     - False
   t5_2s:
     modelid: 
-      - google/mt5-base
+      - bert-base-uncased
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -847,7 +847,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/google/flan-t5-base"
+    shardpath: "/root/workspace/qmodel/shard/bert-base-uncased"
     quantize: true
     lambada: true
     ipex: true
@@ -869,7 +869,7 @@ modelargs:
       - False
   gpt_2s:
     modelid: 
-      - gpt2
+      - facebook/bart-large-cnn
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -880,7 +880,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/gpt2"
+    shardpath: "/root/workspace/qmodel/shard/facebook/bart-large-cnn"
     quantize: true
     lambada: true
     ipex: true
