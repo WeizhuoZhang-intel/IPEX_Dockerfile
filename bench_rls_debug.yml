@@ -801,9 +801,42 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - True
-  falcon_2s:
+  # falcon_2s:
+  #   modelid: 
+  #     - tiiuae/falcon-40b 
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   outputdir: "/root/workspace/qmodel/mixed_falcon"
+  #   shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  t5_2s:
     modelid: 
-      - tiiuae/falcon-40b 
+      - google/mt5-base
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -814,7 +847,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+    shardpath: "/root/workspace/qmodel/shard/google/flan-t5-base"
     quantize: true
     lambada: true
     ipex: true
@@ -834,9 +867,9 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  t5_2s:
+  gpt_2s:
     modelid: 
-      - google/flan-t5-base
+      - gpt2
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -847,7 +880,40 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/google/flan-t5-base"
+    shardpath: "/root/workspace/qmodel/shard/gpt2"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  pythia_2s:
+    modelid: 
+      - EleutherAI/pythia-6.9b
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    localrank:
+      - 2
+    outputdir: "/root/workspace/qmodel/mixed_falcon"
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/pythia-6.9b"
     quantize: true
     lambada: true
     ipex: true
