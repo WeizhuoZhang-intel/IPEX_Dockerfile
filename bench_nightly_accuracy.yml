@@ -40,27 +40,27 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  gpt_mixed:
-    modelid:
-      - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_int8.py
-    outdir: "/qmodel/mixed_gpt"
-    bestpath: "/qmodel/mixed_gpt/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # gpt_mixed:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_int8.py
+  #   outdir: "/qmodel/mixed_gpt"
+  #   bestpath: "/qmodel/mixed_gpt/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # llama7_mixed:
   #   modelid:
   #     - meta-llama/Llama-2-7b-hf
@@ -166,48 +166,26 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  # deepspeed:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf 
-  #     - facebook/opt-6.7b
-  #     - facebook/opt-30b
-  #     - tiiuae/falcon-40b 
-  #   scriptname: run_accuracy_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     - int8
-  #   inputtokens:
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   shardpath: "/qmodel/shard_opt7"
-  #   outdir: "/qmodel/ds_opt7"
-  #   bestpath: "/qmodel/ds_opt7/best_model.pt"
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
-  ndeepspeed:
+  deepspeed:
     modelid:
-      - EleutherAI/gpt-neox-20b
+      # - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf 
+      # - facebook/opt-6.7b
+      # - facebook/opt-30b
+      # - tiiuae/falcon-40b 
     scriptname: run_accuracy_with_deepspeed.py
     device:
       - cpu
     dtype:
-      - int8
+      - bfloat16
+      # - int8
     inputtokens:
     numiter: 1000
     maxnewtokens: 32
-    shardpath: "/qmodel/shard_neox"
-    outdir: "/qmodel/ds_neox"
-    bestpath: "/qmodel/ds_neox/best_model.pt"
+    shardpath: "/qmodel/shard_opt7"
+    outdir: "/qmodel/ds_opt7"
+    bestpath: "/qmodel/ds_opt7/best_model.pt"
     prompt: None
     greedy: 
       - false
@@ -216,6 +194,28 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
+  # ndeepspeed:
+  #   modelid:
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_accuracy_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   shardpath: "/qmodel/shard_neox"
+  #   outdir: "/qmodel/ds_neox"
+  #   bestpath: "/qmodel/ds_neox/best_model.pt"
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # sdeepspeed:
   #   modelid:
   #     - EleutherAI/gpt-j-6B
