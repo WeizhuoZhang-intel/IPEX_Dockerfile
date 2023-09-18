@@ -1096,6 +1096,8 @@ modelargs:
     int8bf16mixed: true
     quantizedmodelpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
     benchmark: true
+    weighttype:
+      - int8
     inputtokens:
       - 128
     prompt: None
