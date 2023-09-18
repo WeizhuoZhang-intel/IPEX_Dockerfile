@@ -112,8 +112,10 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
     benchmark: true
     inputtokens:
+      - 32
       - 128
       - 512
+      - 1024
     prompt: None
     numiter: 50
     numwarmup: 10
@@ -146,8 +148,10 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
     benchmark: true
     inputtokens:
+      - 32
       - 128
       - 512
+      - 1024
     prompt: None
     numiter: 50
     numwarmup: 10
@@ -155,7 +159,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-  gnr7_deepspeed:
+  gnr13_deepspeed:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run_generation_with_deepspeed.py
@@ -180,8 +184,10 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
     benchmark: true
     inputtokens:
+      - 32
       - 128
       - 512
+      - 1024
     prompt: None
     numiter: 50
     numwarmup: 10
