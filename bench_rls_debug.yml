@@ -834,108 +834,108 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  t5_oob:
-    modelid: 
-      - bert-base-uncased
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    localrank:
-      - 2
-    outputdir: "/root/workspace/qmodel/mixed_falcon"
-    prompt: 'It is done, and submitted. You can play Survival of the Tastiest on the Android, and on the web. Playing on the web works, but you have to simulate multiple touch for table moving and that can be a bit confusing. There is a lot I would like to talk about. I will go through every topic, insted of making the typical what went right/wrong list. Concept Working over the theme was probably one of the hardest tasks which I had to face. Originally, I had an idea of what kind of game I wanted to develop, gameplay wise - something with a lot of enemies/actors'
-    shardpath: "/root/workspace/qmodel/shard/bert-base-uncased"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  gpt_oob:
-    modelid: 
-      - facebook/bart-large-cnn
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    localrank:
-      - 2
-    prompt: 'It is done, and submitted. You can play Survival of the Tastiest on the Android, and on the web. Playing on the web works, but you have to simulate multiple touch for table moving and that can be a bit confusing. There is a lot I would like to talk about. I will go through every topic, insted of making the typical what went right/wrong list. Concept Working over the theme was probably one of the hardest tasks which I had to face. Originally, I had an idea of what kind of game I wanted to develop, gameplay wise - something with a lot of enemies/actors'
-    outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/facebook/bart-large-cnn"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  bart_oob:
-    modelid: 
-      - digit82/kobart-summarization
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    prompt: 'It is done, and submitted. You can play Survival of the Tastiest on the Android, and on the web. Playing on the web works, but you have to simulate multiple touch for table moving and that can be a bit confusing. There is a lot I would like to talk about. I will go through every topic, insted of making the typical what went right/wrong list. Concept Working over the theme was probably one of the hardest tasks which I had to face. Originally, I had an idea of what kind of game I wanted to develop, gameplay wise - something with a lot of enemies/actors'
-    localrank:
-      - 2
-    outputdir: "/root/workspace/qmodel/mixed_falcon"
-    shardpath: "/root/workspace/qmodel/shard/digit82/kobart-summarization"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # t5_oob:
+  #   modelid: 
+  #     - bert-base-uncased
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   outputdir: "/root/workspace/qmodel/mixed_falcon"
+  #   prompt: 'It is done, and submitted. You can play Survival of the Tastiest on the Android, and on the web. Playing on the web works, but you have to simulate multiple touch for table moving and that can be a bit confusing. There is a lot I would like to talk about. I will go through every topic, insted of making the typical what went right/wrong list. Concept Working over the theme was probably one of the hardest tasks which I had to face. Originally, I had an idea of what kind of game I wanted to develop, gameplay wise - something with a lot of enemies/actors'
+  #   shardpath: "/root/workspace/qmodel/shard/bert-base-uncased"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # gpt_oob:
+  #   modelid: 
+  #     - facebook/bart-large-cnn
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   prompt: 'It is done, and submitted. You can play Survival of the Tastiest on the Android, and on the web. Playing on the web works, but you have to simulate multiple touch for table moving and that can be a bit confusing. There is a lot I would like to talk about. I will go through every topic, insted of making the typical what went right/wrong list. Concept Working over the theme was probably one of the hardest tasks which I had to face. Originally, I had an idea of what kind of game I wanted to develop, gameplay wise - something with a lot of enemies/actors'
+  #   outputdir: "/root/workspace/qmodel/mixed_falcon"
+  #   shardpath: "/root/workspace/qmodel/shard/facebook/bart-large-cnn"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # bart_oob:
+  #   modelid: 
+  #     - digit82/kobart-summarization
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   prompt: 'It is done, and submitted. You can play Survival of the Tastiest on the Android, and on the web. Playing on the web works, but you have to simulate multiple touch for table moving and that can be a bit confusing. There is a lot I would like to talk about. I will go through every topic, insted of making the typical what went right/wrong list. Concept Working over the theme was probably one of the hardest tasks which I had to face. Originally, I had an idea of what kind of game I wanted to develop, gameplay wise - something with a lot of enemies/actors'
+  #   localrank:
+  #     - 2
+  #   outputdir: "/root/workspace/qmodel/mixed_falcon"
+  #   shardpath: "/root/workspace/qmodel/shard/digit82/kobart-summarization"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # falcon_2swoq:
   #   modelid: 
   #     - tiiuae/falcon-40b 
@@ -1074,3 +1074,34 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
+  opt30_int8:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: run_opt_quantization.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/mixed_opt30"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    localrank:
+      - 1
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
