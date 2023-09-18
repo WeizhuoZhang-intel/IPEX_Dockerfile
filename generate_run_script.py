@@ -375,7 +375,23 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} --benchmark -m {data['modelargs'][mode]['shardpath']} --int8-bf16-mixed --input-tokens {input_token} \
                                                 --max-new-tokens {output_token} --ipex --jit --ipex-weight-only-quantization --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
                                     lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log")
-                                
+
+        if mode.endswith('oob'):
+            lines.append("# Run Workload")
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            weighttype = "BF16"
+                            if dtype == "float32":
+                                weighttype = "FP32"
+
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log 2>&1 || true &")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu \
+                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 20 --dtype {dtype} --prompt 'how can you do that?' --ipex --jit \
+                                            2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+
 
 
         # if mode == "default":
