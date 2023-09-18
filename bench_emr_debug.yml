@@ -199,7 +199,7 @@ modelargs:
       - bfloat16
     localrank:
       - 2
-      - 4
+      # - 4
     batchsize: 1
     shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
     numiter: 50
