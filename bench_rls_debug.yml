@@ -837,7 +837,7 @@ modelargs:
   t5_oob:
     modelid: 
       - bert-base-uncased
-    scriptname: run_generation_with_deepspeed.py
+    scriptname: run_generation.py
     device:
       - cpu
     dtype: 
@@ -870,7 +870,7 @@ modelargs:
   gpt_oob:
     modelid: 
       - facebook/bart-large-cnn
-    scriptname: run_generation_with_deepspeed.py
+    scriptname: run_generation.py
     device:
       - cpu
     dtype: 
