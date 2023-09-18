@@ -834,7 +834,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  t5_2s:
+  t5_oob:
     modelid: 
       - bert-base-uncased
     scriptname: run_generation_with_deepspeed.py
@@ -867,7 +867,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  gpt_2s:
+  gpt_oob:
     modelid: 
       - facebook/bart-large-cnn
     scriptname: run_generation_with_deepspeed.py
@@ -881,6 +881,39 @@ modelargs:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_falcon"
     shardpath: "/root/workspace/qmodel/shard/facebook/bart-large-cnn"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  bart_oob:
+    modelid: 
+      - digit82/kobart-summarization
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    localrank:
+      - 2
+    outputdir: "/root/workspace/qmodel/mixed_falcon"
+    shardpath: "/root/workspace/qmodel/shard/digit82/kobart-summarization"
     quantize: true
     lambada: true
     ipex: true
