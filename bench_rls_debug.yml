@@ -1076,7 +1076,7 @@ modelargs:
   #     - false
   opt30_int8:
     modelid: 
-      - facebook/opt-30b
+      - facebook/opt-6.7b
     scriptname: run_opt_quantization.py
     device:
       - cpu
