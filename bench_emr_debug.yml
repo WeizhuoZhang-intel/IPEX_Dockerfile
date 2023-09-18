@@ -100,6 +100,7 @@ modelargs:
     localrank:
       - 3
     outputdir: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     quantize: true
     lambada: true
     ipex: true
@@ -133,6 +134,7 @@ modelargs:
     localrank:
       - 3
     outputdir: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -166,6 +168,7 @@ modelargs:
     localrank:
       - 3
     outputdir: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
     quantize: true
     lambada: true
     ipex: true
