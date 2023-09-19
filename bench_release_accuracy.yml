@@ -190,7 +190,7 @@ modelargs:
   deepspeed:
     modelid:
       # - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf 
       # - facebook/opt-6.7b
     scriptname: run_accuracy_with_deepspeed.py
@@ -213,25 +213,25 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  ndeepspeed:
-    modelid:
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_accuracy_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    shardpath: "/qmodel/shard_neox"
-    outdir: "/qmodel/ds_neox"
-    bestpath: "/qmodel/ds_neox/best_model.pt"
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # ndeepspeed:
+  #   modelid:
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_accuracy_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   shardpath: "/qmodel/shard_neox"
+  #   outdir: "/qmodel/ds_neox"
+  #   bestpath: "/qmodel/ds_neox/best_model.pt"
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
