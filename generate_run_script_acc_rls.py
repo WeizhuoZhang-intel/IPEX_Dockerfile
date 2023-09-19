@@ -212,13 +212,13 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('deepspeed'):
             lines.append("# DS Env config")
-            lines.append("source /root/oneCCL_install/env/setvars.sh")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             lines.append(f"export LD_LIBRARY_PATH=/root/oneCCL_install/lib:$LD_LIBRARY_PATH")
             lines.append("unset KMP_AFFINITY")
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
             lines.append("huggingface-cli login --token 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")   
+            lines.append("source /root/oneCCL_install/env/setvars.sh")
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
