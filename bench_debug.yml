@@ -869,37 +869,37 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - False
-  opt30_int8:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run_opt_int8.py
-    device:
-      - cpu
-    dtype: int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/mixed_opt30"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    localrank:
-      - 1
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # opt30_int8:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run_opt_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/mixed_opt30"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   localrank:
+  #     - 1
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # opt30_int8static:
   #   modelid: 
   #     - facebook/opt-30b
