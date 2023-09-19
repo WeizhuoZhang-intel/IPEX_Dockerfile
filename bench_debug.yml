@@ -348,38 +348,70 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
-  # opt7_int8static:
-  #   modelid: 
-  #     - facebook/opt-6.7b
-  #   scriptname: run_opt_int8.py
-  #   device:
-  #     - cpu
-  #   dtype: int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/root/workspace/qmodel/mixed_opt7"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_opt7/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     - 128
-  #     # - 512
-  #     # - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - false
+  opt7_int8static:
+    modelid: 
+      - facebook/opt-1.3b
+    scriptname: run_opt_int8.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/mixed_opt1"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt1/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      # - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  opt7_int8:
+    modelid: 
+      - facebook/opt-1.3b
+    scriptname: run_opt_int8.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/mixed_opt3"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt3/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      # - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
   # opt30_int8static:
   #   modelid: 
   #     - facebook/opt-30b
