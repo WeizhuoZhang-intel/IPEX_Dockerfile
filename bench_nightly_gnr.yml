@@ -87,44 +87,44 @@ modelargs:
   #   jit: true
   #   printmemory: true
   #   tokenlatency: true
-  gnr_profile:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: timeline.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    localrank:
-      - 3
-    outputdir: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
-    benchmark: true
-    inputtokens:
-      # - 32
-      - 128
-      # - 512
-    prompt: None
-    numiter: 50
-    weighttype:
-      - int8
-      # - int4
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - false
+  # gnr_profile:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: timeline.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 3
+  #   outputdir: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     # - 512
+  #   prompt: None
+  #   numiter: 50
+  #   weighttype:
+  #     - int8
+  #     # - int4
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - false
   gnr_instance:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -150,9 +150,10 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
     benchmark: true
     inputtokens:
-      # - 32
-      - 128
-      # - 512
+      - 32
+      # - 128
+      - 512
+      - 1024
     prompt: None
     weighttype:
       - int8
