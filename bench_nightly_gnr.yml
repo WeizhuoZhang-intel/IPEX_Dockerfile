@@ -127,7 +127,7 @@ modelargs:
   gnr_instance:
     modelid: 
       - EleutherAI/gpt-j-6B
-    scriptname: timeline.py
+    scriptname: timeline1.py
     device:
       - cpu
     dtype: 
