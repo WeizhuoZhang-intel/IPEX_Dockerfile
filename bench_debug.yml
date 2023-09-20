@@ -1094,10 +1094,10 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
     benchmark: true
     inputtokens:
-      - 32
-      # - 128
-      - 512
-      - 1024
+      # - 32
+      - 128
+      # - 512
+      # - 1024
     prompt: None
     weighttype:
       - int8
