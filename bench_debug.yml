@@ -1030,10 +1030,49 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  gnr_profile:
+  # gnr_profile:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: timeline.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   outputdir: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     # - 512
+  #   prompt: None
+  #   numiter: 50
+  #   weighttype:
+  #     - int8
+  #     # - int4
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+
+  gnr_instance:
     modelid: 
       - EleutherAI/gpt-j-6B
-    scriptname: timeline.py
+    scriptname: timeline1.py
     device:
       - cpu
     dtype: 
@@ -1059,13 +1098,13 @@ modelargs:
       - 128
       # - 512
     prompt: None
-    numiter: 50
     weighttype:
       - int8
       # - int4
+    numiter: 50
     numwarmup: 10
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - False
+      - false
       
