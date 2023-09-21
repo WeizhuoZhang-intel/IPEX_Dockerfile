@@ -232,7 +232,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if model_id == "EleutherAI/gpt-neox-20b":
                             lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 --weight-dtype INT8 --lowp-mode BF16 -m {model_id}")
                         elif model_id == "tiiuae/falcon-40b":
-                            lines.append(f"python run_falcon_quantization.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-dtype INT8 --lowp-mode BF16 -m <MODEL_ID> --config-file /root/workspace/IPEX_Dockerfile/tiiuae_falcon-40b_config.json")
+                            lines.append(f"python run_falcon_quantization.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m <MODEL_ID> --config-file /root/workspace/IPEX_Dockerfile/tiiuae_falcon-40b_config.json")
                         else:
                             lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --weight-dtype INT8 --lowp-mode BF16 -m {model_id}")
 
