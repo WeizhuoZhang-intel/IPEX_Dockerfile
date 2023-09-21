@@ -17,7 +17,28 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  default:
+  opt_int8:
+    modelid:
+      - facebook/opt-1.3b 
+    scriptname: run_opt_int8.py
+    outdir: "/root/workspace/qmodel/opt"
+    bestpath: "/root/workspace/qmodel/opt/best_model.pt"
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  # default:
     # modelid:
     #   # - EleutherAI/gpt-j-6B
     #   # - meta-llama/Llama-2-7b-hf
@@ -289,24 +310,3 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  opt_int8:
-    modelid:
-      - facebook/opt-1.3b 
-    scriptname: run_opt_int8.py
-    outdir: "/root/workspace/qmodel/opt"
-    bestpath: "/root/workspace/qmodel/opt/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
