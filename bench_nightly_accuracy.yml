@@ -292,8 +292,8 @@ modelargs:
     modelid:
       - facebook/opt-1.3b 
     scriptname: run_opt_int8.py
-    outdir: "/qmodel/opt"
-    bestpath: "/qmodel/opt/best_model.pt"
+    outdir: "/root/workspace/qmodel/opt"
+    bestpath: "/root/workspace/qmodel/opt/best_model.pt"
     device:
       - cpu
     dtype:
