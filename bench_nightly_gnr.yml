@@ -21,36 +21,74 @@ launcher:
   numactlM: 0
   iternum: 50
 modelargs:
-  # deepspeed:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     - facebook/opt-6.7b
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - woq
-  #   localrank:
-  #     - 2
-  #   batchsize: 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - false
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
+  deepspeed:
+    modelid:
+      - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - facebook/opt-6.7b
+    scriptname: run_generation_with_deepspeed.py
+    shardpath: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/shard/EleutherAI/gpt-j-6B"
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 3
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 32
+      - 128
+      - 1024
+      - 2016
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  gpt_int8:
+    modelid:
+      - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - facebook/opt-6.7b
+    scriptname: run_generation_with_deepspeed.py
+    shardpath: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/shard/EleutherAI/gpt-j-6B"
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 3
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 32
+      - 128
+      - 1024
+      - 2016
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
   # quad_int4:
   #   modelid:
   #     - meta-llama/Llama-2-7b-hf
@@ -137,8 +175,8 @@ modelargs:
       - 32
     localrank:
       - 3
-    outputdir: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+    outputdir: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/shard/EleutherAI/gpt-j-6B"
+    shardpath: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/shard/EleutherAI/gpt-j-6B"
     quantize: true
     lambada: true
     ipex: true
@@ -147,13 +185,52 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+    quantizedmodelpath: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/mixed_llama13/best_model.pt"
     benchmark: true
     inputtokens:
-      # - 32
+      - 32
       - 128
-      # - 512
-      # - 1024
+      - 1024
+      - 2016
+    prompt: None
+    weighttype:
+      - int8
+      # - int4
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - false
+  gnr_instance_woq:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: timeline1.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    localrank:
+      - 3
+    outputdir: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/EleutherAI/gpt-j-6B"
+    shardpath: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/shard/EleutherAI/gpt-j-6B"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/dev/shm/jenkins/workspace/IPEX_LLM_GNR_TRACK/qmodel/EleutherAI/gpt-j-6B/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 1024
+      - 2016
     prompt: None
     weighttype:
       - int8
