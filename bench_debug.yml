@@ -1072,7 +1072,7 @@ modelargs:
   gnr_instance_woq:
     modelid: 
       - EleutherAI/gpt-j-6B
-    scriptname: timeline1.py
+    scriptname: run_gpt-j_int8.py
     device:
       - cpu
     dtype: 
@@ -1111,7 +1111,7 @@ modelargs:
   gnr_instance:
     modelid: 
       - EleutherAI/gpt-j-6B
-    scriptname: timeline1.py
+    scriptname: run_gpt-j_int8.py
     device:
       - cpu
     dtype: 
