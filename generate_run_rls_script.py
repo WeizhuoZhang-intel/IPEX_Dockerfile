@@ -476,7 +476,13 @@ def generate_commands(yml_file,mode,extra_kmp):
                     lines.append(f"python {data['modelargs'][mode]['scriptnamerun']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed --low-precision-checkpoint {data['modelargs'][mode]['outputpt']} -m {model_id}")
 
                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptnamerun']} -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --benchmark --int8-bf16-mixed --token-latency")
-
+        
+        if mode.endswith('gptqonly'):
+            lines.append("# Run Workload")
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"python run_gptq.py --model {model_id} --output_dir {data['modelargs'][mode]['outputdir']}")
  
         # if mode == "default":
         #     lines.append("# Run workload")

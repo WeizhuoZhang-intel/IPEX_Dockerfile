@@ -18,17 +18,45 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  gptj1_gptq:
+  # gptj1_gptq:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gptq.py
+  #   scriptnamerun: run_gpt-j_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   outputdir: "/data/datasets/gptq/EleutherAI/gpt-j-6B"
+  #   outputpt: "/data/datasets/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint.pt"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-j-6B/best_model.pt"
+  #   benchmark: true
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  l7_gptqonly:
     modelid: 
-      - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
     scriptname: run_gptq.py
     scriptnamerun: run_gpt-j_quantization.py
     device:
       - cpu
     dtype: 
       - bfloat16
-    outputdir: "/data/datasets/gptq/EleutherAI/gpt-j-6B"
-    outputpt: "/data/datasets/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint.pt"
+    outputdir: "/data/datasets/gptq/meta-llama/Llama-2-7b-hf"
+    outputpt: "/data/datasets/gptq/meta-llama/Llama-2-7b-hf/gptq_checkpoint.pt"
     quantize: true
     lambada: true
     ipex: true
@@ -37,7 +65,175 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-j-6B/best_model.pt"
+    quantizedmodelpath: "/data/datasets/gptq/Emeta-llama/Llama-2-7b-hf/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  l13_gptqonly:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run_gptq.py
+    scriptnamerun: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/meta-llama/Llama-2-13b-hf"
+    outputpt: "/data/datasets/gptq/meta-llama/Llama-2-13b-hf/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/meta-llama/Llama-2-13b-hf/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  l70_gptqonly:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run_gptq.py
+    scriptnamerun: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf"
+    outputpt: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  neox_gptqonly:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+    scriptname: run_gptq.py
+    scriptnamerun: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/EleutherAI/gpt-neox-20b"
+    outputpt: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  fal_gptqonly:
+    modelid: 
+      - tiiuae/falcon-40b 
+    scriptname: run_gptq.py
+    scriptnamerun: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/tiiuae/falcon-40b"
+    outputpt: "/data/datasets/gptq/tiiuae/falcon-40b/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/tiiuae/falcon-40b/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  opt6_gptqonly:
+    modelid: 
+      - facebook/opt-6.7b
+    scriptname: run_gptq.py
+    scriptnamerun: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/facebook/opt-6.7b "
+    outputpt: "/data/datasets/gptq/facebook/opt-6.7b/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/facebook/opt-6.7b/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  opt30_gptqonly:
+    modelid: 
+      - facebook/opt-6.7b
+    scriptname: run_gptq.py
+    scriptnamerun: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/facebook/opt-30b "
+    outputpt: "/data/datasets/gptq/facebook/opt-30b/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/facebook/opt-30b/best_model.pt"
     benchmark: true
     prompt: None
     numiter: 50
