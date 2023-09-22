@@ -463,7 +463,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"python run_gptq.py --model {model_id} --out-dir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"python run_gptq.py --model {model_id} --output_dir {data['modelargs'][mode]['outputdir']}")
 
         # if mode.endswith('gptqint4'):
             lines.append("# Run Workload")       
