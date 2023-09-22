@@ -1111,7 +1111,7 @@ modelargs:
   gnr_instance:
     modelid: 
       - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_int8.py
+    scriptname: run_generation.py
     device:
       - cpu
     dtype: 
