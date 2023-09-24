@@ -476,75 +476,75 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # opt7_int8:
-  #   modelid: 
-  #     - facebook/opt-6.7b
-  #   scriptname: run_opt_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/root/workspace/qmodel"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2048
-  #   prompt: None
-  #   weighttype:
-  #     - int8
-  #     # - int4
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  # opt7_int8static:
-  #   modelid: 
-  #     - facebook/opt-6.7b
-  #   scriptname: run_opt_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/root/workspace/qmodel"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2048
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
+  opt7_int8:
+    modelid: 
+      - facebook/opt-6.7b
+    scriptname: run_opt_fix.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+      - 2048
+    prompt: None
+    weighttype:
+      - int8
+      # - int4
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  opt7_int8static:
+    modelid: 
+      - facebook/opt-6.7b
+    scriptname: run_opt_fix.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+      - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
   # opt30_default:
   #   modelid: 
   #     - facebook/opt-30b
@@ -578,73 +578,73 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # opt30_int8:
-  #   modelid: 
-  #     - facebook/opt-30b
-  #   scriptname: run_opt_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/root/workspace/qmodel"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   prompt: None
-  #   weighttype:
-  #     - int8
-  #     # - int4
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  # opt30_int8static:
-  #   modelid: 
-  #     - facebook/opt-30b
-  #   scriptname: run_opt_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/root/workspace/qmodel"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
+  opt30_int8:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: run_opt_fix.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+    prompt: None
+    weighttype:
+      - int8
+      # - int4
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  opt30_int8static:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: run_opt_fix.py
+    device:
+      - cpu
+    dtype: int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
   # opt30_2s:
   #   modelid: 
   #     - facebook/opt-30b
@@ -720,45 +720,45 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  neox_int8:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_gpt-neox_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-neox-20b"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    localrank:
-      - 2
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-    prompt: None
-    weighttype:
-      - int8
-      # - int4
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # neox_int8:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_gpt-neox_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-neox-20b"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   localrank:
+  #     - 2
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   weighttype:
+  #     - int8
+  #     # - int4
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # neox_2swoq:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
@@ -908,44 +908,44 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  falcon_int8:
-    modelid: 
-      - tiiuae/falcon-40b 
-    scriptname: run_falcon_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    weighttype:
-      - int8
-      # - int4
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    localrank:
-      - 2
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # falcon_int8:
+  #   modelid: 
+  #     - tiiuae/falcon-40b 
+  #   scriptname: run_falcon_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   weighttype:
+  #     - int8
+  #     # - int4
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # falcon_2s:
   #   modelid: 
   #     - tiiuae/falcon-40b 
@@ -1129,75 +1129,75 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # opt6_gptq:
-  #   modelid: 
-  #     - facebook/opt-6.7b
-  #   scriptnamerun: run_gptq.py
-  #   scriptname: run_opt_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   outputdir: "/data/datasets/gptq/facebook/opt-6.7b"
-  #   outputpt: "/data/datasets/gptq/facebook/opt-6.7b/gptq_checkpoint.pt"
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2048
-  #   maxnewtokens: 
-  #     - 32
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data/datasets/gptq/facebook/opt-6.7b/best_model.pt"
-  #   benchmark: true
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  # opt30_gptq:
-  #   modelid: 
-  #     - facebook/opt-30b
-  #   scriptnamerun: run_gptq.py
-  #   scriptname: run_opt_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   outputdir: "/data/datasets/gptq/facebook/opt-30b"
-  #   outputpt: "/data/datasets/gptq/facebook/opt-30b/gptq_checkpoint.pt"
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     # - 2048
-  #   maxnewtokens: 
-  #     - 32
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data/datasets/gptq/facebook/opt-30b/best_model.pt"
-  #   benchmark: true
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
+  opt6_gptq:
+    modelid: 
+      - facebook/opt-6.7b
+    scriptnamerun: run_gptq.py
+    scriptname: run_opt_fix.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/facebook/opt-6.7b"
+    outputpt: "/data/datasets/gptq/facebook/opt-6.7b/gptq_checkpoint.pt"
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+      - 2048
+    maxnewtokens: 
+      - 32
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/facebook/opt-6.7b/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  opt30_gptq:
+    modelid: 
+      - facebook/opt-30b
+    scriptnamerun: run_gptq.py
+    scriptname: run_opt_fix.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/facebook/opt-30b"
+    outputpt: "/data/datasets/gptq/facebook/opt-30b/gptq_checkpoint.pt"
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+      # - 2048
+    maxnewtokens: 
+      - 32
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/facebook/opt-30b/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
