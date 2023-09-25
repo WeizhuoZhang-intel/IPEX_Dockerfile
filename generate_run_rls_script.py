@@ -377,7 +377,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --benchmark --greedy -m {data['modelargs'][mode]['shardpath']} --dtype {dtype} --input-tokens {input_token} \
                                                     --max-new-tokens {output_token} --ipex --deployment-mode --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_{beam}_NUMA_{numa}_BF16.log") 
                                     lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_{beam}_NUMA_{numa}_BF16.log")
-        if mode.endswith('2s1'):
+        if mode.endswith('2s1'):  # not using shard model path
             lines.append("# Run Workload")
 
             lines.append("export CCL_WORKER_COUNT=1")
