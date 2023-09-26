@@ -246,7 +246,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         elif model_id == "THUDM/chatglm2-6b":
                             lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log 2>&1 || true &")
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu \
-                                        --input-tokens {input_token} --max-new-tokens {output_token} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
+                                        --input-tokens {input_token} --max-new-tokens {output_token} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --ipex-weight-only-quantization --num-iter 50 \
                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
                             lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
                     
