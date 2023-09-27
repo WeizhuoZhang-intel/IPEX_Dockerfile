@@ -1068,21 +1068,95 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-
-  gnr_instance_woq:
+  # gnr_instance_woq:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   outputdir: "/root/workspace/qmodel/mixed_llama13"
+  #   shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   weighttype:
+  #     - int8
+  #     # - int4
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # gnr_instance:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   outputdir: "/root/workspace/qmodel/mixed_llama13"
+  #   shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   weighttype:
+  #     - int8
+  #     # - int4
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  chatglm_int8:
     modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_int8.py
+      - THUDM/chatglm2-6b
+    scriptname: run_fix.py
     device:
       - cpu
     dtype: 
-      - bfloat16
+      - int8
     maxnewtokens: 
       - 32
-    localrank:
-      - 2
-    outputdir: "/root/workspace/qmodel/mixed_llama13"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+    outputdir: "/root/workspace/qmodel"
     quantize: true
     lambada: true
     ipex: true
@@ -1091,58 +1165,18 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
     benchmark: true
     inputtokens:
       - 32
       - 128
+      - 512
       - 1024
-      - 2016
     prompt: None
-    weighttype:
-      - int8
-      # - int4
     numiter: 50
     numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  gnr_instance:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
     localrank:
       - 2
-    outputdir: "/root/workspace/qmodel/mixed_llama13"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 1024
-      - 2016
-    prompt: None
-    weighttype:
-      - int8
-      # - int4
-    numiter: 50
-    numwarmup: 10
     batchsize: 1
     tokenlatency: true
     greedy: 
