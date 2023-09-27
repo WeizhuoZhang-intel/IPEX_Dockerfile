@@ -214,34 +214,34 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # opt30_gptqonly:
-  #   modelid: 
-  #     - facebook/opt-6.7b
-  #   scriptname: run_gptq.py
-  #   scriptnamerun: run_gpt-j_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   outputdir: "/data/datasets/gptq/facebook/opt-30b "
-  #   outputpt: "/data/datasets/gptq/facebook/opt-30b/gptq_checkpoint.pt"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data/datasets/gptq/facebook/opt-30b/best_model.pt"
-  #   benchmark: true
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
+  opt30_gptqonly:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: run_gptq.py
+    scriptnamerun: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/facebook/opt-30b "
+    outputpt: "/data/datasets/gptq/facebook/opt-30b/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/facebook/opt-30b/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
   # llama70_2swoq:
   #   modelid: 
   #     - meta-llama/Llama-2-70b-hf
@@ -280,43 +280,43 @@ modelargs:
   #     - False
   #   localrank:
   #     - 2
-  llama7_torch:
-    modelid: 
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-j-6B
-      # - facebook/opt-6.7b
-      # - facebook/opt-30b
-      - tiiuae/falcon-40b 
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      # - 32
-      - 128
-      # - 512
-      # - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # llama7_torch:
+  #   modelid: 
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-j-6B
+  #     # - facebook/opt-6.7b
+  #     # - facebook/opt-30b
+  #     - tiiuae/falcon-40b 
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
