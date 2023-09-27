@@ -283,11 +283,11 @@ modelargs:
   llama7_torch:
     modelid: 
       # - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - EleutherAI/gpt-j-6B
-      - facebook/opt-6.7b
-      - facebook/opt-30b
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-j-6B
+      # - facebook/opt-6.7b
+      # - facebook/opt-30b
       - tiiuae/falcon-40b 
     scriptname: run_generation.py
     device:
