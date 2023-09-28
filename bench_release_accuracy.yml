@@ -44,8 +44,8 @@ modelargs:
     modelid:
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_quantization.py
-    outdir: "/qmodel/mixed_gpt"
-    bestpath: "/qmodel/mixed_gpt/best_model.pt"
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
     device:
       - cpu
     dtype:
@@ -70,8 +70,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/qmodel/mixed_llama7"
-    bestpath: "/qmodel/mixed_llama7/best_model.pt"
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -91,8 +91,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/qmodel/mixed_llama13"
-    bestpath: "/qmodel/mixed_llama13/best_model.pt"
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -112,8 +112,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/qmodel/int8_neox"
-    bestpath: "/qmodel/int8_neox/best_model.pt"
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -133,8 +133,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/qmodel/int8_neox"
-    bestpath: "/qmodel/int8_neox/best_model.pt"
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -154,8 +154,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/qmodel/int8_neox"
-    bestpath: "/qmodel/int8_neox/best_model.pt"
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
@@ -175,8 +175,8 @@ modelargs:
     dtype:
       - int8
     inputtokens:
-    outdir: "/qmodel/int8_neox"
-    bestpath: "/qmodel/int8_neox/best_model.pt"
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
     numiter: 1000
     maxnewtokens: 32
     prompt: None
