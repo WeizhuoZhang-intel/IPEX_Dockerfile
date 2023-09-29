@@ -535,14 +535,14 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('gptqto'):
             lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"python run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"python run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
  
                 if model_id == "EleutherAI/gpt-neox-20b":
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']}")
                 else:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']}")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']} --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
 
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output_token in data['modelargs'][mode]['maxnewtokens']:
