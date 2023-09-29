@@ -589,11 +589,11 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
     benchmark: true
     inputtokens:
-      - 32
+      # - 32
       - 128
-      - 512
-      - 1024
-      - 2048
+      # - 512
+      # - 1024
+      # - 2048
     prompt: None
     numiter: 50
     numwarmup: 10
