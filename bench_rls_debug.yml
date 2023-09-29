@@ -495,23 +495,59 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  falcon_gptqto:
+  # falcon_gptqto:
+  #   modelid: 
+  #     - tiiuae/falcon-40b 
+  #   scriptnamerun: run_gptq.py
+  #   scriptname: run_falcon_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   outputdir: "/data/datasets/gptq/tiiuae/falcon-40b"
+  #   outputpt: "/data/datasets/gptq/tiiuae/falcon-40b/gptq_checkpoint.pt"
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   maxnewtokens: 
+  #     - 32
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data/datasets/gptq/tiiuae/falcon-40b/best_model.pt"
+  #   benchmark: true
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  gptj1_gptq:
     modelid: 
-      - tiiuae/falcon-40b 
+      - EleutherAI/gpt-j-6B
     scriptnamerun: run_gptq.py
-    scriptname: run_falcon_quantization.py
+    scriptname: run_gpt-j_quantization.py
     device:
       - cpu
     dtype: 
       - bfloat16
-    outputdir: "/data/datasets/gptq/tiiuae/falcon-40b"
-    outputpt: "/data/datasets/gptq/tiiuae/falcon-40b/gptq_checkpoint.pt"
+    outputdir: "/data/datasets/gptq/EleutherAI/gpt-j-6B"
+    outputpt: "/data/datasets/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint.pt"
     inputtokens:
       - 32
       - 128
       - 512
       - 1024
-      # - 2048
+      - 2048
     maxnewtokens: 
       - 32
     quantize: true
@@ -522,7 +558,7 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/data/datasets/gptq/tiiuae/falcon-40b/best_model.pt"
+    quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-j-6B/best_model.pt"
     benchmark: true
     prompt: None
     numiter: 50
