@@ -280,34 +280,34 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
-  # llama7_int8static:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_llama_int8.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/root/workspace/qmodel/mixed_llama7"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama7/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     - 128
-  #     # - 512
-  #     # - 1024
-  #     # - 2048
-  #     # - 4096
+  llama7_int8static:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_int8.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/mixed_llama7"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama7/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+      - 2048
+      # - 4096
   #   prompt: None
   #   numiter: 50
   #   numwarmup: 10
@@ -1146,38 +1146,38 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  chatglm_int8:
-    modelid: 
-      - THUDM/chatglm2-6b
-    scriptname: run_fix.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    localrank:
-      - 2
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # chatglm_int8:
+  #   modelid: 
+  #     - THUDM/chatglm2-6b
+  #   scriptname: run_fix.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
