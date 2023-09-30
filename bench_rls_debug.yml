@@ -876,8 +876,8 @@ modelargs:
   neox_gptqto:
     modelid: 
       - EleutherAI/gpt-neox-20b
-    scriptname: run_gptq.py
-    scriptnamerun: run_gpt-neox_quantization.py
+    scriptnamerun: run_gptq.py
+    scriptname: run_gpt-neox_quantization.py
     device:
       - cpu
     dtype: 
