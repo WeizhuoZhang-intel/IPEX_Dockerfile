@@ -479,7 +479,7 @@ modelargs:
   opt7_int8:
     modelid: 
       - facebook/opt-6.7b
-    scriptname: run_opt_fix.py
+    scriptname: run_opt_quantization.py
     device:
       - cpu
     dtype: int8
@@ -515,7 +515,7 @@ modelargs:
   # opt7_int8static:
   #   modelid: 
   #     - facebook/opt-6.7b
-  #   scriptname: run_opt_fix.py
+  #   scriptname: run_opt_quantization.py
   #   device:
   #     - cpu
   #   dtype: int8
@@ -581,7 +581,7 @@ modelargs:
   opt30_int8:
     modelid: 
       - facebook/opt-30b
-    scriptname: run_opt_fix.py
+    scriptname: run_opt_quantization.py
     device:
       - cpu
     dtype: int8
@@ -616,7 +616,7 @@ modelargs:
   # opt30_int8static:
   #   modelid: 
   #     - facebook/opt-30b
-  #   scriptname: run_opt_fix.py
+  #   scriptname: run_opt_quantization.py
   #   device:
   #     - cpu
   #   dtype: int8
@@ -1133,7 +1133,7 @@ modelargs:
     modelid: 
       - facebook/opt-6.7b
     scriptnamerun: run_gptq.py
-    scriptname: run_opt_fix.py
+    scriptname: run_opt_quantization.py
     device:
       - cpu
     dtype: 
@@ -1169,7 +1169,7 @@ modelargs:
     modelid: 
       - facebook/opt-30b
     scriptnamerun: run_gptq.py
-    scriptname: run_opt_fix.py
+    scriptname: run_opt_quantization.py
     device:
       - cpu
     dtype: 

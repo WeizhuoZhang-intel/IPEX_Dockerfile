@@ -570,7 +570,29 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 --input-tokens {input_token} --max-new-tokens {output_token} --int8-bf16-mixed -m {model_id} --benchmark --token-latency --greedy --num-iter 50 \
                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{output_token}_greedy_{beam}_NUMA_1_INT4.log")   
                                     lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woqbf16mixed_{input_token}-{output_token}_greedy_{beam}_NUMA_1_INT4.log")                                                                              
-                                
+
+        if mode.endswith('int4acc'):
+            lines.append("# Run Workload")
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                # if model_id == "EleutherAI/gpt-neox-20b":
+                #     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']}")
+                # else:
+                #     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']} --config-file /root/workspace/IPEX_Dockerfile/tiiuae_falcon-40b_config.json")
+
+                            # lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_INT4.log 2>&1 || true &")
+                    if model_id == "EleutherAI/gpt-neox-20b":
+                    
+                        # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outdir']} --int8-bf16-mixed -m {model_id}")
+                        lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+                        lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --dtype int8 --jit --tasks lambada_openai \
+                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{dtype}_accuracy.log")
+                    else:
+                        # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outdir']} --int8-bf16-mixed -m {model_id}")
+                        lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+                        lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --dtype int8 --int8-bf16-mixed --jit --tasks lambada_openai \
+                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{dtype}_accuracy.log")
+         
 
         # if mode == "default":
         #     lines.append("# Run workload")
