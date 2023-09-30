@@ -346,7 +346,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_BF16.log 2>&1 || true &")
                                 if beam == False:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
-                                                --input-tokens {input_token} --max-new-tokens {output_token} --int8-bf16-mixed -m {model_id} --benchmark --token-latency --profile  --num-iter 10 \
+                                                --input-tokens {input_token} --max-new-tokens {output_token} --int8-bf16-mixed -m {model_id} --benchmark --token-latency --num-iter 50 \
                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_int8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_BF16.log")
                                 elif beam == True:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
@@ -541,8 +541,11 @@ def generate_commands(yml_file,mode,extra_kmp):
  
                 if model_id == "EleutherAI/gpt-neox-20b":
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']}")
-                else:
+                elif "falcon" in model_id:
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']} --config-file /root/workspace/IPEX_Dockerfile/tiiuae_falcon-40b_config.json")
+                else:
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']}")
+
 
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output_token in data['modelargs'][mode]['maxnewtokens']:
