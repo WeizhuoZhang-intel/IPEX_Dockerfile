@@ -906,7 +906,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true
+      - false
   falcon_2swoq:
     modelid: 
       - tiiuae/falcon-40b 
@@ -938,7 +938,7 @@ modelargs:
     batchsize: 1
     tokenlatency: true
     greedy: 
-      - true
+      - false
     localrank:
       - 2
   bloom_default:
