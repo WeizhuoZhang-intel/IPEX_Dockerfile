@@ -568,9 +568,78 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-  starchatdeepspeed:
+  # starchatdeepspeed:
+  #   modelid:
+  #     - HuggingFaceH4/starchat-beta
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #   localrank:
+  #     - 2
+  #     - 4
+  #   batchsize: 1
+  #   shardpath: "/root/workspace/qmodel/shard/codellama/HuggingFaceH4/starchat-beta"
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   cuda: true
+  #   greedy: 
+  #     - false
+  #   ki: true
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
+  # starchat_int8:
+  #   modelid: 
+  #     - HuggingFaceH4/starchat-beta
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - float32
+  #   localrank:
+  #     - 2
+  #     - 4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/mixed_opt30"
+  #   shardpath: "/root/workspace/qmodel/shard/codellama/HuggingFaceH4/starchat-beta"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - false
+  bloomdeepspeed:
     modelid:
-      - HuggingFaceH4/starchat-beta
+      - bigscience/bloom-7b1
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -578,9 +647,9 @@ modelargs:
       - bfloat16
     localrank:
       - 2
-      - 4
+      # - 4
     batchsize: 1
-    shardpath: "/root/workspace/qmodel/shard/codellama/HuggingFaceH4/starchat-beta"
+    shardpath: "/root/workspace/qmodel/shard/bigscience/bloom-7b1"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -600,9 +669,9 @@ modelargs:
     jit: true
     printmemory: true
     tokenlatency: true
-  starchat_int8:
+  bloom_int8:
     modelid: 
-      - HuggingFaceH4/starchat-beta
+      - bigscience/bloom-7b1
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -610,11 +679,11 @@ modelargs:
       - float32
     localrank:
       - 2
-      - 4
+      # - 4
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel/mixed_opt30"
-    shardpath: "/root/workspace/qmodel/shard/codellama/HuggingFaceH4/starchat-beta"
+    outputdir: "/root/workspace/qmodel"
+    shardpath: "/root/workspace/qmodel/shard/bigscience/bloom-7b1"
     quantize: true
     lambada: true
     ipex: true
@@ -623,7 +692,7 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt30/best_model.pt"
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
     benchmark: true
     inputtokens:
       - 32
@@ -637,4 +706,72 @@ modelargs:
     tokenlatency: true
     greedy: 
       - false
-
+  bai_deepspeed:
+    modelid:
+      - baichuan-inc/Baichuan2-13B-Chat
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 2
+      - 4
+    batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/baichuan-inc/Baichuan2-13B-Chat"
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  bai_int8:
+    modelid: 
+      - baichuan-inc/Baichuan2-13B-Chat
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - float32
+    localrank:
+      - 2
+      - 4
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    shardpath: "/root/workspace/qmodel/shard/baichuan-inc/Baichuan2-13B-Chat"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - false
