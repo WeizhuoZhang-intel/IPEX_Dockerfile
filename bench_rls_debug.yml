@@ -586,7 +586,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  falcon_gptq:
+  falcon_gptqto:
     modelid: 
       - tiiuae/falcon-40b 
     scriptnamerun: run_gptq.py
