@@ -17,29 +17,29 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  default:
-    modelid:
-      # - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      # - facebook/opt-6.7b
-    scriptname: run_accuracy.py
-    device:
-      - cpu
-    dtype:
-      - float32
-      # - bfloat16
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # default:
+  #   modelid:
+  #     # - EleutherAI/gpt-j-6B
+  #     # - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - facebook/opt-6.7b
+  #   scriptname: run_accuracy.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - float32
+  #     # - bfloat16
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # gpt_mixed:
   #   modelid:
   #     - EleutherAI/gpt-j-6B
@@ -124,27 +124,27 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  # gg_int8:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: run_gpt-j_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   outdir: "/qmodel"
-  #   bestpath: "/qmodel/best_model.pt"
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
+  gg_int8:
+    modelid:
+      - EleutherAI/gpt-j-6B
+    scriptname: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
   # l7_int8:
   #   modelid:
   #     - meta-llama/Llama-2-7b-hf
