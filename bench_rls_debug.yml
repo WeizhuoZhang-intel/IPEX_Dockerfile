@@ -745,7 +745,8 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "/data/datasets/gptq/EleutherAI/gpt-neox-20b"
+    outputpt: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint.pt"
     quantize: true
     lambada: true
     ipex: true
@@ -757,7 +758,7 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-j-6B/best_model.pt"
+    quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/best_model.pt"
     benchmark: true
     inputtokens:
       - 32
