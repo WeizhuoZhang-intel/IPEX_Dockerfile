@@ -586,42 +586,42 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # falcon_gptq:
-  #   modelid: 
-  #     - tiiuae/falcon-40b 
-  #   scriptnamerun: run_gptq.py
-  #   scriptname: run_falcon_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   outputdir: "/data/datasets/gptq/tiiuae/falcon-40b"
-  #   outputpt: "/data/datasets/gptq/tiiuae/falcon-40b/gptq_checkpoint.pt"
-  #   inputtokens:
-  #     - 32
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2048
-  #   maxnewtokens: 
-  #     - 32
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data/datasets/gptq/tiiuae/falcon-40b/best_model.pt"
-  #   benchmark: true
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
+  falcon_gptq:
+    modelid: 
+      - tiiuae/falcon-40b 
+    scriptnamerun: run_gptq.py
+    scriptname: run_falcon_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    outputdir: "/data/datasets/gptq/tiiuae/falcon-40b"
+    outputpt: "/data/datasets/gptq/tiiuae/falcon-40b/gptq_checkpoint.pt"
+    inputtokens:
+      - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2048
+    maxnewtokens: 
+      - 32
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/tiiuae/falcon-40b/best_model.pt"
+    benchmark: true
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
   # neox_gptq:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
@@ -735,42 +735,42 @@ modelargs:
   #   localrank:
   #     - 2
   #     # - 4
-  zgptj_int4acc:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_accuracy.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/datasets/gptq/EleutherAI/gpt-neox-20b"
-    outputpt: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint.pt"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    weighttype:
-      - int8
-      # - int4
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      # - 128
-      # - 512
-      # - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-      # - True
+  # zgptj_int4acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_accuracy.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/datasets/gptq/EleutherAI/gpt-neox-20b"
+  #   outputpt: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint.pt"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   weighttype:
+  #     - int8
+  #     # - int4
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  #     # - True
