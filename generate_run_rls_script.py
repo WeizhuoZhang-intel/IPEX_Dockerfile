@@ -255,7 +255,8 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('baitp'):
             lines.append("# Run Workload")   
-            lines.append("unset KMP_AFFINITY")     
+            lines.append("unset KMP_AFFINITY")  
+            lines.append("export FI_PROVIDER=tcp")    
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
@@ -267,7 +268,8 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('baitp8'):
             lines.append("# Run Workload")   
-            lines.append("unset KMP_AFFINITY")     
+            lines.append("unset KMP_AFFINITY")   
+            lines.append("export FI_PROVIDER=tcp")  
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                 lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
