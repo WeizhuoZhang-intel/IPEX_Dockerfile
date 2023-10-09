@@ -145,6 +145,27 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
+  llama1_int81:
+    modelid:
+      - EleutherAI/gpt-j-6B
+    scriptname: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel"
+    bestpath: "/qmodel/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
   # l7_int8:
   #   modelid:
   #     - meta-llama/Llama-2-7b-hf
