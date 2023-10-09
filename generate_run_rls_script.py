@@ -327,6 +327,63 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp --shard-model 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log") 
                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log")
 
+        if mode.endswith('emr'):
+            lines.append("# Run Workload")   
+            lines.append("unset KMP_AFFINITY")  
+            lines.append("export FI_PROVIDER=tcp")    
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for numa in data['modelargs'][mode]['localrank']:
+                                lines.append(f"export local_rank={numa}")
+                                lines.append("deepspeed_core_config ${local_rank}")
+                                lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                                lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                                # lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                                # lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
+
+                                # lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
+                                lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
+                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            --max-new-tokens {output_token} --ipex --deployment-mode --token-latency --num-iter 50 --autotp --shard-model 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
+
+                                lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log")
+
+
+
+                                # lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log 2>&1 || true &")
+                                # lines.append(f"deepspeed --bind_cores_to_rank run.py --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                #             --max-new-tokens {output_token} --ipex --deployment-mode --token-latency --num-iter 50 --autotp --shard-model 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log") 
+                                # lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log")
+
+        if mode.endswith('emr8'):
+            lines.append("# Run Workload")   
+            lines.append("unset KMP_AFFINITY")   
+            lines.append("export FI_PROVIDER=tcp")  
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for numa in data['modelargs'][mode]['localrank']:
+                                lines.append(f"export local_rank={numa}")
+                                lines.append("deepspeed_core_config ${local_rank}")
+                                lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                                lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                                lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
+                                if 'neox' in model_id:
+                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --int8 --input-tokens {input_token} \
+                                                --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp --shard-model 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
+                                elif 'falcon' in model_id:
+                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                                --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp --shard-model --config-file /root/workspace/IPEX_Dockerfile/utils/model_config/tiiuae_falcon-40b_config.json 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
+                                else:
+                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                                --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp --shard-model 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
+                                lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log")
+
 
         if mode.endswith('default'):
             lines.append("# Run Workload")
@@ -717,7 +774,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             # lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woqint8_{input_token}-{output_token}_greedy_{beam}_NUMA_1_INT4.log 2>&1 || true &")
                     if model_id == "EleutherAI/gpt-neox-20b":
                     
-                        lines.append(f"python run_gpt-neox_quantization.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']}")
+                        # lines.append(f"python run_gpt-neox_quantization.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputpt']}")
                         lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
                         lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --dtype int8 --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{dtype}_accuracy.log")
