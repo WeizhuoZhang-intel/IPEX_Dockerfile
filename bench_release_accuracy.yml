@@ -124,7 +124,7 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  gg_int8:
+  gg_int81:
     modelid:
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_quantization.py
