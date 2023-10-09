@@ -261,7 +261,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
                             lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log 2>&1 || true &")
-                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators 2 --bind_core_list $core_list run.py --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                         --max-new-tokens {output_token} --ipex --deployment-mode --token-latency --num-iter --autotp --shard-model 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log") 
                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log")
 
@@ -275,7 +275,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
                             lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log 2>&1 || true &")
-                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators 2 --bind_core_list $core_list run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
                                         --max-new-tokens {output_token} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter --autotp --shard-model 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log") 
                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_2_BF16.log")
 
