@@ -295,8 +295,18 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('baitp'):
             lines.append("# Run Workload")   
-            lines.append("unset KMP_AFFINITY")  
-            lines.append("export FI_PROVIDER=tcp")    
+            # lines.append("unset KMP_AFFINITY")  
+            lines.append("export FI_PROVIDER=tcp")   
+            lines.append("export CCL_WORKER_COUNT=1")
+            lines.append("export CCL_PROCESS_LAUNCHER=none")
+            lines.append("export CCL_ATL_TRANSPORT=ofi")
+            lines.append("export CCL_ATL_SHM=1")
+
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            # lines.append("export CCL_WORKER_AFFINITY=0,56")
+
+            lines.append("export DS_SHM_ALLREDUCE=1")
+            lines.append("unset KMP_AFFINITY") 
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
@@ -312,8 +322,18 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('baitp8'):
             lines.append("# Run Workload")   
-            lines.append("unset KMP_AFFINITY")   
+            # lines.append("unset KMP_AFFINITY")   
             lines.append("export FI_PROVIDER=tcp")  
+            lines.append("export CCL_WORKER_COUNT=1")
+            lines.append("export CCL_PROCESS_LAUNCHER=none")
+            lines.append("export CCL_ATL_TRANSPORT=ofi")
+            lines.append("export CCL_ATL_SHM=1")
+
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            # lines.append("export CCL_WORKER_AFFINITY=0,56")
+
+            lines.append("export DS_SHM_ALLREDUCE=1")
+            lines.append("unset KMP_AFFINITY") 
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                 lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
