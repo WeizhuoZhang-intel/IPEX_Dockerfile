@@ -1297,45 +1297,45 @@ modelargs:
   #     - False
   #     # - True
 
-  model1_shard:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: create_shard_model.py
-    shardpath: "/home/mint/shard/EleutherAI/gpt-j-6B"
-  model2_shard:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - tiiuae/falcon-40b 
-      # - EleutherAI/gpt-neox-20b
-    scriptname: create_shard_model.py
-    shardpath: "/home/mint/shard/meta-llama/Llama-2-7b-hf"
-  model3_shard:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: create_shard_model.py
-    shardpath: "/home/mint/shard/meta-llama/Llama-2-13b-hf"
-  model4_shard:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: create_shard_model.py
-    shardpath: "/home/mint/shard/meta-llama/Llama-2-70b-hf"
-  model5_shard:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: create_shard_model.py
-    shardpath: "/home/mint/shard/facebook/opt-30b"
-  model6_shard:
-    modelid: 
-      - tiiuae/falcon-40b 
-    scriptname: create_shard_model.py
-    shardpath: "/home/mint/shard/tiiuae/falcon-40b"
-  model7_shard:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: create_shard_model.py
-    shardpath: "/home/mint/shard/EleutherAI/gpt-neox-20b"
+  # model1_shard:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: create_shard_model.py
+  #   shardpath: "/home/mint/shard/EleutherAI/gpt-j-6B"
+  # model2_shard:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - tiiuae/falcon-40b 
+  #     # - EleutherAI/gpt-neox-20b
+  #   scriptname: create_shard_model.py
+  #   shardpath: "/home/mint/shard/meta-llama/Llama-2-7b-hf"
+  # model3_shard:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: create_shard_model.py
+  #   shardpath: "/home/mint/shard/meta-llama/Llama-2-13b-hf"
+  # model4_shard:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: create_shard_model.py
+  #   shardpath: "/home/mint/shard/meta-llama/Llama-2-70b-hf"
+  # model5_shard:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: create_shard_model.py
+  #   shardpath: "/home/mint/shard/facebook/opt-30b"
+  # model6_shard:
+  #   modelid: 
+  #     - tiiuae/falcon-40b 
+  #   scriptname: create_shard_model.py
+  #   shardpath: "/home/mint/shard/tiiuae/falcon-40b"
+  # model7_shard:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: create_shard_model.py
+  #   shardpath: "/home/mint/shard/EleutherAI/gpt-neox-20b"
 
 
