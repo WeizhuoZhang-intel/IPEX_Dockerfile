@@ -596,7 +596,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  llama7_emr:
+  llama44_emr:
     modelid: 
       # - "/data/datasets/shard/EleutherAI/gpt-j-6B"
       # - "/data/datasets/shard/meta-llama/Llama-2-7b-hf"
@@ -700,7 +700,7 @@ modelargs:
     int8: true
     incsmoothquant: true
     localrank:
-      - 2
+      # - 2
       - 4
     ipexsmmothquant: true
     int8bf16mixed: true
