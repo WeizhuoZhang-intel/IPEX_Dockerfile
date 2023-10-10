@@ -1301,7 +1301,7 @@ modelargs:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: create_shard_model.py
-    shardpath: "/dev/shm/shard/EleutherAI/gpt-j-6B"
+    shardpath: "/home/mint/shard/EleutherAI/gpt-j-6B"
   model2_shard:
     modelid: 
       - meta-llama/Llama-2-7b-hf
@@ -1311,31 +1311,31 @@ modelargs:
       # - tiiuae/falcon-40b 
       # - EleutherAI/gpt-neox-20b
     scriptname: create_shard_model.py
-    shardpath: "/dev/shm/shard/meta-llama/Llama-2-7b-hf"
+    shardpath: "/home/mint/shard/meta-llama/Llama-2-7b-hf"
   model3_shard:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: create_shard_model.py
-    shardpath: "/dev/shm/shard/meta-llama/Llama-2-13b-hf"
+    shardpath: "/home/mint/shard/meta-llama/Llama-2-13b-hf"
   model4_shard:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: create_shard_model.py
-    shardpath: "/dev/shm/shard/meta-llama/Llama-2-70b-hf"
+    shardpath: "/home/mint/shard/meta-llama/Llama-2-70b-hf"
   model5_shard:
     modelid: 
       - facebook/opt-30b
     scriptname: create_shard_model.py
-    shardpath: "/dev/shm/shard/facebook/opt-30b"
+    shardpath: "/home/mint/shard/facebook/opt-30b"
   model6_shard:
     modelid: 
       - tiiuae/falcon-40b 
     scriptname: create_shard_model.py
-    shardpath: "/dev/shm/shard/tiiuae/falcon-40b"
+    shardpath: "/home/mint/shard/tiiuae/falcon-40b"
   model7_shard:
     modelid: 
       - EleutherAI/gpt-neox-20b
     scriptname: create_shard_model.py
-    shardpath: "/dev/shm/shard/EleutherAI/gpt-neox-20b"
+    shardpath: "/home/mint/shard/EleutherAI/gpt-neox-20b"
 
 
