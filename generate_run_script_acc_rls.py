@@ -212,7 +212,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     else:
                         lines.append(f"rm -rf {data['modelargs'][mode]['outdir']}")
                         lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
-                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} --int8-bf16-mixed -m {model_id} --dataset NeelNanda/pile-10k ")
+                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} --int8-bf16-mixed -m {model_id} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']}")
                         lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
                         lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_accuracy.log")
