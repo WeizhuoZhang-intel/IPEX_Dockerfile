@@ -246,6 +246,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
             lines.append("huggingface-cli login --token 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")   
+            lines.append("export FI_PROVIDER=tcp")
             # lines.append("source /root/oneCCL_install/env/setvars.sh")
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:

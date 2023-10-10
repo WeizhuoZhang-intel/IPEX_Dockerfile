@@ -17,176 +17,176 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  default:
-    modelid:
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - facebook/opt-1.3b
-    scriptname: run_accuracy.py
-    device:
-      - cpu
-    dtype:
-      - float32
-      - bfloat16
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  gpt_mixed:
-    modelid:
-      - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_quantization.py
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama7_mixed:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_quantization.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama13_mixed:
-    modelid:
-      - meta-llama/Llama-2-13b-hf  
-    scriptname: run_llama_quantization.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  neox_int8:
-    modelid:
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_gpt-neox_quantization.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  gg_int8:
-    modelid:
-      - EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_quantization.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama1_int8:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_quantization.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
-  llama2_int8:
-    modelid:
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run_llama_quantization.py
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # default:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - facebook/opt-1.3b
+  #   scriptname: run_accuracy.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - float32
+  #     - bfloat16
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # gpt_mixed:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_quantization.py
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama7_mixed:
+  #   modelid:
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama13_mixed:
+  #   modelid:
+  #     - meta-llama/Llama-2-13b-hf  
+  #   scriptname: run_llama_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # neox_int8:
+  #   modelid:
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_gpt-neox_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # gg_int8:
+  #   modelid:
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama1_int8:
+  #   modelid:
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
+  # llama2_int8:
+  #   modelid:
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run_llama_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # llama3_int81:
   #   modelid:
   #     - meta-llama/Llama-2-7b-chat-hf
