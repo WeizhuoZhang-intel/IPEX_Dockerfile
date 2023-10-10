@@ -249,43 +249,43 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  llama70_2s:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    localrank:
-      - 2
-      # - 4
-    outputdir: "/root/workspace/qmodel/mixed_llama70"
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # llama70_2s:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #     # - 4
+  #   outputdir: "/root/workspace/qmodel/mixed_llama70"
+  #   shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # llama70_2swoq:
   #   modelid: 
   #     - meta-llama/Llama-2-70b-hf
@@ -325,82 +325,82 @@ modelargs:
   #   localrank:
   #     - 2
   #     - 4
-  gpt_2s:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    localrank:
-      - 2
-      # - 4
-    outputdir: "/root/workspace/qmodel/mixed_llama70"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  gpt_2swoq:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/mixed_llama70"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-    prompt: None
-    weighttype:
-      - int8
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-    localrank:
-      - 2
-      # - 4
+  # gpt_2s:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #     # - 4
+  #   outputdir: "/root/workspace/qmodel/mixed_llama70"
+  #   shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # gpt_2swoq:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/mixed_llama70"
+  #   shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #   prompt: None
+  #   weighttype:
+  #     - int8
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  #   localrank:
+  #     - 2
+  #     # - 4
   # falcon_2s:
   #   modelid: 
   #     - tiiuae/falcon-40b 
@@ -712,3 +712,43 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
+  model1_shard:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: create_shard_model.py
+    shardpath: "/data/datasets/shard/EleutherAI/gpt-j-6B"
+  model2_shard:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - tiiuae/falcon-40b 
+      # - EleutherAI/gpt-neox-20b
+    scriptname: create_shard_model.py
+    shardpath: "/data/datasets/shard/meta-llama/Llama-2-7b-hf"
+  model3_shard:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: create_shard_model.py
+    shardpath: "/data/datasets/shard/meta-llama/Llama-2-13b-hf"
+  model4_shard:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: create_shard_model.py
+    shardpath: "/data/datasets/shard/meta-llama/Llama-2-70b-hf"
+  model5_shard:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: create_shard_model.py
+    shardpath: "/data/datasets/shard/facebook/opt-30b"
+  model6_shard:
+    modelid: 
+      - tiiuae/falcon-40b 
+    scriptname: create_shard_model.py
+    shardpath: "/data/datasets/shard/tiiuae/falcon-40b"
+  model7_shard:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+    scriptname: create_shard_model.py
+    shardpath: "/data/datasets/shard/EleutherAI/gpt-neox-20b"
