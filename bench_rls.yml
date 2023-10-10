@@ -1314,7 +1314,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  gpt_bai4_all:
+  gpt_bai4:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: run_generation.py

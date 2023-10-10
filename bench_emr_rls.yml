@@ -478,51 +478,51 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  llama7_emr:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - facebook/opt-30b
-      - tiiuae/falcon-40b
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    localrank:
-      - 2
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # llama7_emr:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #     - meta-llama/Llama-2-70b-hf
+  #     - facebook/opt-30b
+  #     - tiiuae/falcon-40b
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   localrank:
+  #     - 2
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   llama4_emr:
     modelid: 
       # - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
-      - facebook/opt-30b
-      - tiiuae/falcon-40b
+      # - facebook/opt-30b
+      # - tiiuae/falcon-40b
     scriptname: run_generation.py
     device:
       - cpu
@@ -530,7 +530,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "saved_results"
     quantize: true
     lambada: true
     ipex: true
@@ -558,11 +558,11 @@ modelargs:
       - False
   llama7_emr8:
     modelid: 
-      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
-      - facebook/opt-30b
-      - tiiuae/falcon-40b
-      - EleutherAI/gpt-neox-20b
+      # - facebook/opt-30b
+      # - tiiuae/falcon-40b
+      # - EleutherAI/gpt-neox-20b
     scriptname: run_generation.py
     device:
       - cpu
@@ -570,7 +570,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "saved_results"
     quantize: true
     lambada: true
     ipex: true
@@ -600,9 +600,9 @@ modelargs:
     modelid: 
       # - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
-      - facebook/opt-30b
-      - tiiuae/falcon-40b
-      - EleutherAI/gpt-neox-20b
+      # - facebook/opt-30b
+      # - tiiuae/falcon-40b
+      # - EleutherAI/gpt-neox-20b
     scriptname: run_generation.py
     device:
       - cpu
@@ -610,7 +610,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "saved_results"
     quantize: true
     lambada: true
     ipex: true
