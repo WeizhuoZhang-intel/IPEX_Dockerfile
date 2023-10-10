@@ -544,7 +544,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 elif model_id == "tiiuae/falcon-40b":
                     lines.append(f"python run_falcon_int8.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
                 else:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id}")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --dataset NeelNanda/pile-10k")
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output_token in data['modelargs'][mode]['maxnewtokens']:
                         for beam in data['modelargs'][mode]['greedy']:
@@ -607,6 +607,28 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --benchmark --greedy -m {data['modelargs'][mode]['shardpath']} --dtype {dtype} --input-tokens {input_token} \
                                                     --max-new-tokens {output_token} --ipex --deployment-mode --token-latency --num-iter 50 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_{beam}_NUMA_{numa}_BF16.log") 
                                     lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_{beam}_NUMA_{numa}_BF16.log")
+        
+        if mode.endswith('shard'):
+            lines.append("# Run Workload")
+
+            lines.append("export CCL_WORKER_COUNT=1")
+            lines.append("export CCL_PROCESS_LAUNCHER=none")
+            lines.append("export CCL_ATL_TRANSPORT=ofi")
+            lines.append("export CCL_ATL_SHM=1")
+
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+            # lines.append("export CCL_WORKER_AFFINITY=0,56")
+
+            lines.append("export DS_SHM_ALLREDUCE=1")
+            lines.append("unset KMP_AFFINITY")
+
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
+
+                lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
+        
+        
         if mode.endswith('2s1'):  # not using shard model path
             lines.append("# Run Workload")
 
