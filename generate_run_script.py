@@ -250,7 +250,59 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         --input-tokens {input_token} --max-new-tokens {output_token} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --ipex-weight-only-quantization --num-iter 50 \
                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
                             lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
-                        
+                        else:
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log 2>&1 || true &")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
+                                        --input-tokens {input_token} --max-new-tokens {output_token} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
+                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")                            
+
+        if mode.endswith('int4'):
+            lines.append("# Run Workload")
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                lines.append("mkdir saved_results")
+                if model_id == "EleutherAI/gpt-neox-20b":
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8 --weight-dtype INT4 --lowp-mode INT8 -m {model_id}")
+                elif model_id == "tiiuae/falcon-40b":
+                    lines.append(f"python run_falcon_int8.py --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed -m {model_id} --weight-dtype INT4 --lowp-mode INT8 --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
+                elif model_id != "THUDM/chatglm2-6b":
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --lambada --output-dir {data['modelargs'][mode]['outputdir']} --jit --int8-bf16-mixed --weight-dtype INT4 --lowp-mode INT8 -m {model_id}")
+                for input_token in data['modelargs'][mode]['inputtokens']:
+                    for output_token in data['modelargs'][mode]['maxnewtokens']:
+                        weighttype = "BF16"
+                        if model_id == "EleutherAI/gpt-neox-20b":
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log 2>&1 || true &")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
+                                        --input-tokens {input_token} --max-new-tokens {output_token} --jit --weight-dtype INT4 --lowp-mode INT8 --int8 -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
+                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                        # elif model_id == "tiiuae/falcon-40b":
+                        #     lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log 2>&1 || true &")
+                        #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu \
+                        #                 --input-tokens {input_token} --max-new-tokens {output_token} --jit --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --num-iter 50 --ipex-weight-only-quantization --config-file=model_config/tiiuae_falcon-40b_config.json\
+                        #                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log")
+                        #     lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log")
+
+                        elif model_id != "THUDM/chatglm2-6b" and model_id != "baichuan-inc/Baichuan2-13B-Chat":
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log 2>&1 || true &")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
+                                        --input-tokens {input_token} --max-new-tokens {output_token} --jit --weight-dtype INT4 --lowp-mode INT8 --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
+                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                        elif model_id == "THUDM/chatglm2-6b" or model_id == "baichuan-inc/Baichuan2-13B-Chat":
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log 2>&1 || true &")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu \
+                                        --input-tokens {input_token} --max-new-tokens {output_token} --jit --weight-dtype INT4 --lowp-mode INT8 --int8-bf16-mixed -m {model_id} --lambada --benchmark --token-latency --ipex-weight-only-quantization --num-iter 50 \
+                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                        else:
+                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log 2>&1 || true &")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python {data['modelargs'][mode]['scriptname']} --device cpu --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} \
+                                        --input-tokens {input_token} --max-new-tokens {output_token} --jit --int8-bf16-mixed --weight-dtype INT4 --lowp-mode INT8 -m {model_id} --lambada --benchmark --token-latency --num-iter 50 \
+                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
+                            lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_woq-int4_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log") 
                     
         if mode.endswith('int8static'):
             lines.append("# Run Workload")

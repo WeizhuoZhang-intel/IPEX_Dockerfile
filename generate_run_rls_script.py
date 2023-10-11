@@ -282,14 +282,14 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('bai8s'):
             lines.append("# Run Workload")        
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
                             lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log 2>&1 || true &")
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
-                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency   \
+                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
                                             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
                             lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
 
