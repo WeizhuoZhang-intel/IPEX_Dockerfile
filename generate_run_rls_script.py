@@ -685,9 +685,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append("deepspeed_core_config ${local_rank}")
                                 lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
-                                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
-                                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
-                                lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
+                                # lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                                # lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
+                                # lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                                 for weight in data['modelargs'][mode]['weighttype']:
                                     if weight == "int8":
                                         if model_id == "EleutherAI/gpt-neox-20b":
