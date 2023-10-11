@@ -697,7 +697,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_INT8.log")
                                         else:
                                             lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_INT8.log 2>&1 || true &")
-                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --benchmark -m {data['modelargs'][mode]['shardpath']} --weight-dtype INT8 --lowp-mode BF16 --int8-bf16-mixed --input-tokens {input_token} \
+                                            lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list {data['modelargs'][mode]['scriptname']} --benchmark -m {data['modelargs'][mode]['shardpath']} --int8-bf16-mixed --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --ipex --deployment-mode --ipex-weight-only-quantization --token-latency --profile --num-iter 15 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_INT8.log") 
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_INT8.log")
                                     elif weight == "int4":
