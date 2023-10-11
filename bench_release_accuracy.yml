@@ -63,27 +63,27 @@ modelargs:
   #   numwarmup: 5
   #   batchsize: 1
   #   tokenlatency: false
-  gpt_mixed:
-    modelid:
-      - facebook/opt-1.3b
-    scriptname: run_opt_quantization.py
-    outdir: "/qmodel"
-    bestpath: "/qmodel/best_model.pt"
-    device:
-      - cpu
-    dtype:
-      - int8
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # gpt_mixed:
+  #   modelid:
+  #     - facebook/opt-1.3b
+  #   scriptname: run_opt_quantization.py
+  #   outdir: "/qmodel"
+  #   bestpath: "/qmodel/best_model.pt"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - int8
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # llama7_mixed:
   #   modelid:
   #     - meta-llama/Llama-2-7b-hf
@@ -373,7 +373,7 @@ modelargs:
       - cpu
     dtype:
       - bfloat16
-      - int8
+      # - int8
     inputtokens:
     numiter: 1000
     maxnewtokens: 32
