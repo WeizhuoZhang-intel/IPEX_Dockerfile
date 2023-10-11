@@ -548,7 +548,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 elif model_id == "tiiuae/falcon-40b":
                     lines.append(f"python run_falcon_int8.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
                 else:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --dataset NeelNanda/pile-10k")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']}")
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output_token in data['modelargs'][mode]['maxnewtokens']:
                         for beam in data['modelargs'][mode]['greedy']:
