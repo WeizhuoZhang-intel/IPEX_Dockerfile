@@ -1201,119 +1201,119 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  model_bai:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-      - tiiuae/falcon-40b 
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  model_bai8:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-      - tiiuae/falcon-40b 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  opt_bai4_all:
-    modelid: 
-      - facebook/opt-1.3b
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/datasets/gptq/facebook/opt-1.3b"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/data/datasets/gptq/facebook/opt-1.3b/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # model_bai:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #     - tiiuae/falcon-40b 
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # model_bai8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #     - tiiuae/falcon-40b 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # opt_bai4_all:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/datasets/gptq/facebook/opt-1.3b"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data/datasets/gptq/facebook/opt-1.3b/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # gpt_bai4:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
@@ -1450,74 +1450,74 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  neox_bai4:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/datasets/gptq/EleutherAI/gpt-neox-20b"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  opt30_bai4:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/datasets/gptq/facebook/opt-30b"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/data/datasets/gptq/facebook/opt-30b/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # neox_bai4:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/datasets/gptq/EleutherAI/gpt-neox-20b"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data/datasets/gptq/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # opt30_bai4:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/datasets/gptq/facebook/opt-30b"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data/datasets/gptq/facebook/opt-30b/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # falcon_bai4:
   #   modelid: 
   #     - tiiuae/falcon-40b
