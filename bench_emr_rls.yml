@@ -693,7 +693,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - float32
+      - bfloat16
     maxnewtokens: 
       - 128
     outputdir: "/root/workspace/qmodel"
@@ -735,7 +735,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - float32
+      - bfloat16
     maxnewtokens: 
       - 128
     outputdir: "/root/workspace/qmodel"
