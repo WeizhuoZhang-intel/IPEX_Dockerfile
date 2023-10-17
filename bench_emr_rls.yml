@@ -681,9 +681,94 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  llama66_emr8:
+  # llama66_emr8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - "/data/datasets/shard/meta-llama/Llama-2-13b-hf"
+  #     # - "/data/datasets/shard/facebook/opt-30b"
+  #     # - "/data/datasets/shard/tiiuae/falcon-40b"
+  #     # - "/data/datasets/shard/EleutherAI/gpt-neox-20b"
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   localrank:
+  #     - 2
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  #     - True
+  # llama66_emr:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - "/data/datasets/shard/meta-llama/Llama-2-13b-hf"
+  #     # - "/data/datasets/shard/facebook/opt-30b"
+  #     # - "/data/datasets/shard/tiiuae/falcon-40b"
+  #     # - "/data/datasets/shard/EleutherAI/gpt-neox-20b"
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   localrank:
+  #     - 2
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  #     - True
+
+  llama66_emr8bing:
     modelid: 
-      - EleutherAI/gpt-j-6B
+      # - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
       # - "/data/datasets/shard/meta-llama/Llama-2-13b-hf"
       # - "/data/datasets/shard/facebook/opt-30b"
@@ -710,22 +795,30 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
     benchmark: true
     inputtokens:
-      - 32
-      - 128
-      - 512
+      # - 32
+      # - 128
+      # - 512
       - 1024
-      - 2048
+      # - 2048
     prompt: None
     numiter: 50
     numwarmup: 10
-    batchsize: 1
+    batchsize: 
+      - 2
+      - 4
+      - 6
+      - 8
+      - 10
+      - 12
+      - 14
+      - 16
     tokenlatency: true
     greedy: 
       - False
       - True
-  llama66_emr:
+  llama66_emrbing:
     modelid: 
-      - EleutherAI/gpt-j-6B
+      # - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
       # - "/data/datasets/shard/meta-llama/Llama-2-13b-hf"
       # - "/data/datasets/shard/facebook/opt-30b"
@@ -752,19 +845,28 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
     benchmark: true
     inputtokens:
-      - 32
-      - 128
-      - 512
+      # - 32
+      # - 128
+      # - 512
       - 1024
-      - 2048
+      # - 2048
     prompt: None
     numiter: 50
     numwarmup: 10
-    batchsize: 1
+    batchsize: 
+      - 2
+      - 4
+      - 6
+      - 8
+      - 10
+      - 12
+      - 14
+      - 16
     tokenlatency: true
     greedy: 
       - False
       - True
+
   # llama77_emr8:
   #   modelid: 
   #     # - "/data/datasets/shard/EleutherAI/gpt-j-6B"
