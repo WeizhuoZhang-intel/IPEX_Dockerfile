@@ -408,8 +408,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 
                                 lines.append(f"export local_rank={numa}")
                                 lines.append("deepspeed_core_config ${local_rank}")
-                                lines.append("export CCL_WORKER_AFFINITY=0,32")
-                                lines.append("export CCL_WORKER_AFFINITY=64,96")
+                                # lines.append("export CCL_WORKER_AFFINITY=0,32")
+                                # lines.append("export CCL_WORKER_AFFINITY=64,96")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
                                 # lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
                                 # lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
@@ -492,8 +492,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for numa in data['modelargs'][mode]['localrank']:
                                 lines.append(f"export local_rank={numa}")
                                 lines.append("deepspeed_core_config ${local_rank}")
-                                lines.append("export CCL_WORKER_AFFINITY=0,32")
-                                lines.append("export CCL_WORKER_AFFINITY=64,96")
+                                # lines.append("export CCL_WORKER_AFFINITY=0,32")
+                                # lines.append("export CCL_WORKER_AFFINITY=64,96")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
                                 if 'neox' in model_id:
