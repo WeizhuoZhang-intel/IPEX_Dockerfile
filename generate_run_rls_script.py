@@ -408,7 +408,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 
                                 lines.append(f"export local_rank={numa}")
                                 lines.append("deepspeed_core_config ${local_rank}")
-                                # lines.append("export CCL_WORKER_AFFINITY=0,32")
+                                lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
                                 # lines.append("export CCL_WORKER_AFFINITY=64,96")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
                                 # lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
@@ -419,9 +419,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     for bs in data['modelargs'][mode]['batchsize']:
                                         if beam == True:
                                             lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_1.log 2>&1 || true &")
-                                            lines.append(f"CCL_WORKER_AFFINITY=0,32 deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --greedy --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_1.log & \
-                                                           CCL_WORKER_AFFINITY=64,96 deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                                           deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --greedy --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_2.log") 
                                             lines.append("wait")
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_1.log")
@@ -430,9 +430,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         else:
 
                                             lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
-                                            lines.append(f"CCL_WORKER_AFFINITY=0,32 deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_1.log & \
-                                                           CCL_WORKER_AFFINITY=64,96 deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                                           deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_2.log") 
                                             lines.append("wait")
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_1.log")
@@ -492,7 +492,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for numa in data['modelargs'][mode]['localrank']:
                                 lines.append(f"export local_rank={numa}")
                                 lines.append("deepspeed_core_config ${local_rank}")
-                                # lines.append("export CCL_WORKER_AFFINITY=0,32")
+                                lines.append("export CCL_WORKER_AFFINITY=0,32,64,96")
                                 # lines.append("export CCL_WORKER_AFFINITY=64,96")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
@@ -506,17 +506,17 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     for beam in data['modelargs'][mode]['greedy']:
                                         for bs in data['modelargs'][mode]['batchsize']:
                                             if beam == True:
-                                                lines.append(f"CCL_WORKER_AFFINITY=0,32 deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                                lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
                                                             --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --batch-size {bs} --output-dir {data['modelargs'][mode]['outputdir']} --greedy --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_1.log & \
-                                                               CCL_WORKER_AFFINITY=64,96 deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                                               deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
                                                             --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --batch-size {bs} --output-dir {data['modelargs'][mode]['outputdir']} --greedy --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_2.log ") 
                                                 lines.append("wait")
                                                 lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_1.log")
                                                 lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_2.log")
                                             else:
-                                                lines.append(f"CCL_WORKER_AFFINITY=0,32 deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                                lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
                                                             --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --batch-size {bs} --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_1.log & \
-                                                               CCL_WORKER_AFFINITY=64,96 deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
+                                                               deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
                                                             --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --batch-size {bs} --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_2.log") 
                                                 lines.append("wait")
                                                 lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_1.log")
