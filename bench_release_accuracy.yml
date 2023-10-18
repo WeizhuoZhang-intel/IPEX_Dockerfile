@@ -17,34 +17,34 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  default:
-    modelid:
-      # - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - facebook/opt-1.3b
-      # - meta-llama/Llama-2-7b-chat-hf
-      # - meta-llama/Llama-2-13b-chat-hf
-      - facebook/opt-30b
-      - tiiuae/falcon-40b 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run_accuracy.py
-    device:
-      - cpu
-    dtype:
-      - float32
-      # - bfloat16
-    inputtokens:
-    numiter: 1000
-    maxnewtokens: 32
-    prompt: None
-    greedy: 
-      - false
-    ipex: true
-    jit: true
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: false
+  # default:
+  #   modelid:
+  #     # - EleutherAI/gpt-j-6B
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - facebook/opt-1.3b
+  #     # - meta-llama/Llama-2-7b-chat-hf
+  #     # - meta-llama/Llama-2-13b-chat-hf
+  #     - facebook/opt-30b
+  #     - tiiuae/falcon-40b 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run_accuracy.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - float32
+  #     # - bfloat16
+  #   inputtokens:
+  #   numiter: 1000
+  #   maxnewtokens: 32
+  #   prompt: None
+  #   greedy: 
+  #     - false
+  #   ipex: true
+  #   jit: true
+  #   numwarmup: 5
+  #   batchsize: 1
+  #   tokenlatency: false
   # gpt_mixed:
   #   modelid:
   #     - EleutherAI/gpt-j-6B
