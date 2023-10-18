@@ -874,6 +874,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 lines.append(f"python run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
  
+        if mode.endswith('exam'):
+            lines.append("# Run Workload")        
+            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} bash single_instance/run_int4_gpt-j_on_cnndailymail.sh")
+
 
         if mode.endswith('gptqto'):
             lines.append("# Run Workload")
