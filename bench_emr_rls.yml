@@ -1061,7 +1061,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-      - True
+      # - True
   gptj_bai8s:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -1097,7 +1097,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-      - True
+      # - True
   # model_bai8:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
