@@ -564,7 +564,7 @@ modelargs:
     greedy: 
       - False
       - True
-  model_bai8sbing:
+  model22_bai8sbing:
     modelid: 
       # - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-chat-hf
