@@ -598,7 +598,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-      - True
+      # - True
   # llama44_emr:
   #   modelid: 
   #     # - "/data/datasets/shard/EleutherAI/gpt-j-6B"
