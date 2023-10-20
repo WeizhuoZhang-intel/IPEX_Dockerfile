@@ -586,9 +586,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     for bs in data['modelargs'][mode]['batchsize']:
                                         if beam == True:
                                             lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_{numa}_1.log 2>&1 || true &")
-                                            lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --num_accelerators 2 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --greedy --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_1.log & \
-                                                           deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                                           deepspeed --bind_cores_to_rank --master_port 29501 --num_accelerators 2 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --greedy --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_2.log") 
                                             lines.append("wait")
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_{numa}_1.log")
@@ -597,9 +597,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         else:
 
                                             lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
-                                            lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                            lines.append(f"deepspeed --bind_cores_to_rank --master_port 29500 --num_accelerators 2 --bind_core_list 0-63 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_1.log & \
-                                                           deepspeed --bind_cores_to_rank --master_port 29501 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
+                                                           deepspeed --bind_cores_to_rank --master_port 29501 --num_accelerators 2 --bind_core_list 64-127 run.py --batch-size {bs} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} \
                                                         --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_2.log") 
                                             lines.append("wait")
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_False_NUMA_{numa}_1.log")
