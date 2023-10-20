@@ -231,10 +231,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 for beam in data['modelargs'][mode]['greedy']:
                                     if beam == True:
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log 2>&1 || true &")
-                                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-63 python run.py \
+                                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python run.py \
                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --batch-size {bs} --num-iter 50 --dtype {dtype} --ipex --deployment-mode --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_1_1.log & \
-                                                       OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 64-127 python run.py \
+                                                       OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 56-111 python run.py \
                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --batch-size {bs} --num-iter 50 --dtype {dtype} --ipex --deployment-mode --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_True_NUMA_1_2.log")
                                         lines.append("wait")
@@ -312,10 +312,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 for beam in data['modelargs'][mode]['greedy']:
                                     for bs in data['modelargs'][mode]['batchsize']:
                                         if beam == True:
-                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-63 python run.py \
+                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python run.py \
                                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --batch-size {bs} --greedy  --num-iter 50 --int8-bf16-mixed --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --token-latency   \
                                                             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_1_1.log & \
-                                                           OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 64-127 python run.py \
+                                                           OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 56-111 python run.py \
                                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --batch-size {bs} --greedy  --num-iter 50 --int8-bf16-mixed --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --token-latency   \
                                                             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_1_2.log")
                                             lines.append("wait")
@@ -324,10 +324,10 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                                         else:
 
-                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-63 python run.py \
+                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python run.py \
                                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --batch-size {bs} --num-iter 50 --int8-bf16-mixed --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --token-latency   \
                                                             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_False_NUMA_1_1.log & \
-                                                           OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 64-127 python run.py \
+                                                           OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 56-111 python run.py \
                                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --batch-size {bs} --num-iter 50 --int8-bf16-mixed --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --token-latency   \
                                                             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}-{bs}_greedy_False_NUMA_1_2.log")
                                             lines.append("wait")
@@ -417,10 +417,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 for beam in data['modelargs'][mode]['greedy']:
                                     if beam == True:
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log 2>&1 || true &")
-                                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-63 python run.py \
+                                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python run.py \
                                                     --benchmark -m {model_id} --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token} --greedy  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_1_1.log & \
-                                                       OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 64-127 python run.py \
+                                                       OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 56-111 python run.py \
                                                     --benchmark -m {model_id} --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token} --greedy  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}-{bs}_greedy_True_NUMA_1_2.log")
                                         lines.append("wait")
@@ -430,10 +430,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     else:
 
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log 2>&1 || true &")
-                                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-63 python run.py \
+                                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python run.py \
                                                     --benchmark -m {model_id} --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}-{bs}_greedy_False_NUMA_1_1.log & \
-                                                       OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 64-127 python run.py \
+                                                       OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 1 -C 56-111 python run.py \
                                                     --benchmark -m {model_id} --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --deployment-mode --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}-{bs}_greedy_False_NUMA_1_2.log")
                                         lines.append("wait")
