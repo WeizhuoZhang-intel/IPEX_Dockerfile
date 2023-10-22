@@ -805,11 +805,13 @@ modelargs:
     numiter: 50
     numwarmup: 10
     batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
-      - 16
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      - 10
+      - 12
+      # - 16
     tokenlatency: true
     greedy: 
       - False
@@ -852,11 +854,13 @@ modelargs:
     numiter: 50
     numwarmup: 10
     batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
-      - 16
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      - 10
+      - 12
+      # - 16
     tokenlatency: true
     greedy: 
       - False
