@@ -558,8 +558,8 @@ modelargs:
   #     - False
   llama88_emr8:
     modelid: 
-      - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-chat-hf
+      # - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-chat-hf
       # - "/data/datasets/shard/meta-llama/Llama-2-13b-hf"
       # - "/data/datasets/shard/meta-llama/Llama-2-70b-hf"
       # - "/data/datasets/shard/facebook/opt-30b"
