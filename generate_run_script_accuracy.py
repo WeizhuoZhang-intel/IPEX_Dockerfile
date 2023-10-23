@@ -182,11 +182,18 @@ def generate_commands(yml_file,mode,extra_kmp):
                         lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype int8 --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_woqint8_{dtype}_accuracy.log")
                     else:
+                        # lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
+                        # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8-bf16-mixed -m {model_id} --lowp-mode 'BF16'")
+                        # lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+                        # lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
+                        #             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16mixed_{dtype}_accuracy.log")
                         lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
-                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8-bf16-mixed -m {model_id} --lowp-mode 'BF16'")
                         lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-                        lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
-                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16mixed_{dtype}_accuracy.log")
+                        lines.append(f"numactl -m 0 -N 0 python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --output-dir {data['modelargs'][mode]['outdir']} --jit --int8-bf16-mixed -m {model_id} --lowp-mode 'BF16' --accuracy-only --dtype {dtype} --tasks lambada_openai \
+                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_accuracy.log")
+                        
+                        # lines.append(f"numactl -m 0 -N 0 python run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['bestpath']} --dtype {dtype} --int8-bf16-mixed --jit --tasks lambada_openai \
+                        #             2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16mixed_{dtype}_accuracy.log")
                     
 
         # if mode == 'gpt_woq'or mode == 'llama13_woq' or mode == 'llama7_woq' or mode == 'neox_woq':

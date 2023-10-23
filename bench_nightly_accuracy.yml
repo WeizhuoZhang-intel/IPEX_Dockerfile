@@ -17,10 +17,10 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  opt_int8:
+  baichuan_int8:
     modelid:
-      - facebook/opt-1.3b 
-    scriptname: run_opt_int8.py
+      - baichuan-inc/Baichuan-13B-Chat
+    scriptname: runrun.py
     outdir: "/root/workspace/qmodel/opt"
     bestpath: "/root/workspace/qmodel/opt/best_model.pt"
     device:
