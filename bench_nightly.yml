@@ -202,7 +202,7 @@ modelargs:
   #   localrank:
   #     - 2
   #   outputdir: "/root/workspace/qmodel"
-  #   shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
+  #   shardpath: "/home/mint/shard/meta-llama/Llama-2-7b-hf"
   #   quantize: true
   #   lambada: true
   #   ipex: true
@@ -238,7 +238,7 @@ modelargs:
   #   localrank:
   #     - 2
   #   outputdir: "/root/workspace/qmodel"
-  #   shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
+  #   shardpath: "/home/mint/shard/meta-llama/Llama-2-7b-hf"
   #   quantize: true
   #   lambada: true
   #   ipex: true
@@ -340,7 +340,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+    shardpath: "/home/mint/shard/meta-llama/Llama-2-13b-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -376,7 +376,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+    shardpath: "/home/mint/shard/meta-llama/Llama-2-13b-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -476,7 +476,7 @@ modelargs:
   #   maxnewtokens: 
   #     - 32
   #   outputdir: "/root/workspace/qmodel"
-  #   shardpath: "/root/workspace/qmodel/shard/facebook/opt-6.7b"
+  #   shardpath: "/home/mint/shard/facebook/opt-6.7b"
   #   quantize: true
   #   lambada: true
   #   ipex: true
@@ -509,7 +509,7 @@ modelargs:
   #   maxnewtokens: 
   #     - 32
   #   outputdir: "/root/workspace/qmodel"
-  #   shardpath: "/root/workspace/qmodel/shard/facebook/opt-6.7b"
+  #   shardpath: "/home/mint/shard/facebook/opt-6.7b"
   #   quantize: true
   #   lambada: true
   #   ipex: true
@@ -608,7 +608,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
+    shardpath: "/home/mint/shard/facebook/opt-30b"
     quantize: true
     lambada: true
     ipex: true
@@ -645,7 +645,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
+    shardpath: "/home/mint/shard/facebook/opt-30b"
     quantize: true
     lambada: true
     ipex: true
@@ -716,7 +716,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-neox-20b"
+    shardpath: "/home/mint/shard/EleutherAI/gpt-neox-20b"
     quantize: true
     lambada: true
     ipex: true
@@ -755,7 +755,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
+    shardpath: "/home/mint/shard/meta-llama/Llama-2-70b-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -786,7 +786,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-70b-hf"
+    shardpath: "/home/mint/shard/meta-llama/Llama-2-70b-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -886,7 +886,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+    shardpath: "/home/mint/shard/tiiuae/falcon-40b"
     quantize: true
     lambada: true
     ipex: true
@@ -918,7 +918,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+    shardpath: "/home/mint/shard/tiiuae/falcon-40b"
     quantize: true
     lambada: true
     ipex: true
@@ -1021,7 +1021,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/bigscience/bloom-7b1"
+    shardpath: "/home/mint/shard/bigscience/bloom-7b1"
     quantize: true
     lambada: true
     ipex: true
@@ -1057,7 +1057,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/bigscience/bloom-7b1"
+    shardpath: "/home/mint/shard/bigscience/bloom-7b1"
     quantize: true
     lambada: true
     ipex: true
@@ -1161,7 +1161,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/THUDM/chatglm2-6b"
+    shardpath: "/home/mint/shard/THUDM/chatglm2-6b"
     quantize: true
     lambada: true
     ipex: true
@@ -1197,7 +1197,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/THUDM/chatglm2-6b"
+    shardpath: "/home/mint/shard/THUDM/chatglm2-6b"
     quantize: true
     lambada: true
     ipex: true
@@ -1301,7 +1301,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/Salesforce/codegen-2B-multi"
+    shardpath: "/home/mint/shard/Salesforce/codegen-2B-multi"
     quantize: true
     lambada: true
     ipex: true
@@ -1337,7 +1337,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/Salesforce/codegen-2B-multi"
+    shardpath: "/home/mint/shard/Salesforce/codegen-2B-multi"
     quantize: true
     lambada: true
     ipex: true
@@ -1441,7 +1441,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/HuggingFaceH4/starchat-beta"
+    shardpath: "/home/mint/shard/HuggingFaceH4/starchat-beta"
     quantize: true
     lambada: true
     ipex: true
@@ -1477,7 +1477,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/HuggingFaceH4/starchat-beta"
+    shardpath: "/home/mint/shard/HuggingFaceH4/starchat-beta"
     quantize: true
     lambada: true
     ipex: true
@@ -1513,7 +1513,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/codellama/CodeLlama-34b-Instruct-hf"
+    shardpath: "/home/mint/shard/codellama/CodeLlama-34b-Instruct-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -1549,7 +1549,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel/mixed_bloom"
-    shardpath: "/root/workspace/qmodel/shard/codellama/CodeLlama-34b-Instruct-hf"
+    shardpath: "/home/mint/shard/codellama/CodeLlama-34b-Instruct-hf"
     quantize: true
     lambada: true
     ipex: true
@@ -1720,7 +1720,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/root/workspace/qmodel/shard/baichuan-inc/Baichuan2-13B-Chat"
+    shardpath: "/home/mint/shard/baichuan-inc/Baichuan2-13B-Chat"
     quantize: true
     lambada: true
     ipex: true
