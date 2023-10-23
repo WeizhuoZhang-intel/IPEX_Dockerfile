@@ -556,7 +556,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  llama88_emr8:
+  llama88_emr:
     modelid: 
       - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-chat-hf
@@ -595,7 +595,7 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
-    batchsize: 1
+    batchsize: 16
     tokenlatency: true
     greedy: 
       - False
