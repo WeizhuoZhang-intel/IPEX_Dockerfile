@@ -571,7 +571,7 @@ modelargs:
     dtype: 
       - bfloat16
     maxnewtokens: 
-      - 32
+      # - 32
       - 128
     outputdir: "/root/workspace/qmodel"
     quantize: true
