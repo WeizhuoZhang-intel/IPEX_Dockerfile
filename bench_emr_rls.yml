@@ -572,6 +572,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
+      - 128
     outputdir: "/root/workspace/qmodel"
     quantize: true
     lambada: true
