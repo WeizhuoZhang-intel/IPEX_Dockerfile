@@ -477,7 +477,7 @@ modelargs:
   #   greedy: 
   #     - False
   #     - True
-  model_bai8bing:
+  model2_bai8bing:
     modelid: 
       - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-chat-hf
@@ -527,7 +527,7 @@ modelargs:
       - True
   model_bai8bing:
     modelid: 
-      - EleutherAI/gpt-j-6B
+      # - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-chat-hf
       # - meta-llama/Llama-2-13b-hf
       # - facebook/opt-1.3b
