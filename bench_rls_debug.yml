@@ -525,54 +525,54 @@ modelargs:
   #   greedy: 
   #     - False
   #     - True
-  model_bai8bing:
-    modelid: 
-      # - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-chat-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - tiiuae/falcon-40b 
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/home/mint/woqint8/meta-llama/Llama-2-7b-chat-hf"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/home/mint/woqint8/meta-llama/Llama-2-7b-chat-hf/best_model.pt"
-    benchmark: true
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 6
-      - 8
-      # - 10
-      # - 12
-      # - 16
-    tokenlatency: true
-    greedy: 
-      # - False
-      - True
+  # model_bai8bing:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-chat-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - tiiuae/falcon-40b 
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/home/mint/woqint8/meta-llama/Llama-2-7b-chat-hf"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/home/mint/woqint8/meta-llama/Llama-2-7b-chat-hf/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 
+  #     # - 1
+  #     # - 2
+  #     # - 4
+  #     # - 6
+  #     - 8
+  #     # - 10
+  #     # - 12
+  #     # - 16
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - False
+  #     - True
   # model_bai8sbing:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
@@ -1636,45 +1636,45 @@ modelargs:
   #   greedy: 
   #     - False
   #     # - True
-  # llama3_int4acc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #   scriptname: run_accuracy.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf"
-  #   outputpt: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint.pt"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   weighttype:
-  #     - int8
-  #     # - int4
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     # - 2048
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  #     # - True
+  llama3_int4acc:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run_accuracy.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf"
+    outputpt: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint.pt"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    weighttype:
+      - int8
+      # - int4
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data/datasets/gptq/meta-llama/Llama-2-70b-hf/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      - 128
+      - 512
+      - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+      # - True
   # opt1_int4acc:
   #   modelid: 
   #     - facebook/opt-1.3b
