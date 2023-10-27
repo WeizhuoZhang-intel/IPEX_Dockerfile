@@ -891,8 +891,8 @@ modelargs:
       - 1
     tokenlatency: true
     greedy: 
-      # - true
-      - False
+      - True
+      # - False
   llama3_ bs_sweep:
     modelid: 
       - meta-llama/Llama-2-7b-hf
@@ -930,5 +930,5 @@ modelargs:
       - 1
     tokenlatency: true
     greedy: 
-      # - true
-      - False
+      - True
+      # - False
