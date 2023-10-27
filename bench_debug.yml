@@ -721,7 +721,7 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - False
-    t5_default:
+  t5_default:
     modelid: 
       - google/flan-t5-xl
     scriptname: run_generation.py
