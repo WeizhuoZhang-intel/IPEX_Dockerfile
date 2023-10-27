@@ -215,7 +215,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
                             lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_{weighttype}.log")
 
-        if mode.endswith('bs_sweep'):
+        if mode.endswith('bssweep'):
             lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:

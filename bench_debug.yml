@@ -854,7 +854,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
-  llama7_ bs_sweep:
+  llama7_bssweep:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run_generation.py
@@ -893,7 +893,7 @@ modelargs:
     greedy: 
       - True
       # - False
-  llama3_ bs_sweep:
+  llama3_bssweep:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run_generation.py
