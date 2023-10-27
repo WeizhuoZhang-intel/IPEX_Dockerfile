@@ -399,6 +399,11 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
 
             for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
+
+                if 'bloom' not in model_id:
+                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
@@ -407,11 +412,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append("deepspeed_core_config ${local_rank}")
                                 lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
-                                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
-                                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
 
-                                if 'bloom' not in model_id:
-                                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
 
                                 lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_ds-{dtype}_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
                                 if 'bloom' in model_id:
@@ -465,6 +466,10 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
 
             for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
+                if 'bloom' not in model_id:
+                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
@@ -473,10 +478,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append("deepspeed_core_config ${local_rank}")
                                 lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
-                                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
-                                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
-                                if 'bloom' not in model_id:
-                                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
+  
 
                                 if model_id == "EleutherAI/gpt-neox-20b":
                                     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_ds-woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
@@ -509,6 +511,10 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
 
             for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
+                if 'bloom' not in model_id:
+                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
@@ -517,10 +523,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append("deepspeed_core_config ${local_rank}")
                                 lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                 lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
-                                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
-                                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
-                                if 'bloom' not in model_id:
-                                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
+
 
                                 if model_id == "EleutherAI/gpt-neox-20b":
                                     lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_ds-woq-int4_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
