@@ -17,12 +17,52 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  baichuan_int8:
+  default:
     modelid:
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - facebook/opt-30b
+      # - facebook/opt-1.3b
+      - bigscience/bloom-7b1
+      - THUDM/chatglm2-6b
+      - Salesforce/codegen-2B-multi
+      - HuggingFaceH4/starchat-beta
+      - bigcode/starcoder
       - baichuan-inc/Baichuan-13B-Chat
-    scriptname: runrun.py
-    outdir: "/root/workspace/qmodel/opt"
-    bestpath: "/root/workspace/qmodel/opt/best_model.pt"
+    scriptname: run_accuracy.py
+    device:
+      - cpu
+    dtype:
+      - float32
+      - bfloat16
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  gpt_mixed:
+    modelid:
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - facebook/opt-30b
+      # - facebook/opt-1.3b
+      - bigscience/bloom-7b1
+      # - THUDM/chatglm2-6b
+      # - Salesforce/codegen-2B-multi
+      # - HuggingFaceH4/starchat-beta
+      # - bigcode/starcoder
+      # - baichuan-inc/Baichuan-13B-Chat
+    scriptname: run_bloom_int8.py
+    outdir: "/qmodel/woqint8"
+    bestpath: "/qmodel/woqint8/best_model.pt"
     device:
       - cpu
     dtype:
@@ -38,184 +78,140 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: false
-  # default:
-    # modelid:
-    #   # - EleutherAI/gpt-j-6B
-    #   # - meta-llama/Llama-2-7b-hf
-    #   # - meta-llama/Llama-2-13b-hf
-    #   # - facebook/opt-6.7b
-    #   - facebook/opt-1.3b
-    # scriptname: run_accuracy.py
-    # device:
-    #   - cpu
-    # dtype:
-    #   - float32
-    #   - bfloat16
-    # inputtokens:
-    # numiter: 1000
-    # maxnewtokens: 32
-    # prompt: None
-    # greedy: 
-    #   - false
-    # ipex: true
-    # jit: true
-    # numwarmup: 5
-    # batchsize: 1
-    # tokenlatency: false
-  # gpt_mixed:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: run_gpt-j_int8.py
-  #   outdir: "/qmodel/mixed_gpt"
-  #   bestpath: "/qmodel/mixed_gpt/best_model.pt"
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
-  # llama7_mixed:
-  #   modelid:
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_llama_int8.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   outdir: "/qmodel/mixed_llama7"
-  #   bestpath: "/qmodel/mixed_llama7/best_model.pt"
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
-  # llama13_mixed:
-  #   modelid:
-  #     - meta-llama/Llama-2-13b-hf  
-  #   scriptname: run_llama_int8.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   outdir: "/qmodel/mixed_llama13"
-  #   bestpath: "/qmodel/mixed_llama13/best_model.pt"
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
-  # opt_mixed:
-  #   modelid:
-  #     - facebook/opt-6.7b
-  #   scriptname: run_opt_int8.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   outdir: "/qmodel/mixed_opt7"
-  #   bestpath: "/qmodel/mixed_opt7/best_model.pt"
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
-  # neox_int8:
-  #   modelid:
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: run_gpt-neox_int8.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   outdir: "/qmodel/int8_neox"
-  #   bestpath: "/qmodel/int8_neox/best_model.pt"
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
-  # opt_mixed:
-  #   modelid:
-  #     - facebook/opt-30b
-  #   scriptname: run_opt_int8.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - int8
-  #   inputtokens:
-  #   outdir: "/qmodel/mixed_opt30"
-  #   bestpath: "/qmodel/mixed_opt30/best_model.pt"
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
-  # deepspeed:
-  #   modelid:
-  #     # - EleutherAI/gpt-j-6B
-  #     - meta-llama/Llama-2-7b-hf
-  #     # - meta-llama/Llama-2-13b-hf 
-  #     # - facebook/opt-6.7b
-  #     # - facebook/opt-30b
-  #     # - tiiuae/falcon-40b 
-  #   scriptname: run_accuracy_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     # - int8
-  #   inputtokens:
-  #   numiter: 1000
-  #   maxnewtokens: 32
-  #   shardpath: "/qmodel/shard_opt7"
-  #   outdir: "/qmodel/ds_opt7"
-  #   bestpath: "/qmodel/ds_opt7/best_model.pt"
-  #   prompt: None
-  #   greedy: 
-  #     - false
-  #   ipex: true
-  #   jit: true
-  #   numwarmup: 5
-  #   batchsize: 1
-  #   tokenlatency: false
+  llama7_mixed:
+    modelid:
+      - THUDM/chatglm2-6b
+    scriptname: run_chatglm_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel/woqint8"
+    bestpath: "/qmodel/woqint8/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  llama13_mixed:
+    modelid:
+      - Salesforce/codegen-2B-multi
+    scriptname: run_codegen_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel/woqint8"
+    bestpath: "/qmodel/woqint8/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  opt_mixed:
+    modelid:
+      - HuggingFaceH4/starchat-beta
+    scriptname: run_gptbigcode_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel/woqint8"
+    bestpath: "/qmodel/woqint8/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  neox_int8:
+    modelid:
+      - bigcode/starcoder
+    scriptname: run_gptbigcode_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel/woqint8"
+    bestpath: "/qmodel/woqint8/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  opt_mixed:
+    modelid:
+      - facebook/opt-1.3b
+    scriptname: run_opt_int8.py
+    device:
+      - cpu
+    dtype:
+      - int8
+    inputtokens:
+    outdir: "/qmodel/woqint8"
+    bestpath: "/qmodel/woqint8/best_model.pt"
+    numiter: 1000
+    maxnewtokens: 32
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
+  deepspeed:
+    modelid:
+      - tiiuae/falcon-40b
+      - bigscience/bloom-7b1
+      - THUDM/chatglm2-6b
+      - Salesforce/codegen-2B-multi
+      - HuggingFaceH4/starchat-beta
+      - bigcode/starcoder
+      - baichuan-inc/Baichuan-13B-Chat
+    scriptname: run_accuracy_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+      # - int8
+    inputtokens:
+    numiter: 1000
+    maxnewtokens: 32
+    shardpath: "/qmodel/shard_opt7"
+    outdir: "/qmodel/ds_opt7"
+    bestpath: "/qmodel/ds_opt7/best_model.pt"
+    prompt: None
+    greedy: 
+      - false
+    ipex: true
+    jit: true
+    numwarmup: 5
+    batchsize: 1
+    tokenlatency: false
   # ndeepspeed:
   #   modelid:
   #     - EleutherAI/gpt-neox-20b
