@@ -2263,7 +2263,7 @@ modelargs:
       - false
   bai_default:
     modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation.py
     device:
       - cpu
@@ -2297,7 +2297,7 @@ modelargs:
       - false
   bai_int8:
     modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_baichuan_int8.py
     device:
       - cpu
@@ -2330,7 +2330,7 @@ modelargs:
       - false
   bai_int8static:
     modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_baichuan_int8.py
     device:
       - cpu
@@ -2363,7 +2363,7 @@ modelargs:
       - false
   bai_int4:
     modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_baichuan_int8.py
     device:
       - cpu
@@ -2396,7 +2396,7 @@ modelargs:
       - false
   bai_2s:
     modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -2407,7 +2407,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/home/mint/shard/baichuan-inc/Baichuan2-13B-Chat"
+    shardpath: "/home/mint/shard/baichuan-inc/Baichuan-13B-Chat"
     quantize: true
     lambada: true
     ipex: true
@@ -2432,7 +2432,7 @@ modelargs:
       - false
   bai_2swoq:
     modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -2443,7 +2443,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/home/mint/shard/baichuan-inc/Baichuan2-13B-Chat"
+    shardpath: "/home/mint/shard/baichuan-inc/Baichuan-13B-Chat"
     quantize: true
     lambada: true
     ipex: true
@@ -2468,7 +2468,7 @@ modelargs:
       - false
   bai_2swoq4:
     modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
@@ -2479,7 +2479,7 @@ modelargs:
     localrank:
       - 2
     outputdir: "/root/workspace/qmodel"
-    shardpath: "/home/mint/shard/baichuan-inc/Baichuan2-13B-Chat"
+    shardpath: "/home/mint/shard/baichuan-inc/Baichuan-13B-Chat"
     quantize: true
     lambada: true
     ipex: true
