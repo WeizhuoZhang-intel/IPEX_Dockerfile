@@ -835,7 +835,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}") 
                 if model_id == "EleutherAI/gpt-neox-20b":
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id}")
                 elif model_id == "tiiuae/falcon-40b":
