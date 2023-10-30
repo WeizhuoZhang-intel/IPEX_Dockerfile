@@ -173,7 +173,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("export WORKDIR=/root/workspace")
         lines.append("export HF_HOME=/root/.cache/huggingface")
         lines.append("# source $HOME/oneCCL_install/env/setvars.sh")
-        lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
+        # lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
         lines.append("export TRANSFORMERS_OFFLINE=0")
@@ -399,11 +399,11 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
 
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
-                lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
+                # lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                # lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
 
-                if 'bloom' not in model_id:
-                    lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
+                # if 'bloom' not in model_id:
+                #     lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
