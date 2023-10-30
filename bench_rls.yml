@@ -18,6 +18,41 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
+  llama7_smacc:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false  
   # gptj1_default:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
@@ -1663,78 +1698,78 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  llama7_baitp:
-    modelid: 
-      - "/home/mint/shard/meta-llama/Llama-2-13b-hf"
-      - "/home/mint/shard/meta-llama/Llama-2-70b-hf"
-      - "/home/mint/shard/facebook/opt-30b"
-      - "/home/mint/shard/tiiuae/falcon-40b"
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  llama7_baitp8:
-    modelid: 
-      - "/home/mint/shard/meta-llama/Llama-2-13b-hf"
-      - "/home/mint/shard/meta-llama/Llama-2-70b-hf"
-      - "/home/mint/shard/facebook/opt-30b"
-      - "/home/mint/shard/tiiuae/falcon-40b"
-      - "/home/mint/shard/EleutherAI/gpt-neox-20b"
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-      - 128
-      - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # llama7_baitp:
+  #   modelid: 
+  #     - "/home/mint/shard/meta-llama/Llama-2-13b-hf"
+  #     - "/home/mint/shard/meta-llama/Llama-2-70b-hf"
+  #     - "/home/mint/shard/facebook/opt-30b"
+  #     - "/home/mint/shard/tiiuae/falcon-40b"
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # llama7_baitp8:
+  #   modelid: 
+  #     - "/home/mint/shard/meta-llama/Llama-2-13b-hf"
+  #     - "/home/mint/shard/meta-llama/Llama-2-70b-hf"
+  #     - "/home/mint/shard/facebook/opt-30b"
+  #     - "/home/mint/shard/tiiuae/falcon-40b"
+  #     - "/home/mint/shard/EleutherAI/gpt-neox-20b"
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
