@@ -1141,7 +1141,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
             lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
             lines.append(f"python run_llama_int8.py --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8_bf16_mixed -m meta-llama/Llama-2-7b-hf --int8-qconfig /home/mint/shard/config/qconfig.json")
-            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python run_accuracy.py --model meta-llama/Llama-2-7b-hf --quantized_model_path {data['modelargs'][mode]['quantizedmodelpath']} --dtype int8 --accuracy-only --jit --int8_bf16_mixed --tasks lambada_openai \
+            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python run_accuracy.py --model meta-llama/Llama-2-7b-hf --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks lambada_openai \
                          2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-7b-hf_static-int8_accuracy.log")
         # if mode == "default":
         #     lines.append("# Run workload")
