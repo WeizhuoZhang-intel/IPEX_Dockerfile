@@ -1239,7 +1239,7 @@ modelargs:
   model_bai:
     modelid: 
       - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - facebook/opt-1.3b
       # - facebook/opt-30b
@@ -1265,7 +1265,7 @@ modelargs:
     inputtokens:
       # - 32
       - 128
-      - 512
+      # - 512
       # - 1024
       # - 2048
     prompt: None
@@ -1275,46 +1275,46 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  model_bai8:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - tiiuae/falcon-40b 
-      # - EleutherAI/gpt-neox-20b
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      # - 32
-      - 128
-      - 512
-      # - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # model_bai8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - tiiuae/falcon-40b 
+  #     # - EleutherAI/gpt-neox-20b
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # opt_bai4_all:
   #   modelid: 
   #     - facebook/opt-1.3b
@@ -1698,45 +1698,45 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  llama7_baitp:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      # - "/home/mint/shard/meta-llama/Llama-2-13b-hf"
-      # - "/home/mint/shard/meta-llama/Llama-2-70b-hf"
-      # - "/home/mint/shard/facebook/opt-30b"
-      # - "/home/mint/shard/tiiuae/falcon-40b"
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      # - 32
-      - 128
-      - 512
-      # - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # llama7_baitp:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - "/home/mint/shard/meta-llama/Llama-2-13b-hf"
+  #     # - "/home/mint/shard/meta-llama/Llama-2-70b-hf"
+  #     # - "/home/mint/shard/facebook/opt-30b"
+  #     # - "/home/mint/shard/tiiuae/falcon-40b"
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # llama7_baitp8:
   #   modelid: 
   #     - "/home/mint/shard/meta-llama/Llama-2-13b-hf"
