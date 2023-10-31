@@ -178,7 +178,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("# source $HOME/oneCCL_install/env/setvars.sh")
         lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
-        lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
+        # lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
         lines.append("huggingface-cli login --token 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")
@@ -216,7 +216,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 else:
 
                                     lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log 2>&1 || true &")
-                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-63 python run.py \
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
                                                 --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --dtype {dtype} --ipex --deployment-mode --token-latency   \
                                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
                                     lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
