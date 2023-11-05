@@ -2803,38 +2803,38 @@ modelargs:
   #     # - true
   #     - false
   # t5_int8:
-    modelid: 
-      - google/flan-t5-xl
-    scriptname: run_t5_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - false
+    # modelid: 
+    #   - google/flan-t5-xl
+    # scriptname: run_t5_int8.py
+    # device:
+    #   - cpu
+    # dtype: 
+    #   - int8
+    # maxnewtokens: 
+    #   - 32
+    # outputdir: "/root/workspace/qmodel"
+    # quantize: true
+    # lambada: true
+    # ipex: true
+    # jit: true
+    # int8: true
+    # incsmoothquant: true
+    # ipexsmmothquant: true
+    # int8bf16mixed: true
+    # quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    # benchmark: true
+    # inputtokens:
+    #   - 128
+    #   - 512
+    #   - 1024
+    #   - 2016
+    # prompt: None
+    # numiter: 50
+    # numwarmup: 10
+    # batchsize: 1
+    # tokenlatency: true
+    # greedy: 
+    #   - false
   # t5_int8static:
   #   modelid: 
   #     - google/flan-t5-xl
