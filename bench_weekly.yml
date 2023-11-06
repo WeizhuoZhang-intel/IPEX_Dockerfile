@@ -2173,42 +2173,42 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # starcode_2s:
-  #   modelid: 
-  #     - bigcode/starcoder
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   localrank:
-  #     - 2
-  #   outputdir: "/root/workspace/qmodel/mixed_bloom"
-  #   shardpath: "/localdisk/mint/shard/bigcode/starcoder"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
+  starcode_2s:
+    modelid: 
+      - bigcode/starcoder
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    localrank:
+      - 2
+    outputdir: "/root/workspace/qmodel/mixed_bloom"
+    shardpath: "/localdisk/mint/shard/bigcode/starcoder"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
   # starcode_2swoq:
   #   modelid: 
   #     - bigcode/starcoder
@@ -2482,39 +2482,39 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
-  bai_int8static:
-    modelid: 
-      - baichuan-inc/Baichuan-13B-Chat
-    scriptname: run_baichuan_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - false
+  # bai_int8static:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run_baichuan_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - false
   # bai_int4:
   #   modelid: 
   #     - baichuan-inc/Baichuan-13B-Chat
@@ -2620,42 +2620,42 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - false
-  bai_2swoq4:
-    modelid: 
-      - baichuan-inc/Baichuan-13B-Chat
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    localrank:
-      - 2
-    outputdir: "/root/workspace/qmodel"
-    shardpath: "/localdisk/mint/shard/baichuan-inc/Baichuan-13B-Chat"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - false
+  # bai_2swoq4:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   outputdir: "/root/workspace/qmodel"
+  #   shardpath: "/localdisk/mint/shard/baichuan-inc/Baichuan-13B-Chat"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - false
   
   
   # bigcode_2s:
