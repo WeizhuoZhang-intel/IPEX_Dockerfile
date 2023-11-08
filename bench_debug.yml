@@ -19,6 +19,42 @@ launcher:
   numactlM: 0
   iternum: 50
 modelargs:
+  llama7_compile:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 32
+      # - 128
+      # - 512
+      # - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false
   # llama7_default:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
@@ -1003,176 +1039,176 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
-  codellama_default:
-    modelid: 
-      - codellama/CodeLlama-34b-Instruct-hf
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  codellama_int8:
-    modelid: 
-      - codellama/CodeLlama-34b-Instruct-hf
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    localrank:
-      - 2
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  codellama_int8static:
-    modelid: 
-      - codellama/CodeLlama-34b-Instruct-hf
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    localrank:
-      - 2
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  codellama_int4:
-    modelid: 
-      - codellama/CodeLlama-34b-Instruct-hf
-    scriptname: run_llama_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    localrank:
-      - 2
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  neox_int8static:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run_gpt-neox_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    localrank:
-      - 2
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # codellama_default:
+  #   modelid: 
+  #     - codellama/CodeLlama-34b-Instruct-hf
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # codellama_int8:
+  #   modelid: 
+  #     - codellama/CodeLlama-34b-Instruct-hf
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # codellama_int8static:
+  #   modelid: 
+  #     - codellama/CodeLlama-34b-Instruct-hf
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # codellama_int4:
+  #   modelid: 
+  #     - codellama/CodeLlama-34b-Instruct-hf
+  #   scriptname: run_llama_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # neox_int8static:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run_gpt-neox_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   localrank:
+  #     - 2
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
