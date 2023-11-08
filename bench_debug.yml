@@ -19,7 +19,7 @@ launcher:
   numactlM: 0
   iternum: 50
 modelargs:
-  llama7_compile:
+  llama7_none:
     modelid: 
       - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
