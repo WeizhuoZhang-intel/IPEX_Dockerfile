@@ -33,7 +33,7 @@ modelargs:
     localrank:
       - 3
     batchsize: 1
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+    shardpath: "/root/workspace/qmodel/shard"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -63,7 +63,7 @@ modelargs:
     localrank:
       - 3
     outputdir: "/root/workspace/qmodel/mixed_gpt"
-    shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
+    shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
@@ -95,7 +95,7 @@ modelargs:
     localrank:
       - 3
     batchsize: 1
-    shardpath: "/data/shard/meta-llama/Llama-2-7b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -125,7 +125,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama7"
-    shardpath: "/data/shard/meta-llama/Llama-2-7b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
@@ -158,7 +158,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama7"
-    shardpath: "/data/shard/meta-llama/Llama-2-7b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
@@ -192,7 +192,7 @@ modelargs:
     numiter: 50
     numwarmup: 5
     benchmark: true
-    shardpath: "/data/shard/meta-llama/Llama-2-13b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     cuda: true
     greedy: 
       - False
@@ -217,7 +217,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama13"
-    shardpath: "/data/shard/meta-llama/Llama-2-13b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     localrank:
       - 3
@@ -251,7 +251,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama13"
-    shardpath: "/data/shard/meta-llama/Llama-2-13b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     localrank:
       - 3
@@ -285,7 +285,7 @@ modelargs:
     localrank:
       - 3
     batchsize: 1
-    shardpath: "/data/shard/facebook/opt-30b"
+    shardpath: "/root/workspace/qmodel/shard"
     numiter: 50
     numwarmup: 5
     benchmark: true
@@ -306,7 +306,7 @@ modelargs:
     modelid: 
       - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/facebook/opt-30b"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
@@ -339,7 +339,7 @@ modelargs:
     modelid: 
       - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/facebook/opt-30b"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
@@ -381,7 +381,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
-    shardpath: "/data/shard/EleutherAI/gpt-neox-20b"
+    shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
@@ -414,7 +414,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
-    shardpath: "/data/shard/EleutherAI/gpt-neox-20b"
+    shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
@@ -438,7 +438,7 @@ modelargs:
     modelid:
       - meta-llama/Llama-2-70b-hf
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/meta-llama/Llama-2-70b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype:
@@ -466,7 +466,7 @@ modelargs:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/meta-llama/Llama-2-70b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
@@ -499,7 +499,7 @@ modelargs:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/meta-llama/Llama-2-70b-hf"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
@@ -532,7 +532,7 @@ modelargs:
     modelid:
       - tiiuae/falcon-40b
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/tiiuae/falcon-40b"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype:
@@ -560,7 +560,7 @@ modelargs:
     modelid: 
       - tiiuae/falcon-40b
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/tiiuae/falcon-40b"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
@@ -593,7 +593,7 @@ modelargs:
     modelid: 
       - tiiuae/falcon-40b
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/tiiuae/falcon-40b"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
@@ -626,7 +626,7 @@ modelargs:
     modelid:
       - Baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/Baichuan-inc/Baichuan-13B-Chat"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype:
@@ -654,7 +654,7 @@ modelargs:
     modelid:
       - Baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/Baichuan-inc/Baichuan-13B-Chat"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
@@ -687,7 +687,7 @@ modelargs:
     modelid:
       - Baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation_with_deepspeed.py
-    shardpath: "/data/shard/Baichuan-inc/Baichuan-13B-Chat"
+    shardpath: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
