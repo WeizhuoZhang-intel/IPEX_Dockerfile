@@ -190,6 +190,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(fetch_device_info)
         lines.append(collect_result)   
         lines.append(deepspeed_ccl_func)  
+        lines.append("export FI_PROVIDER=tcp")
         lines.append("")
         if mode.endswith('deepspeed'):
             lines.append("# DS Env config")
