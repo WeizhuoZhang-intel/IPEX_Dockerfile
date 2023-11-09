@@ -31,7 +31,7 @@ modelargs:
       - bfloat16
       # - float32
     localrank:
-      - 3
+      - 2
     batchsize: 1
     shardpath: "/root/workspace/qmodel/shard"
     numiter: 50
@@ -61,7 +61,7 @@ modelargs:
     maxnewtokens: 
       - 32
     localrank:
-      - 3
+      - 2
     outputdir: "/root/workspace/qmodel/mixed_gpt"
     shardpath: "/root/workspace/qmodel/shard"
     quantize: true
@@ -93,7 +93,7 @@ modelargs:
       - bfloat16
       # - float32
     localrank:
-      - 3
+      - 2
     batchsize: 1
     shardpath: "/root/workspace/qmodel/shard"
     numiter: 50
@@ -121,7 +121,7 @@ modelargs:
     dtype: 
       - float32
     localrank:
-      - 3
+      - 2
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_llama7"
@@ -154,7 +154,7 @@ modelargs:
   #   dtype: 
   #     - int8
   #   localrank:
-  #     - 3
+  #     - 2
   #   maxnewtokens: 
   #     - 32
   #   outputdir: "/root/workspace/qmodel/mixed_llama7"
@@ -187,7 +187,7 @@ modelargs:
     dtype:
       - bfloat16
     localrank:
-      - 3
+      - 2
     batchsize: 1
     numiter: 50
     numwarmup: 5
@@ -220,7 +220,7 @@ modelargs:
     shardpath: "/root/workspace/qmodel/shard"
     quantize: true
     localrank:
-      - 3
+      - 2
     lambada: true
     ipex: true
     jit: true
@@ -254,7 +254,7 @@ modelargs:
   #   shardpath: "/root/workspace/qmodel/shard"
   #   quantize: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   lambada: true
   #   ipex: true
   #   jit: true
@@ -283,7 +283,7 @@ modelargs:
     dtype:
       - bfloat16
     localrank:
-      - 3
+      - 2
     batchsize: 1
     shardpath: "/root/workspace/qmodel/shard"
     numiter: 50
@@ -312,7 +312,7 @@ modelargs:
     dtype: 
       - float32
     localrank:
-      - 3
+      - 2
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
@@ -345,7 +345,7 @@ modelargs:
   #   dtype: 
   #     - float32
   #   localrank:
-  #     - 3
+  #     - 2
   #   maxnewtokens: 
   #     - 32
   #   outputdir: "/root/workspace/qmodel/mixed_opt7"
@@ -377,7 +377,7 @@ modelargs:
     dtype: 
       - float32
     localrank:
-      - 3
+      - 2
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/mixed_opt7"
@@ -410,7 +410,7 @@ modelargs:
   #   dtype: 
   #     - float32
   #   localrank:
-  #     - 3
+  #     - 2
   #   maxnewtokens: 
   #     - 32
   #   outputdir: "/root/workspace/qmodel/mixed_opt7"
@@ -444,7 +444,7 @@ modelargs:
     dtype:
       - bfloat16
     localrank:
-      - 3
+      - 2
     batchsize: 1
     numiter: 50
     numwarmup: 5
@@ -476,7 +476,7 @@ modelargs:
     outputdir: "/root/workspace/qmodel/mixed_llama70"
     quantize: true
     localrank:
-      - 3
+      - 2
     lambada: true
     ipex: true
     jit: true
@@ -509,7 +509,7 @@ modelargs:
   #   outputdir: "/root/workspace/qmodel/mixed_llama70"
   #   quantize: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   lambada: true
   #   ipex: true
   #   jit: true
@@ -538,7 +538,7 @@ modelargs:
   #   dtype:
   #     - bfloat16
   #   localrank:
-  #     - 3
+  #     - 2
   #   batchsize: 1
   #   numiter: 50
   #   numwarmup: 5
@@ -570,7 +570,7 @@ modelargs:
   #   outputdir: "/root/workspace/qmodel/mixed_llama70"
   #   quantize: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   lambada: true
   #   ipex: true
   #   jit: true
@@ -603,7 +603,7 @@ modelargs:
   #   outputdir: "/root/workspace/qmodel/mixed_llama70"
   #   quantize: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   lambada: true
   #   ipex: true
   #   jit: true
@@ -632,7 +632,7 @@ modelargs:
     dtype:
       - bfloat16
     localrank:
-      - 3
+      - 2
     batchsize: 1
     numiter: 50
     numwarmup: 5
@@ -664,7 +664,7 @@ modelargs:
     outputdir: "/root/workspace/qmodel/mixed_llama70"
     quantize: true
     localrank:
-      - 3
+      - 2
     lambada: true
     ipex: true
     jit: true
@@ -697,7 +697,7 @@ modelargs:
   #   outputdir: "/root/workspace/qmodel/mixed_llama70"
   #   quantize: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   lambada: true
   #   ipex: true
   #   jit: true
@@ -738,7 +738,7 @@ modelargs:
   #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
   #   benchmark: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   inputtokens:
   #     - 128
   #   prompt: None
@@ -771,7 +771,7 @@ modelargs:
   #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
   #   benchmark: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   inputtokens:
   #     - 128
   #   prompt: None
@@ -799,7 +799,7 @@ modelargs:
   #   jit: true
   #   int8: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   incsmoothquant: true
   #   ipexsmmothquant: true
   #   int8bf16mixed: true
@@ -831,7 +831,7 @@ modelargs:
   #   jit: true
   #   int8: true
   #   localrank:
-  #     - 3
+  #     - 2
   #   incsmoothquant: true
   #   ipexsmmothquant: true
   #   int8bf16mixed: true
@@ -869,7 +869,7 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
     benchmark: true
     localrank:
-      - 3
+      - 2
     inputtokens:
       - 128
     prompt: None
@@ -902,7 +902,7 @@ modelargs:
     quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
     benchmark: true
     localrank:
-      - 3
+      - 2
     inputtokens:
       - 128
     prompt: None
