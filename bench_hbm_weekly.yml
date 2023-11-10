@@ -31,6 +31,7 @@ modelargs:
       # - float32
     localrank:
       - 2
+      - 4
     batchsize: 1
     outputdir: "/root/workspace/qmodel/shard"
     shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
@@ -65,6 +66,7 @@ modelargs:
       - 32
     localrank:
       - 2
+      - 4
     outputdir: "/root/workspace/qmodel/shard"
     shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     quantize: true
@@ -101,6 +103,7 @@ modelargs:
       - 32
     localrank:
       - 2
+      - 4
     outputdir: "/root/workspace/qmodel/shard"
     shardpath: "/root/workspace/qmodel/shard/EleutherAI/gpt-j-6B"
     quantize: true
@@ -136,6 +139,7 @@ modelargs:
       # - float32
     localrank:
       - 2
+      - 4
     batchsize: 1
     outputdir: "/root/workspace/qmodel/shard"
     shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
@@ -168,6 +172,7 @@ modelargs:
       - float32
     localrank:
       - 2
+      - 4
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/shard"
@@ -204,6 +209,7 @@ modelargs:
       - int8
     localrank:
       - 2
+      - 4
     maxnewtokens: 
       - 32
     outputdir: "/root/workspace/qmodel/shard"
