@@ -208,7 +208,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             
             for rank in data['modelargs'][mode]['localrank']:
                     for model_id in data['modelargs'][mode]['modelid']:
-                        lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                        lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                         lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
                         lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                         for dtype in data['modelargs'][mode]['dtype']:
@@ -280,7 +280,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for rank in data['modelargs'][mode]['localrank']:
                     for model_id in data['modelargs'][mode]['modelid']:
                         for dtype in data['modelargs'][mode]['dtype']:
-                            lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                            lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                             lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
                             lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
 
@@ -325,7 +325,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("huggingface-cli login --token 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")         
             for rank in data['modelargs'][mode]['localrank']:
                     for model_id in data['modelargs'][mode]['modelid']:
-                        lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                        lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                         lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
                         lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                         for dtype in data['modelargs'][mode]['dtype']:
@@ -363,7 +363,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("huggingface-cli login --token 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")         
             for rank in data['modelargs'][mode]['localrank']:
                     for model_id in data['modelargs'][mode]['modelid']:
-                        lines.append(f"rm -rf {data['modelargs'][mode]['shardpath']}")
+                        lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
                         lines.append(f"mkdir -p {data['modelargs'][mode]['shardpath']}")
                         lines.append(f"python create_shard_model.py -m {model_id}  --save-path {data['modelargs'][mode]['shardpath']}")
                         for dtype in data['modelargs'][mode]['dtype']:
