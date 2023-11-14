@@ -579,7 +579,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh  >> $log_dir/mem-usage-llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log 2>&1 || true &")
                                         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} --batch-size {data['modelargs'][mode]['batchsize']} \
-                                                    --max-new-tokens {output_token} --output-dir {data['modelargs'][mode]['outputdir']} --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{data['modelargs'][mode]['batchsize']}_greedy_False_NUMA_{numa}_BF16.log") 
+                                                    --max-new-tokens {output_token} --prompt What --output-dir {data['modelargs'][mode]['outputdir']} --ipex --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{data['modelargs'][mode]['batchsize']}_greedy_False_NUMA_{numa}_BF16.log") 
                                         lines.append("wait")
                                         lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{data['modelargs'][mode]['batchsize']}_greedy_False_NUMA_{numa}_BF16.log")
 
@@ -660,7 +660,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 
                                 elif 'falcon' in model_id:
                                     lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
-                                                --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp --config-file /root/workspace/IPEX_Dockerfile/utils/model_config/tiiuae_falcon-40b_config.json 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
+                                                --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --prompt What --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp --config-file /root/workspace/IPEX_Dockerfile/utils/model_config/tiiuae_falcon-40b_config.json 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
                                 else:
                                     for beam in data['modelargs'][mode]['greedy']:
                                         if beam == True:
@@ -670,7 +670,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_True_NUMA_{numa}_BF16.log")
                                         else:
                                             lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {numa} --bind_core_list $core_list run.py --benchmark -m {model_id} --int8-bf16-mixed --input-tokens {input_token} \
-                                                        --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
+                                                        --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --prompt What --output-dir {data['modelargs'][mode]['outputdir']} --deployment-mode --token-latency --num-iter 50 --autotp 2>&1 | tee -a $log_dir/llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log") 
                                             lines.append("wait")
                                             lines.append(f"collect_perf_logs_llm llm_deepspeed_{model_id.replace('/','-')}_woq-int8_{input_token}-{output_token}_greedy_False_NUMA_{numa}_BF16.log")
 
