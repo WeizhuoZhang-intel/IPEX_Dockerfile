@@ -18,48 +18,221 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  neox_emr8:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
+  l_emr:
+    modelid:
+      - meta-llama/Llama-2-7b-hf
     scriptname: run_generation_with_deepspeed.py
     device:
       - cpu
-    dtype: 
-      - int8
+    dtype:
+      - bfloat16
+      # - float32
+    localrank:
+      - 3
+    batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - false
+    ki: true
     maxnewtokens: 
+      - 32
+    inputtokens:
       - 128
-    outputdir: "/root/workspace/qmodel/int8_neox"
-    shardpath: "/root/workspace/shard/EleutherAI/gpt-neox-20b"
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  falcon_emr:
+    modelid:
+      - tiiuae/falcon-40b
+    scriptname: run_generation_with_deepspeed.py
+    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 3
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - False
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 128
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  falcon_emr8:
+    modelid: 
+      - tiiuae/falcon-40b
+    scriptname: run_generation_with_deepspeed.py
+    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+    device:
+      - cpu
+    dtype: 
+      - float32
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/mixed_llama70"
     quantize: true
+    localrank:
+      - 3
     lambada: true
     ipex: true
     jit: true
-    localrank:
-      - 2
-      # - 4
     int8: true
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/int8_neox/best_model.pt"
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
     benchmark: true
     inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
+      - 128
     prompt: None
-    weighttype:
-      - int8
-      # - int4
     numiter: 50
     numwarmup: 10
     batchsize: 1
     tokenlatency: true
     greedy: 
       - False
-      - True
-
+  chuan_emr:
+    modelid:
+      - baichuan-inc/Baichuan-13B-Chat
+    scriptname: run_generation_with_deepspeed.py
+    shardpath: "/root/workspace/qmodel/shard/baichuan-inc/Baichuan-13B-Chat"
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 3
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - False
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 128
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  codegen_emr:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    localrank:
+      - 3
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  codegen_emr8:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    localrank:
+      - 3
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  t5_emr8:
+    modelid: 
+      - google/flan-t5-xl
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    localrank:
+      - 3
+    inputtokens:
+      - 128
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      # - true
+      - False
 
   # llama13_2s:
   #   modelid: 
@@ -457,8 +630,7 @@ modelargs:
   #   maxnewtokens: 
   #     - 32
   #   localrank:
-  #     - 2
-  #     - 4
+  #     - 3
   #   outputdir: "/root/workspace/qmodel/mixed_falcon"
   #   shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
   #   quantize: true
@@ -472,17 +644,17 @@ modelargs:
   #   quantizedmodelpath: "/root/workspace/qmodel/mixed_falcon/best_model.pt"
   #   benchmark: true
   #   inputtokens:
-  #     - 32
+  #     # - 32
   #     - 128
-  #     - 512
-  #     - 1024
+  #     # - 512
+  #     # - 1024
   #   prompt: None
   #   numiter: 50
   #   numwarmup: 10
   #   batchsize: 1
   #   tokenlatency: true
   #   greedy: 
-  #     - true
+  #     - false
   # falcon_2swoq:
   #   modelid: 
   #     - tiiuae/falcon-40b 
@@ -507,9 +679,9 @@ modelargs:
   #   benchmark: true
   #   inputtokens:
   #     # - 32
-  #     # - 128
+  #     - 128
   #     # - 512
-  #     - 1024
+  #     # - 1024
   #   weighttype:
   #     - int8
   #   prompt: None
@@ -521,7 +693,7 @@ modelargs:
   #     - true
   #   localrank:
   #     # - 2
-  #     - 4
+  #     - 3
   # llama7_2s:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf

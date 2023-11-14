@@ -553,7 +553,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             # lines.append("export FI_PROVIDER=tcp")    
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
@@ -639,7 +639,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             # lines.append("export FI_PROVIDER=tcp")  
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
