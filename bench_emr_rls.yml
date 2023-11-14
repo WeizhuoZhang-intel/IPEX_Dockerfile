@@ -30,6 +30,7 @@ modelargs:
     localrank:
       - 3
     batchsize: 1
+    outputdir: "/root/workspace/qmodel/shard"
     shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
     numiter: 50
     numwarmup: 5
@@ -52,6 +53,7 @@ modelargs:
       - tiiuae/falcon-40b
     scriptname: run_generation_with_deepspeed.py
     shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+    outputdir: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype:
@@ -80,13 +82,13 @@ modelargs:
       - tiiuae/falcon-40b
     scriptname: run_generation_with_deepspeed.py
     shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+    outputdir: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype: 
       - float32
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel/mixed_llama70"
     quantize: true
     localrank:
       - 3
@@ -113,6 +115,7 @@ modelargs:
       - baichuan-inc/Baichuan-13B-Chat
     scriptname: run_generation_with_deepspeed.py
     shardpath: "/root/workspace/qmodel/shard/baichuan-inc/Baichuan-13B-Chat"
+    outputdir: "/root/workspace/qmodel/shard"
     device:
       - cpu
     dtype:
@@ -146,7 +149,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
@@ -178,7 +181,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
@@ -210,7 +213,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "/root/workspace/qmodel/shard"
     quantize: true
     lambada: true
     ipex: true
