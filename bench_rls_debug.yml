@@ -53,41 +53,41 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false  
-  llama7_bai:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_generation.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      # - true
-      - false
+  # llama7_bai:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_generation.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - false
   # llama7_bai8:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
@@ -193,42 +193,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # llama7_bai8s:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_llama_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/home/mint/int8/meta-llama/Llama-2-7b-hf"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   alpha: 0.8
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/home/mint/int8/meta-llama/Llama-2-7b-hf/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2048
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  #     # - True
+
   # llama13_int8:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
@@ -265,40 +230,219 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # llama13_bai8s:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run_llama_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/home/mint/int8/meta-llama/Llama-2-13b-hf"
-  #   quantize: true
-  #   alpha: 0.8
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/home/mint/int8/meta-llama/Llama-2-13b-hf/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
+  llama7_bai8s:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/localdisk2/mint/int8/meta-llama/Llama-2-7b-hf"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    alpha: 0.8
+    int8bf16mixed: true
+    quantizedmodelpath: "/localdisk2/mint/int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+      # - True
+  llama13_bai8s:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run_llama_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/localdisk2/mint/int8/meta-llama/Llama-2-13b-hf"
+    quantize: true
+    alpha: 0.8
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/localdisk2/mint/int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  gptj_bai8s:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/localdisk2/mint/int8/EleutherAI/gpt-j-6B"
+    quantize: true
+    alpha: 1.0
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/localdisk2/mint/int8/EleutherAI/gpt-j-6B/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+      # - True
+
+  llama7_bai8smixed
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/localdisk2/mint/fp32int8/meta-llama/Llama-2-7b-hf"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    alpha: 0.8
+    int8bf16mixed: true
+    quantizedmodelpath: "/localdisk2/mint/fp32int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+      # - True
+  llama13_bai8smixed:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run_llama_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/localdisk2/mint/fp32int8/meta-llama/Llama-2-13b-hf"
+    quantize: true
+    alpha: 0.8
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/localdisk2/mint/fp32int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  gptj_bai8smixed:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run_gpt-j_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/localdisk2/mint/fp32int8/EleutherAI/gpt-j-6B"
+    quantize: true
+    alpha: 1.0
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/localdisk2/mint/fp32int8/EleutherAI/gpt-j-6B/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+      # - True
   # llama13_2s:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
@@ -373,42 +517,7 @@ modelargs:
   #   greedy: 
   #     - False
   #     - True
-  # gptj_bai8s:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: run_gpt-j_quantization.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/home/mint/int8/EleutherAI/gpt-j-6B"
-  #   quantize: true
-  #   alpha: 1.0
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/home/mint/int8/EleutherAI/gpt-j-6B/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2048
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  #     - True
+
   # model_bai8:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
