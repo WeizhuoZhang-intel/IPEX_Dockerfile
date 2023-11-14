@@ -230,7 +230,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  llama7_bai8s:
+  llama7_int8static:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run_llama_quantization.py
@@ -266,7 +266,7 @@ modelargs:
     greedy: 
       - False
       # - True
-  llama13_bai8s:
+  llama13_int8static:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run_llama_quantization.py
@@ -300,7 +300,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  gptj_bai8s:
+  gptj_int8static:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_quantization.py
@@ -337,7 +337,7 @@ modelargs:
       - False
       # - True
 
-  llama7_bai8smixed:
+  llama7_int8fp32:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run_llama_quantization.py
@@ -373,7 +373,7 @@ modelargs:
     greedy: 
       - False
       # - True
-  llama13_bai8smixed:
+  llama13_int8fp32:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run_llama_quantization.py
@@ -407,7 +407,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  gptj_bai8smixed:
+  gptj_int8fp32:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: run_gpt-j_quantization.py
