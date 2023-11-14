@@ -337,7 +337,7 @@ modelargs:
       - False
       # - True
 
-  llama7_bai8smixed
+  llama7_bai8smixed:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run_llama_quantization.py
