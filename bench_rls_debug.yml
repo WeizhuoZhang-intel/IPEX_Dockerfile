@@ -240,7 +240,7 @@ modelargs:
   #     - int8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/localdisk2/mint/int8/meta-llama/Llama-2-7b-hf"
+  #   outputdir: "/data1/qmodel/int8/meta-llama/Llama-2-7b-hf"
   #   quantize: true
   #   lambada: true
   #   ipex: true
@@ -250,7 +250,7 @@ modelargs:
   #   ipexsmmothquant: true
   #   alpha: 0.8
   #   int8bf16mixed: true
-  #   quantizedmodelpath: "/localdisk2/mint/int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data1/qmodel/int8/meta-llama/Llama-2-7b-hf/best_model.pt"
   #   benchmark: true
   #   inputtokens:
   #     # - 32
@@ -276,7 +276,7 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk2/mint/int8/EleutherAI/gpt-neox-20b"
+    outputdir: "/data1/qmodel/int8/EleutherAI/gpt-neox-20b"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -310,7 +310,7 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk2/mint/int8/facebook/opt-30b"
+    outputdir: "/data1/qmodel/int8/facebook/opt-30b"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -344,7 +344,7 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk2/mint/int8/tiiuae/falcon-40b"
+    outputdir: "/data1/qmodel/int8/tiiuae/falcon-40b"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -416,7 +416,7 @@ modelargs:
   #     - float32
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/localdisk2/mint/int8/meta-llama/Llama-2-13b-hf"
+  #   outputdir: "/data1/qmodel/int8/meta-llama/Llama-2-13b-hf"
   #   quantize: true
   #   alpha: 0.8
   #   lambada: true
@@ -426,7 +426,7 @@ modelargs:
   #   incsmoothquant: true
   #   ipexsmmothquant: true
   #   int8bf16mixed: true
-  #   quantizedmodelpath: "/localdisk2/mint/int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data1/qmodel/int8/meta-llama/Llama-2-13b-hf/best_model.pt"
   #   benchmark: true
   #   inputtokens:
   #     # - 32
@@ -452,7 +452,7 @@ modelargs:
   #     - bfloat16
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/localdisk2/mint/int8/meta-llama/Llama-2-13b-hf"
+  #   outputdir: "/data1/qmodel/int8/meta-llama/Llama-2-13b-hf"
   #   quantize: true
   #   alpha: 0.8
   #   lambada: true
@@ -462,7 +462,7 @@ modelargs:
   #   incsmoothquant: true
   #   ipexsmmothquant: true
   #   int8bf16mixed: true
-  #   quantizedmodelpath: "/localdisk2/mint/int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data1/qmodel/int8/meta-llama/Llama-2-13b-hf/best_model.pt"
   #   benchmark: true
   #   inputtokens:
   #     # - 32
@@ -488,7 +488,7 @@ modelargs:
   #     - int8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/localdisk2/mint/int8/EleutherAI/gpt-j-6B"
+  #   outputdir: "/data1/qmodel/int8/EleutherAI/gpt-j-6B"
   #   quantize: true
   #   alpha: 1.0
   #   lambada: true
@@ -498,7 +498,7 @@ modelargs:
   #   incsmoothquant: true
   #   ipexsmmothquant: true
   #   int8bf16mixed: true
-  #   quantizedmodelpath: "/localdisk2/mint/int8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   quantizedmodelpath: "/data1/qmodel/int8/EleutherAI/gpt-j-6B/best_model.pt"
   #   benchmark: true
   #   inputtokens:
   #     # - 32
@@ -525,7 +525,7 @@ modelargs:
   #     - int8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/localdisk2/mint/fp32int8/meta-llama/Llama-2-7b-hf"
+  #   outputdir: "/data1/qmodel/fp32int8/meta-llama/Llama-2-7b-hf"
   #   quantize: true
   #   lambada: true
   #   ipex: true
@@ -535,7 +535,7 @@ modelargs:
   #   ipexsmmothquant: true
   #   alpha: 0.8
   #   int8bf16mixed: true
-  #   quantizedmodelpath: "/localdisk2/mint/fp32int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data1/qmodel/fp32int8/meta-llama/Llama-2-7b-hf/best_model.pt"
   #   benchmark: true
   #   inputtokens:
   #     # - 32
@@ -561,7 +561,7 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk2/mint/fp32int8/EleutherAI/gpt-neox-20b"
+    outputdir: "/data1/qmodel/fp32int8/EleutherAI/gpt-neox-20b"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -595,7 +595,7 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk2/mint/fp32int8/facebook/opt-30b"
+    outputdir: "/data1/qmodel/fp32int8/facebook/opt-30b"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -629,7 +629,7 @@ modelargs:
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk2/mint/fp32int8/tiiuae/falcon-40b"
+    outputdir: "/data1/qmodel/fp32int8/tiiuae/falcon-40b"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -663,7 +663,7 @@ modelargs:
   #     - int8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/localdisk2/mint/fp32int8/meta-llama/Llama-2-13b-hf"
+  #   outputdir: "/data1/qmodel/fp32int8/meta-llama/Llama-2-13b-hf"
   #   quantize: true
   #   alpha: 0.8
   #   lambada: true
@@ -697,7 +697,7 @@ modelargs:
   #     - int8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/localdisk2/mint/fp32int8/EleutherAI/gpt-j-6B"
+  #   outputdir: "/data1/qmodel/fp32int8/EleutherAI/gpt-j-6B"
   #   quantize: true
   #   alpha: 1.0
   #   lambada: true
@@ -707,7 +707,7 @@ modelargs:
   #   incsmoothquant: true
   #   ipexsmmothquant: true
   #   int8bf16mixed: true
-  #   quantizedmodelpath: "/localdisk2/mint/fp32int8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   quantizedmodelpath: "/data1/qmodel/fp32int8/EleutherAI/gpt-j-6B/best_model.pt"
   #   benchmark: true
   #   inputtokens:
   #     # - 32
