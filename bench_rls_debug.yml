@@ -230,7 +230,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # llama7_int8static:
+  # llama7_bai8s:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
   #   scriptname: run_llama_quantization.py
@@ -266,7 +266,7 @@ modelargs:
   #   greedy: 
   #     - False
   #     # - True
-  neox_int8static:
+  neox_bai8s:
     modelid: 
       - EleutherAI/gpt-neox-20b
     scriptname: run_gpt-neox_quantization.py
@@ -300,7 +300,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  opt30_int8static:
+  opt30_bai8s:
     modelid: 
       - facebook/opt-30b
     scriptname: run_opt_quantization.py
@@ -334,7 +334,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  falcon_int8static:
+  falcon_bai8s:
     modelid: 
       - tiiuae/falcon-40b
     scriptname: run_falcon_quantization.py
@@ -369,7 +369,7 @@ modelargs:
     greedy: 
       - False
 
-  # llama13_int8static:
+  # llama13_bai8s:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
   #   scriptname: run_llama_quantization.py
@@ -478,7 +478,7 @@ modelargs:
   #     - False
 
 
-  # gptj_int8static:
+  # gptj_bai8s:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
   #   scriptname: run_gpt-j_quantization.py
@@ -515,7 +515,7 @@ modelargs:
   #     - False
   #     # - True
 
-  # llama7_int8fp32:
+  # llama7_bai8smixed:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
   #   scriptname: run_llama_quantization.py
@@ -551,7 +551,7 @@ modelargs:
   #   greedy: 
   #     - False
   #     # - True
-  neox_int8fp32:
+  neox_bai8smixed:
     modelid: 
       - EleutherAI/gpt-neox-20b
     scriptname: run_gpt-neox_quantization.py
@@ -585,7 +585,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  opt30_int8fp32:
+  opt30_bai8smixed:
     modelid: 
       - facebook/opt-30b
     scriptname: run_opt_quantization.py
@@ -619,7 +619,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  falcon_int8fp32:
+  falcon_bai8smixed:
     modelid: 
       - tiiuae/falcon-40b
     scriptname: run_falcon_quantization.py
@@ -653,7 +653,7 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  # llama13_int8fp32:
+  # llama13_bai8smixed:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
   #   scriptname: run_llama_quantization.py
@@ -687,7 +687,7 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # gptj_int8fp32:
+  # gptj_bai8smixed:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
   #   scriptname: run_gpt-j_quantization.py
