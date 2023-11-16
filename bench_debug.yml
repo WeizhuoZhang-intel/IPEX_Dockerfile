@@ -325,40 +325,40 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
-  star2_int8fp32:
-    modelid: 
-      - bigcode/starcoder
-    scriptname: run_gptbigcode_int8.py
-    device:
-      - cpu
-    dtype: 
-      - int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/qmodel/llmfp32int8/bigcode/starcoder"
-    quantize: true
-    alpha: 0.5
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/data1/qmodel/llmfp32int8/bigcode/starcoder/best_model.pt"
-    benchmark: true
-    inputtokens:
-      # - 32
-      - 128
-      # - 512
-      - 1024
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # star2_int8fp32:
+  #   modelid: 
+  #     - bigcode/starcoder
+  #   scriptname: run_gptbigcode_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/qmodel/llmfp32int8/bigcode/starcoder"
+  #   quantize: true
+  #   alpha: 0.5
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/bigcode/starcoder/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # bai_int8fp32:
   #   modelid: 
   #     - baichuan-inc/Baichuan-13B-Chat
