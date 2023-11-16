@@ -155,153 +155,17 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # opt_int8fp32:
-  #   modelid: 
-  #     - facebook/opt-30b
-  #   scriptname: run_opt_int8.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/qmodel/llmfp32int8/facebook/opt-30b"
-  #   quantize: true
-  #   alpha: 0.5
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/facebook/opt-30b/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     - 128
-  #     # - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  # falcon_int8fp32:
-  #   modelid: 
-  #     - tiiuae/falcon-40b
-  #   scriptname: run_falcon_int8.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/qmodel/llmfp32int8/tiiuae/falcon-40b"
-  #   quantize: true
-  #   alpha: 0.5
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/tiiuae/falcon-40b/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     - 128
-  #     # - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  # glm_int8fp32:
-  #   modelid: 
-  #     - THUDM/chatglm2-6b
-  #   scriptname: run_chatglm_int8.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/qmodel/llmfp32int8/THUDM/chatglm2-6b"
-  #   quantize: true
-  #   alpha: 0.5
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/THUDM/chatglm2-6b/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     - 128
-  #     # - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  # gen_int8fp32:
-  #   modelid: 
-  #     - Salesforce/codegen-2B-multi
-  #   scriptname: run_codegen_int8.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/qmodel/llmfp32int8/Salesforce/codegen-2B-multi"
-  #   quantize: true
-  #   alpha: 0.5
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/Salesforce/codegen-2B-multi/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     - 128
-  #     # - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  star_int8fp32:
+  opt_int8fp32:
     modelid: 
-      - HuggingFaceH4/starchat-beta
-    scriptname: run_gptbigcode_int8.py
+      - facebook/opt-30b
+    scriptname: run_opt_int8.py
     device:
       - cpu
     dtype: 
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/data1/qmodel/llmfp32int8/HuggingFaceH4/starchat-beta"
+    outputdir: "/data1/qmodel/llmfp32int8/facebook/opt-30b"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -311,7 +175,7 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/data1/qmodel/llmfp32int8/HuggingFaceH4/starchat-beta/best_model.pt"
+    quantizedmodelpath: "/data1/qmodel/llmfp32int8/facebook/opt-30b/best_model.pt"
     benchmark: true
     inputtokens:
       # - 32
@@ -325,6 +189,142 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
+  falcon_int8fp32:
+    modelid: 
+      - tiiuae/falcon-40b
+    scriptname: run_falcon_int8.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/qmodel/llmfp32int8/tiiuae/falcon-40b"
+    quantize: true
+    alpha: 0.5
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data1/qmodel/llmfp32int8/tiiuae/falcon-40b/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  glm_int8fp32:
+    modelid: 
+      - THUDM/chatglm2-6b
+    scriptname: run_chatglm_int8.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/qmodel/llmfp32int8/THUDM/chatglm2-6b"
+    quantize: true
+    alpha: 0.5
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data1/qmodel/llmfp32int8/THUDM/chatglm2-6b/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  gen_int8fp32:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    scriptname: run_codegen_int8.py
+    device:
+      - cpu
+    dtype: 
+      - int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/qmodel/llmfp32int8/Salesforce/codegen-2B-multi"
+    quantize: true
+    alpha: 0.5
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/data1/qmodel/llmfp32int8/Salesforce/codegen-2B-multi/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      - 1024
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  # star_int8fp32:
+  #   modelid: 
+  #     - HuggingFaceH4/starchat-beta
+  #   scriptname: run_gptbigcode_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/qmodel/llmfp32int8/HuggingFaceH4/starchat-beta"
+  #   quantize: true
+  #   alpha: 0.5
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/HuggingFaceH4/starchat-beta/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # star2_int8fp32:
   #   modelid: 
   #     - bigcode/starcoder
@@ -359,51 +359,17 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  # bai_int8fp32:
-  #   modelid: 
-  #     - baichuan-inc/Baichuan-13B-Chat
-  #   scriptname: run_baichuan_int8.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/qmodel/llmfp32int8/baichuan-inc/Baichuan-13B-Chat"
-  #   quantize: true
-  #   alpha: 0.5
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/baichuan-inc/Baichuan-13B-Chat/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     # - 32
-  #     - 128
-  #     # - 512
-  #     - 1024
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     - False
-  t5_int8fp32:
+  bai_int8fp32:
     modelid: 
-      - google/flan-t5-xl
-    scriptname: run_t5_int8.py
+      - baichuan-inc/Baichuan-13B-Chat
+    scriptname: run_baichuan_int8.py
     device:
       - cpu
     dtype: 
       - int8
     maxnewtokens: 
       - 32
-    outputdir: "/data1/qmodel/llmfp32int8/google/flan-t5-xl"
+    outputdir: "/data1/qmodel/llmfp32int8/baichuan-inc/Baichuan-13B-Chat"
     quantize: true
     alpha: 0.5
     lambada: true
@@ -413,7 +379,7 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/data1/qmodel/llmfp32int8/google/flan-t5-xl/best_model.pt"
+    quantizedmodelpath: "/data1/qmodel/llmfp32int8/baichuan-inc/Baichuan-13B-Chat/best_model.pt"
     benchmark: true
     inputtokens:
       # - 32
@@ -427,6 +393,40 @@ modelargs:
     tokenlatency: true
     greedy: 
       - False
+  # t5_int8fp32:
+  #   modelid: 
+  #     - google/flan-t5-xl
+  #   scriptname: run_t5_int8.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/qmodel/llmfp32int8/google/flan-t5-xl"
+  #   quantize: true
+  #   alpha: 0.5
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/data1/qmodel/llmfp32int8/google/flan-t5-xl/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     # - 32
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # bloom_int8fp32:
   #   modelid: 
   #     - bigscience/bloom-7b1
@@ -534,42 +534,42 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false
-  # llama7_default:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6B
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_generation.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/root/workspace/qmodel"
-  #   quantize: true
-  #   lambada: true
-  #   ipex: true
-  #   jit: true
-  #   int8: true
-  #   incsmoothquant: true
-  #   ipexsmmothquant: true
-  #   int8bf16mixed: true
-  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-  #   benchmark: true
-  #   inputtokens:
-  #     - 32
-  #     # - 128
-  #     # - 512
-  #     # - 1024
-  #     # - 2048
-  #   prompt: None
-  #   numiter: 50
-  #   numwarmup: 10
-  #   batchsize: 1
-  #   tokenlatency: true
-  #   greedy: 
-  #     # - true
-  #     - false
+  llama7_default:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_generation.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      # - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false
   # llama7_default:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
