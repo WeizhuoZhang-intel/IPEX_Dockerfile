@@ -1023,7 +1023,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
-                    lines.append(f"numactl -m 0 -N 0 python {data['modelargs'][mode]['scriptname']} --accuracy-only -m {model_id} --dtype {dtype} --tasks lambada_openai \
+                    lines.append(f"numactl -m 0 -N 0 -C 0-55 python ./single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --tasks lambada_openai \
                                  2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','-')}_{dtype}_accuracy.log")
 
 

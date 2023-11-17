@@ -18,38 +18,14 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  llama7_int8accfp32:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_quantization.py
-    dtype: 
-      - int8
-    alpha: 0.8
-    outdir: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-7b-hf/best_model.pt"
-    tokenlatency: true
-    greedy: 
-      # - true
-      - false 
-  llama13_int8accfp32:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run_llama_quantization.py
-    dtype: 
-      - int8
-    outdir: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-13b-hf/best_model.pt"
-    tokenlatency: true
-    alpha: 0.7
-    greedy: 
-      # - true
-      - false 
-  gpt_int8accfp32:
+  gpt_bf16acc:
     modelid: 
       - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
     scriptname: run_gpt-j_quantization.py
     dtype: 
-      - int8
+      - float32
     outdir: "/data1/qmodel/rlsfp32int8/EleutherAI/gpt-j-6B"
     quantizedmodelpath: "/data1/qmodel/rlsfp32int8/EleutherAI/gpt-j-6B/best_model.pt"
     tokenlatency: true
@@ -57,6 +33,45 @@ modelargs:
     greedy: 
       # - true
       - false 
+  # llama7_int8accfp32:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_quantization.py
+  #   dtype: 
+  #     - int8
+  #   alpha: 0.8
+  #   outdir: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - false 
+  # llama13_int8accfp32:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run_llama_quantization.py
+  #   dtype: 
+  #     - int8
+  #   outdir: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/data1/qmodel/rlsfp32int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   tokenlatency: true
+  #   alpha: 0.7
+  #   greedy: 
+  #     # - true
+  #     - false 
+  # gpt_int8accfp32:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run_gpt-j_quantization.py
+  #   dtype: 
+  #     - int8
+  #   outdir: "/data1/qmodel/rlsfp32int8/EleutherAI/gpt-j-6B"
+  #   quantizedmodelpath: "/data1/qmodel/rlsfp32int8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   tokenlatency: true
+  #   alpha: 1.0
+  #   greedy: 
+  #     # - true
+  #     - false 
   # llama7_bai:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
