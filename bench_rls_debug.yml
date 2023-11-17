@@ -18,7 +18,7 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  gpt_bf16acc:
+  bf16acc:
     modelid: 
       - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
