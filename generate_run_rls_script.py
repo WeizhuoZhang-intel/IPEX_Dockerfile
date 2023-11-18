@@ -227,7 +227,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run Workload")        
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 if 'neox' in model_id:
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id}")
                 elif 'falcon' in model_id:
@@ -265,7 +265,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 if 'neox' in model_id:
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --alpha {data['modelargs'][mode]['alpha']} --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id}")
                 else:
@@ -443,7 +443,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run Workload")        
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
