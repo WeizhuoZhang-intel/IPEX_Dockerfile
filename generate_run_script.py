@@ -139,27 +139,23 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         lines.append(f"mprof clean")
-                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} --device {data['modelargs'][mode]['device'][0]} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --jit --token-latency --benchmark --num-iter 20 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --token-latency --benchmark --num-iter 20 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
                         lines.append("ut_result=${PIPESTATUS[0]}")
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log $ut_result")
                         lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}_mprofile.dat")
         elif mode.endswith('int8'):
             # int8 test for GPT-J and LLaMA
             lines.append(f"mprof clean")
-            if mode.startswith('gptj'):
-                lines.append("# GPT-J quantization")
-                lines.append(f"mprof run python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --lambada --jit --int8-bf16-mixed")
-            if mode.startswith('llama'):
-                lines.append("# LLaMA quantization")
-                lines.append(f"mprof run python {data['modelargs'][mode]['scriptname']} --ipex_smooth_quant --lambada --output_dir {data['modelargs'][mode]['outputdir']} --jit --int8")
-            lines.append("quant_peak_mem=$(mprof peak | grep mprofile | awk '{print $2}')")
-            lines.append("# Run workload")
-            lines.append(f"mprof clean")
-            for input_token in data['modelargs'][mode]['inputtokens']:
-                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --jit --int8-bf16-mixed --token-latency --num-iter 20 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
-                lines.append("ut_result=${PIPESTATUS[0]}")
-                lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log $ut_result $quant_peak_mem")
-                lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{input_token}.dat")
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"mprof run python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --int8-bf16-mixed -m {model_id}")
+                lines.append("quant_peak_mem=$(mprof peak | grep mprofile | awk '{print $2}')")
+                lines.append("# Run workload")
+                lines.append(f"mprof clean")
+                for input_token in data['modelargs'][mode]['inputtokens']:
+                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --int8-bf16-mixed --token-latency --num-iter 20 -m {model_id} 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
+                    lines.append("ut_result=${PIPESTATUS[0]}")
+                    lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log $ut_result $quant_peak_mem")
+                    lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{input_token}.dat")
         elif mode.startswith('deepspeed'):
             lines.append("# DS Env config")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
@@ -169,7 +165,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         lines.append(f"mprof clean")
-                        lines.append(f"mprof run deepspeed --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark --device {data['modelargs'][mode]['device'][0]} -m {model_id} --dtype {dtype} --input-tokens {input_token} --ipex --jit --token-latency --num-iter 20 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
+                        lines.append(f"mprof run deepspeed --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} --ipex --token-latency --autotp --num-iter 20 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
                         lines.append("ut_result=${PIPESTATUS[0]}")
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log $ut_result")
                         lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}_mprofile.dat")
