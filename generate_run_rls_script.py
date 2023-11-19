@@ -1184,7 +1184,47 @@ def generate_commands(yml_file,mode,extra_kmp):
                         lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
                         lines.append(f"numactl -m 0 -N 0 python3 run_acc_inc.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --ipex --tasks lambada_openai --jit --dtype int8 --batch-size 56 \
                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_fp32-int8_{dtype}_accuracy.log")
-                        
+
+        if mode.endswith('woq8acc'):
+            lines.append("# DS Env config")
+            # lines.append("unset KMP_AFFINITY")
+            # lines.append("export TRANSFORMERS_OFFLINE=0")
+            # lines.append("pip install --upgrade huggingface_hub")
+            # lines.append("huggingface-cli login --token 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")   
+            lines.append("# Run workload")  
+            lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    if 'woqint8-bf16' in dtype:
+                        lines.append(f"rm -rf {data['modelargs'][mode]['outdir1']}")
+                        lines.append(f"mkdir -p {data['modelargs'][mode]['outdir1']}")
+                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outdir1']} -m {model_id} --int8-bf16-mixed")
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python ./single_instance/run_accuracy.py --model {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath1']} --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks lambada_openai \
+                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_bf16-woq-int8_{dtype}_accuracy.log")
+                    elif 'woqint8-fp32' in dtype:
+                        lines.append(f"rm -rf {data['modelargs'][mode]['outdir2']}")
+                        lines.append(f"mkdir -p {data['modelargs'][mode]['outdir2']}")
+                        lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outdir2']} -m {model_id} --int8")
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C 0-55 python ./single_instance/run_accuracy.py --model {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath2']} --dtype int8 --accuracy-only --jit --tasks lambada_openai \
+                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_fp32-woq-int8_{dtype}_accuracy.log")
+
+
+                    # if model_id == "EleutherAI/gpt-neox-20b":
+                    #     # lines.append(f"rm -rf {data['modelargs'][mode]['outdir']}")
+                    #     # lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
+                    #     # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} -m {model_id} --dataset NeelNanda/pile-10k")
+                    #     lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+                    #     lines.append(f"numactl -m 0 -N 0 python ./single_instance/run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --dtype int8 --jit --tasks lambada_openai \
+                    #                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_fp32-int8_{dtype}_accuracy.log")
+                    # else:
+                    #     # lines.append(f"rm -rf {data['modelargs'][mode]['outdir']}")
+                    #     # lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
+                    #     # lines.append(f"python3 {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} --model-id {model_id} --batch-size 56")
+                    #     lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
+                    #     lines.append(f"numactl -m 0 -N 0 python3 run_acc_inc.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --ipex --tasks lambada_openai --jit --dtype int8 --batch-size 56 \
+                    #                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_fp32-int8_{dtype}_accuracy.log")
+
+
         if mode == 'defaultacc':
             lines.append("# DS Env config")
 
