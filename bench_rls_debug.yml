@@ -18,67 +18,67 @@ launcher:
   numactlN: 0
   numactlM: 0
 modelargs:
-  gptj_woq8acc:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: ./single_instance/run_gpt-j_quantization.py
-    dtype: 
-      - woqint8-bf16
-      - woqint8-fp32
-    alpha: 0.8
-    outdir1: "/data1/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
-    quantizedmodelpath1: "/data1/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
-    outdir2: "/data1/qmodel/rlswoqint8fp32/EleutherAI/gpt-j-6B"
-    quantizedmodelpath2: "/data1/qmodel/rlswoqint8fp32/EleutherAI/gpt-j-6B/best_model.pt"
-    tokenlatency: true
-    greedy: 
-      # - true
-      - false   
-  llama7_woq8acc:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: ./single_instance/run_llama_quantization.py
-    dtype: 
-      - woqint8-bf16
-      - woqint8-fp32
-    alpha: 0.8
-    outdir1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-7b-hf/best_model.pt"
-    outdir2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-7b-hf/best_model.pt"
-    tokenlatency: true
-    greedy: 
-      # - true
-      - false   
-  llama13_woq8acc:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: ./single_instance/run_llama_quantization.py
-    dtype: 
-      - woqint8-bf16
-      - woqint8-fp32
-    alpha: 0.8
-    outdir1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-13b-hf/best_model.pt"
-    outdir2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-13b-hf/best_model.pt"
-    tokenlatency: true
-    greedy: 
-      # - true
-      - false  
-  # llama7_int8accfp32:
+  # gptj_woq8acc:
   #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run_llama_inc.py
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: ./single_instance/run_gpt-j_quantization.py
   #   dtype: 
-  #     - int8
+  #     - woqint8-bf16
+  #     - woqint8-fp32
   #   alpha: 0.8
-  #   outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf"
-  #   quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf2023-11-18_06-34-18/best_model.pt"
+  #   outdir1: "/data1/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
+  #   quantizedmodelpath1: "/data1/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   outdir2: "/data1/qmodel/rlswoqint8fp32/EleutherAI/gpt-j-6B"
+  #   quantizedmodelpath2: "/data1/qmodel/rlswoqint8fp32/EleutherAI/gpt-j-6B/best_model.pt"
   #   tokenlatency: true
   #   greedy: 
   #     # - true
-  #     - false 
+  #     - false   
+  # llama7_woq8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: ./single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woqint8-bf16
+  #     - woqint8-fp32
+  #   alpha: 0.8
+  #   outdir1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   outdir2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - false   
+  # llama13_woq8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: ./single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woqint8-bf16
+  #     - woqint8-fp32
+  #   alpha: 0.8
+  #   outdir1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath1: "/data1/qmodel/rlswoqint8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   outdir2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath2: "/data1/qmodel/rlswoqint8fp32/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - false  
+  llama7_int8accfp32:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_inc.py
+    dtype: 
+      - int8
+    alpha: 0.8
+    outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf2023-11-18_06-34-18/best_model.pt"
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false 
   # llama13_int8accfp32:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
