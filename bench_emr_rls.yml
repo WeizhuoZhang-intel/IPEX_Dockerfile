@@ -51,10 +51,43 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  gptj_woqint8:
+  # gptj_woqint8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: ./single_instance/run_gpt-j_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  gptj_bf16ds:
     modelid: 
       - EleutherAI/gpt-j-6B
-    scriptname: ./single_instance/run_gpt-j_quantization.py
+    scriptname: ./distributed/run_generation_with_deepspeed.py
     device:
       - cpu
     dtype: 
@@ -64,6 +97,43 @@ modelargs:
     outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
     quantize: true
     lambada: true
+    localrank:
+      - 2
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  gptj_dswoq8:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: ./distributed/run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
+    quantize: true
+    lambada: true
+    localrank:
+      - 2
     ipex: true
     jit: true
     int8: true
