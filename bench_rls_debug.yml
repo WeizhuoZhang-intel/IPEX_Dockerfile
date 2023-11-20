@@ -86,8 +86,8 @@ modelargs:
     dtype: 
       - config
     alpha: 0.8
-    outdir: "/data1/qmodel/incint8/meta-llama3/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama3/Llama-2-7b-hf/best_model.pt"
+    outdir: "/data1/qmodel/incint8/meta-llama32/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama32/Llama-2-7b-hf/best_model.pt"
     tokenlatency: true
     greedy: 
       # - true
