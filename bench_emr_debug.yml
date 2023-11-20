@@ -21,35 +21,35 @@ launcher:
   numactlM: 0
   iternum: 20
 modelargs:
-  # edeepspeed1:
-  #   modelid:
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: run_generation_with_deepspeed.py
-  #   device:
-  #     - cpu
-  #   dtype:
-  #     - bfloat16
-  #     # - float32
-  #   localrank:
-  #     - 2
-  #   batchsize: 1
-  #   shardpath: "/root/workspace/qmodel/shard"
-  #   numiter: 50
-  #   numwarmup: 5
-  #   benchmark: true
-  #   cuda: true
-  #   greedy: 
-  #     - False
-  #   ki: true
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 2016
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   tokenlatency: true
+  edeepspeed1:
+    modelid:
+      - EleutherAI/gpt-j-6B
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+      # - float32
+    localrank:
+      - 2
+    batchsize: 1
+    shardpath: "/root/workspace/qmodel/shard"
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - False
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 2016
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
   # gptj_int8:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
@@ -83,35 +83,35 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False 
-  ldeepspeed:
-    modelid:
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-      # - float32
-    localrank:
-      - 3
-    batchsize: 1
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      - false
-    ki: true
-    maxnewtokens: 
-      - 32
-    inputtokens:
-      - 128
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
+  # ldeepspeed:
+  #   modelid:
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #     # - float32
+  #   localrank:
+  #     - 3
+  #   batchsize: 1
+  #   shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-7b-hf"
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   cuda: true
+  #   greedy: 
+  #     - false
+  #   ki: true
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
   # llama7_int8:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
@@ -528,67 +528,67 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  falcon_deepspeed:
-    modelid:
-      - tiiuae/falcon-40b
-    scriptname: run_generation_with_deepspeed.py
-    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    localrank:
-      - 3
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      - False
-    ki: true
-    maxnewtokens: 
-      - 32
-    inputtokens:
-      - 128
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
-  falcon_int8:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: run_generation_with_deepspeed.py
-    shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
-    device:
-      - cpu
-    dtype: 
-      - float32
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/mixed_llama70"
-    quantize: true
-    localrank:
-      - 3
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # falcon_deepspeed:
+  #   modelid:
+  #     - tiiuae/falcon-40b
+  #   scriptname: run_generation_with_deepspeed.py
+  #   shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #   localrank:
+  #     - 3
+  #   batchsize: 1
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   cuda: true
+  #   greedy: 
+  #     - False
+  #   ki: true
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
+  # falcon_int8:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: run_generation_with_deepspeed.py
+  #   shardpath: "/root/workspace/qmodel/shard/tiiuae/falcon-40b"
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - float32
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/mixed_llama70"
+  #   quantize: true
+  #   localrank:
+  #     - 3
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama70/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   # falcon_int4:
   #   modelid: 
   #     - tiiuae/falcon-40b
@@ -622,34 +622,34 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  chuan_deepspeed:
-    modelid:
-      - baichuan-inc/Baichuan-13B-Chat
-    scriptname: run_generation_with_deepspeed.py
-    shardpath: "/root/workspace/qmodel/shard/baichuan-inc/Baichuan-13B-Chat"
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    localrank:
-      - 3
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: 
-      - False
-    ki: true
-    maxnewtokens: 
-      - 32
-    inputtokens:
-      - 128
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
+  # chuan_deepspeed:
+  #   modelid:
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run_generation_with_deepspeed.py
+  #   shardpath: "/root/workspace/qmodel/shard/baichuan-inc/Baichuan-13B-Chat"
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #   localrank:
+  #     - 3
+  #   batchsize: 1
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   cuda: true
+  #   greedy: 
+  #     - False
+  #   ki: true
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
   # chuan_int8:
   #   modelid:
   #     - baichuan-inc/Baichuan-13B-Chat
@@ -782,70 +782,70 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - False
-  codegen_deepspeed1:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    localrank:
-      - 3
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  codegen_int81:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    localrank:
-      - 3
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # codegen_deepspeed1:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   localrank:
+  #     - 3
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # codegen_int81:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   localrank:
+  #     - 3
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
   
   # t5_deepspeed1:
   #   modelid: 
@@ -880,36 +880,36 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - False
-  t5_int81:
-    modelid: 
-      - google/flan-t5-xl
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
-    localrank:
-      - 3
-    inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      # - true
-      - False
+  # t5_int81:
+  #   modelid: 
+  #     - google/flan-t5-xl
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+  #   benchmark: true
+  #   localrank:
+  #     - 3
+  #   inputtokens:
+  #     - 128
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - False
