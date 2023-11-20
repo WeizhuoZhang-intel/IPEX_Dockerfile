@@ -84,76 +84,76 @@ modelargs:
   #   tokenlatency: true
   #   greedy: 
   #     - False
-  gptj_bf16ds:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: ./distributed/run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - bf16
-    maxnewtokens: 
-      - 32
-    outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
-    quantize: true
-    lambada: true
-    localrank:
-      - 2
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-  gptj_dswoq8:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: ./distributed/run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
-    quantize: true
-    lambada: true
-    localrank:
-      - 2
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
+  # gptj_bf16ds:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: ./distributed/run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bf16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   localrank:
+  #     - 2
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  # gptj_dswoq8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: ./distributed/run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
+  #   quantize: true
+  #   lambada: true
+  #   localrank:
+  #     - 2
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
 
   model_baibing:
     modelid: 
@@ -198,7 +198,7 @@ modelargs:
     greedy: 
       - False
       - True
-  model_baibing:
+  model_bai8bing:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: run.py
@@ -208,7 +208,7 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 128
-    outputdir: "/root/workspace/qmodel"
+    outputdir: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B"
     quantize: true
     lambada: true
     ipex: true
@@ -217,7 +217,50 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
+    quantizedmodelpath: "/mnt/qmodel/rlswoqint8/EleutherAI/gpt-j-6B/best_model.pt"
+    benchmark: true
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2048
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 
+      - 1
+      - 2
+      - 4
+      # - 6
+      - 8
+      # - 10
+      # - 12
+      - 16
+    tokenlatency: true
+    greedy: 
+      - False
+      - True
+  model_bai8sbing:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/mnt/qmodel/rlsstaticint8/EleutherAI/gpt-j-6B"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/mnt/qmodel/rlsstaticint8/EleutherAI/gpt-j-6B/best_model.pt"
     benchmark: true
     inputtokens:
       # - 32
