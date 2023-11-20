@@ -79,20 +79,32 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false 
-  llama7_int8accfp32:
+  # llama7_int8accfp32:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: ./single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - config
+  #   alpha: 0.8
+  #   outdir: "/data1/qmodel/incint8/fridayllama7"
+  #   quantizedmodelpath: "/data1/qmodel/incint8/fridayllama7_trans32/best_model.pt"
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - false 
+  gptj_int8accfp32:
     modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: ./single_instance/run_llama_quantization.py
+      - EleutherAI/gpt-j-6B
+    scriptname: ./single_instance/run_gpt-j_quantization.py
     dtype: 
-      - config
+      - sq-fp32-iint8
     alpha: 0.8
-    outdir: "/data1/qmodel/incint8/fridayllama7"
-    quantizedmodelpath: "/data1/qmodel/incint8/fridayllama7_trans32/best_model.pt"
+    outdir: "/data1/qmodel/rlsipexacc/EleutherAI/gpt-j-6B"
+    quantizedmodelpath: "/data1/qmodel/rlsipexacc/EleutherAI/gpt-j-6B/best_model.pt"
     tokenlatency: true
     greedy: 
       # - true
       - false 
-
 
   # llama13_int8accfp32:
   #   modelid: 
