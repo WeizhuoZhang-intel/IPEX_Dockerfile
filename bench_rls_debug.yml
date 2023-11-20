@@ -87,7 +87,7 @@ modelargs:
       - config
     alpha: 0.8
     outdir: "/data1/qmodel/incint8/fridayllama7"
-    quantizedmodelpath: "/data1/qmodel/incint8/fridayllama7/best_model.pt"
+    quantizedmodelpath: "/data1/qmodel/incint8/fridayllama7_trans32/best_model.pt"
     tokenlatency: true
     greedy: 
       # - true
