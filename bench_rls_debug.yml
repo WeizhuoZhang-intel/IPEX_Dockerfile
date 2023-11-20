@@ -98,7 +98,7 @@ modelargs:
     scriptname: ./single_instance/run_gpt-j_quantization.py
     dtype: 
       - sq-fp32-iint8
-    alpha: 0.8
+    alpha: 1.0
     outdir: "/data1/qmodel/rlsipexacc/EleutherAI/gpt-j-6B"
     quantizedmodelpath: "/data1/qmodel/rlsipexacc/EleutherAI/gpt-j-6B/best_model.pt"
     tokenlatency: true
