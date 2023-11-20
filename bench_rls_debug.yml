@@ -66,19 +66,34 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false  
+  # llama7_int8accfp32:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run_llama_inc.py
+  #   dtype: 
+  #     - int8
+  #   alpha: 0.8
+  #   outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf2023-11-20_21-22-14/best_model.pt"
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - false 
   llama7_int8accfp32:
     modelid: 
       - meta-llama/Llama-2-7b-hf
-    scriptname: run_llama_inc.py
+    scriptname: ./single_instance/run_llama_quantization.py
     dtype: 
-      - int8
+      - config
     alpha: 0.8
-    outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf2023-11-20_21-22-14/best_model.pt"
+    outdir: "/data1/qmodel/incint8/meta-llama3/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama3/Llama-2-7b-hf/best_model.pt"
     tokenlatency: true
     greedy: 
       # - true
       - false 
+
+
   # llama13_int8accfp32:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
