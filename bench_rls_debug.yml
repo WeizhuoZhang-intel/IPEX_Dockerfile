@@ -74,7 +74,7 @@ modelargs:
       - int8
     alpha: 0.8
     outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf2023-11-18_06-34-18/best_model.pt"
+    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-hf/best_model.pt"
     tokenlatency: true
     greedy: 
       # - true
