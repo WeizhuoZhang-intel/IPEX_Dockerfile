@@ -119,19 +119,19 @@ modelargs:
       # - true
       - false 
 
-  # llama13_int8accfp32:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run_llama_inc.py
-  #   dtype: 
-  #     - int8
-  #   outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf"
-  #   quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf2023-11-18_03-51-46/best_model.pt"
-  #   tokenlatency: true
-  #   alpha: 0.7
-  #   greedy: 
-  #     # - true
-  #     - false 
+  ainc_int8accfp32:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run_llama_inc.py
+    dtype: 
+      - incint8
+    outdir: "/data1/qmodel/incint8again/meta-llama/Llama-2-13b-hf"
+    quantizedmodelpath: "/data1/qmodel/incint8again/meta-llama/Llama-2-13b-hf2023-11-18_03-51-46/best_model.pt"
+    tokenlatency: true
+    alpha: 0.8
+    greedy: 
+      # - true
+      - false 
   # gpt_int8accfp32:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
