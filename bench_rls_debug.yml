@@ -105,7 +105,7 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false 
-  
+
   # allama13_int8accfp32:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
@@ -227,7 +227,7 @@ modelargs:
     maxnewtokens: 
       - 32
     quantizedmodelpath: "/data1/qmodel/rlsipexbf16/best_model.pt"
-    configpath: "/data1/qmodel/rlsipexbf16/best_configure.json"
+    outputdir: "/data1/qmodel/rlsipexbf16"
     quantize: true
     alpha: 1.0
     lambada: true
@@ -271,7 +271,7 @@ modelargs:
     incsmoothquant: true
     ipexsmmothquant: true
     int8bf16mixed: true
-    outdir: "/data1/qmodel/inc13bmodel/saved_results2023-11-17_08-41-32_m6"
+    outputdir: "/data1/qmodel/inc13bmodel/saved_results2023-11-17_08-41-32_m6"
     quantizedmodelpath: "/data1/qmodel/inc13bmodel/saved_results2023-11-17_08-41-32_m6/best_model.pt"
     benchmark: true
     inputtokens:
