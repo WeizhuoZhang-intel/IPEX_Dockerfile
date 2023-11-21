@@ -92,19 +92,19 @@ modelargs:
   #   greedy: 
   #     # - true
   #     - false 
-  agptj_int8accfp32:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: ./single_instance/run_gpt-j_quantization.py
-    dtype: 
-      - config
-    alpha: 1.0
-    outdir: "/data1/qmodel/rlsipexfp32"
-    quantizedmodelpath: "/data1/qmodel/rlsipexfp32/best_model.pt"
-    tokenlatency: true
-    greedy: 
-      # - true
-      - false 
+  # agptj_int8accfp32:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: ./single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - config
+  #   alpha: 1.0
+  #   outdir: "/data1/qmodel/rlsipexfp32"
+  #   quantizedmodelpath: "/data1/qmodel/rlsipexfp32/best_model.pt"
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - true
+  #     - false 
 
   gptj_bai8s:
     modelid: 
