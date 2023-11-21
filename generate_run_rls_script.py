@@ -1197,7 +1197,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             # lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
                             # lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} --model-id {model_id} --qconfig-summary-file {data['modelargs'][mode]['configpath']}")
                             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
-                            lines.append(f"numactl -m 0 -N 0 python ./single_instance/run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --ipex --tasks lambada_openai --jit --dtype int8 \
+                            lines.append(f"numactl -m 0 -N 0 python ./single_instance/run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --ipex --tasks lambada_openai --jit --dtype int8 --batch-size 56\
                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_fp32-int8_{dtype}_accuracy.log")
                         elif 'confbf16' in dtype:
                             lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} --model-id {model_id} --int8-bf16-mixed --qconfig-summary-file {data['modelargs'][mode]['configpath']}")
