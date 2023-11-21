@@ -596,11 +596,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         #                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
                                         if 'fp32' in dtype:
                                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
-                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter 5 --ipex-smooth-quant --profile --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --token-latency   \
+                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter 50 --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
                                         elif 'bf16' in dtype:
                                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
-                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter 5 --int8-bf16-mixed --profile --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --token-latency   \
+                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter 50 --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --token-latency   \
                                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
                                     
                                     
