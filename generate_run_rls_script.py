@@ -565,32 +565,46 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('bai8s'):
             lines.append("# Run Workload")        
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
                             for beam in data['modelargs'][mode]['greedy']:
                                 if beam == True:
-                                    lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log 2>&1 || true &")
+                                    lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log 2>&1 || true &")
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
                                                 --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
-                                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log")
-                                    lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log")
+                                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log")
+                                    lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_True_NUMA_1_BF16.log")
 
                                 else:
 
-                                    lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log 2>&1 || true &")
+                                    lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log 2>&1 || true &")
                                     if 'falcon' in model_id: 
                                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency --config-file /root/workspace/IPEX_Dockerfile/utils/model_config/tiiuae_falcon-40b_config.json  \
-                                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
+                                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
                                     else:
-
-                                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
-                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
-                                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
-                                    lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_static-int8_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
+                                        # if 'fp32' in dtype:
+                                        #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
+                                        #             --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
+                                        #                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
+                                        # elif 'bf16' in dtype:
+                                        #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
+                                        #             --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token}  --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']} --token-latency   \
+                                        #                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
+                                        if 'fp32' in dtype:
+                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
+                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter 50 --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --token-latency   \
+                                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
+                                        elif 'bf16' in dtype:
+                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} python run.py \
+                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter 50 --int8-bf16-mixed --ipex-smooth-quant --deployment-mode --output-dir {data['modelargs'][mode]['outputdir']} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --token-latency   \
+                                                        2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
+                                    
+                                    
+                                    lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_static-int8_{dtype}_{input_token}-{output_token}_greedy_False_NUMA_1_BF16.log")
 
         if mode.endswith('bai8smixed'):
             lines.append("# Run Workload")        
@@ -1035,14 +1049,14 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('int8static'):
             lines.append("# Run Workload")
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
-                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}") 
-                if model_id == "EleutherAI/gpt-neox-20b":
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id}")
-                elif model_id == "tiiuae/falcon-40b":
-                    lines.append(f"python run_falcon_int8.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
-                else:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']}")
+                # lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}") 
+                # if model_id == "EleutherAI/gpt-neox-20b":
+                #     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id}")
+                # elif model_id == "tiiuae/falcon-40b":
+                #     lines.append(f"python run_falcon_int8.py --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --config-file /root/workspace/IPEX_Dockerfile/model_config/tiiuae_falcon-40b_config.json")
+                # else:
+                #     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --dataset NeelNanda/pile-10k --alpha {data['modelargs'][mode]['alpha']}")
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for output_token in data['modelargs'][mode]['maxnewtokens']:
                         for beam in data['modelargs'][mode]['greedy']:
@@ -1181,7 +1195,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if 'config' in dtype:
                             # lines.append(f"rm -rf {data['modelargs'][mode]['outdir']}")
                             # lines.append(f"mkdir -p {data['modelargs'][mode]['outdir']}")
-                            lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} --model-id {model_id} --qconfig-summary-file /data1/qmodel/rlsipexbf32/best_configure.json")
+                            lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outdir']} --model-id {model_id} --qconfig-summary-file /data1/qmodel/rlsipexfp32/best_configure.json")
                             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
                             lines.append(f"numactl -m 0 -N 0 python ./single_instance/run_accuracy.py --accuracy-only -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --ipex --tasks lambada_openai --jit --dtype int8 \
                                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_fp32-int8_{dtype}_accuracy.log")
