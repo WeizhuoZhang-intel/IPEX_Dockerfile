@@ -106,35 +106,35 @@ modelargs:
   #     # - true
   #     - false 
 
-  # allama13_int8accfp32:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: ./single_instance/run_llama_quantization.py
-  #   dtype: 
-  #     - confbf16
-  #   alpha: 1.0
-  #   outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf-inc-bf16"
-  #   quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf-inc-bf16/best_model.pt"
-  #   configpath: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf-inc-bf16/ipex_config_tmp.json"
-  #   tokenlatency: true
-  #   greedy: 
-  #     # - true
-  #     - false 
+  allama13_int8accfp32:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: ./single_instance/run_llama_quantization.py
+    dtype: 
+      - confbf16
+    alpha: 1.0
+    outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf-inc-bf16"
+    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf-inc-bf16/best_model.pt"
+    configpath: "/data1/qmodel/incint8/meta-llama/Llama-2-13b-hf-inc-bf16/ipex_config_tmp.json"
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false 
 
-  # a7bchat_int8accfp32:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-chat-hf
-  #   scriptname: ./single_instance/run_llama_quantization.py
-  #   dtype: 
-  #     - confbf16
-  #   alpha: 1.0
-  #   outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-chat-hf-inc-bf16"
-  #   quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-chat-hf-inc-bf16/best_model.pt"
-  #   configpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-chat-hf-inc-bf16/ipex_config_tmp.json"
-  #   tokenlatency: true
-  #   greedy: 
-  #     # - true
-  #     - false 
+  a7bchat_int8accfp32:
+    modelid: 
+      - meta-llama/Llama-2-7b-chat-hf
+    scriptname: ./single_instance/run_llama_quantization.py
+    dtype: 
+      - confbf16
+    alpha: 1.0
+    outdir: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-chat-hf-inc-bf16"
+    quantizedmodelpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-chat-hf-inc-bf16/best_model.pt"
+    configpath: "/data1/qmodel/incint8/meta-llama/Llama-2-7b-chat-hf-inc-bf16/ipex_config_tmp.json"
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false 
 
   a7b_int8accfp32:
     modelid: 
@@ -151,20 +151,20 @@ modelargs:
       # - true
       - false 
 
-  # agpt_int8accfp32:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: ./single_instance/run_gpt-j_quantization.py
-  #   dtype: 
-  #     - confbf16
-  #   alpha: 1.0
-  #   outdir: "/data1/qmodel/rlsipexbf16"
-  #   quantizedmodelpath: "/data1/qmodel/rlsipexbf16/best_model.pt"
-  #   configpath: "/data1/qmodel/rlsipexbf16/best_configure.json"
-  #   tokenlatency: true
-  #   greedy: 
-  #     # - true
-  #     - false 
+  agpt_int8accfp32:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: ./single_instance/run_gpt-j_quantization.py
+    dtype: 
+      - confbf16
+    alpha: 1.0
+    outdir: "/data1/qmodel/rlsipexbf16"
+    quantizedmodelpath: "/data1/qmodel/rlsipexbf16/best_model.pt"
+    configpath: "/data1/qmodel/rlsipexbf16/best_configure.json"
+    tokenlatency: true
+    greedy: 
+      # - true
+      - false 
   # gptj_bai8s:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
