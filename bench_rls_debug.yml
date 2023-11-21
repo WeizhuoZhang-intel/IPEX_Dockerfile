@@ -230,42 +230,42 @@ modelargs:
   #   greedy: 
   #     - False
   #     # - True
-  gptj2_bai8s:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: ./single_instance/run_gpt-j_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - int8bf16
-    maxnewtokens: 
-      - 32
-    quantizedmodelpath: "/data1/qmodel/rlsipexbf16/best_model.pt"
-    outputdir: "/data1/qmodel/rlsipexbf16"
-    quantize: true
-    alpha: 1.0
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    benchmark: true
-    inputtokens:
-      - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2048
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: 
-      - False
-      # - True
+  # gptj2_bai8s:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: ./single_instance/run_gpt-j_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - int8bf16
+  #   maxnewtokens: 
+  #     - 32
+  #   quantizedmodelpath: "/data1/qmodel/rlsipexbf16/best_model.pt"
+  #   outputdir: "/data1/qmodel/rlsipexbf16"
+  #   quantize: true
+  #   alpha: 1.0
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2048
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: 
+  #     - False
+  #     # - True
   llama2_bai8s:
     modelid: 
       - meta-llama/Llama-2-13b-hf
