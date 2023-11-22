@@ -45,8 +45,7 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
-    batchsize: 
-      - 1
+    batchsize: 1
     tokenlatency: true
     greedy: 
       - False
