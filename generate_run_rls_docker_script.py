@@ -196,9 +196,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for beam in data['modelargs'][mode]['greedy']:
                                 for bs in data['modelargs'][mode]['batchsize']:
                                     for rank in data['modelargs'][mode]['localrank']:
-                                        lines.append(f"export local_rank=2")
+                                        lines.append(f"export local_rank={rank}")
                                         lines.append("deepspeed_core_config ${local_rank}")
-                                        lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
@@ -225,9 +224,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for beam in data['modelargs'][mode]['greedy']:
                                 for bs in data['modelargs'][mode]['batchsize']:
                                     for rank in data['modelargs'][mode]['localrank']:
-                                        lines.append(f"export local_rank=2")
+                                        lines.append(f"export local_rank={rank}")
                                         lines.append("deepspeed_core_config ${local_rank}")
-                                        lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
@@ -265,9 +263,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for beam in data['modelargs'][mode]['greedy']:
                                 for bs in data['modelargs'][mode]['batchsize']:
                                     for rank in data['modelargs'][mode]['localrank']:
-                                        lines.append(f"export local_rank=2")
+                                        lines.append(f"export local_rank={rank}")
                                         lines.append("deepspeed_core_config ${local_rank}")
-                                        lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
@@ -312,9 +309,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for beam in data['modelargs'][mode]['greedy']:
                                 for bs in data['modelargs'][mode]['batchsize']:
                                     for rank in data['modelargs'][mode]['localrank']:
-                                        lines.append(f"export local_rank=2")
+                                        lines.append(f"export local_rank={rank}")
                                         lines.append("deepspeed_core_config ${local_rank}")
-                                        lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
@@ -362,7 +358,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for beam in data['modelargs'][mode]['greedy']:
                                 for bs in data['modelargs'][mode]['batchsize']:
                                     for rank in data['modelargs'][mode]['localrank']:
-                                        lines.append(f"export local_rank=2")
+                                        lines.append(f"export local_rank={rank}")
                                         lines.append("deepspeed_core_config ${local_rank}")
                                         lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
@@ -403,7 +399,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             for beam in data['modelargs'][mode]['greedy']:
                                 for bs in data['modelargs'][mode]['batchsize']:
                                     for rank in data['modelargs'][mode]['localrank']:
-                                        lines.append(f"export local_rank=2")
+                                        lines.append(f"export local_rank={rank}")
                                         lines.append("deepspeed_core_config ${local_rank}")
                                         lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
