@@ -17,37 +17,23 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
+  iternum: 50
+  hw: SPR
 modelargs:
   model_bf16:
     modelid: 
-      # - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
-    scriptname: ./single_instance/run_generation.py
+    scriptname: run.py
     device:
       - cpu
     dtype: 
       - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/root/workspace/qmodel"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/best_model.pt"
-    benchmark: true
     inputtokens:
-      - 128
-    prompt: None
-    numiter: 50
-    numwarmup: 10
+      - 32
     batchsize: 
       - 1
-    tokenlatency: true
     localrank:
       - 1
     greedy: 
