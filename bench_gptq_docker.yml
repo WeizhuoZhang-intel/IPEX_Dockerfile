@@ -20,7 +20,7 @@ launcher:
 modelargs:
   model_bf16:
     modelid: 
-      # - EleutherAI/gpt-j-6B
+      - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
     scriptname: ./single_instance/run_generation.py
     device:
@@ -48,7 +48,5 @@ modelargs:
     batchsize: 
       - 1
     tokenlatency: true
-    localrank:
-      - 1
     greedy: 
       - False

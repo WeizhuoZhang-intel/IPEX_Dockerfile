@@ -7,7 +7,8 @@ parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="o
 parser.add_argument("--nightly",action="store_true",default=False,help="only for nightly regular track")
 parser.add_argument("--weekly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--debug",action="store_true",default=False,help="only for debug regular track")
-parser.add_argument("--rls",action="store_true",default=False,help="only for re track")
+parser.add_argument("--rls",action="store_true",default=False,help="only for rls track")
+parser.add_argument("--gptq",action="store_true",default=False,help="only for gptq track")
 parser.add_argument("--publicds",action="store_true",default=False,help="only for nightly regular track public deepspeed")
 args = parser.parse_args()
 
@@ -495,6 +496,30 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
+        if mode.endswith('gptq'):
+            lines.append("# Run Workload")  
+            lines.append("export WORK_DIR=./")
+            for model_id in data['modelargs'][mode]['modelid']:
+                # for dtype in data['modelargs'][mode]['dtype']:
+                    # for input_token in data['modelargs'][mode]['inputtokens']:
+                    #     for output_token in data['modelargs'][mode]['maxnewtokens']:
+                    #         for beam in data['modelargs'][mode]['greedy']:
+                    #             for bs in data['modelargs'][mode]['batchsize']:
+                    #                 for rank in data['modelargs'][mode]['localrank']:
+                    #                     lines.append(f"export local_rank=2")
+                    #                     lines.append("deepspeed_core_config ${local_rank}")
+                    #                     lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                    #                     lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+
+                                        
+                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                lines.append("wait")
+                lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")
+                                            
+
+
+
+
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
@@ -514,6 +539,8 @@ if __name__ == '__main__':
         yml_file = 'bench_debug_docker.yml'
     if args.rls:
         yml_file = 'bench_rls_docker.yml'
+    if args.gptq:
+        yml_file = 'bench_gptq_docker.yml'
     if args.publicds:
         yml_file = 'bench_publicds_nightly.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
