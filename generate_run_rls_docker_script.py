@@ -496,21 +496,27 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
             for model_id in data['modelargs'][mode]['modelid']:
-                # for dtype in data['modelargs'][mode]['dtype']:
-                    # for input_token in data['modelargs'][mode]['inputtokens']:
-                    #     for output_token in data['modelargs'][mode]['maxnewtokens']:
-                    #         for beam in data['modelargs'][mode]['greedy']:
-                    #             for bs in data['modelargs'][mode]['batchsize']:
-                    #                 for rank in data['modelargs'][mode]['localrank']:
-                    #                     lines.append(f"export local_rank=2")
-                    #                     lines.append("deepspeed_core_config ${local_rank}")
-                    #                     lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
-                    #                     lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
-
-                                        
-                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"python ./utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                 lines.append("wait")
                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")
+
+
+        if mode.endswith('bf16acc'):
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"export local_rank={rank}")
+                lines.append("deepspeed_core_config ${local_rank}")
+                lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python ./single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai \
+                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_bfloat16_{data['launcher']['hw']}.log")
+                
+        if mode.endswith('woq8acc'):
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"export local_rank={rank}")
+                lines.append("deepspeed_core_config ${local_rank}")
+                lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python ./single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai \
+                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_bfloat16_{data['launcher']['hw']}.log")
                                             
 
 
