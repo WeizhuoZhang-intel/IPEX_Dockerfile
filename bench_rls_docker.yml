@@ -195,7 +195,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
 
 
   llama7_static8:
@@ -340,7 +340,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
 
   llama13_static8:
     modelid: 
@@ -483,7 +483,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
 
   llama70_bf16ds:
     modelid: 
@@ -531,7 +531,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
 
   # llama70_woq4:
   #   modelid: 
@@ -649,7 +649,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
 
   opt13_woq8:
     modelid: 
@@ -793,7 +793,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
 
   falcon_woq8:
     modelid: 
@@ -890,7 +890,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
 
   codegen_woq8:
     modelid: 
@@ -987,4 +987,4 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: True
+    shard: False
