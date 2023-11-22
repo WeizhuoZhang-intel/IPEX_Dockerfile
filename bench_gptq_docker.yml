@@ -22,25 +22,25 @@ modelargs:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: ./single_instance/run_gpt-j_quantization.py
-    outputdir: "/home/gptq/EleutherAI/gpt-j-6B/"
+    outputdir: "/gptq/EleutherAI/gpt-j-6B/"
   llama7_gptq:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: ./single_instance/run_llama_quantization.py
-    outputdir: "/home/gptq/meta-llama/Llama-2-7b-hf/"
+    outputdir: "/gptq/meta-llama/Llama-2-7b-hf/"
   # llama13_gptq:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
   #   scriptname: ./single_instance/run_gpt-j_quantization.py
-  #   outputdir: "/home/gptq/meta-llama/Llama-2-13b-hf/"
+  #   outputdir: "/gptq/meta-llama/Llama-2-13b-hf/"
   codegen_gptq:
     modelid: 
       - Salesforce/codegen-2B-multi
     scriptname: ./single_instance/run_codegen_quantization.py
-    outputdir: "/home/gptq/Salesforce/codegen-2B-multi/"
+    outputdir: "/gptq/Salesforce/codegen-2B-multi/"
   opt13_gptq:
     modelid: 
       - facebook/opt-1.3b
     scriptname: ./single_instance/run_opt_quantization.py
-    outputdir: "/home/gptq/facebook/opt-1.3b/"
+    outputdir: "/gptq/facebook/opt-1.3b/"
 
