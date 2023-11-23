@@ -172,7 +172,7 @@ modelargs:
     greedy: 
       # - False
       - True
-    shard: True
+    shard: False
 
   # gptj_woqds:
   #   modelid: 
