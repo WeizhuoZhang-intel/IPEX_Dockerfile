@@ -59,7 +59,7 @@ modelargs:
   aopt30_gptq:
     modelid: 
       - EleutherAI/gpt-neox-20b
-    scriptname: single_instance/run_gpt-nexo_quantization.py
+    scriptname: single_instance/run_gpt-neox_quantization.py
     outputdir: "/gptq/EleutherAI/gpt-neox-20b/"
     gptqpath: "/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
   # afalcon_gptq:
