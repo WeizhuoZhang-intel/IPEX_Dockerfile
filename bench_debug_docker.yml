@@ -20,21 +20,21 @@ launcher:
   iternum: 50
   hw: SPR
 modelargs:
-  model_bf16:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    inputtokens:
-      - 32
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # model_bf16:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 32
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
