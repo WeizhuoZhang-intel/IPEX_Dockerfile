@@ -62,7 +62,12 @@ modelargs:
     scriptname: single_instance/run_gpt-nexo_quantization.py
     outputdir: "/gptq/EleutherAI/gpt-neox-20b/"
     gptqpath: "/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
-
+  # afalcon_gptq:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: single_instance/run_falcon_quantization.py
+  #   outputdir: "/gptq/tiiuae/falcon-40b/"
+  #   gptqpath: "/gptq/tiiuae/falcon-40b/gptq_checkpoint_g128.pt"
   # llama13_gptqperf:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
@@ -244,7 +249,17 @@ modelargs:
       - 1
     localrank:
       - 1
-
+  # falcon_gptqacc:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: single_instance/run_falcon_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/gptq/tiiuae/falcon-40b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   # aopt30_gptq:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
