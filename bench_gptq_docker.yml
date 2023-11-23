@@ -38,12 +38,12 @@ modelargs:
   #   scriptname: single_instance/run_llama_quantization.py
   #   outputdir: "/gptq/meta-llama/Llama-2-13b-hf/"
   #   gptqpath: "/gptq/meta-llama/Llama-2-13b-hf/gptq_checkpoint_g128.pt"
-  llama70_gptq:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: single_instance/run_llama_quantization.py
-    outputdir: "/gptq/meta-llama/Llama-2-70b-hf/"
-    gptqpath: "/gptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint_g128.pt"
+  # llama70_gptq:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   outputdir: "/gptq/meta-llama/Llama-2-70b-hf/"
+  #   gptqpath: "/gptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint_g128.pt"
   # codegen_gptq:
   #   modelid: 
   #     - Salesforce/codegen-2B-multi
@@ -256,30 +256,31 @@ modelargs:
   #   localrank:
   #     - 1
 
-  # opt30_defaultacc:
-  #   modelid: 
-  #     - facebook/opt-30b
-  #   scriptname: single_instance/run_opt_quantization.py
-  #   dtype: 
-  #     - float32
-  #     - bfloat16
-  #   quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-
-  llama70_gptqacc:
+  opt30_defaultacc:
     modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: single_instance/run_llama_quantization.py
+      - facebook/opt-30b
+      - tiiuae/falcon-40b
+    scriptname: single_instance/run_opt_quantization.py
     dtype: 
-      - woq-int4
-    quantizedmodelpath: "/gptq/meta-llama/Llama-2-70b-hf/best_model.pt"
+      - float32
+      # - bfloat16
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
     batchsize: 
       - 1
     localrank:
       - 1
+
+  # llama70_gptqacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-70b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   # neox_gptqacc:
   #   modelid: 
