@@ -74,3 +74,83 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
+  gptj_woq8acc:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  gptn_woq8acc:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  llama7_woq8acc:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  opt13_woq8acc:
+    modelid: 
+      - facebook/opt-1.3b
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/facebook/opt-1.3b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  opt30_woq8acc:
+    modelid: 
+      - facebook/opt-30b
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  llama13_woq8acc:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  codegen_woq8acc:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  falcon_woq8acc:
+    modelid: 
+      - tiiuae/falcon-40b
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/tiiuae/falcon-40b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
