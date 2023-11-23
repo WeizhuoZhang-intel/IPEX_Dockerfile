@@ -501,7 +501,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('gptq'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
-            lines.append("unset KMP_BLOCKTIME KMP_TPAUSE KMP_SETTINGS KMP_AFFINITY KMP_FORJOIN_BARRIER_PATTERN KMP_PLAIN_BARRIER_PATTERN KMP_REDUCTION_BARRIER_PATTERN")
+            # lines.append("unset KMP_BLOCKTIME KMP_TPAUSE KMP_SETTINGS KMP_AFFINITY KMP_FORJOIN_BARRIER_PATTERN KMP_PLAIN_BARRIER_PATTERN KMP_REDUCTION_BARRIER_PATTERN")
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 lines.append("ls utils")
@@ -516,7 +516,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('gptqacc'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
-            lines.append("source /tools/env_activate.sh")
+            # lines.append("source /tools/env_activate.sh")
             for model_id in data['modelargs'][mode]['modelid']:
                 for rank in data['modelargs'][mode]['localrank']:
                     lines.append(f"export local_rank={rank}")
