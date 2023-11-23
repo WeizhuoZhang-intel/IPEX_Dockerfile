@@ -62,12 +62,13 @@ modelargs:
   #   scriptname: single_instance/run_gpt-neox_quantization.py
   #   outputdir: "/gptq/EleutherAI/gpt-neox-20b/"
   #   gptqpath: "/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
-  afalcon_gptq:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: single_instance/run_falcon_quantization.py
-    outputdir: "/gptq/tiiuae/falcon-40b/"
-    gptqpath: "/gptq/tiiuae/falcon-40b/gptq_checkpoint_g128.pt"
+  # afalcon_gptq:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: single_instance/run_falcon_quantization.py
+  #   outputdir: "/gptq/tiiuae/falcon-40b/"
+  #   gptqpath: "/gptq/tiiuae/falcon-40b/gptq_checkpoint_g128.pt"
+
   # llama13_gptqperf:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
@@ -249,6 +250,19 @@ modelargs:
   #   localrank:
   #     - 1
 
+  opt30_defaultacc:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: single_instance/run_opt_quantization.py
+    dtype: 
+      - float32
+      - bfloat16
+    quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
   # neox_gptqacc:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
@@ -260,17 +274,17 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  falcon_gptqacc:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: single_instance/run_falcon_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/gptq/tiiuae/falcon-40b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # falcon_gptqacc:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: single_instance/run_falcon_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/gptq/tiiuae/falcon-40b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   # aopt30_gptq:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
