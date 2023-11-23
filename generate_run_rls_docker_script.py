@@ -500,17 +500,19 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('gptq'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
+            lines.append("unset KMP_BLOCKTIME KMP_TPAUSE KMP_SETTINGS KMP_AFFINITY KMP_FORJOIN_BARRIER_PATTERN KMP_PLAIN_BARRIER_PATTERN KMP_REDUCTION_BARRIER_PATTERN")
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 lines.append("ls utils")
                 lines.append("pwd")
-                # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
-                # lines.append("wait")
+                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                lines.append("wait")
                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")
 
         if mode.endswith('gptqacc'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
+            lines.append("source /tools/env_activate.sh")
             for model_id in data['modelargs'][mode]['modelid']:
                 for rank in data['modelargs'][mode]['localrank']:
                     lines.append(f"export local_rank={rank}")
