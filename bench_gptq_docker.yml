@@ -32,12 +32,12 @@ modelargs:
   #   scriptname: single_instance/run_llama_quantization.py
   #   outputdir: "/gptq/meta-llama/Llama-2-7b-hf/"
   #   gptqpath: "/gptq/meta-llama/Llama-2-7b-hf/gptq_checkpoint_g128.pt"
-  # llama13_gptq:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: single_instance/run_gpt-j_quantization.py
-  #   outputdir: "/gptq/meta-llama/Llama-2-13b-hf/"
-  #   gptqpath: "/gptq/meta-llama/Llama-2-13b-hf/gptq_checkpoint_g128.pt"
+  llama13_gptq:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: single_instance/run_gpt-j_quantization.py
+    outputdir: "/gptq/meta-llama/Llama-2-13b-hf/"
+    gptqpath: "/gptq/meta-llama/Llama-2-13b-hf/gptq_checkpoint_g128.pt"
   # codegen_gptq:
   #   modelid: 
   #     - Salesforce/codegen-2B-multi
@@ -50,12 +50,12 @@ modelargs:
   #   scriptname: single_instance/run_opt_quantization.py
   #   outputdir: "/gptq/facebook/opt-1.3b/"
   #   gptqpath: "/gptq/facebook/opt-1.3b/gptq_checkpoint_g128.pt"
-  zopt30_gptq:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: single_instance/run_opt_quantization.py
-    outputdir: "/gptq/facebook/opt-30b/"
-    gptqpath: "/gptq/facebook/opt-30b/gptq_checkpoint_g128.pt"
+  # zopt30_gptq:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: single_instance/run_opt_quantization.py
+  #   outputdir: "/gptq/facebook/opt-30b/"
+  #   gptqpath: "/gptq/facebook/opt-30b/gptq_checkpoint_g128.pt"
 
   # llama13_gptqperf:
   #   modelid: 
@@ -79,17 +79,17 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  # llama7_gptqacc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: single_instance/run_llama_quantization.py
-  #   dtype: 
-  #     - woq-int4
-  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-13b-hf/best_model.pt"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  llama13_gptqacc:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: single_instance/run_llama_quantization.py
+    dtype: 
+      - woq-int4
+    quantizedmodelpath: "/gptq/meta-llama/Llama-2-13b-hf/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
   # gptj_gptqperf:
   #   modelid: 
@@ -113,17 +113,17 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  gptj_gptqacc:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: single_instance/run_gpt-j_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/gptq/EleutherAI/gpt-j-6B/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # gptj_gptqacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/gptq/EleutherAI/gpt-j-6B/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   # llama7_gptqperf:
   #   modelid: 
@@ -147,17 +147,17 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  llama7_gptqacc:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: single_instance/run_llama_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/gptq/meta-llama/Llama-2-7b-hf/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # llama7_gptqacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   # codegen_gptqperf:
   #   modelid: 
@@ -181,17 +181,17 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  codegen_gptqacc:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: single_instance/run_codegen_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/gptq/Salesforce/codegen-2B-multi/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # codegen_gptqacc:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: single_instance/run_codegen_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/gptq/Salesforce/codegen-2B-multi/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   # opt13_gptqperf:
   #   modelid: 
@@ -215,14 +215,14 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  opt13_gptqacc:
-    modelid: 
-      - facebook/opt-1.3b
-    scriptname: single_instance/run_opt_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/gptq/facebook/opt-1.3b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # opt13_gptqacc:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   scriptname: single_instance/run_opt_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/gptq/facebook/opt-1.3b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1

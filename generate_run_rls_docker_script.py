@@ -504,8 +504,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 lines.append("ls utils")
                 lines.append("pwd")
-                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
-                lines.append("wait")
+                # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                # lines.append("wait")
                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")
 
         if mode.endswith('gptqacc'):
@@ -516,7 +516,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                     lines.append(f"export local_rank={rank}")
                     lines.append("deepspeed_core_config ${local_rank}")
                     lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")                    
-                    lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                     lines.append("ls utils")
                     lines.append("pwd")
                     # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
