@@ -50,7 +50,12 @@ modelargs:
   #   scriptname: single_instance/run_opt_quantization.py
   #   outputdir: "/gptq/facebook/opt-1.3b/"
   #   gptqpath: "/gptq/facebook/opt-1.3b/gptq_checkpoint_g128.pt"
-
+  zopt30_gptq:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: single_instance/run_opt_quantization.py
+    outputdir: "/gptq/facebook/opt-30b/"
+    gptqpath: "/gptq/facebook/opt-30b/gptq_checkpoint_g128.pt"
 
   # llama13_gptqperf:
   #   modelid: 
@@ -86,28 +91,28 @@ modelargs:
   #   localrank:
   #     - 1
 
-  gptj_gptqperf:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: single_instance/run_gpt-j_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    quantizedmodelpath: "/gptq/EleutherAI/gpt-j-6B/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # gptj_gptqperf:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   quantizedmodelpath: "/gptq/EleutherAI/gpt-j-6B/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   gptj_gptqacc:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -120,28 +125,28 @@ modelargs:
     localrank:
       - 1
 
-  llama7_gptqperf:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: single_instance/run_llama_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    quantizedmodelpath: "/gptq/meta-llama/Llama-2-7b-hf/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # llama7_gptqperf:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   llama7_gptqacc:
     modelid: 
       - meta-llama/Llama-2-7b-hf
@@ -154,28 +159,28 @@ modelargs:
     localrank:
       - 1
 
-  codegen_gptqperf:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: single_instance/run_codegen_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    quantizedmodelpath: "/gptq/Salesforce/codegen-2B-multi/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # codegen_gptqperf:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: single_instance/run_codegen_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   quantizedmodelpath: "/gptq/Salesforce/codegen-2B-multi/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   codegen_gptqacc:
     modelid: 
       - Salesforce/codegen-2B-multi
@@ -188,28 +193,28 @@ modelargs:
     localrank:
       - 1
 
-  opt13_gptqperf:
-    modelid: 
-      - facebook/opt-1.3b
-    scriptname: single_instance/run_opt_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    quantizedmodelpath: "/gptq/facebook/opt-1.3b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # opt13_gptqperf:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   scriptname: single_instance/run_opt_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   quantizedmodelpath: "/gptq/facebook/opt-1.3b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   opt13_gptqacc:
     modelid: 
       - facebook/opt-1.3b
