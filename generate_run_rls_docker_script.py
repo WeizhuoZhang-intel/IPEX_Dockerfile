@@ -8,6 +8,7 @@ parser.add_argument("--nightly",action="store_true",default=False,help="only for
 parser.add_argument("--weekly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--debug",action="store_true",default=False,help="only for debug regular track")
 parser.add_argument("--rls",action="store_true",default=False,help="only for rls track")
+parser.add_argument("--rlsemr",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--gptq",action="store_true",default=False,help="only for gptq track")
 parser.add_argument("--publicds",action="store_true",default=False,help="only for nightly regular track public deepspeed")
 args = parser.parse_args()
@@ -505,7 +506,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 lines.append("ls utils")
                 lines.append("pwd")
-                # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                 lines.append("wait")
                 if 'falcon' in model_id: 
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']} --config-file=model_config/tiiuae_falcon-40b_config.json")
@@ -596,9 +597,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
                     else:
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai \
-                                2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_({dtype})_{data['launcher']['hw']}.log")
+                                2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
 
-        if mode.endswith('woqacc'):
+        if mode.endswith('woq8acc'):
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"export local_rank={rank}")
                 lines.append("deepspeed_core_config ${local_rank}")
@@ -656,6 +657,8 @@ if __name__ == '__main__':
         yml_file = 'bench_debug_docker.yml'
     if args.rls:
         yml_file = 'bench_rls_docker.yml'
+    if args.rlsemr:
+        yml_file = 'bench_rls_docker_emr.yml'
     if args.gptq:
         yml_file = 'bench_gptq_docker.yml'
     if args.publicds:
