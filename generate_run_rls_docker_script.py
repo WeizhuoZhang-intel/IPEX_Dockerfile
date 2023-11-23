@@ -306,7 +306,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
@@ -323,28 +323,28 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         if beam == True:   
                                             if 'falcon' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
-                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency --config-file utils/model_config/tiiuae_falcon-40b_config.json \
+                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             elif 'neox' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
-                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --int8 --batch-size {bs} --token-latency   \
+                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --int8 --batch-size {bs} --token-latency   \
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                
                                             else:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
-                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency   \
+                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency   \
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                         else:   
                                             if 'falcon' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
-                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency --config-file utils/model_config/tiiuae_falcon-40b_config.json \
+                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")    
                                             elif 'neox' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
-                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --gptq --int8 --batch-size {bs} --token-latency   \
+                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --gptq --int8 --batch-size {bs} --token-latency   \
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                 
                                             else:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
-                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency   \
+                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --gptq --int8-bf16-mixed --batch-size {bs} --token-latency   \
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                           
                                 
                                         lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
