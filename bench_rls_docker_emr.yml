@@ -20,53 +20,53 @@ launcher:
   iternum: 50
   hw: EMR
 modelargs:
-  llama13_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
-  llama13_woqds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # llama13_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # llama13_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   llama70_bf16ds:
     modelid: 
@@ -78,7 +78,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf"
+    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf/llama_local_shard"
     inputtokens:
       - 128
       - 512
@@ -87,7 +87,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 2
+      # - 2
       - 4
     greedy: 
       - False
@@ -100,10 +100,10 @@ modelargs:
       - cpu
     dtype: 
       - ds-woq-int8
-      - ds-woq-int4
+      # - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf"
+    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf/llama_local_shard"
     inputtokens:
       - 128
       - 512
@@ -117,128 +117,128 @@ modelargs:
     greedy: 
       - False
     shard: False
-  neox_woqds:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-neox-20b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # neox_woqds:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-neox-20b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  opt30_bf16ds:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/facebook/opt-30b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # opt30_bf16ds:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/facebook/opt-30b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
     
-  opt30_woqds:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/facebook/opt-30b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # opt30_woqds:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/facebook/opt-30b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  falcon_bf16ds:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/tiiuae/falcon-40b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # falcon_bf16ds:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/tiiuae/falcon-40b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
     
-  falcon_woqds:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/tiiuae/falcon-40b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # falcon_woqds:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/tiiuae/falcon-40b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
 
