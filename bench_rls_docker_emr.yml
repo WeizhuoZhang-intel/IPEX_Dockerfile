@@ -81,42 +81,42 @@ modelargs:
     outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf/llama_local_shard"
     inputtokens:
       - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      # - 2
-      - 4
-    greedy: 
-      - False
-    shard: False
-  llama70_woqds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf/llama_local_shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
+      # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
       - 2
-      - 4
+      # - 4
     greedy: 
       - False
     shard: False
+  # llama70_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf/llama_local_shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
   # neox_woqds:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
