@@ -9,12 +9,12 @@ modelargs:
   llama7b_bf16:
     maxnewtokens: 
       - 32
-    inputtokens:
-      - 32
       - 128
       - 512
       - 1024
       - 2016
+    inputtokens:
+      - 32
     32file:
     128file:
     512file:
