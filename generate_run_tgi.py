@@ -103,14 +103,14 @@ def generate_commands(yml_file,mode):
         lines.append(f"export repopath={data['envconfig']['REPOPATH']}")
         lines.append("while true")
         lines.append("do")
-        lines.append(f"")
-        for output_token in data['modelargs'][mode]['maxnewtokens']:
-            lines.append(f"curl {data['envconfig']['FILEPATH']}:8088/generate -X POST -d \'{{\"inputs\":{data['envconfig']['INPUT']}, \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' \
-                         -H \'Content-Type: application/json\' | tee -a $repopath/data/{{{data['envconfig']['INPUT']}+\"file\"}} ")
-            lines.append("sleep 2s")
+        if mode.endswith('bf16'):
+            for output_token in data['modelargs'][mode]['maxnewtokens']:
+                lines.append(f"curl {data['envconfig']['FILEPATH']}:8088/generate -X POST -d \'{{\"inputs\":{data['envconfig']['INPUT']}, \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' \
+                            -H \'Content-Type: application/json\' | tee -a $repopath/data/{{{output_token}+\"file\"}} ")
+                lines.append("sleep 2s")
 
 
-        lines.append(f"sleep 5s")
+
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
     return generated_file
