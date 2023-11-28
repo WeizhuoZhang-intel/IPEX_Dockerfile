@@ -10,6 +10,7 @@ parser.add_argument("--debug",action="store_true",default=False,help="only for d
 parser.add_argument("--rls",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--rlsemr",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--gptq",action="store_true",default=False,help="only for gptq track")
+parser.add_argument("--cpudeviceweekly",action="store_true",default=False,help="only for gptq track")
 parser.add_argument("--publicds",action="store_true",default=False,help="only for nightly regular track public deepspeed")
 args = parser.parse_args()
 
@@ -674,6 +675,8 @@ if __name__ == '__main__':
         yml_file = 'bench_rls_docker_emr.yml'
     if args.gptq:
         yml_file = 'bench_gptq_docker.yml'
+    if args.cpudeviceweekly:
+        yml_file = 'bench_cpu_device_weekly.yml'    
     if args.publicds:
         yml_file = 'bench_publicds_nightly.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
