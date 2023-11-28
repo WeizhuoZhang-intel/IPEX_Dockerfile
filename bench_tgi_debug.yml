@@ -20,7 +20,7 @@ modelargs:
     512file:
     1024file:
     2016file:
-    sample: false
+    sample: "false"
     batchsize: 
       - 1
     localrank:
