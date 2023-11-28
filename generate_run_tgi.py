@@ -3,7 +3,7 @@ import argparse
 import yaml
 parser = argparse.ArgumentParser("Generation script", add_help=False)
 parser.add_argument("--debug",action="store_true",default=False,help="only for debug regular track")
-
+args = parser.parse_args()
 
 
 collect_result = '''
