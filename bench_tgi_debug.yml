@@ -5,6 +5,7 @@ envconfig:
   INPUT: "What is Deep Learning?"
   FILEPATH: "/data1/TGI/text-generation-inference/data/serve.log"
   REPOPATH: "/data1/TGI/text-generation-inference"
+  ITER: 5
 modelargs:
   llama7b_bf16:
     maxnewtokens: 
@@ -15,11 +16,6 @@ modelargs:
       - 2016
     inputtokens:
       - 32
-    32file:
-    128file:
-    512file:
-    1024file:
-    2016file:
     sample: "false"
     batchsize: 
       - 1

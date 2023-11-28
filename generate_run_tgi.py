@@ -98,20 +98,25 @@ def generate_commands(yml_file,mode):
     with open(generated_file, "w") as runfile:
         lines = []
         lines.append("#!/bin/bash")
-        lines.append("set -x")
+
         lines.append("# Env config")
         lines.append(f"export repopath={data['envconfig']['REPOPATH']}")
         lines.append("while true")
         lines.append("do")
+        lines.append(f'if [ `grep -c "Invalid hostname, defaulting to 0.0.0.0" $repopath/data/serve.log` -ne \'0\' ];then')
+        lines.append("set -x")
         if mode.endswith('bf16'):
             for output_token in data['modelargs'][mode]['maxnewtokens']:
-                filename = str(output_token) + "file.log"
-                lines.append(f"export filen={filename}")
-                lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \'{{\"inputs\":\"{data['envconfig']['INPUT']}\", \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
-                lines.append("sleep 2s")
+                for num in range(data['envconfig']['ITER']):
+
+                    filename = str(output_token) + "file"+str(num)+".log"
+                    lines.append(f"export filen={filename}")
+                    lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \'{{\"inputs\":\"{data['envconfig']['INPUT']}\", \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
+                    lines.append("sleep 2s")
 
 
-
+        lines.append("fi")
+        lines.append("done")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
     return generated_file
