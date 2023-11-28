@@ -107,8 +107,7 @@ def generate_commands(yml_file,mode):
             for output_token in data['modelargs'][mode]['maxnewtokens']:
                 filename = str(output_token) + "file"
                 lines.append(f"export filen={filename}")
-                lines.append(f"curl {data['envconfig']['FILEPATH']}:8088/generate -X POST -d \'{{\"inputs\":{data['envconfig']['INPUT']}, \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' \
-                            -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
+                lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \'{{\"inputs\":{data['envconfig']['INPUT']}, \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
                 lines.append("sleep 2s")
 
 
