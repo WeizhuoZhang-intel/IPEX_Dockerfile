@@ -124,3 +124,9 @@ if __name__ == '__main__':
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode)
+
+
+# awk '/time_per_token/ {gsub(/"/, "", $43); print $43}' text-generation-inference/data/serve.log | cut -d= -f2 
+# 扣time_per_token的值
+# awk '/time_per_token/ {gsub(/"/, "", $43); print $43}' text-generation-inference/data/serve.log
+# 扣time_per_token整体

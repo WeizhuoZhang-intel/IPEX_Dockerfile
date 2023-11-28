@@ -272,7 +272,7 @@ modelargs:
       - 1
   falcon_defaultacc:
     modelid: 
-      - tiiuae/falcon-40b
+      # - tiiuae/falcon-40b
       - meta-llama/Llama-2-70b-hf
     scriptname: single_instance/run_opt_quantization.py
     dtype: 
