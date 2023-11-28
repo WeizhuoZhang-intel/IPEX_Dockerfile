@@ -4,7 +4,7 @@ envconfig:
   TRUEIP: 10.23.185.60
   INPUT: "What is Deep Learning?"
   FILEPATH: "/data1/TGI/text-generation-inference/data/serve.log"
-  FREPOPATH: "/data1/TGI/text-generation-inference"
+  REPOPATH: "/data1/TGI/text-generation-inference"
 modelargs:
   llama7b_bf16:
     maxnewtokens: 
