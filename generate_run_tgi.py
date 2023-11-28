@@ -92,7 +92,7 @@ function collect_perf_logs_llm() {
 }
 '''
 
-def generate_commands(yml_file,mode,extra_kmp):
+def generate_commands(yml_file,mode):
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader)
     generated_file = "run_"+mode+".sh"
     with open(generated_file, "w") as runfile:
@@ -117,7 +117,9 @@ def generate_commands(yml_file,mode,extra_kmp):
 
 
 if __name__ == '__main__':
+    yml_file = 'bench_preci.yml'
     if args.debug:
         yml_file = 'bench_tgi_debug.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
-
+    for mode in data['modelargs'].keys():
+        generate_commands(yml_file, mode)
