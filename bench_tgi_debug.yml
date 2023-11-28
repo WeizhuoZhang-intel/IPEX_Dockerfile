@@ -2,7 +2,7 @@ name: LLM Benchmarking
 hw: SPR-SP/HBM/EMR
 envconfig:
   TRUEIP: 10.23.185.60
-  INPUT: ""What is Deep Learning?""
+  INPUT: "What is Deep Learning?"
   FILEPATH: "/data1/TGI/text-generation-inference/data/serve.log"
   REPOPATH: "/data1/TGI/text-generation-inference"
 modelargs:
