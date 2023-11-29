@@ -571,7 +571,7 @@ if __name__ == '__main__':
     if args.weekly:
         yml_file = 'bench_hbm_weekly.yml'
     if args.debug:
-        yml_file = 'bench_emr_debug.yml'
+        yml_file = 'bench_hbm_debug.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)

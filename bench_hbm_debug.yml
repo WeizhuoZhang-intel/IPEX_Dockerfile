@@ -1,0 +1,232 @@
+name: LLM Benchmarking
+hw: SPR-SP/HBM/EMR
+envconfig:
+  # LD_PRELOAD: ${CONDA_PREFIX}/lib/libstdc++.so.6:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libiomp5.so:${CONDA_PREFIX}/lib/libtcmalloc.so
+  LD_PRELOAD: ${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  # KMP_BLOCKTIME: 1
+  KMP_BLOCKTIME: INF
+  KMP_AFFINITY: granularity=fine,compact,1,0
+  threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
+  cores_per_node: $(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+  LLM_EXTRA_KMP:
+    KMP_TPAUSE: 0
+    KMP_SETTINGS: 1
+    KMP_FORJOIN_BARRIER_PATTERN: dist,dist
+    KMP_PLAIN_BARRIER_PATTERN: dist,dist
+    KMP_REDUCTION_BARRIER_PATTERN: dist,dist
+launcher:
+  OMP_NUM_THREADS: ${cores_per_node}
+  numactlN: 0
+  numactlM: 0
+  iternum: 50
+modelargs:
+  l13deepspeed:
+    modelid:
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 8
+    batchsize: 1
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    outputdir: "/root/workspace/qmodel/shard"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+    cuda: true
+    greedy: 
+      - False
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  llama13_int8:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - float32
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/shard"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+    quantize: true
+    localrank:
+      - 8
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      # - False
+      - False
+  llama13_int4:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - float32
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/shard"
+    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+    quantize: true
+    localrank:
+      - 8
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      # - False
+      - False
+  opt30deepspeed:
+    modelid:
+      - facebook/opt-30b
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype:
+      - bfloat16
+    localrank:
+      - 8
+    batchsize: 1
+    outputdir: "/root/workspace/qmodel/shard"
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
+    numiter: 50
+    numwarmup: 5
+    benchmark: true
+    cuda: true
+    greedy: 
+      - False
+    ki: true
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    tokenlatency: true
+  opt30_int8:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: run_generation_with_deepspeed.py
+    outputdir: "/root/workspace/qmodel/shard"
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
+    device:
+      - cpu
+    dtype: 
+      - float32
+    localrank:
+      - 8
+    maxnewtokens: 
+      - 32
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt7/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
+  opt7_int4:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: run_generation_with_deepspeed.py
+    device:
+      - cpu
+    dtype: 
+      - float32
+    localrank:
+      - 8
+    maxnewtokens: 
+      - 32
+    outputdir: "/root/workspace/qmodel/shard"
+    shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
+    quantize: true
+    lambada: true
+    ipex: true
+    jit: true
+    int8: true
+    incsmoothquant: true
+    ipexsmmothquant: true
+    int8bf16mixed: true
+    quantizedmodelpath: "/root/workspace/qmodel/mixed_opt7/best_model.pt"
+    benchmark: true
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    prompt: None
+    numiter: 50
+    numwarmup: 10
+    batchsize: 1
+    tokenlatency: true
+    greedy: 
+      - False
