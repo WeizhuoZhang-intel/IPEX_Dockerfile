@@ -19,6 +19,7 @@ launcher:
   numactlN: 0
   numactlM: 0
   iternum: 50
+  hw: HBM
 modelargs:
   llama7_bf16ds:
     modelid:
