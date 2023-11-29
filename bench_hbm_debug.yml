@@ -90,7 +90,6 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
-    batchsize: 1
     tokenlatency: true
     greedy: 
       # - False
@@ -106,7 +105,6 @@ modelargs:
       - bfloat16
     localrank:
       - 8
-    batchsize: 1
     outputdir: "/root/workspace/qmodel/shard"
     shardpath: "/root/workspace/qmodel/shard/facebook/opt-30b"
     numiter: 50
@@ -165,8 +163,6 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
-    batchsize: 
-      - 1
     tokenlatency: true
     greedy: 
       - False
