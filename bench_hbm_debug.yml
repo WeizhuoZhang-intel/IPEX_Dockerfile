@@ -56,46 +56,46 @@ modelargs:
   #   printmemory: true
   #   tokenlatency: true
   #   shard: False
-  llama13_woqds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/root/workspace/qmodel/shard"
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
-    quantize: true
-    localrank:
-      - 8
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
-    benchmark: true
-    batchsize:
-      - 1
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    numiter: 50
-    numwarmup: 10
-    tokenlatency: true
-    greedy: 
-      # - False
-      - False
-    shard: False
-  opt30deepspeed:
+  # llama13_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/root/workspace/qmodel/shard"
+  #   shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+  #   quantize: true
+  #   localrank:
+  #     - 8
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "/root/workspace/qmodel/mixed_llama13/best_model.pt"
+  #   benchmark: true
+  #   batchsize:
+  #     - 1
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   numiter: 50
+  #   numwarmup: 10
+  #   tokenlatency: true
+  #   greedy: 
+  #     # - False
+  #     - False
+  #   shard: False
+  opt30_bf16ds:
     modelid:
       - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
@@ -129,7 +129,7 @@ modelargs:
     printmemory: true
     tokenlatency: true
     shard: False
-  opt30_int8:
+  opt30_woqds:
     modelid: 
       - facebook/opt-30b
     scriptname: run_generation_with_deepspeed.py
