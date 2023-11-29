@@ -111,9 +111,9 @@ def generate_commands(yml_file,mode):
 
                     filename = str(output_token) + "file"+str(num)+".log"
                     lines.append(f"export filen={filename}")
-                    lines.append(f"curl_cmd=\'curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \'{{\"inputs\":\"{data['envconfig']['INPUT']}\", \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' -H \'Content-Type: application/json\'\'")
-                    lines.append(f"echo \"$curl_cmd\" | tee -a $repopath/data/$filen")
-                    lines.append(f"eval \"$curl_cmd\" | tee -a $repopath/data/$filen")
+                    lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \'{{\"inputs\":\"{data['envconfig']['INPUT']}\", \"parameters\":{{\"max_new_tokens\":{output_token},\"do_sample\":{data['modelargs'][mode]['sample']} }} }}\' -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
+                    # lines.append(f"echo \"$curl_cmd\" | tee -a $repopath/data/$filen")
+                    # lines.append(f"eval \"$curl_cmd\" | tee -a $repopath/data/$filen")
                     lines.append("sleep 2s")
 
 
