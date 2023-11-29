@@ -21,41 +21,41 @@ launcher:
   iternum: 50
   hw: HBM
 modelargs:
-  llama7_bf16ds:
-    modelid:
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run_generation_with_deepspeed.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    localrank:
-      - 8
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    outputdir: "/root/workspace/qmodel/shard"
-    shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
-    cuda: true
-    greedy: 
-      - False
-    ki: true
-    batchsize:
-      - 1
-    maxnewtokens: 
-      - 32
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
-    shard: False
+  # llama7_bf16ds:
+  #   modelid:
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run_generation_with_deepspeed.py
+  #   device:
+  #     - cpu
+  #   dtype:
+  #     - bfloat16
+  #   localrank:
+  #     - 8
+  #   batchsize: 1
+  #   numiter: 50
+  #   numwarmup: 5
+  #   benchmark: true
+  #   outputdir: "/root/workspace/qmodel/shard"
+  #   shardpath: "/root/workspace/qmodel/shard/meta-llama/Llama-2-13b-hf"
+  #   cuda: true
+  #   greedy: 
+  #     - False
+  #   ki: true
+  #   batchsize:
+  #     - 1
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   prompt: None
+  #   ipex: true
+  #   jit: true
+  #   printmemory: true
+  #   tokenlatency: true
+  #   shard: False
   llama13_woqds:
     modelid: 
       - meta-llama/Llama-2-13b-hf
@@ -165,7 +165,8 @@ modelargs:
     prompt: None
     numiter: 50
     numwarmup: 10
-    batchsize: 1
+    batchsize: 
+      - 1
     tokenlatency: true
     greedy: 
       - False
