@@ -260,7 +260,7 @@ modelargs:
     modelid: 
       - facebook/opt-30b
       - tiiuae/falcon-40b
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
     scriptname: single_instance/run_opt_quantization.py
     dtype: 
       - float32
