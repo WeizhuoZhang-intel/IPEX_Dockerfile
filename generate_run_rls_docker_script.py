@@ -176,7 +176,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("# Env config")
         lines.append("export WORKDIR=/root/workspace")
         lines.append("export HF_HOME=/root/.cache/huggingface")
-        lines.append("export TRANSFORMERS_OFFLINE=0")
+        lines.append("export TRANSFORMERS_OFFLINE=1")
         lines.append("pip install --upgrade huggingface_hub")
         lines.append("huggingface-cli login --token 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")
         lines.append("log_dir=/root/workspace/log")
@@ -583,9 +583,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
-
-
-
 
         if mode.endswith('static8acc'):
             for model_id in data['modelargs'][mode]['modelid']:
