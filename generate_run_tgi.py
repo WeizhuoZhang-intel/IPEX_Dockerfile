@@ -110,7 +110,7 @@ def generate_commands(yml_file,mode):
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for num in range(data['envconfig']['ITER']):
 
-                        filename = str(output_token) + "file"+str(num)+".log"
+                        filename = str(input_token) + "-" + str(output_token) + "file"+str(num)+".log"
                         lines.append(f"export filen={filename}")
                         inputkey = "INPUT"+ str(input_token)
                         lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \"{{\\\"inputs\\\":\\\"{data['envconfig'][inputkey]}\\\", \\\"parameters\\\":{{\\\"max_new_tokens\\\":{output_token},\\\"do_sample\\\":{data['modelargs'][mode]['sample']} }} }}\" -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
