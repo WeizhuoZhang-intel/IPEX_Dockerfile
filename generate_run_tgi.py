@@ -108,15 +108,16 @@ def generate_commands(yml_file,mode):
         if mode.endswith('bf16'):
             for output_token in data['modelargs'][mode]['maxnewtokens']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
-                    for num in range(data['envconfig']['ITER']):
+                    for bs in data['modelargs'][mode]['batchsize']:
+                        for num in range(data['envconfig']['ITER']):
 
-                        filename = str(input_token) + "-" + str(output_token) + "file"+str(num)+".log"
-                        lines.append(f"export filen={filename}")
-                        inputkey = "INPUT"+ str(input_token)
-                        lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \"{{\\\"inputs\\\":\\\"{data['envconfig'][inputkey]}\\\", \\\"parameters\\\":{{\\\"max_new_tokens\\\":{output_token},\\\"do_sample\\\":{data['modelargs'][mode]['sample']} }} }}\" -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
-                        # lines.append(f"echo \"$curl_cmd\" | tee -a $repopath/data/$filen")
-                        # lines.append(f"eval \"$curl_cmd\" | tee -a $repopath/data/$filen")
-                        lines.append("sleep 2s")
+                            filename = str(input_token) + "-" + str(output_token) + "-" + bs + "file"+str(num)+".log"
+                            lines.append(f"export filen={filename}")
+                            inputkey = "INPUT"+ str(input_token)
+                            lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \"{{\\\"inputs\\\":\\\"{data['envconfig'][inputkey]}\\\", \\\"parameters\\\":{{\\\"max_new_tokens\\\":{output_token},\\\"do_sample\\\":{data['modelargs'][mode]['sample']} }} }}\" -H \'Content-Type: application/json\' | tee -a $repopath/data/$filen")
+                            # lines.append(f"echo \"$curl_cmd\" | tee -a $repopath/data/$filen")
+                            # lines.append(f"eval \"$curl_cmd\" | tee -a $repopath/data/$filen")
+                            lines.append("sleep 2s")
 
         lines.append("break")
         lines.append("fi")
