@@ -6,12 +6,12 @@ envconfig:
   INPUT32: "Once upon a time, there existed a little girl, who liked to have adventures. She wanted to go to places and meet new people, and have fun."
   FILEPATH: "/data1/jenkins_tf/workspace/IPEX_LLM_TGI/TGI/text-generation-inference/data/serve.log"
   REPOPATH: "/data1/jenkins_tf/workspace/IPEX_LLM_TGI/TGI/text-generation-inference"
-  ITER: 1
+  ITER: 2
 modelargs:
   llama7b_bf16:
     maxnewtokens: 
       - 32
-      # - 128
+      - 128
     inputtokens:
       - 32
       # - 128
