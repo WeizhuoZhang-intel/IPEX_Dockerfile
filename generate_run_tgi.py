@@ -140,3 +140,5 @@ if __name__ == '__main__':
 # 扣time_per_token的值
 # awk '/time_per_token/ {gsub(/"/, "", $43); print $43}' text-generation-inference/data/serve.log
 # 扣time_per_token整体
+# 扣文件名
+# grep -oP 'export filen=\K[^ ]+' $repopath/script.sh
