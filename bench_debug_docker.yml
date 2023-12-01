@@ -147,16 +147,16 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  # codegen_woq8acc:
-  #   modelid: 
-  #     - Salesforce/codegen-2B-multi
-  #   dtype: 
-  #     - woq-int8
-  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  codegen_woq8acc:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
   # falcon_woq8acc:
   #   modelid: 
   #     - tiiuae/falcon-40b
