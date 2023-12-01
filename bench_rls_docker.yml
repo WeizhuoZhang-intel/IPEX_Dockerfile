@@ -75,30 +75,30 @@ modelargs:
     greedy: 
       - False
 
-  gptj_static8:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-bf16-in8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/static-bf16-in8/EleutherAI/gpt-j-6B"
-    quantizedmodelpath: "/data1/rlsqmodel/static-bf16-in8/EleutherAI/gpt-j-6B/best_model.pt"
-    configpath: "/data1/rlsqconfig/gpt-j-6b_qconfig.json"
-    inputtokens:
-      - 128
-      - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # gptj2_static8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-bf16-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/static-bf16-in8/EleutherAI/gpt-j-6B"
+  #   quantizedmodelpath: "/data1/rlsqmodel/static-bf16-in8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   configpath: "/data1/rlsqconfig/gpt-j-6b_qconfig.json"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # gptj_woq8:
   #   modelid: 
@@ -175,30 +175,30 @@ modelargs:
   #     - True
   #   shard: False
 
-  gptj_woqds:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/shard/EleutherAI/gpt-j-6B"
-    inputtokens:
-      - 128
-      - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # gptj_woqds:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/shard/EleutherAI/gpt-j-6B"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
 
   llama7_static8:
@@ -225,30 +225,30 @@ modelargs:
       - 1
     greedy: 
       - False
-  llama7_static8:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-bf16-in8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/static-bf16-in8/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/rlsqmodel/static-bf16-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
-    configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
-    inputtokens:
-      - 128
-      - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # llama72_static8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-bf16-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/static-bf16-in8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/data1/rlsqmodel/static-bf16-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   # llama7_woq8:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
@@ -320,30 +320,30 @@ modelargs:
   #   greedy: 
   #     - False
   #   shard: False
-  llama7_woqds:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      # - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/shard/meta-llama/Llama-2-7b-hf"
-    inputtokens:
-      - 128
-      - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # llama7_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     # - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/shard/meta-llama/Llama-2-7b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   llama13_static8:
     modelid: 
@@ -369,7 +369,7 @@ modelargs:
       - 1
     greedy: 
       - False
-  llama13_static8:
+  llama132_static8:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
