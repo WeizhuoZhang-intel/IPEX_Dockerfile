@@ -3,9 +3,13 @@ import argparse
 import yaml
 parser = argparse.ArgumentParser("Generation script", add_help=False)
 parser.add_argument("--debug",action="store_true",default=False,help="only for debug regular track")
+parser.add_argument(
+    "-p",
+    "--path",
+    type=str,
+    default="/root/workspace",
+)
 args = parser.parse_args()
-
-
 collect_result = '''
 function collect_perf_logs_llm() {
     # latency
@@ -100,6 +104,7 @@ def generate_commands(yml_file,mode):
         lines.append("#!/bin/bash")
 
         lines.append("# Env config")
+        lines.append(f"export WORKSPACE={args.path}")
         lines.append(f"export repopath={data['envconfig']['REPOPATH']}")
         lines.append("while true")
         lines.append("do")
