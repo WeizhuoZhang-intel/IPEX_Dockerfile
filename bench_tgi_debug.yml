@@ -1,7 +1,7 @@
 name: LLM Benchmarking
 hw: SPR-SP/HBM/EMR
 envconfig:
-  TRUEIP: 10.23.184.179
+  TRUEIP: $(hostname -I | awk '{print $1}')
   INPUT128: "It is done, and submitted. You can play 'Survival of the Tastiest' on Android, and on the web. Playing on the web works, but you have to simulate multiple touch for table moving and that can be a bit confusing. There is a lot I'd like to talk about. I will go through every topic, insted of making the typical what went right/wrong list. Concept Working over the theme was probably one of the hardest tasks which I had to face. Originally, I had an idea of what kind of game I wanted to develop, gameplay wise - something with a lot of enemies/actors"
   INPUT32: "Once upon a time, there existed a little girl, who liked to have adventures. She wanted to go to places and meet new people, and have fun."
   # FILEPATH: "/data1/jenkins_tf/workspace/IPEX_LLM_TGI/TGI/text-generation-inference/data/serve.log"
