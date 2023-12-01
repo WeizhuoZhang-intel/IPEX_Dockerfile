@@ -992,28 +992,28 @@ modelargs:
   #     - False
   #   shard: False
 
-  # aopt30_defaultacc:
-  #   modelid: 
-  #     # - EleutherAI/gpt-j-6B
-  #     # - meta-llama/Llama-2-7b-hf
-  #     # - meta-llama/Llama-2-13b-hf
-  #     # - meta-llama/Llama-2-70b-hf
-  #     # - EleutherAI/gpt-neox-20b
-  #     # - tiiuae/falcon-40b
-  #     - facebook/opt-1.3b
-  #     - Salesforce/codegen-2B-multi
-  #     # - facebook/opt-30b
-  #   scriptname: single_instance/run_opt_quantization.py
-  #   dtype: 
-  #     - float32
-  #     - bfloat16
-  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  opt30_defaultacc:
+    modelid: 
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      - tiiuae/falcon-40b
+      # - facebook/opt-1.3b
+      # - Salesforce/codegen-2B-multi
+      - facebook/opt-30b
+    scriptname: single_instance/run_opt_quantization.py
+    dtype: 
+      - float32
+      # - bfloat16
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
-  model_bf16dsacc:
+  amodel_bf16dsacc:
     modelid: 
       # - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-hf
@@ -1031,7 +1031,7 @@ modelargs:
     localrank:
       - 1
 
-  model_woqdsacc:
+  amodel_woqdsacc:
     modelid: 
       # - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-hf
