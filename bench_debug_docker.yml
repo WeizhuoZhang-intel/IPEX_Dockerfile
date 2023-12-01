@@ -41,11 +41,11 @@ modelargs:
   amodel_bf16dsacc:
     modelid: 
       # - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
+      - tiiuae/falcon-40b
       # - facebook/opt-1.3b
       # - facebook/opt-30b
     scriptname: run.py
@@ -59,11 +59,11 @@ modelargs:
   amodel_woqdsacc:
     modelid: 
       # - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
+      - tiiuae/falcon-40b
       # - facebook/opt-1.3b
       # - facebook/opt-30b
     scriptname: run.py
