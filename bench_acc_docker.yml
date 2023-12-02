@@ -1,0 +1,204 @@
+name: LLM Benchmarking
+hw: SPR-SP/HBM/EMR
+envconfig:
+  # LD_PRELOAD: ${CONDA_PREFIX}/lib/libstdc++.so.6:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  LD_PRELOAD: ${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  KMP_BLOCKTIME: INF
+  KMP_AFFINITY: granularity=fine,compact,1,0
+  threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
+  cores_per_node: $(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+  LLM_EXTRA_KMP:
+    KMP_TPAUSE: 0
+    KMP_SETTINGS: 1
+    KMP_FORJOIN_BARRIER_PATTERN: dist,dist
+    KMP_PLAIN_BARRIER_PATTERN: dist,dist
+    KMP_REDUCTION_BARRIER_PATTERN: dist,dist
+launcher:
+  OMP_NUM_THREADS: ${cores_per_node}
+  numactlN: 0
+  numactlM: 0
+  iternum: 50
+  hw: SPR
+modelargs:
+  # model_bf16:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     - 32
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  # amodel_bf16dsacc:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6B
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     - tiiuae/falcon-40b
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #   scriptname: run.py
+  #   dtype: 
+  #     - bfloat16
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  # amodel_woqdsacc:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6B
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     - tiiuae/falcon-40b
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #   scriptname: run.py
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  model_defaultacc:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - tiiuae/falcon-40b
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      # - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+      - THUDM/chatglm3-6b
+      - THUDM/chatglm2-6b
+      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan2-7B-Chat
+      - Baichuan-inc/Baichuan-13B-Chat
+    scriptname: single_instance/run_gpt-j_quantization.py
+    dtype: 
+      - bfloat16
+      - float32
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
+  # gptj_woq8acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # gptn_woq8acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # llama7_woq8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # opt13_woq8acc:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/facebook/opt-1.3b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # opt30_woq8acc:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # llama13_woq8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  codegen_woq8acc:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  # falcon_woq8acc:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/tiiuae/falcon-40b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  opt30_defaultacc:
+    modelid: 
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      - tiiuae/falcon-40b
+      # - facebook/opt-1.3b
+      # - Salesforce/codegen-2B-multi
+      # - facebook/opt-30b
+    scriptname: single_instance/run_opt_quantization.py
+    dtype: 
+      - float32
+      # - bfloat16
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1

@@ -11,6 +11,7 @@ parser.add_argument("--hbm_weekly",action="store_true",default=False,help="only 
 parser.add_argument("--gnr_weekly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--debug",action="store_true",default=False,help="only for debug regular track")
 parser.add_argument("--rls",action="store_true",default=False,help="only for rls track")
+parser.add_argument("--acc",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--rlsemr",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--gptq",action="store_true",default=False,help="only for gptq track")
 parser.add_argument("--cpudeviceweekly",action="store_true",default=False,help="only for gptq track")
@@ -686,6 +687,8 @@ if __name__ == '__main__':
         yml_file = 'bench_debug_docker.yml'
     if args.rls:
         yml_file = 'bench_rls_docker.yml'
+    if args.acc:
+        yml_file = 'bench_acc_docker.yml'
     if args.rlsemr:
         yml_file = 'bench_rls_docker_emr.yml'
     if args.gptq:
