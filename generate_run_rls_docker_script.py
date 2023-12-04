@@ -591,7 +591,19 @@ def generate_commands(yml_file,mode,extra_kmp):
                         else:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
-
+        if mode.endswith('defaultaccnocore'):
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for rank in data['modelargs'][mode]['localrank']:
+                        lines.append(f"export local_rank={rank}")
+                        lines.append("deepspeed_core_config ${local_rank}")
+                        lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                        if 'codegen' in model_id:
+                            lines.append(f"python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks hellaswag \
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                        else:
+                            lines.append(f"python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai \
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
 
 
         if mode.endswith('static8acc'):
@@ -622,7 +634,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --ipex --jit --tasks lambada_openai \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
                         if 'falcon' in model_id:
-                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json \
+                            lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         else:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai \
