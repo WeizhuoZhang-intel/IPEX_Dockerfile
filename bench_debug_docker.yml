@@ -215,7 +215,7 @@ modelargs:
       - tiiuae/falcon-40b
     dtype: 
       - woq-int8
-    quantizedmodelpath: "/localdisk3/mint/woq-int8/tiiuae/falcon-40b/best_model.pt"
+    quantizedmodelpath: "/data/mint/woq-int8/best_model.pt"
     batchsize: 
       - 1
     localrank:
