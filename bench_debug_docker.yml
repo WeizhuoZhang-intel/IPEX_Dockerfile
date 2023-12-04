@@ -175,6 +175,7 @@ modelargs:
       - Salesforce/codegen-2B-multi
     dtype: 
       - woq-int8
+    outputdir: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi"
     quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
     batchsize: 
       - 1
