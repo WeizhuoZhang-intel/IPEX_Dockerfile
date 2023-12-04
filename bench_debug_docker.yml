@@ -225,25 +225,25 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  amodel_bf16dsacc:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: run.py
-    dtype: 
-      - bfloat16
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # amodel_bf16dsacc:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: run.py
+  #   dtype: 
+  #     - bfloat16
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
-  amodel_woqdsacc:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: run.py
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # amodel_woqdsacc:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: run.py
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
