@@ -20,100 +20,100 @@ launcher:
   iternum: 50
   hw: HBM
 modelargs:
-  llama13_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
-  llama13_woqds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
-  llama70_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-70b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
-  llama70_woqds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-70b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  # llama13_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # llama13_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # llama70_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-70b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # llama70_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/meta-llama/Llama-2-70b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   neox_woqds:
     modelid: 
@@ -164,225 +164,225 @@ modelargs:
       - False
     shard: False
     
-  opt30_woqds:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/facebook/opt-30b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  # opt30_woqds:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/facebook/opt-30b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  falcon_bf16ds:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/tiiuae/falcon-40b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  # falcon_bf16ds:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/tiiuae/falcon-40b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
     
-  falcon_woqds:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/tiiuae/falcon-40b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  # falcon_woqds:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/tiiuae/falcon-40b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  baichuan213_bf16ds:
-    modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-13B-Chat"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # baichuan213_bf16ds:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-13B-Chat"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
     
-  baichuan213_woqds:
-    modelid: 
-      - baichuan-inc/Baichuan2-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-13B-Chat"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
-  baichuan27_bf16ds:
-    modelid: 
-      - baichuan-inc/Baichuan2-7B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-7B-Chat"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # baichuan213_woqds:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-13B-Chat"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # baichuan27_bf16ds:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-7B-Chat"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
     
-  baichuan27_woqds:
-    modelid: 
-      - baichuan-inc/Baichuan2-7B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-7B-Chat"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # baichuan27_woqds:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan2-7B-Chat"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  baichuan13_bf16ds:
-    modelid: 
-      - baichuan-inc/Baichuan-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan-13B-Chat"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # baichuan13_bf16ds:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan-13B-Chat"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
     
-  baichuan13_woqds:
-    modelid: 
-      - baichuan-inc/Baichuan-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan-13B-Chat"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # baichuan13_woqds:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/weeklymodel/shard/baichuan-inc/Baichuan-13B-Chat"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
 
 
  
