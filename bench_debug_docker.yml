@@ -147,40 +147,39 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  acodegen_woq8:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-  codegen_woq8acc:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    dtype: 
-      - woq-int8
-    outputdir: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # acodegen_woq8:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  # codegen_woq8acc:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/Salesforce/codegen-2B-multi/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   # # falcon_woq8acc:
   # #   modelid: 
   # #     - tiiuae/falcon-40b
@@ -226,31 +225,25 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  # amodel_bf16dsacc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #     - EleutherAI/gpt-neox-20b
-  #     - tiiuae/falcon-40b
-  #     - facebook/opt-30b
-  #   scriptname: run.py
-  #   dtype: 
-  #     - bfloat16
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  amodel_bf16dsacc:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    scriptname: run.py
+    dtype: 
+      - bfloat16
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
-  # amodel_woqdsacc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #     - EleutherAI/gpt-neox-20b
-  #     - tiiuae/falcon-40b
-  #     - facebook/opt-30b
-  #   scriptname: run.py
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  amodel_woqdsacc:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    scriptname: run.py
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    batchsize: 
+      - 1
+    localrank:
+      - 1
