@@ -8,15 +8,16 @@ envconfig:
   # REPOPATH: "/data1/jenkins_tf/workspace/IPEX_LLM_TGI/TGI/text-generation-inference"
   FILEPATH: "${WORKSPACE}/TGI/text-generation-inference/data/serve.log"
   REPOPATH: "${WORKSPACE}/TGI/text-generation-inference"
-  ITER: 2
+  ITER: 5
 modelargs:
   llama7b_bf16:
     maxnewtokens: 
       - 32
       - 128
+      - 512
     inputtokens:
       - 32
-      # - 128
+      - 128
     sample: "false"
     batchsize: 
       - 1
