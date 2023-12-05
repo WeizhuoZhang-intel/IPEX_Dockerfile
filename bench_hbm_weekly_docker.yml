@@ -20,100 +20,100 @@ launcher:
   iternum: 50
   hw: HBM
 modelargs:
-  llama13_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
-  llama13_woqds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
-  llama70_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-70b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
-  llama70_woqds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-70b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  # llama13_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # llama13_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # llama70_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-70b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
+  # llama70_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-70b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   # neox_woqds:
   #   modelid: 
@@ -164,42 +164,18 @@ modelargs:
   #     - False
   #   shard: False
     
-  opt30_woqds:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/facebook/opt-30b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
-
-  # falcon_bf16ds:
+  # opt30_woqds:
   #   modelid: 
-  #     - tiiuae/falcon-40b
+  #     - facebook/opt-30b
   #   scriptname: run.py
   #   device:
   #     - cpu
   #   dtype: 
-  #     - ds-bfloat16
+  #     - ds-woq-int8
+  #     - ds-woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/tiiuae/falcon-40b"
+  #   outputdir: "/home/sdp/shard/facebook/opt-30b"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -212,6 +188,30 @@ modelargs:
   #   greedy: 
   #     - False
   #   shard: False
+
+  falcon_bf16ds:
+    modelid: 
+      - tiiuae/falcon-40b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/home/sdp/shard/tiiuae/falcon-40b"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: False
     
   # falcon_woqds:
   #   modelid: 
