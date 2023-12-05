@@ -50,31 +50,50 @@ modelargs:
   #   greedy: 
   #     - False
 
-  # gptj_static8:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-in8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/EleutherAI/gpt-j-6B"
-  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/EleutherAI/gpt-j-6B/best_model.pt"
-  #   configpath: "/data1/rlsqconfig/gpt-j-6b_qconfig.json"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     # - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-
+  agptj_static8:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/EleutherAI/gpt-j-6B"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/EleutherAI/gpt-j-6B/best_model.pt"
+    configpath: "/data1/rlsqconfig/gpt-j-6b_qconfig.json"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+  gptj_static8acc:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+      - static-bs1
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/EleutherAI/gpt-j-6B"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/EleutherAI/gpt-j-6B/best_model.pt"
+    configpath: "/data1/rlsqconfig/gpt-j-6b_qconfig.json"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
   # gptj2_static8:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
@@ -201,30 +220,50 @@ modelargs:
   #   shard: False
 
 
-  # llama7_static8:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-in8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf"
-  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
-  #   configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     # - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  allama7_static8:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+  llama7_static8acc:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+      - static-bs1
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
   # llama72_static8:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
@@ -345,50 +384,50 @@ modelargs:
   #     - False
   #   shard: False
 
-  allama13_static8:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-fp32-in8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
-    configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-  llama13_static8acc:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-fp32-in8
-      - static-bs1
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
-    configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # allama13_static8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  # llama13_static8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-in8
+  #     - static-bs1
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   # llama132_static8:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
