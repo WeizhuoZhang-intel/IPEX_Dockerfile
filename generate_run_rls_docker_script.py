@@ -616,7 +616,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if 'fp32' in dtype:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --batch-size 56 --ipex --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-56_{data['launcher']['hw']}.log")
-                        if 'bs1' in dtype:
+                        elif 'bs1' in dtype:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --batch-size 1 --ipex --jit --tasks lambada_openai \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-1_{data['launcher']['hw']}.log") 
                         else:
