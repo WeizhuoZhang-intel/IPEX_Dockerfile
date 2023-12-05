@@ -60,11 +60,11 @@ modelargs:
       - bfloat16
     maxnewtokens: 
       - 32
-      - 128
+      # - 128
     inputtokens:
       - 32
-      - 128
-      - 512
+      # - 128
+      # - 512
     batchsize: 
       - 1
     localrank:
