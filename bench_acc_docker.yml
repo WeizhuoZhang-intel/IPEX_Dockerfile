@@ -100,36 +100,36 @@ modelargs:
   #     # - False
   #     - True
 
-  aneox_woq8:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b"
-    quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-  gptn_woq8acc:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    dtype: 
-      - woq-int8
-    quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # aneox_woq8:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b"
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  # gptn_woq8acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
