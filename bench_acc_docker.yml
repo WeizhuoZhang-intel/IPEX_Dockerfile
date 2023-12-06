@@ -110,8 +110,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+    outputdir: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b"
+    quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
     inputtokens:
       - 128
       # - 512
@@ -128,7 +128,7 @@ modelargs:
       - EleutherAI/gpt-neox-20b
     dtype: 
       - woq-int8
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+    quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
     batchsize: 
       - 1
     localrank:
