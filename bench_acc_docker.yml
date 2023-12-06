@@ -131,7 +131,7 @@ modelargs:
       - EleutherAI/gpt-neox-20b
     dtype: 
       - woq-int8
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b"
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
     batchsize: 
       - 1
     localrank:
