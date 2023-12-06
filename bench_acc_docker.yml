@@ -63,13 +63,13 @@ modelargs:
 
   model_woqdsacc:
     modelid: 
-      # - EleutherAI/gpt-j-6B
+      - EleutherAI/gpt-j-6B
       # - EleutherAI/gpt-j-6B
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-70b-hf
       # - facebook/opt-30b
       # - Salesforce/codegen-2B-multi
-      - EleutherAI/gpt-neox-20b
+      # - EleutherAI/gpt-neox-20b
       # - EleutherAI/gpt-neox-20b
     scriptname: run.py
     dtype: 
@@ -113,8 +113,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/data1/testenv/woq-int8/EleutherAI/gpt-neox-20b"
-    quantizedmodelpath: "/data1/testenv/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+    outputdir: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b"
+    quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
     inputtokens:
       - 128
       # - 512
