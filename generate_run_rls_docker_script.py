@@ -564,6 +564,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                     lines.append("pwd")
                     # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                     # lines.append("wait")
+                    if 'codegen' in model_id:
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 56 \
+                                        --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks hellaswag \
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_woq-int4_{data['launcher']['hw']}.log")                        
                     if 'neox' in model_id:
                         lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 56 \
                                         --dtype int8 --accuracy-only --jit --int8 --tasks lambada_openai \
