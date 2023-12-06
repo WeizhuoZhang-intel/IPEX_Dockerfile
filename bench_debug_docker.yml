@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
+  iternum: 5
   hw: SPR
 modelargs:
   # model_bf16:
@@ -297,8 +297,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b"
-    quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+    outputdir: "/data1/testenv/woq-int8/EleutherAI/gpt-neox-20b"
+    quantizedmodelpath: "/data1/testenv/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
     inputtokens:
       - 128
       # - 512
