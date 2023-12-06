@@ -237,7 +237,7 @@ modelargs:
   #     - 1
   amodel_bf16dsacc:
     modelid: 
-      - - EleutherAI/gpt-j-6B
+      - EleutherAI/gpt-j-6B
     scriptname: run.py
     dtype: 
       - bfloat16
