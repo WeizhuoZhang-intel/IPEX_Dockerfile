@@ -61,42 +61,75 @@ modelargs:
   #   localrank:
   #     - 1
 
-  # model_woqdsacc:
+  model_woqdsacc:
+    modelid: 
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      - EleutherAI/gpt-neox-20b
+    scriptname: run.py
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  # model_bf16pt:
   #   modelid: 
-  #     - EleutherAI/gpt-j-6B
   #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-70b-hf
-  #     - facebook/opt-30b
-  #     - Salesforce/codegen-2B-multi
-  #     - EleutherAI/gpt-neox-20b
   #   scriptname: run.py
+  #   device:
+  #     - cpu
   #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #     - 128
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     # - 512
   #   batchsize: 
   #     - 1
   #   localrank:
   #     - 1
-  model_bf16pt:
+  #   greedy: 
+  #     # - False
+  #     - True
+
+  aneox_woq8:
     modelid: 
-      - meta-llama/Llama-2-7b-hf
+      - EleutherAI/gpt-neox-20b
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - bfloat16
+      - woq-int8
     maxnewtokens: 
       - 32
-      - 128
+    outputdir: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b"
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
     inputtokens:
-      - 32
       - 128
       # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
       - 1
     greedy: 
-      # - False
-      - True
-
+      - False
+  gptn_woq8acc:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
