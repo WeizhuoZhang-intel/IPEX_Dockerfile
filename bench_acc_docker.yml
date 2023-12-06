@@ -156,17 +156,17 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  llama7_gptqacc:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: single_instance/run_llama_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/localdisk3/mint/woq-int4/meta-llama/Llama-2-7b-hf/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # llama7_gptqacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int4/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   llama13_gptqacc:
     modelid: 
       - meta-llama/Llama-2-13b-hf
@@ -178,17 +178,17 @@ modelargs:
       - 1
     localrank:
       - 1
-  llama70_gptqacc:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: single_instance/run_llama_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/localdisk3/mint/woq-int4/meta-llama/Llama-2-70b-hf/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # llama70_gptqacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int4/meta-llama/Llama-2-70b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   gptj_gptqacc:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -211,14 +211,14 @@ modelargs:
       - 1
     localrank:
       - 1
-  neox_gptqacc:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: single_instance/run_gpt-nexo_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/localdisk3/mint/woq-int4/EleutherAI/gpt-neox-20b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # neox_gptqacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: single_instance/run_gpt-nexo_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int4/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
