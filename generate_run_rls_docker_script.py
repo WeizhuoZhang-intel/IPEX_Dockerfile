@@ -495,9 +495,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
-                                        log_file=f"$log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log"
-                                        process_command=f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                            --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --autotp --shard-model --token-latency"
+                                        log_file=(f"$log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                        process_command=(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                            --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --autotp --shard-model --token-latency")
                                         lines.append(f"${process_command} | tee -a ${log_file}")
                                         # lines.append(f"export prcpid=$(start_process ${process_command} ${log_file})")
                                         # lines.append(f"monitor_file $prcpid ${log_file}")
