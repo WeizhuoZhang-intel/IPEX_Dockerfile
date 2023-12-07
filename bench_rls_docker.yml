@@ -690,29 +690,29 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  # neox_gptqperf:
-  #   modelid: 
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - woq-int4
-  #   maxnewtokens: 
-  #     - 32
-  #   # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b"
-  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model.pt"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  neox_gptqperf:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int4
+    maxnewtokens: 
+      - 32
+    # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b"
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model_rc0.pt"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
   # neox_bf16ds:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
@@ -1151,22 +1151,22 @@ modelargs:
   #   localrank:
   #     - 1
 
-  amodel_bf16dsacc:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-    scriptname: run.py
-    dtype: 
-      - bfloat16
-    batchsize: 
-      - 1
-    localrank:
+  # amodel_bf16dsacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #   scriptname: run.py
+  #   dtype: 
+  #     - bfloat16
+  #   batchsize: 
+  #     - 1
+  #   localrank:
   #     - 1
 
   # amodel_woqdsacc:
