@@ -571,29 +571,29 @@ modelargs:
   #     - False
   #   shard: False
 
-  # llama70_woq8:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - woq-int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf"
-  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  llama70_woq8:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
   # llama70_bf16ds:
   #   modelid: 
