@@ -690,29 +690,29 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  neox_gptqperf:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model_rc0.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # neox_gptqperf:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model_rc0.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   # neox_bf16ds:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
@@ -1243,14 +1243,36 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  # neox_gptqacc:
-  #   modelid: 
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: single_instance/run_gpt-nexo_quantization.py
-  #   dtype: 
-  #     - woq-int4
-  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model.pt"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  neox_gptqacc:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+    scriptname: single_instance/run_gpt-nexo_quantization.py
+    dtype: 
+      - woq-int4
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  opt13_gptqacc:
+    modelid: 
+      - facebook/opt-1.3b
+    scriptname: single_instance/run_opt_quantization.py
+    dtype: 
+      - woq-int4
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/facebook/opt-1.3b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  opt30_gptqacc:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: single_instance/run_opt_quantization.py
+    dtype: 
+      - woq-int4
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
