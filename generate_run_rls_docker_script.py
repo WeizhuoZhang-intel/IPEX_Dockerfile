@@ -85,6 +85,52 @@ function deepspeed_core_config() {
 }
 '''
 
+timeprocess = '''
+
+function get_file_info() {
+    local file="$1"
+    local size=$(stat --printf="%s" "$file")
+    local modified=$(stat --printf="%Y" "$file")
+    echo "$size $modified"
+}
+
+'''
+startprocess = '''
+function start_process() {
+    local command="$1"
+    local log_file="$2"
+    
+    $command | tee -a "$log_file" &
+    echo $!
+}
+
+'''
+monitorprocess = '''
+
+function monitor_file() {
+    local pid="$1"
+    local log_file="$2"
+    declare -A file_info
+
+    file_info["last"]=$(get_file_info "$log_file")
+
+    while true; do
+
+        sleep 60
+
+        local current_info=$(get_file_info "$log_file")
+
+        if [ "${file_info["last"]}" == "$current_info" ]; then
+            kill $pid
+            break
+        fi
+
+        file_info["last"]=$current_info
+    done
+}
+
+'''
+
 collect_result = '''
 function collect_perf_logs_llm() {
     # latency
@@ -190,6 +236,9 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(fetch_device_info)
         lines.append(collect_result)    
         lines.append(deepspeed_ccl_func)
+        lines.append(timeprocess)
+        lines.append(startprocess)
+        lines.append(monitorprocess)
         lines.append("")
         lines.append("cp prompt.json ./single_instance") 
 
@@ -446,27 +495,34 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
+                                        log_file=f"$log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log"
+                                        process_command=f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                            --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --autotp --shard-model --token-latency"
                                         
-                                        lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
-                                        if data['modelargs'][mode]['shard'] == True:
-                                            if beam == True:   
-                                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                            --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --token-latency --autotp  \
-                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-                                            else:   
-                                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
-                                                            --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --token-latency --autotp  \
-                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
-                                        else:
+                                        lines.append(f"export prcpid=$(start_process ${process_command} ${log_file})")
+                                        lines.append(f"monitor_file $prcpid ${log_file}")
 
-                                            if beam == True:   
-                                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                            --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --autotp --shard-model --token-latency   \
-                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-                                            else:   
-                                                lines.append(f"timeout 10m bash -c 'deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                            --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --autotp --shard-model --token-latency   \
-                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log | (sleep 600 && kill -HUP $$ & wait)'")                                            
+
+                                        # lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        # if data['modelargs'][mode]['shard'] == True:
+                                        #     if beam == True:   
+                                        #         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                        #                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --token-latency --autotp  \
+                                        #                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                        #     else:   
+                                        #         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
+                                        #                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --token-latency --autotp  \
+                                        #                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
+                                        # else:
+
+                                        #     if beam == True:   
+                                        #         lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                        #                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --autotp --shard-model --token-latency   \
+                                        #                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                        #     else:   
+                                        #         lines.append(f"timeout 10m bash -c 'deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                        #                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --deployment-mode --autotp --shard-model --token-latency   \
+                                        #                         2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log | (sleep 600 && kill -HUP $$ & wait)'")                                            
                                 
                                         lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
