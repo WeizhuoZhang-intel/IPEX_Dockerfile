@@ -56,24 +56,24 @@ modelargs:
   #   localrank:
   #     - 1
 
-  model_woqdsacc:
-    modelid: 
-      # - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-    scriptname: run.py
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_woqdsacc:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6B
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #   scriptname: run.py
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   # falcon_defaultacc:
   #   modelid: 
@@ -316,7 +316,7 @@ modelargs:
     scriptname: single_instance/run_gpt-j_quantization.py
     dtype: 
       - woq-int4
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-j-6B/best_model.pt"
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-j-6b/best_model.pt"
     batchsize: 
       - 1
     localrank:
