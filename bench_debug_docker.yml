@@ -242,22 +242,22 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  model_defaultacc:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
-      # - facebook/opt-30b
-    scriptname: single_instance/run_gpt-j_quantization.py
-    dtype: 
-      - bfloat16
-      # - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_defaultacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - facebook/opt-30b
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - bfloat16
+  #     # - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   # amodel_bf16dsacc:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
