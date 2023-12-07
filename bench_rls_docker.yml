@@ -581,8 +581,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/dev/shm/huggingface/woq-int8/meta-llama/Llama-2-70b-hf"
-    quantizedmodelpath: "/dev/shm/huggingface/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
+    outputdir: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
     inputtokens:
       - 128
       # - 512
