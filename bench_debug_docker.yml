@@ -40,6 +40,8 @@ modelargs:
       - 32
     inputtokens:
       - 128
+      - 512
+      - 1024
     batchsize: 
       - 1
     localrank:
