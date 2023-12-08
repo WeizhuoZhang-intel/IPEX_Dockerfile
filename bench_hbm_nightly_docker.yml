@@ -115,29 +115,53 @@ modelargs:
   #   greedy: 
   #     - False
   #   shard: False
-  # allama13_bf16ds:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 4
-  #   greedy: 
-  #     - False
-  #   shard: False
+  allama13_bf16ds:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+    inputtokens:
+      # - 128
+      - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 4
+    greedy: 
+      - False
+    shard: False
+
+  allama13_bf16dstime:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+    inputtokens:
+      # - 128
+      - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 4
+    greedy: 
+      - False
+    shard: False
   # allama13_woqds:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
@@ -235,29 +259,29 @@ modelargs:
   #     - False
   #   shard: False
 
-  aopt30_bf16ds:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/facebook/opt-30b"
-    inputtokens:
-      # - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  # aopt30_bf16ds:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/facebook/opt-30b"
+  #   inputtokens:
+  #     # - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
     
   # aopt30_woqds:
   #   modelid: 
