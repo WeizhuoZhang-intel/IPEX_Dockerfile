@@ -235,29 +235,29 @@ modelargs:
   #     - False
   #   shard: False
 
-  # aopt30_bf16ds:
-  #   modelid: 
-  #     - facebook/opt-30b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/home/sdp/shard/facebook/opt-30b"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 8
-  #   greedy: 
-  #     - False
-  #   shard: False
+  aopt30_bf16ds:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/home/sdp/shard/facebook/opt-30b"
+    inputtokens:
+      # - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: False
     
   # aopt30_woqds:
   #   modelid: 
@@ -284,29 +284,29 @@ modelargs:
   #     - False
   #   shard: False
 
-  falcon_bf16dstime:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/tiiuae/falcon-40b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  # falcon_bf16dstime:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/tiiuae/falcon-40b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: False
     
   # falcon_woqds:
   #   modelid: 
