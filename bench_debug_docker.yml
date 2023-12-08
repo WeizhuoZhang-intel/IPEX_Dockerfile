@@ -20,24 +20,34 @@ launcher:
   iternum: 5
   hw: SPR
 modelargs:
-  # model_bf16:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  model_bf16compiler:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - EleutherAI/gpt-neox-20b
+      - tiiuae/falcon-40b
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 128
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+
   # amodel_bf16dsacc:
   #   modelid: 
   #     # - EleutherAI/gpt-j-6B
@@ -118,26 +128,26 @@ modelargs:
   #   localrank:
   #     - 1
 
-  llama7_woq8acc:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    dtype: 
-      - woq-int8
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-  llama7_woq8acc1:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    dtype: 
-      - woq-int8
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # llama7_woq8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # llama7_woq8acc1:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-70b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   # opt13_woq8acc:
   #   modelid: 
