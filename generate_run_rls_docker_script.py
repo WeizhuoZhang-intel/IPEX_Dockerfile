@@ -495,10 +495,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
-                                        lines.append(f"export prcpid=$(start_process ${process_command} ${log_file})")
-                                        lines.append(f"monitor_file $prcpid ${log_file}")
-
-
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
