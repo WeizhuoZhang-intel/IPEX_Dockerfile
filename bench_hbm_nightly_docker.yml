@@ -115,29 +115,29 @@ modelargs:
   #   greedy: 
   #     - False
   #   shard: False
-  allama13_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      # - 128
-      - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # allama13_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     # - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   allama13_bf16dstime:
     modelid: 
