@@ -290,7 +290,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_compile_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True:   
-                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_generation.py \
+                                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_generation.py   \
                                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype {dtype} --batch-size {bs} --ipex --torch-compile --token-latency   \
                                                             2>&1 | tee -a $log_dir/llm_compile_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                         else:   
@@ -298,7 +298,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype {dtype} --batch-size {bs} --ipex --torch-compile --token-latency   \
                                                             2>&1 | tee -a $log_dir/llm_compile_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                 
-                                        lines.append(f"collect_perf_logs_llm llm_compiler_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                        lines.append(f"collect_perf_logs_llm llm_compile_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
 
