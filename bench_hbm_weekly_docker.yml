@@ -30,7 +30,7 @@ modelargs:
   #     - ds-bfloat16
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+  #   outputdir: "/shard/meta-llama/Llama-2-13b-hf"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -54,7 +54,7 @@ modelargs:
   #     - ds-woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+  #   outputdir: "/shard/meta-llama/Llama-2-13b-hf"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -77,7 +77,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-70b-hf"
+    outputdir: "/shard/meta-llama/Llama-2-70b-hf"
     inputtokens:
       - 128
       - 512
@@ -101,7 +101,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-70b-hf"
+    outputdir: "/shard/meta-llama/Llama-2-70b-hf"
     inputtokens:
       - 128
       - 512
@@ -126,7 +126,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/home/sdp/shard/EleutherAI/gpt-neox-20b"
+    outputdir: "/shard/EleutherAI/gpt-neox-20b"
     inputtokens:
       - 128
       - 512
@@ -150,7 +150,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/home/sdp/shard/facebook/opt-30b"
+    outputdir: "/shard/facebook/opt-30b"
     inputtokens:
       - 128
       - 512
@@ -175,7 +175,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/home/sdp/shard/facebook/opt-30b"
+    outputdir: "/shard/facebook/opt-30b"
     inputtokens:
       - 128
       - 512
@@ -199,7 +199,7 @@ modelargs:
   #     - ds-bfloat16
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/tiiuae/falcon-40b"
+  #   outputdir: "/shard/tiiuae/falcon-40b"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -224,7 +224,7 @@ modelargs:
   #     - ds-woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/tiiuae/falcon-40b"
+  #   outputdir: "/shard/tiiuae/falcon-40b"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -248,7 +248,7 @@ modelargs:
   #     - ds-bfloat16
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/baichuan-inc/Baichuan2-13B-Chat"
+  #   outputdir: "/shard/baichuan-inc/Baichuan2-13B-Chat"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -273,7 +273,7 @@ modelargs:
   #     - ds-woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/baichuan-inc/Baichuan2-13B-Chat"
+  #   outputdir: "/shard/baichuan-inc/Baichuan2-13B-Chat"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -296,7 +296,7 @@ modelargs:
   #     - ds-bfloat16
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/baichuan-inc/Baichuan2-7B-Chat"
+  #   outputdir: "/shard/baichuan-inc/Baichuan2-7B-Chat"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -321,7 +321,7 @@ modelargs:
   #     - ds-woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/baichuan-inc/Baichuan2-7B-Chat"
+  #   outputdir: "/shard/baichuan-inc/Baichuan2-7B-Chat"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -345,7 +345,7 @@ modelargs:
   #     - ds-bfloat16
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/baichuan-inc/Baichuan-13B-Chat"
+  #   outputdir: "/shard/baichuan-inc/Baichuan-13B-Chat"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -370,7 +370,7 @@ modelargs:
   #     - ds-woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/home/sdp/shard/baichuan-inc/Baichuan-13B-Chat"
+  #   outputdir: "/shard/baichuan-inc/Baichuan-13B-Chat"
   #   inputtokens:
   #     - 128
   #     - 512
