@@ -381,7 +381,7 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  llama13_bf16ds:
+  llama13_bf16dsp:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
@@ -404,7 +404,7 @@ modelargs:
     greedy: 
       - False
     shard: False
-  llama13_woqds:
+  llama13_woqdsp:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
@@ -429,7 +429,7 @@ modelargs:
       - False
     shard: False
 
-  llama70_bf16ds:
+  llama70_bf16dsp:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: run.py
@@ -452,7 +452,7 @@ modelargs:
     greedy: 
       - False
     shard: False
-  llama70_woqds:
+  llama70_woqdsp:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: run.py
@@ -548,7 +548,7 @@ modelargs:
   #   greedy: 
   #     - False
 
-  neox_woqds:
+  neox_woqdsp:
     modelid: 
       - EleutherAI/gpt-neox-20b
     scriptname: run.py
@@ -668,7 +668,7 @@ modelargs:
   #   greedy: 
   #     - False
 
-  opt30_bf16ds:
+  opt30_bf16dsp:
     modelid: 
       - facebook/opt-30b
     scriptname: run.py
@@ -692,7 +692,7 @@ modelargs:
       - False
     shard: False
     
-  opt30_woqds:
+  opt30_woqdsp:
     modelid: 
       - facebook/opt-30b
     scriptname: run.py
@@ -765,7 +765,7 @@ modelargs:
   #   greedy: 
   #     - False
 
-  falcon_bf16ds:
+  falcon_bf16dsp:
     modelid: 
       - tiiuae/falcon-40b
     scriptname: run.py
@@ -789,7 +789,7 @@ modelargs:
       - False
     shard: False
     
-  falcon_woqds:
+  falcon_woqdsp:
     modelid: 
       - tiiuae/falcon-40b
     scriptname: run.py
@@ -910,7 +910,7 @@ modelargs:
     greedy: 
       - False
 
-  # baichuan213_bf16ds:
+  # baichuan213_bf16dsp:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-13B-Chat
   #   scriptname: run.py
@@ -934,7 +934,7 @@ modelargs:
   #     - False
   #   shard: False
     
-  # baichuan213_woqds:
+  # baichuan213_woqdsp:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-13B-Chat
   #   scriptname: run.py
@@ -958,7 +958,7 @@ modelargs:
   #   greedy: 
   #     - False
   #   shard: False
-  # baichuan27_bf16ds:
+  # baichuan27_bf16dsp:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-7B-Chat
   #   scriptname: run.py
@@ -982,7 +982,7 @@ modelargs:
   #     - False
   #   shard: False
     
-  # baichuan27_woqds:
+  # baichuan27_woqdsp:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-7B-Chat
   #   scriptname: run.py
@@ -1007,7 +1007,7 @@ modelargs:
   #     - False
   #   shard: False
 
-  # baichuan13_bf16ds:
+  # baichuan13_bf16dsp:
   #   modelid: 
   #     - baichuan-inc/Baichuan-13B-Chat
   #   scriptname: run.py
@@ -1031,7 +1031,7 @@ modelargs:
   #     - False
   #   shard: False
     
-  # baichuan13_woqds:
+  # baichuan13_woqdsp:
   #   modelid: 
   #     - baichuan-inc/Baichuan-13B-Chat
   #   scriptname: run.py
@@ -1078,7 +1078,7 @@ modelargs:
   #   localrank:
   #     - 1
 
-  # model_bf16dsacc:
+  # model_bf16dspacc:
   #   modelid: 
   #     # - EleutherAI/gpt-j-6B
   #     # - meta-llama/Llama-2-7b-hf
@@ -1096,7 +1096,7 @@ modelargs:
   #   localrank:
   #     - 1
 
-  # model_woqdsacc:
+  # model_woqdspacc:
   #   modelid: 
   #     # - EleutherAI/gpt-j-6B
   #     # - meta-llama/Llama-2-7b-hf
