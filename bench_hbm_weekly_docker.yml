@@ -42,7 +42,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
   gpt_woqdsm:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -66,7 +66,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
 
   llama7_bf16dsm:
     modelid: 
@@ -90,7 +90,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
   llama7_woqdsm:
     modelid: 
       - meta-llama/Llama-2-7b-hf
@@ -114,7 +114,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
 
   llama13_bf16dsm:
     modelid: 
@@ -139,7 +139,7 @@ modelargs:
       - 8
     greedy: 
       - False
-    shard: False
+    shard: True
   llama13_woqdsm:
     modelid: 
       - meta-llama/Llama-2-13b-hf
@@ -164,7 +164,7 @@ modelargs:
       - 8
     greedy: 
       - False
-    shard: False
+    shard: True
   # llama70_bf16dsm:
   #   modelid: 
   #     - meta-llama/Llama-2-70b-hf
@@ -187,31 +187,31 @@ modelargs:
   #     - 8
   #   greedy: 
   #     - False
-  #   shard: False
-  llama70_woqdsm:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/shard/meta-llama/Llama-2-70b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 8
-    greedy: 
-      - False
-    shard: False
+  #   shard: True
+  # llama70_woqdsm:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/shard/meta-llama/Llama-2-70b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 8
+  #   greedy: 
+  #     - False
+  #   shard: True
 
   neox_woqdsm:
     modelid: 
@@ -236,7 +236,7 @@ modelargs:
       - 8
     greedy: 
       - False
-    shard: False
+    shard: True
 
   opt30_bf16dsm:
     modelid: 
@@ -260,7 +260,7 @@ modelargs:
       - 8
     greedy: 
       - False
-    shard: False
+    shard: True
     
   opt30_woqdsm:
     modelid: 
@@ -285,7 +285,7 @@ modelargs:
       - 8
     greedy: 
       - False
-    shard: False
+    shard: True
 
   # falcon_bf16dsm:
   #   modelid: 
@@ -309,7 +309,7 @@ modelargs:
   #     - 8
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
     
   # falcon_woqdsm:
   #   modelid: 
@@ -334,7 +334,7 @@ modelargs:
   #     - 8
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
 
   # baichuan213_bf16dsm:
   #   modelid: 
@@ -358,7 +358,7 @@ modelargs:
   #     - 4
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
     
   # baichuan213_woqdsm:
   #   modelid: 
@@ -383,7 +383,7 @@ modelargs:
   #     - 4
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
   # baichuan27_bf16dsm:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-7B-Chat
@@ -406,7 +406,7 @@ modelargs:
   #     - 4
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
     
   # baichuan27_woqdsm:
   #   modelid: 
@@ -431,7 +431,7 @@ modelargs:
   #     - 4
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
 
   # baichuan13_bf16dsm:
   #   modelid: 
@@ -455,7 +455,7 @@ modelargs:
   #     - 4
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
     
   # baichuan13_woqdsm:
   #   modelid: 
@@ -480,7 +480,7 @@ modelargs:
   #     - 4
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
 
 
  
