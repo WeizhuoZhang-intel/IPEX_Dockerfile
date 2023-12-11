@@ -169,30 +169,30 @@ modelargs:
   #     - False
   #     # - True
 
-  gptj_gptqperf:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-j-6B"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-j-6b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # gptj_gptqperf:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-j-6B"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-j-6b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
   # gptj_bf16ds:
   #   modelid: 
@@ -245,50 +245,51 @@ modelargs:
   #   shard: False
 
 
-  # llama7_static8:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-in8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf"
-  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
-  #   configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  # llama7_static8acc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-in8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf"
-  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
-  #   configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  # llama72_static8:
+  allama7_static8:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+  llama7_static8acc:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+      - static-fp32-bs1
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+  # allama72_static8:
   #   modelid: 
   #     - meta-llama/Llama-2-7b-hf
   #   scriptname: run.py
@@ -303,9 +304,9 @@ modelargs:
   #   configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
   #   inputtokens:
   #     - 128
-  #     # - 512
-  #     # - 1024
-  #     # - 2016
+  #     - 512
+  #     - 1024
+  #     - 2016
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -408,50 +409,50 @@ modelargs:
   #     - False
   #   shard: False
 
-  # llama13_static8:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-in8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
-  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
-  #   configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  # llama13_static8acc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-in8
-  #     - static-bs1
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
-  #   quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
-  #   configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  allama13_static8:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+  llama13_static8acc:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-in8
+      - static-bs1
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf"
+    quantizedmodelpath: "/data1/rlsqmodel/static-fp32-in8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
   # llama132_static8:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
@@ -643,29 +644,29 @@ modelargs:
   #     - False
   #   shard: False
 
-  llama70_gptqperf:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/woq-int4/meta-llama/Llama-2-70b-hf"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/meta-llama/Llama-2-70b-hf/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # llama70_gptqperf:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/woq-int4/meta-llama/Llama-2-70b-hf"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/meta-llama/Llama-2-70b-hf/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # neox_woq8:
   #   modelid: 
@@ -690,29 +691,29 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  neox_gptqperf:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model_rc0.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # neox_gptqperf:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model_rc0.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   # neox_bf16ds:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
@@ -784,29 +785,29 @@ modelargs:
   #     - 1
   #   greedy: 
   #     - False
-  opt13_gptqperf:
-    modelid: 
-      - facebook/opt-1.3b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    # outputdir: "/data1/rlsqmodel/woq-int4/facebook/opt-1.3b"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/facebook/opt-1.3b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # opt13_gptqperf:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   # outputdir: "/data1/rlsqmodel/woq-int4/facebook/opt-1.3b"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/facebook/opt-1.3b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # opt30_woq8:
   #   modelid: 
@@ -832,29 +833,29 @@ modelargs:
   #   greedy: 
   #     - False
 
-  opt30_gptqperf:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    # outputdir: "/data1/rlsqmodel/woq-int4/facebook/opt-30b"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/facebook/opt-30b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # opt30_gptqperf:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   # outputdir: "/data1/rlsqmodel/woq-int4/facebook/opt-30b"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/facebook/opt-30b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # opt30_bf16ds:
   #   modelid: 
@@ -1026,29 +1027,29 @@ modelargs:
   #   greedy: 
   #     - False
 
-  codegen_gptqperf:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    # outputdir: "/data1/rlsqmodel/woq-int4/Salesforce/codegen-2B-multi"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int4/Salesforce/codegen-2B-multi/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # codegen_gptqperf:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   # outputdir: "/data1/rlsqmodel/woq-int4/Salesforce/codegen-2B-multi"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/Salesforce/codegen-2B-multi/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # codegen_bf16ds:
   #   modelid: 
