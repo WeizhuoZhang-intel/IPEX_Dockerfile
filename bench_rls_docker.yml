@@ -702,7 +702,7 @@ modelargs:
   #   maxnewtokens: 
   #     - 32
   #   # outputdir: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b"
-  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model_rc0.pt"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-neox-20b/best_model.pt"
   #   inputtokens:
   #     - 128
   #     - 512
