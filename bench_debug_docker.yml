@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 50
+  iternum: 15
   hw: SPR
 modelargs:
   # llama7_static8acc:
@@ -158,14 +158,45 @@ modelargs:
   #   greedy: 
   #     - False
 
-  model_bf16compiler:
+  model_bf16:
     modelid: 
-      - baichuan-inc/Baichuan2-7B-Chat
-      # - meta-llama/Llama-2-7b-hf
+      # - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
-      - tiiuae/falcon-40b
+      # - tiiuae/falcon-40b
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      # - 32
+      - 128
+      # - 512
+      # - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+  model_bf16compiler:
+    modelid: 
+      # - baichuan-inc/Baichuan2-7B-Chat
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - tiiuae/falcon-40b
       # - facebook/opt-1.3b
       # - facebook/opt-30b
       # - Salesforce/codegen-2B-multi
@@ -178,8 +209,9 @@ modelargs:
       - 32
     inputtokens:
       - 128
-      - 512
-      - 1024
+      # - 512
+      # - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
