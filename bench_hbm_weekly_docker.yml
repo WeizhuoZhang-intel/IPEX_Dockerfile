@@ -165,53 +165,53 @@ modelargs:
     greedy: 
       - False
     shard: True
-  # llama70_bf16dsp:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/shard/meta-llama/Llama-2-70b-hf"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 8
-  #   greedy: 
-  #     - False
-  #   shard: True
-  # llama70_woqdsp:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/shard/meta-llama/Llama-2-70b-hf"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 8
-  #   greedy: 
-  #     - False
-  #   shard: True
+  llama70_bf16dsp:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/shard/meta-llama/Llama-2-70b-hf"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: True
+  llama70_woqdsp:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      - ds-woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/shard/meta-llama/Llama-2-70b-hf"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: True
 
   neox_woqdsp:
     modelid: 
