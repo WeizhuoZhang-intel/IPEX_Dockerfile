@@ -240,7 +240,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(startprocess)
         lines.append(monitorprocess)
         lines.append("")
-        lines.append("cp prompt.json ./single_instance") 
+        # lines.append("cp prompt.json ./single_instance") 
 
         if mode.endswith('bf16'):
             lines.append("# Run Workload")  
@@ -474,7 +474,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('bf16ds'):
             lines.append("# Run Workload") 
-            lines.append("cp prompt.json ./distributed") 
+            # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -516,7 +516,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('bf16dsp'):
             lines.append("# Run Workload") 
-            lines.append("cp prompt.json ./distributed") 
+            # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -559,7 +559,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('bf16dstime'):
             lines.append("# Run Workload") 
-            lines.append("cp prompt.json ./distributed") 
+            # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -601,7 +601,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('woqds'):
             lines.append("# Run Workload") 
-            lines.append("cp prompt.json ./distributed") 
+            # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -708,7 +708,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('woqdsp'):
             lines.append("# Run Workload") 
-            lines.append("cp prompt.json ./distributed") 
+            # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -814,7 +814,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('bf16dsm'):
             lines.append("# Run Workload") 
-            lines.append("cp prompt.json ./distributed") 
+            # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -859,7 +859,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('woqdsm'):
             lines.append("# Run Workload") 
-            lines.append("cp prompt.json ./distributed") 
+            # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
