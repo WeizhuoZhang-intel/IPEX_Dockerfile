@@ -20,7 +20,7 @@ launcher:
   iternum: 50
   hw: HBM
 modelargs:
-  gpt_bf16dsp:
+  agpt_bf16dsm:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: run.py
@@ -43,7 +43,7 @@ modelargs:
     greedy: 
       - False
     shard: True
-  gpt_woqdsp:
+  agpt_woqdsm:
     modelid: 
       - EleutherAI/gpt-j-6B
     scriptname: run.py
@@ -68,7 +68,7 @@ modelargs:
       - False
     shard: True
 
-  llama7_bf16dsp:
+  allama7_bf16dsm:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run.py
@@ -91,7 +91,7 @@ modelargs:
     greedy: 
       - False
     shard: True
-  llama7_woqdsp:
+  allama7_woqdsm:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run.py
@@ -116,7 +116,7 @@ modelargs:
       - False
     shard: True
 
-  llama13_bf16dsp:
+  allama13_bf16dsm:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
@@ -140,7 +140,7 @@ modelargs:
     greedy: 
       - False
     shard: True
-  llama13_woqdsp:
+  allama13_woqdsm:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
@@ -165,7 +165,7 @@ modelargs:
     greedy: 
       - False
     shard: True
-  llama70_bf16dsp:
+  allama70_bf16dsm:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: run.py
@@ -188,7 +188,7 @@ modelargs:
     greedy: 
       - False
     shard: True
-  llama70_woqdsp:
+  allama70_woqdsm:
     modelid: 
       - meta-llama/Llama-2-70b-hf
     scriptname: run.py
@@ -213,7 +213,7 @@ modelargs:
       - False
     shard: True
 
-  neox_woqdsp:
+  aneox_woqdsm:
     modelid: 
       - EleutherAI/gpt-neox-20b
     scriptname: run.py
@@ -238,7 +238,7 @@ modelargs:
       - False
     shard: True
 
-  opt30_bf16dsp:
+  aopt30_bf16dsm:
     modelid: 
       - facebook/opt-30b
     scriptname: run.py
@@ -262,7 +262,7 @@ modelargs:
       - False
     shard: True
     
-  opt30_woqdsp:
+  aopt30_woqdsm:
     modelid: 
       - facebook/opt-30b
     scriptname: run.py
@@ -287,31 +287,80 @@ modelargs:
       - False
     shard: True
 
-  # falcon_bf16dsp:
-  #   modelid: 
-  #     - tiiuae/falcon-40b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/shard/tiiuae/falcon-40b"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 8
-  #   greedy: 
-  #     - False
-  #   shard: True
+  acode_bf16dsm:
+    modelid: 
+      - bigcode/starcoder
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/shard/bigcode/starcoder"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: True
     
-  # falcon_woqdsp:
+  acode_woqdsm:
+    modelid: 
+      - bigcode/starcoder
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      - ds-woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/shard/bigcode/starcoder"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: True
+
+  falcon_bf16dstime:
+    modelid: 
+      - tiiuae/falcon-40b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/shard/tiiuae/falcon-40b"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: True
+    
+  # falcon_woqdstime:
   #   modelid: 
   #     - tiiuae/falcon-40b
   #   scriptname: run.py
@@ -336,7 +385,7 @@ modelargs:
   #     - False
   #   shard: True
 
-  # baichuan213_bf16dsp:
+  # baichuan213_bf16dsm:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-13B-Chat
   #   scriptname: run.py
@@ -360,7 +409,7 @@ modelargs:
   #     - False
   #   shard: True
     
-  # baichuan213_woqdsp:
+  # baichuan213_woqdsm:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-13B-Chat
   #   scriptname: run.py
@@ -384,7 +433,7 @@ modelargs:
   #   greedy: 
   #     - False
   #   shard: True
-  # baichuan27_bf16dsp:
+  # baichuan27_bf16dsm:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-7B-Chat
   #   scriptname: run.py
@@ -408,7 +457,7 @@ modelargs:
   #     - False
   #   shard: True
     
-  # baichuan27_woqdsp:
+  # baichuan27_woqdsm:
   #   modelid: 
   #     - baichuan-inc/Baichuan2-7B-Chat
   #   scriptname: run.py
@@ -433,7 +482,7 @@ modelargs:
   #     - False
   #   shard: True
 
-  # baichuan13_bf16dsp:
+  # baichuan13_bf16dsm:
   #   modelid: 
   #     - baichuan-inc/Baichuan-13B-Chat
   #   scriptname: run.py
@@ -457,7 +506,7 @@ modelargs:
   #     - False
   #   shard: True
     
-  # baichuan13_woqdsp:
+  # baichuan13_woqdsm:
   #   modelid: 
   #     - baichuan-inc/Baichuan-13B-Chat
   #   scriptname: run.py
