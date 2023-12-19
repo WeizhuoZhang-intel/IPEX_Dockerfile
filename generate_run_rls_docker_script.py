@@ -1059,6 +1059,22 @@ def generate_commands(yml_file,mode,extra_kmp):
                         else:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+
+        if mode.endswith('customacc'):
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for rank in data['modelargs'][mode]['localrank']:
+                        for task in data['modelargs'][mode]['tasks']:
+                            lines.append(f"export local_rank={rank}")
+                            lines.append("deepspeed_core_config ${local_rank}")
+                            lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                            if 'codegen' in model_id:
+                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks hellaswag --batch-size 56\
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            else:
+                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks {task} --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{task}_{data['launcher']['hw']}.log")
+                            
         if mode.endswith('defaultaccnocore'):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:

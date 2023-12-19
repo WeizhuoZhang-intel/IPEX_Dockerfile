@@ -135,30 +135,30 @@ modelargs:
   #   greedy: 
   #     - False
 
-  gptj_woq8:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/rlsqmodel/woq-int81/EleutherAI/gpt-j-6B"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int81/EleutherAI/gpt-j-6B/best_model.pt"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # gptj_woq8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/rlsqmodel/woq-int81/EleutherAI/gpt-j-6B"
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int81/EleutherAI/gpt-j-6B/best_model.pt"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
   # allama13_woq8:
   #   modelid: 
@@ -452,22 +452,25 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  # model_defaultacc:
-  #   modelid: 
-  #     # - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     # - EleutherAI/gpt-neox-20b
-  #     # - tiiuae/falcon-40b
-  #     # - facebook/opt-30b
-  #   scriptname: single_instance/run_llama_quantization.py
-  #   dtype: 
-  #     # - bfloat16
-  #     - float32
-  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  model_customacc:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - tiiuae/falcon-40b
+      # - facebook/opt-30b
+    scriptname: single_instance/run_accuracy.py
+    dtype: 
+      - bfloat16
+      - float32
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    tasks:
+      - truthfulqa_gen
+    batchsize: 
+      - 1
+    localrank:
+      - 1
   # amodel_bf16dsacc:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
