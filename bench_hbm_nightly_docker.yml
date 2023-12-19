@@ -20,6 +20,55 @@ launcher:
   iternum: 50
   hw: HBM
 modelargs:
+  acode_bf16dsm:
+    modelid: 
+      - codellama/CodeLlama-34b-Instruct-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/shard/codellama/CodeLlama-34b-Instruct-hf"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: True
+    
+  acode_woqdsm:
+    modelid: 
+      - codellama/CodeLlama-34b-Instruct-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      - ds-woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/shard/codellama/CodeLlama-34b-Instruct-hf"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 8
+    greedy: 
+      - False
+    shard: True
+
   # gpt_bf16ds:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
@@ -139,29 +188,29 @@ modelargs:
   #     - False
   #   shard: False
 
-  allama13_bf16dstime:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      # - 128
-      - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # allama13_bf16dstime:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/home/sdp/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     # - 128
+  #     - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
   # allama13_woqds:
   #   modelid: 
   #     - meta-llama/Llama-2-13b-hf
