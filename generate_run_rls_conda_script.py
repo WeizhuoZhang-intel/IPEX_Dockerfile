@@ -18,6 +18,7 @@ parser.add_argument("--gptq",action="store_true",default=False,help="only for gp
 parser.add_argument("--cpudeviceweekly",action="store_true",default=False,help="only for gptq track")
 parser.add_argument("--publicds",action="store_true",default=False,help="only for nightly regular track public deepspeed")
 parser.add_argument("--workdir", default="", type=str)
+parser.add_argument("--logdir", default="", type=str)
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -227,6 +228,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("set -x")
         lines.append("# Env config")
         lines.append(f"export WORKDIR=${args.workdir}")
+        lines.append(f"export log_dir=${args.logdir}")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
         lines.append("huggingface-cli login --token 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")
