@@ -17,6 +17,7 @@ parser.add_argument("--rlsemr",action="store_true",default=False,help="only for 
 parser.add_argument("--gptq",action="store_true",default=False,help="only for gptq track")
 parser.add_argument("--cpudeviceweekly",action="store_true",default=False,help="only for gptq track")
 parser.add_argument("--publicds",action="store_true",default=False,help="only for nightly regular track public deepspeed")
+parser.add_argument("--workdir", default="", type=str)
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -225,6 +226,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
+        lines.append(f"export WORKDIR=${args.workdir}")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
         lines.append("huggingface-cli login --token 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")
@@ -254,7 +256,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True:   
                                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
@@ -284,7 +286,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_compile_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_compile_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True:   
                                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_generation.py   \
@@ -319,7 +321,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_pt-{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_pt-{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True:   
                                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
@@ -350,7 +352,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         
                                         if 'fp32' in dtype:
                                             if beam == True:  
@@ -390,7 +392,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True: 
                                             if 'falcon' in model_id:  
@@ -437,7 +439,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True:   
                                             if 'falcon' in model_id:
@@ -488,7 +490,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
@@ -530,7 +532,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
@@ -572,7 +574,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
@@ -615,7 +617,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 if 'int4' in dtype:
@@ -722,7 +724,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 if 'int4' in dtype:
@@ -828,7 +830,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
@@ -873,7 +875,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash ${WORKSPACE}/get_mem.sh >> $log_dir/mem-usage-llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash ${WORKDIR}/get_mem.sh >> $log_dir/mem-usage-llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 if 'int4' in dtype:
