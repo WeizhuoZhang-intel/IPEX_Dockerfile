@@ -9,7 +9,7 @@ pip install torch==2.1.1 --index-url https://download.pytorch.org/whl/cpu
 pip install http://mlpc.intel.com/downloads/cpu/ipex-2.1.100/rc2/intel_extension_for_pytorch-2.1.100+cpu-cp310-cp310-linux_x86_64.whl
 
 ## install dependency
-pip install transformers==4.31.0 cpuid accelerate datasets sentencepiece protobuf==3.20.3
+pip install transformers==4.35.2 cpuid accelerate datasets sentencepiece protobuf==3.20.3
 conda install cmake ninja mkl mkl-include -y
 conda install gperftools -c conda-forge -y
 

@@ -1193,7 +1193,7 @@ if __name__ == '__main__':
     if args.nightly:
         yml_file = 'bench_nightly_docker.yml'
     if args.weekly:
-        yml_file = 'bench_weekly_docker.yml'
+        yml_file = 'bench_weekly_conda.yml'
     if args.emr_weekly:
         yml_file = 'bench_emr_weekly_docker.yml'
     if args.hbm_weekly:
@@ -1203,7 +1203,7 @@ if __name__ == '__main__':
     if args.gnr_weekly:
         yml_file = 'bench_gnr_weekly_docker.yml'
     if args.debug:
-        yml_file = 'bench_debug_docker.yml'
+        yml_file = 'bench_debug_conda.yml'
     if args.rls:
         yml_file = 'bench_rls_docker.yml'
     if args.acc:
