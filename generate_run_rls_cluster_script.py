@@ -4,20 +4,8 @@ import yaml
 parser = argparse.ArgumentParser("Generation script", add_help=False)
 parser.add_argument("-k","--extra_kmp",action="store_true",default=False,help="llm extra kmp configuration")
 parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="only for deepspeed")
-parser.add_argument("--nightly",action="store_true",default=False,help="only for nightly regular track")
-parser.add_argument("--weekly",action="store_true",default=False,help="only for weekly regular track")
-parser.add_argument("--emr_weekly",action="store_true",default=False,help="only for weekly regular track")
-parser.add_argument("--hbm_weekly",action="store_true",default=False,help="only for weekly regular track")
-parser.add_argument("--hbm_nightly",action="store_true",default=False,help="only for weekly regular track")
-parser.add_argument("--gnr_weekly",action="store_true",default=False,help="only for weekly regular track")
-parser.add_argument("--debug",action="store_true",default=False,help="only for debug regular track")
-parser.add_argument("--rls",action="store_true",default=False,help="only for rls track")
-parser.add_argument("--acc",action="store_true",default=False,help="only for rls track")
-parser.add_argument("--rlsemr",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--acc_cluster",action="store_true",default=False,help="only for rls track")
-parser.add_argument("--gptq",action="store_true",default=False,help="only for gptq track")
-parser.add_argument("--cpudeviceweekly",action="store_true",default=False,help="only for gptq track")
-parser.add_argument("--publicds",action="store_true",default=False,help="only for nightly regular track public deepspeed")
+
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -226,8 +214,8 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export WORKDIR=/root/workspace/llm")
-        lines.append("export HF_HOME=/root/.cache/huggingface")
+        lines.append("export log_dir=/mnt/aitrgdata/mint/ww51accuracy/log")
+        lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
         lines.append("huggingface-cli login --token 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")
@@ -1208,36 +1196,8 @@ def generate_commands(yml_file,mode,extra_kmp):
 if __name__ == '__main__':
     #for mode in 'default','gptj_int8','llama_int8','deepspeed':
     yml_file = 'bench_preci.yml'
-    if args.deepspeed:
-        yml_file = 'bench_ds_preci.yml'
-    if args.nightly:
-        yml_file = 'bench_nightly_docker.yml'
-    if args.weekly:
-        yml_file = 'bench_weekly_docker.yml'
-    if args.emr_weekly:
-        yml_file = 'bench_emr_weekly_docker.yml'
-    if args.hbm_weekly:
-        yml_file = 'bench_hbm_weekly_docker.yml'
-    if args.hbm_nightly:
-        yml_file = 'bench_hbm_nightly_docker.yml'
-    if args.gnr_weekly:
-        yml_file = 'bench_gnr_weekly_docker.yml'
-    if args.debug:
-        yml_file = 'bench_debug_docker.yml'
-    if args.rls:
-        yml_file = 'bench_rls_docker.yml'
-    if args.acc:      
-        yml_file = 'bench_acc_docker.yml'
     if args.acc_cluster:    
         yml_file = 'bench_acc_cluster.yml'
-    if args.rlsemr:
-        yml_file = 'bench_rls_docker_emr.yml'
-    if args.gptq:
-        yml_file = 'bench_gptq_docker.yml'
-    if args.cpudeviceweekly:
-        yml_file = 'bench_cpu_device_weekly.yml'    
-    if args.publicds:
-        yml_file = 'bench_publicds_nightly.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)
