@@ -186,9 +186,9 @@ modelargs:
 
   model_bf16:
     modelid: 
-      # - EleutherAI/gpt-j-6B
+      - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
       # - tiiuae/falcon-40b
@@ -205,9 +205,9 @@ modelargs:
     inputtokens:
       # - 32
       - 128
-      # - 512
-      # - 1024
-      # - 2016
+      - 512
+      - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
@@ -215,6 +215,104 @@ modelargs:
     greedy: 
       - False
 
+  gptj_woq8:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-j-6B"
+    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-j-6B/best_model.pt"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
+
+
+  llama7_woq8:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-7b-hf/best_model.pt"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+  llama13_woq8:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-13b-hf"
+    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-13b-hf/best_model.pt"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+
+  llama13_bf16ds:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/data1/weeklymodel/shard/meta-llama/Llama-2-13b-hf"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+    greedy: 
+      - False
+    shard: False
   # model_bf16compiler:
   #   modelid: 
   #     # - baichuan-inc/Baichuan2-7B-Chat
@@ -452,25 +550,25 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
-  model_customacc:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
-      # - facebook/opt-30b
-    scriptname: single_instance/run_accuracy.py
-    dtype: 
-      - bfloat16
-      - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    tasks:
-      - truthfulqa_gen
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_customacc:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - facebook/opt-30b
+  #   scriptname: single_instance/run_accuracy.py
+  #   dtype: 
+  #     - bfloat16
+  #     - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   tasks:
+  #     - truthfulqa_gen
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   # amodel_bf16dsacc:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
