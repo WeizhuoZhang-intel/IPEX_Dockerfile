@@ -187,7 +187,7 @@ modelargs:
   model_bf16:
     modelid: 
       # - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b

@@ -8,6 +8,7 @@ parser.add_argument("--nightly",action="store_true",default=False,help="only for
 parser.add_argument("--weekly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--emr_weekly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--hbm_weekly",action="store_true",default=False,help="only for weekly regular track")
+parser.add_argument("--hbm_weekly_m",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--hbm_nightly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--gnr_weekly",action="store_true",default=False,help="only for weekly regular track")
 parser.add_argument("--debug",action="store_true",default=False,help="only for debug regular track")
@@ -1355,6 +1356,8 @@ if __name__ == '__main__':
         yml_file = 'bench_emr_weekly_docker.yml'
     if args.hbm_weekly:
         yml_file = 'bench_hbm_weekly_docker.yml'
+    if args.hbm_weekly_m:
+        yml_file = 'bench_hbm_weekly_m_docker.yml'
     if args.hbm_nightly:
         yml_file = 'bench_hbm_nightly_docker.yml'
     if args.gnr_weekly:
