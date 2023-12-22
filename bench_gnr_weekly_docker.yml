@@ -348,9 +348,9 @@ modelargs:
     outputdir: "/data/weeklymodel/shard/tiiuae/falcon-40b"
     inputtokens:
       - 128
-      # - 512
-      # - 1024
-      # - 2016
+      - 512
+      - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
