@@ -22,7 +22,7 @@ launcher:
 modelargs:
   gpt_bf16ds:
     modelid: 
-      - EleutherAI/gpt-j-6b
+      - tiiuae/falcon-40b
     scriptname: run.py
     device:
       - cpu
@@ -30,7 +30,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data1/weeklymodel/shard/EleutherAI/gpt-j-6b"
+    outputdir: "/data1/weeklymodel/shard/tiiuae/falcon-40b"
     inputtokens:
       - 128
       - 512
