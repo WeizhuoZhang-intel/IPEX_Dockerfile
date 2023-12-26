@@ -17,32 +17,72 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
+  iternum: 10
   hw: SPR
 modelargs:
-  gpt_bf16ds:
+
+  model_bf16compiler:
     modelid: 
-      - tiiuae/falcon-40b
+      # - EleutherAI/gpt-j-6B
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - tiiuae/falcon-40b
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      - THUDM/chatglm3-6b
+      - THUDM/chatglm2-6b
+      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+      - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      - mosaicml/mpt-7b
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - ds-bfloat16
+      - bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data1/weeklymodel/shard/tiiuae/falcon-40b"
     inputtokens:
       - 128
-      - 512
-      - 1024
-      - 2016
+      # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
-      - 2
+      - 1
     greedy: 
       - False
-    shard: False
+
+  # gpt_bf16ds:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/shard/tiiuae/falcon-40b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   # model_bf16compiler:
   #   modelid: 
