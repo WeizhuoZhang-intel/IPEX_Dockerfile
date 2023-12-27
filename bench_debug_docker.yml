@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 10
+  iternum: 45
   hw: SPR
 modelargs:
   gptj_woq8:
