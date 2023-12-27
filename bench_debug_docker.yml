@@ -20,292 +20,292 @@ launcher:
   iternum: 45
   hw: SPR
 modelargs:
-  gptj_woq8:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-j-6B"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-j-6B/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
-  llama7_woq8:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-7b-hf/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-  llama13_woq8:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-13b-hf/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # gptj_woq8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-j-6B"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-j-6B/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
+  # llama7_woq8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  # llama13_woq8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  neox_woq8:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-neox-20b"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-neox-20b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # neox_woq8:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-neox-20b"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  opt13_woq8:
-    modelid: 
-      - facebook/opt-1.3b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/facebook/opt-1.3b"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/facebook/opt-1.3b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # opt13_woq8:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/facebook/opt-1.3b"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/facebook/opt-1.3b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  codegen_woq8:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/Salesforce/codegen-2B-multi"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/Salesforce/codegen-2B-multi/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # codegen_woq8:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/Salesforce/codegen-2B-multi"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/Salesforce/codegen-2B-multi/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  bloom_woq8:
-    modelid: 
-      - bigscience/bloom-1b7
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/bigscience/bloom-1b7"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/bigscience/bloom-1b7/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # bloom_woq8:
+  #   modelid: 
+  #     - bigscience/bloom-1b7
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/bigscience/bloom-1b7"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/bigscience/bloom-1b7/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  glm2_woq8:
-    modelid: 
-      - THUDM/chatglm2-6b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm2-6b"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm2-6b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # glm2_woq8:
+  #   modelid: 
+  #     - THUDM/chatglm2-6b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm2-6b"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm2-6b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  glm3_woq8:
-    modelid: 
-      - THUDM/chatglm3-6b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm3-6b"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm3-6b/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # glm3_woq8:
+  #   modelid: 
+  #     - THUDM/chatglm3-6b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm3-6b"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/THUDM/chatglm3-6b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  baichuan27_woq8:
-    modelid: 
-      - baichuan-inc/Baichuan2-7B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/baichuan-inc/Baichuan2-7B-Chat"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/baichuan-inc/Baichuan2-7B-Chat/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # baichuan27_woq8:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/baichuan-inc/Baichuan2-7B-Chat"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/baichuan-inc/Baichuan2-7B-Chat/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  t5_woq8:
-    modelid: 
-      - google/flan-t5-xl
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/google/flan-t5-xl"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/google/flan-t5-xl/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # t5_woq8:
+  #   modelid: 
+  #     - google/flan-t5-xl
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/google/flan-t5-xl"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/google/flan-t5-xl/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  mistral_woq8:
-    modelid: 
-      - mistralai/Mistral-7B-v0.1
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/woq-int8-w/mistralai/Mistral-7B-v0.1"
-    quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/mistralai/Mistral-7B-v0.1/best_model.pt"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # mistral_woq8:
+  #   modelid: 
+  #     - mistralai/Mistral-7B-v0.1
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/woq-int8-w/mistralai/Mistral-7B-v0.1"
+  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/mistralai/Mistral-7B-v0.1/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   mpt_woq8:
     modelid: 
@@ -331,31 +331,31 @@ modelargs:
     greedy: 
       - False
 
-  llama7_static8:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-fp32-in8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-7b-hf/best_model.pt"
-    # configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
-    configpath: "/data1/selfgeneratedincint8/meta-llama/Llama-2-7b-hf/best_configure.json"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # llama7_static8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   # configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
+  #   configpath: "/data1/selfgeneratedincint8/meta-llama/Llama-2-7b-hf/best_configure.json"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
       
   # model_bf16compiler:
   #   modelid: 
