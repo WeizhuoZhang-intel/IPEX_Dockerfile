@@ -110,7 +110,8 @@ def generate_commands(yml_file,mode):
         lines.append("do")
         lines.append(f'if [ `grep -c "Invalid hostname, defaulting to 0.0.0.0" $repopath/data/serve.log` -ne \'0\' ];then')
         lines.append("set -x")
-        lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \"{{\\\"inputs\\\":\\\"What is Deep Learning?\\\",\\\"parameters\\\":{{\\\"max_new_tokens\\\":20, \\\"do_sample\\\": false}}}}\" u -H \'Content-Type: application/json\' &")
+        lines.append(f"curl {data['envconfig']['TRUEIP']}:8088/generate -X POST -d \"{{\\\"inputs\\\":\\\"What is Deep Learning?\\\",\\\"parameters\\\":{{\\\"max_new_tokens\\\":20, \\\"do_sample\\\": false}}}}\" u -H \'Content-Type: application/json\'")
+        lines.append("sleep 3s")
         if mode.endswith('bf16'):
             for output_token in data['modelargs'][mode]['maxnewtokens']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
