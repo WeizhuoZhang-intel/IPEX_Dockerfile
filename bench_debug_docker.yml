@@ -331,7 +331,7 @@ modelargs:
   #   greedy: 
   #     - False
 
-  llama7_static8:
+  llama7_static81:
     modelid: 
       - meta-llama/Llama-2-7b-hf
     scriptname: run.py
@@ -342,7 +342,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-7b-hf/best_model.pt"
+    quantizedmodelpath: "/data1/selfgeneratedincint8/meta-llama/Llama-2-7b-hf/best_model.pt"
     # configpath: "/data1/rlsqconfig/llama-2-7b_qconfig.json"
     configpath: "/data1/selfgeneratedincint8/meta-llama/Llama-2-7b-hf/best_configure.json"
     inputtokens:
@@ -357,7 +357,7 @@ modelargs:
     greedy: 
       - False
       
-  llama13_static8:
+  llama13_static81:
     modelid: 
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
@@ -368,7 +368,7 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath: "/data1/weeklymodel/static-fp32-int8-self/meta-llama/Llama-2-13b-hf/best_model.pt"
+    quantizedmodelpath: "/data1/selfgeneratedincint8/meta-llama/Llama-2-13b-hf/best_model.pt"
     # configpath: "/data1/rlsqconfig/llama-2-13b_qconfig.json"
     configpath: "/data1/selfgeneratedincint8/meta-llama/Llama-2-13b-hf/best_configure.json"
     inputtokens:
