@@ -459,7 +459,7 @@ modelargs:
 
   baichuan13_bf16dsm:
     modelid: 
-      - baichuan-inc/Baichuan-13B-Chat
+      - Baichuan-inc/Baichuan-13B-Chat
     scriptname: run.py
     device:
       - cpu
@@ -467,7 +467,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/shard/baichuan-inc/Baichuan-13B-Chat"
+    outputdir: "/shard/Baichuan-inc/Baichuan-13B-Chat"
     inputtokens:
       - 128
       - 512
@@ -483,7 +483,7 @@ modelargs:
     
   baichuan13_woqdsm:
     modelid: 
-      - baichuan-inc/Baichuan-13B-Chat
+      - Baichuan-inc/Baichuan-13B-Chat
     scriptname: run.py
     device:
       - cpu
@@ -492,7 +492,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/shard/baichuan-inc/Baichuan-13B-Chat"
+    outputdir: "/shard/Baichuan-inc/Baichuan-13B-Chat"
     inputtokens:
       - 128
       - 512
