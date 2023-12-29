@@ -4,8 +4,9 @@ import yaml
 parser = argparse.ArgumentParser("Generation script", add_help=False)
 parser.add_argument("-k","--extra_kmp",action="store_true",default=False,help="llm extra kmp configuration")
 parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="only for deepspeed")
-parser.add_argument("--acc_cluster",action="store_true",default=False,help="only for rls track")
-
+parser.add_argument("--acc_cluster1",action="store_true",default=False,help="only for rls track")
+parser.add_argument("--acc_cluster2",action="store_true",default=False,help="only for rls track")
+parser.add_argument("--acc_cluster3",action="store_true",default=False,help="only for rls track")
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -1195,8 +1196,12 @@ def generate_commands(yml_file,mode,extra_kmp):
 if __name__ == '__main__':
     #for mode in 'default','gptj_int8','llama_int8','deepspeed':
     yml_file = 'bench_preci.yml'
-    if args.acc_cluster:    
-        yml_file = 'bench_acc_cluster.yml'
+    if args.acc_cluster1:    
+        yml_file = 'bench_acc_cluster1.yml'
+    if args.acc_cluster2:    
+        yml_file = 'bench_acc_cluster2.yml'
+    if args.acc_cluster3:    
+        yml_file = 'bench_acc_cluster3.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)
