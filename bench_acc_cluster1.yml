@@ -1,0 +1,490 @@
+name: LLM Benchmarking
+hw: SPR-SP/HBM/EMR
+envconfig:
+  # LD_PRELOAD: ${CONDA_PREFIX}/lib/libstdc++.so.6:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  LD_PRELOAD: ${CONDA_PREFIX}/lib/libiomp5.so:${LD_PRELOAD}:${CONDA_PREFIX}/lib/libtcmalloc.so
+  KMP_BLOCKTIME: INF
+  KMP_AFFINITY: granularity=fine,compact,1,0
+  threads_per_core: $(lscpu |grep 'Thread(s) per core:' |sed 's/[^0-9]//g')
+  cores_per_node: $(numactl -H |grep "node 0 cpus:" |sed 's/.*://' |awk -v tpc=$threads_per_core '{print int(NF / tpc)}')
+  LLM_EXTRA_KMP:
+    KMP_TPAUSE: 0
+    KMP_SETTINGS: 1
+    KMP_FORJOIN_BARRIER_PATTERN: dist,dist
+    KMP_PLAIN_BARRIER_PATTERN: dist,dist
+    KMP_REDUCTION_BARRIER_PATTERN: dist,dist
+launcher:
+  OMP_NUM_THREADS: ${cores_per_node}
+  numactlN: 0
+  numactlM: 0
+  iternum: 5
+  hw: SPR
+modelargs:
+  # amodel_defaultacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - Salesforce/codegen-2B-multi
+  #     # - THUDM/chatglm3-6b
+  #     # - THUDM/chatglm2-6b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - Baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - bfloat16
+  #     # - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  # amodel_customacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - Salesforce/codegen-2B-multi
+  #     # - THUDM/chatglm3-6b
+  #     # - THUDM/chatglm2-6b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - Baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - bfloat16
+  #     # - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   tasks:
+  #     - truthfulqa_gen
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  agptj_woq8:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/EleutherAI/gpt-j-6B"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
+
+  allama7_woq8:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+  allama13_woq8:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-13b-hf"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+  gpt_woq8acc:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
+  llama7_woq8acc:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
+  llama13_woq8acc:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
+  # gptj2_static8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-bf16-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   configpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/gpt-j-6b_qconfig.json"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+
+  # allama72_static8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-bf16-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   configpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf/llama-2-7b_qconfig.json"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+
+  # allama132_static8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-bf16-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   configpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf/llama-2-13b_qconfig.json"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+
+  # llama7_static8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-bf16-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+
+  # llama13_static8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-bf16-in8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+
+
+  # gptj_static8acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: run.py
+  #   dtype: 
+  #     - static-fp32-in8
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  # model_bf16dsacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   dtype: 
+  #     - bfloat16
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  # model_woqdsacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - Salesforce/codegen-2B-multi
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - Baichuan-inc/Baichuan-13B-Chat
+  #     # - mistralai/Mistral-7B-v0.1
+  #   scriptname: run.py
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+
+  # model_bf16pt:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #     - 128
+  #   inputtokens:
+  #     - 32
+  #     - 128
+  #     # - 512
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     # - False
+  #     - True
+
+  # aneox_woq8:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b"
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  # gptn_woq8acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # llama7_woq8acc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # opt13_woq8acc:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int8/facebook/opt-1.3b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # llama7_gptqacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int4/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # llama13_gptqacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int4/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # llama70_gptqacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: single_instance/run_llama_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int4/meta-llama/Llama-2-70b-hf/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # gptj_gptqacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/EleutherAI/gpt-j-6B/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # codegen_gptqacc:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: single_instance/run_codegen_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/data1/rlsqmodel/woq-int4/Salesforce/codegen-2B-multi/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # neox_gptqacc:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: single_instance/run_gpt-nexo_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/localdisk3/mint/woq-int4/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
