@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 5
+  iternum: 15
   hw: SPR
 modelargs:
   # amodel_defaultacc:
@@ -86,8 +86,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/EleutherAI/gpt-j-6B"
-    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
+    outputdir: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/EleutherAI/gpt-j-6B"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
     inputtokens:
       - 128
       # - 512
@@ -111,8 +111,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-7b-hf"
-    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    outputdir: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/meta-llama/Llama-2-7b-hf"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
     inputtokens:
       - 128
       # - 512
@@ -135,8 +135,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-13b-hf"
-    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    outputdir: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/meta-llama/Llama-2-13b-hf"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
     inputtokens:
       - 128
       # - 512
@@ -154,7 +154,7 @@ modelargs:
       - EleutherAI/gpt-j-6B
     dtype: 
       - woq-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/EleutherAI/gpt-j-6B/best_model.pt"
     batchsize: 
       - 1
     localrank:
@@ -165,7 +165,7 @@ modelargs:
       - meta-llama/Llama-2-7b-hf
     dtype: 
       - woq-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/meta-llama/Llama-2-7b-hf/best_model.pt"
     batchsize: 
       - 1
     localrank:
@@ -176,7 +176,7 @@ modelargs:
       - meta-llama/Llama-2-13b-hf
     dtype: 
       - woq-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/woq-int8/meta-llama/Llama-2-13b-hf/best_model.pt"
     batchsize: 
       - 1
     localrank:
@@ -192,9 +192,9 @@ modelargs:
   #     - static-bf16-in8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/"
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/best_model.pt"
-  #   configpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/gpt-j-6b_qconfig.json"
+  #   outputdir: "/mnt/aitrgdata/mint/ww52accuracy/static8/EleutherAI/gpt-j-6B/"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   configpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/EleutherAI/gpt-j-6B/gpt-j-6b_qconfig.json"
   #   inputtokens:
   #     - 128
   #     # - 512
@@ -217,9 +217,9 @@ modelargs:
   #     - static-bf16-in8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf"
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf/best_model.pt"
-  #   configpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf/llama-2-7b_qconfig.json"
+  #   outputdir: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   configpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-7b-hf/llama-2-7b_qconfig.json"
   #   inputtokens:
   #     - 128
   #     # - 512
@@ -242,9 +242,9 @@ modelargs:
   #     - static-bf16-in8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf"
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf/best_model.pt"
-  #   configpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf/llama-2-13b_qconfig.json"
+  #   outputdir: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   configpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-13b-hf/llama-2-13b_qconfig.json"
   #   inputtokens:
   #     - 128
   #     # - 512
@@ -267,8 +267,8 @@ modelargs:
   #     - static-bf16-in8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf"
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   outputdir: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-7b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-7b-hf/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -286,8 +286,8 @@ modelargs:
   #     - static-bf16-in8
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf"
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   outputdir: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-13b-hf"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/meta-llama/Llama-2-13b-hf/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -302,7 +302,7 @@ modelargs:
   #   scriptname: run.py
   #   dtype: 
   #     - static-fp32-in8
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww51accuracy/static8/EleutherAI/gpt-j-6B/best_model.pt"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ww52accuracy/static8/EleutherAI/gpt-j-6B/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
