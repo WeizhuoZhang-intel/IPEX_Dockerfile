@@ -30,7 +30,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-j-6B"
+    outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-j-6b"
     inputtokens:
       - 128
       - 512
@@ -54,7 +54,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-j-6B"
+    outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-j-6b"
     inputtokens:
       - 128
       - 512
@@ -68,200 +68,200 @@ modelargs:
       - False
     shard: True
 
-  llama7_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-7b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: True
-  llama7_woqds:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-7b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: True
+  # llama7_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-7b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: True
+  # llama7_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-7b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: True
 
 
 
-  llama13_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: True
-  llama13_woqds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: True
-  llama70_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: True
-  llama70_woqds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: True
+  # llama13_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: True
+  # llama13_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-13b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: True
+  # llama70_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: True
+  # llama70_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/meta-llama/Llama-2-70b-hf"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: True
 
-  neox_woqds:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-neox-20b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-      - 4
-    greedy: 
-      - False
-    shard: True
+  # neox_woqds:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/EleutherAI/gpt-neox-20b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: True
 
-  opt30_bf16ds:
-    modelid: 
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rlsqmodel/shard/facebook/opt-30b"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: True
+  # opt30_bf16ds:
+  #   modelid: 
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rlsqmodel/shard/facebook/opt-30b"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: True
     
   opt30_woqds:
     modelid: 
@@ -324,6 +324,55 @@ modelargs:
     maxnewtokens: 
       - 32
     outputdir: "/data/rlsqmodel/shard/tiiuae/falcon-40b"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 4
+    greedy: 
+      - False
+    shard: True
+
+  codegen_bf16ds:
+    modelid: 
+      - bigcode/starcoder
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/data/rlsqmodel/shard/bigcode/starcoder"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 4
+    greedy: 
+      - False
+    shard: True
+    
+  codegen_woqds:
+    modelid: 
+      - bigcode/starcoder
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      - ds-woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/data/rlsqmodel/shard/bigcode/starcoder"
     inputtokens:
       - 128
       - 512
