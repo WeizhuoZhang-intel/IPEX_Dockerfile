@@ -49,7 +49,7 @@ modelargs:
 
   # amodel_customacc:
   #   modelid: 
-  #     - EleutherAI/gpt-j-6B
+  #     - EleutherAI/gpt-j-6b
   #     - meta-llama/Llama-2-7b-hf
   #     - meta-llama/Llama-2-13b-hf
   #     # - meta-llama/Llama-2-70b-hf
