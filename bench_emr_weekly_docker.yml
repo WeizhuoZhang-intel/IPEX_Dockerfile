@@ -493,7 +493,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/rlsqmodel/shard/baichuan-inc/Baichuan-13B-Chat"
+    outputdir: "/data/rlsqmodel/shard/Baichuan-inc/Baichuan-13B-Chat"
     inputtokens:
       - 128
       - 512
@@ -518,7 +518,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/rlsqmodel/shard/baichuan-inc/Baichuan-13B-Chat"
+    outputdir: "/data/rlsqmodel/shard/Baichuan-inc/Baichuan-13B-Chat"
     inputtokens:
       - 128
       - 512
