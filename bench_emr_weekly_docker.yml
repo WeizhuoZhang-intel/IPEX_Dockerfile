@@ -42,7 +42,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: False
+    shard: True
   gpt_woqds:
     modelid: 
       - EleutherAI/gpt-j-6B
@@ -66,7 +66,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: False
+    shard: True
 
   llama7_bf16ds:
     modelid: 
@@ -90,7 +90,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: False
+    shard: True
   llama7_woqds:
     modelid: 
       - meta-llama/Llama-2-7b-hf
@@ -114,7 +114,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: False
+    shard: True
 
 
 
@@ -140,7 +140,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: False
+    shard: True
   llama13_woqds:
     modelid: 
       - meta-llama/Llama-2-13b-hf
@@ -164,7 +164,7 @@ modelargs:
       - 2
     greedy: 
       - False
-    shard: False
+    shard: True
   llama70_bf16ds:
     modelid: 
       - meta-llama/Llama-2-70b-hf
@@ -187,7 +187,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
   llama70_woqds:
     modelid: 
       - meta-llama/Llama-2-70b-hf
@@ -211,7 +211,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
 
   neox_woqds:
     modelid: 
@@ -237,7 +237,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
 
   opt30_bf16ds:
     modelid: 
@@ -261,7 +261,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
     
   opt30_woqds:
     modelid: 
@@ -286,7 +286,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
 
   falcon_bf16ds:
     modelid: 
@@ -310,7 +310,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
     
   falcon_woqds:
     modelid: 
@@ -335,7 +335,7 @@ modelargs:
       - 4
     greedy: 
       - False
-    shard: False
+    shard: True
 
   # baichuan213_bf16ds:
   #   modelid: 
@@ -359,7 +359,7 @@ modelargs:
   #     - 2
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
     
   # baichuan213_woqds:
     # modelid: 
@@ -384,7 +384,7 @@ modelargs:
     #   - 2
     # greedy: 
     #   - False
-    # shard: False
+    # shard: True
   # baichuan27_bf16ds:
     # modelid: 
     #   - baichuan-inc/Baichuan2-7B-Chat
@@ -407,7 +407,7 @@ modelargs:
     #   - 2
     # greedy: 
     #   - False
-    # shard: False
+    # shard: True
     
   # baichuan27_woqds:
   #   modelid: 
@@ -432,7 +432,7 @@ modelargs:
   #     - 2
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
 
   # baichuan13_bf16ds:
   #   modelid: 
@@ -456,7 +456,7 @@ modelargs:
   #     - 2
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
     
   # baichuan13_woqds:
   #   modelid: 
@@ -481,5 +481,5 @@ modelargs:
   #     - 2
   #   greedy: 
   #     - False
-  #   shard: False
+  #   shard: True
 
