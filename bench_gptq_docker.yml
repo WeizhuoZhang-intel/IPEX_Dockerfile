@@ -20,60 +20,60 @@ launcher:
   iternum: 50
   hw: SPR
 modelargs:
-  # gptj_gptq:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: single_instance/run_gpt-j_quantization.py
-  #   outputdir: "/gptq/EleutherAI/gpt-j-6B/"
-  #   gptqpath: "/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
-  # llama7_gptq:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: single_instance/run_llama_quantization.py
-  #   outputdir: "/gptq/meta-llama/Llama-2-7b-hf/"
-  #   gptqpath: "/gptq/meta-llama/Llama-2-7b-hf/gptq_checkpoint_g128.pt"
-  # llama13_gptq:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: single_instance/run_llama_quantization.py
-  #   outputdir: "/gptq/meta-llama/Llama-2-13b-hf/"
-  #   gptqpath: "/gptq/meta-llama/Llama-2-13b-hf/gptq_checkpoint_g128.pt"
-  # llama70_gptq:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #   scriptname: single_instance/run_llama_quantization.py
-  #   outputdir: "/gptq/meta-llama/Llama-2-70b-hf/"
-  #   gptqpath: "/gptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint_g128.pt"
-  # codegen_gptq:
-  #   modelid: 
-  #     - Salesforce/codegen-2B-multi
-  #   scriptname: single_instance/run_codegen_quantization.py
-  #   outputdir: "/gptq/Salesforce/codegen-2B-multi/"
-  #   gptqpath: "/gptq/Salesforce/codegen-2B-multi/gptq_checkpoint_g128.pt"
-  # opt13_gptq:
-  #   modelid: 
-  #     - facebook/opt-1.3b
-  #   scriptname: single_instance/run_opt_quantization.py
-  #   outputdir: "/gptq/facebook/opt-1.3b/"
-  #   gptqpath: "/gptq/facebook/opt-1.3b/gptq_checkpoint_g128.pt"
-  # opt30_gptq:
-  #   modelid: 
-  #     - facebook/opt-30b
-  #   scriptname: single_instance/run_opt_quantization.py
-  #   outputdir: "/gptq/facebook/opt-30b/"
-  #   gptqpath: "/gptq/facebook/opt-30b/gptq_checkpoint_g128.pt"
-  # neox20_gptq:
-  #   modelid: 
-  #     - EleutherAI/gpt-neox-20b
-  #   scriptname: single_instance/run_gpt-neox_quantization.py
-  #   outputdir: "/gptq/EleutherAI/gpt-neox-20b/"
-  #   gptqpath: "/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
-  # afalcon_gptq:
-  #   modelid: 
-  #     - tiiuae/falcon-40b
-  #   scriptname: single_instance/run_falcon_quantization.py
-  #   outputdir: "/gptq/tiiuae/falcon-40b/"
-  #   gptqpath: "/gptq/tiiuae/falcon-40b/gptq_checkpoint_g128.pt"
+  gptj_gptq:
+    modelid: 
+      - EleutherAI/gpt-j-6B
+    scriptname: single_instance/run_gpt-j_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/EleutherAI/gpt-j-6B/"
+    gptqpath: "/data/mint/cpudevicegptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
+  llama7_gptq:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: single_instance/run_llama_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/meta-llama/Llama-2-7b-hf/"
+    gptqpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-7b-hf/gptq_checkpoint_g128.pt"
+  llama13_gptq:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: single_instance/run_llama_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/meta-llama/Llama-2-13b-hf/"
+    gptqpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-13b-hf/gptq_checkpoint_g128.pt"
+  llama70_gptq:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    scriptname: single_instance/run_llama_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/meta-llama/Llama-2-70b-hf/"
+    gptqpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint_g128.pt"
+  codegen_gptq:
+    modelid: 
+      - Salesforce/codegen-2B-multi
+    scriptname: single_instance/run_codegen_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/Salesforce/codegen-2B-multi/"
+    gptqpath: "/data/mint/cpudevicegptq/Salesforce/codegen-2B-multi/gptq_checkpoint_g128.pt"
+  opt13_gptq:
+    modelid: 
+      - facebook/opt-1.3b
+    scriptname: single_instance/run_opt_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/facebook/opt-1.3b/"
+    gptqpath: "/data/mint/cpudevicegptq/facebook/opt-1.3b/gptq_checkpoint_g128.pt"
+  opt30_gptq:
+    modelid: 
+      - facebook/opt-30b
+    scriptname: single_instance/run_opt_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/facebook/opt-30b/"
+    gptqpath: "/data/mint/cpudevicegptq/facebook/opt-30b/gptq_checkpoint_g128.pt"
+  neox20_gptq:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+    scriptname: single_instance/run_gpt-neox_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/EleutherAI/gpt-neox-20b/"
+    gptqpath: "/data/mint/cpudevicegptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
+  afalcon_gptq:
+    modelid: 
+      - tiiuae/falcon-40b
+    scriptname: single_instance/run_falcon_quantization.py
+    outputdir: "/data/mint/cpudevicegptq/tiiuae/falcon-40b/"
+    gptqpath: "/data/mint/cpudevicegptq/tiiuae/falcon-40b/gptq_checkpoint_g128.pt"
 
   # llama13_gptqperf:
   #   modelid: 
@@ -85,7 +85,7 @@ modelargs:
   #     - woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-13b-hf/best_model.pt"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -103,7 +103,7 @@ modelargs:
   #   scriptname: single_instance/run_llama_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-13b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-13b-hf/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -119,7 +119,7 @@ modelargs:
   #     - woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   quantizedmodelpath: "/gptq/EleutherAI/gpt-j-6B/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/EleutherAI/gpt-j-6B/best_model.pt"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -137,7 +137,7 @@ modelargs:
   #   scriptname: single_instance/run_gpt-j_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/EleutherAI/gpt-j-6B/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/EleutherAI/gpt-j-6B/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -153,7 +153,7 @@ modelargs:
   #     - woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-7b-hf/best_model.pt"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -171,7 +171,7 @@ modelargs:
   #   scriptname: single_instance/run_llama_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-7b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-7b-hf/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -187,7 +187,7 @@ modelargs:
   #     - woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   quantizedmodelpath: "/gptq/Salesforce/codegen-2B-multi/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/Salesforce/codegen-2B-multi/best_model.pt"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -205,7 +205,7 @@ modelargs:
   #   scriptname: single_instance/run_codegen_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/Salesforce/codegen-2B-multi/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/Salesforce/codegen-2B-multi/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -221,7 +221,7 @@ modelargs:
   #     - woq-int4
   #   maxnewtokens: 
   #     - 32
-  #   quantizedmodelpath: "/gptq/facebook/opt-1.3b/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/facebook/opt-1.3b/best_model.pt"
   #   inputtokens:
   #     - 128
   #     - 512
@@ -239,7 +239,7 @@ modelargs:
   #   scriptname: single_instance/run_opt_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/facebook/opt-1.3b/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/facebook/opt-1.3b/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -250,7 +250,7 @@ modelargs:
   #   scriptname: single_instance/run_opt_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/facebook/opt-30b/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -265,7 +265,7 @@ modelargs:
   #   dtype: 
   #     - float32
   #     # - bfloat16
-  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   # quantizedmodelpath: "/data/mint/cpudevicegptq/facebook/opt-30b/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -277,7 +277,7 @@ modelargs:
   #   scriptname: single_instance/run_opt_quantization.py
   #   dtype: 
   #     - bfloat16
-  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   # quantizedmodelpath: "/data/mint/cpudevicegptq/facebook/opt-30b/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -290,7 +290,7 @@ modelargs:
   #   scriptname: single_instance/run_llama_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/meta-llama/Llama-2-70b-hf/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/meta-llama/Llama-2-70b-hf/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -302,7 +302,7 @@ modelargs:
   #   scriptname: single_instance/run_gpt-nexo_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/EleutherAI/gpt-neox-20b/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/EleutherAI/gpt-neox-20b/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -313,7 +313,7 @@ modelargs:
   #   scriptname: single_instance/run_falcon_quantization.py
   #   dtype: 
   #     - woq-int4
-  #   quantizedmodelpath: "/gptq/tiiuae/falcon-40b/best_model.pt"
+  #   quantizedmodelpath: "/data/mint/cpudevicegptq/tiiuae/falcon-40b/best_model.pt"
   #   batchsize: 
   #     - 1
   #   localrank:
@@ -322,8 +322,8 @@ modelargs:
   #   modelid: 
   #     - EleutherAI/gpt-neox-20b
   #   scriptname: single_instance/run_gpt-nexo_quantization.py
-  #   outputdir: "/gptq/EleutherAI/gpt-neox-20b/"
-  #   gptqpath: "/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
+  #   outputdir: "/data/mint/cpudevicegptq/EleutherAI/gpt-neox-20b/"
+  #   gptqpath: "/data/mint/cpudevicegptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
 
 
   gptj_gptqperf:
