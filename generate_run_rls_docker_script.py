@@ -219,6 +219,18 @@ function collect_perf_logs_llm() {
 }
 '''
 
+collect_acc_result = '''
+function collect_acc_logs_llm() {
+    # latency
+    sleep 5s
+    ppl_value=$(tail -n 5 $log_dir/$1 | grep 'lambada_openai.*ppl' | awk -F'|' '{print $5}' | tr -d '[:space:]')
+    acc_value=$(tail -n 5 $log_dir/$1 | awk -F'|' '/acc/ {gsub(/^[ \\t]+|[ \\t]+$/, "", $5); print $5}')
+
+    printf $1 |tee -a ${log_dir}/accsummary.log
+    printf ", ${ppl_value},${acc_value} \\n" |tee -a ${log_dir}/accsummary.log
+}
+'''
+
 def generate_commands(yml_file,mode,extra_kmp):
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader)
     generated_file = "run_"+mode+".sh"
@@ -236,7 +248,8 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         lines.append("# device info")
         lines.append(fetch_device_info)
-        lines.append(collect_result)    
+        lines.append(collect_result)   
+        lines.append(collect_acc_result)   
         lines.append(deepspeed_ccl_func)
         lines.append(timeprocess)
         lines.append(startprocess)
@@ -1215,6 +1228,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         else:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                        lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
 
         if mode.endswith('customacc'):
             for model_id in data['modelargs'][mode]['modelid']:
@@ -1333,6 +1347,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 else:
                     lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only --batch-size 1 \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
+                lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
 
         if mode.endswith('woqdsacc'):
 
