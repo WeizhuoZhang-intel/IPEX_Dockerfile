@@ -1389,6 +1389,18 @@ def generate_commands(yml_file,mode,extra_kmp):
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
 
+
+        if mode.endswith('shard'):
+            lines.append("# Run Workload")  
+            lines.append("export WORK_DIR=./")
+            for model_id in data['modelargs'][mode]['modelid']:
+
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
+                lines.append(f"python utils/create_shard_model.py -m {model_id} --save-path {data['modelargs'][mode]['outputdir']}")
+                
+
+
+
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])
