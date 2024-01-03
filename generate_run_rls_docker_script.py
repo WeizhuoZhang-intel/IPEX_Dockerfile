@@ -1393,10 +1393,11 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('shard'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
+            
             for model_id in data['modelargs'][mode]['modelid']:
 
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
-                lines.append(f"python utils/create_shard_model.py -m {model_id} --save-path {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"python utils/create_shard_model.py -m {model_id} --save-path {data['modelargs'][mode]['outputdir']}/{model_id}")
                 
 
 
