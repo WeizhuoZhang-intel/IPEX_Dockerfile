@@ -20,12 +20,12 @@ launcher:
   iternum: 50
   hw: SPR
 modelargs:
-  gptj_gptq:
-    modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: single_instance/run_quantization.py
-    outputdir: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/"
-    gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
+  # gptj_gptq:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #   scriptname: single_instance/run_quantization.py
+  #   outputdir: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/"
+  #   gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
   llama7_gptq:
     modelid: 
       - meta-llama/Llama-2-7b-hf
@@ -81,21 +81,21 @@ modelargs:
     dtype: 
       - woq-int4
     outputdir: "/data/weeklymodel/gptq/bigscience/bloom-1b7"
-    quantizedmodelpath: "/data/weeklymodel/gptq/bigscience/bloom-1b7/best_model.pt"
+    gptqpath: "/data/weeklymodel/gptq/bigscience/bloom-1b7/gptq_checkpoint_g128.pt"
 
   glm2_gptq:
     modelid: 
       - THUDM/chatglm2-6b
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/THUDM/chatglm2-6b"
-    quantizedmodelpath: "/data/weeklymodel/gptq/THUDM/chatglm2-6b/best_model.pt"
+    gptqpath: "/data/weeklymodel/gptq/THUDM/chatglm2-6b/gptq_checkpoint_g128.pt"
 
   glm3_gptq:
     modelid: 
       - THUDM/chatglm3-6b
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/THUDM/chatglm3-6b"
-    quantizedmodelpath: "/data/weeklymodel/gptq/THUDM/chatglm3-6b/best_model.pt"
+    gptqpath: "/data/weeklymodel/gptq/THUDM/chatglm3-6b/gptq_checkpoint_g128.pt"
 
   baichuan27_gptq:
     modelid: 
@@ -103,7 +103,7 @@ modelargs:
     dtype: 
       - woq-int8
     scriptname: single_instance/run_quantization.py
-    quantizedmodelpath: "/data/weeklymodel/gptq/baichuan-inc/Baichuan2-7B-Chat/best_model.pt"
+    gptqpath: "/data/weeklymodel/gptq/baichuan-inc/Baichuan2-7B-Chat/gptq_checkpoint_g128.pt"
     outputdir: "/data/weeklymodel/gptq/baichuan-inc/Baichuan2-7B-Chat"
     batchsize: 
       - 1
@@ -117,7 +117,7 @@ modelargs:
       - woq-int8
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/google/flan-t5-xl"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8-w/google/flan-t5-xl/best_model.pt"
+    gptqpath: "/data1/rlsqmodel/woq-int8-w/google/flan-t5-xl/gptq_checkpoint_g128.pt"
     batchsize: 
       - 1
     localrank:
@@ -130,7 +130,7 @@ modelargs:
       - woq-int8
     outputdir: "/data/weeklymodel/gptq/mistralai/Mistral-7B-v0.1"
     scriptname: single_instance/run_quantization.py
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8-w/mistralai/Mistral-7B-v0.1/best_model.pt"
+    gptqpath: "/data1/rlsqmodel/woq-int8-w/mistralai/Mistral-7B-v0.1/gptq_checkpoint_g128.pt"
     batchsize: 
       - 1
     localrank:
@@ -143,7 +143,7 @@ modelargs:
       - woq-int8
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/mosaicml/mpt-7b"
-    quantizedmodelpath: "/data1/rlsqmodel/woq-int8-w/mosaicml/mpt-7b/best_model.pt"
+    gptqpath: "/data1/rlsqmodel/woq-int8-w/mosaicml/mpt-7b/gptq_checkpoint_g128.pt"
     batchsize: 
       - 1
     localrank:

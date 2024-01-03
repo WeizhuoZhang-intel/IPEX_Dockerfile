@@ -1127,17 +1127,17 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 lines.append("ls utils")
                 lines.append("pwd")
-                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"OMP_NUM_THREADS=40 numactl -m 1 -C 40-79 python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                 # lines.append("wait")
                 if 'falcon' in model_id: 
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']} --config-file utils/model_config/tiiuae_falcon-40b_config.json")
+                    lines.append(f"OMP_NUM_THREADS=40 numactl -m 1 -C 40-79 python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']} --config-file utils/model_config/tiiuae_falcon-40b_config.json")
                 elif 'neox' in model_id:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")                    
+                    lines.append(f"OMP_NUM_THREADS=40 numactl -m 1 -C 40-79 python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")                    
                 elif 'mpt' in model_id:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']} --config-file=utils/model_config/mosaicml_mpt-7b_config.json")                    
+                    lines.append(f"OMP_NUM_THREADS=40 numactl -m 1 -C 40-79 python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']} --config-file=utils/model_config/mosaicml_mpt-7b_config.json")                    
                 
                 else:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")
+                    lines.append(f"OMP_NUM_THREADS=40 numactl -m 1 -C 40-79 python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']}")
 
         if mode.endswith('gptqacc'):
             lines.append("# Run Workload")  
