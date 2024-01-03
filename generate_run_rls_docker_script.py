@@ -1124,10 +1124,10 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export WORK_DIR=./")
             # lines.append("unset KMP_BLOCKTIME KMP_TPAUSE KMP_SETTINGS KMP_AFFINITY KMP_FORJOIN_BARRIER_PATTERN KMP_PLAIN_BARRIER_PATTERN KMP_REDUCTION_BARRIER_PATTERN")
             for model_id in data['modelargs'][mode]['modelid']:
-                # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
                 lines.append("ls utils")
                 lines.append("pwd")
-                # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                 # lines.append("wait")
                 if 'falcon' in model_id: 
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']} --int8-bf16-mixed -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['gptqpath']} --config-file utils/model_config/tiiuae_falcon-40b_config.json")
