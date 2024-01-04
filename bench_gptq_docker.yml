@@ -20,18 +20,18 @@ launcher:
   iternum: 50
   hw: SPR
 modelargs:
-  # gptj_gptq:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6B
-  #   scriptname: single_instance/run_quantization.py
-  #   outputdir: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/"
-  #   gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
-  llama7_gptq:
+  gptj_gptq:
     modelid: 
-      - meta-llama/Llama-2-7b-hf
+      - EleutherAI/gpt-j-6B
     scriptname: single_instance/run_quantization.py
-    outputdir: "/data/weeklymodel/gptq/meta-llama/Llama-2-7b-hf/"
-    gptqpath: "/data/weeklymodel/gptq/meta-llama/Llama-2-7b-hf/gptq_checkpoint_g128.pt"
+    outputdir: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/"
+    gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
+  # llama7_gptq:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: single_instance/run_quantization.py
+  #   outputdir: "/data/weeklymodel/gptq/meta-llama/Llama-2-7b-hf/"
+  #   gptqpath: "/data/weeklymodel/gptq/meta-llama/Llama-2-7b-hf/gptq_checkpoint_g128.pt"
   llama13_gptq:
     modelid: 
       - meta-llama/Llama-2-13b-hf
@@ -44,18 +44,18 @@ modelargs:
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/meta-llama/Llama-2-70b-hf/"
     gptqpath: "/data/weeklymodel/gptq/meta-llama/Llama-2-70b-hf/gptq_checkpoint_g128.pt"
-  codegen_gptq:
-    modelid: 
-      - Salesforce/codegen-2B-multi
-    scriptname: single_instance/run_quantization.py
-    outputdir: "/data/weeklymodel/gptq/Salesforce/codegen-2B-multi/"
-    gptqpath: "/data/weeklymodel/gptq/Salesforce/codegen-2B-multi/gptq_checkpoint_g128.pt"
-  opt13_gptq:
-    modelid: 
-      - facebook/opt-1.3b
-    scriptname: single_instance/run_quantization.py
-    outputdir: "/data/weeklymodel/gptq/facebook/opt-1.3b/"
-    gptqpath: "/data/weeklymodel/gptq/facebook/opt-1.3b/gptq_checkpoint_g128.pt"
+  # codegen_gptq:
+  #   modelid: 
+  #     - Salesforce/codegen-2B-multi
+  #   scriptname: single_instance/run_quantization.py
+  #   outputdir: "/data/weeklymodel/gptq/Salesforce/codegen-2B-multi/"
+  #   gptqpath: "/data/weeklymodel/gptq/Salesforce/codegen-2B-multi/gptq_checkpoint_g128.pt"
+  # opt13_gptq:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   scriptname: single_instance/run_quantization.py
+  #   outputdir: "/data/weeklymodel/gptq/facebook/opt-1.3b/"
+  #   gptqpath: "/data/weeklymodel/gptq/facebook/opt-1.3b/gptq_checkpoint_g128.pt"
   opt30_gptq:
     modelid: 
       - facebook/opt-30b
@@ -68,20 +68,20 @@ modelargs:
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/EleutherAI/gpt-neox-20b/"
     gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-neox-20b/gptq_checkpoint_g128.pt"
-  falcon_gptq:
-    modelid: 
-      - tiiuae/falcon-40b
-    scriptname: single_instance/run_quantization.py
-    outputdir: "/data/weeklymodel/gptq/tiiuae/falcon-40b/"
-    gptqpath: "/data/weeklymodel/gptq/tiiuae/falcon-40b/gptq_checkpoint_g128.pt"
-  bloom_gptq:
-    modelid: 
-      - bigscience/bloom-1b7
-    scriptname: single_instance/run_quantization.py
-    dtype: 
-      - woq-int4
-    outputdir: "/data/weeklymodel/gptq/bigscience/bloom-1b7"
-    gptqpath: "/data/weeklymodel/gptq/bigscience/bloom-1b7/gptq_checkpoint_g128.pt"
+  # falcon_gptq:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #   scriptname: single_instance/run_quantization.py
+  #   outputdir: "/data/weeklymodel/gptq/tiiuae/falcon-40b/"
+  #   gptqpath: "/data/weeklymodel/gptq/tiiuae/falcon-40b/gptq_checkpoint_g128.pt"
+  # bloom_gptq:
+  #   modelid: 
+  #     - bigscience/bloom-1b7
+  #   scriptname: single_instance/run_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   outputdir: "/data/weeklymodel/gptq/bigscience/bloom-1b7"
+  #   gptqpath: "/data/weeklymodel/gptq/bigscience/bloom-1b7/gptq_checkpoint_g128.pt"
 
   glm2_gptq:
     modelid: 
@@ -100,8 +100,6 @@ modelargs:
   baichuan27_gptq:
     modelid: 
       - baichuan-inc/Baichuan2-7B-Chat
-    dtype: 
-      - woq-int8
     scriptname: single_instance/run_quantization.py
     gptqpath: "/data/weeklymodel/gptq/baichuan-inc/Baichuan2-7B-Chat/gptq_checkpoint_g128.pt"
     outputdir: "/data/weeklymodel/gptq/baichuan-inc/Baichuan2-7B-Chat"
@@ -113,8 +111,6 @@ modelargs:
   at5_gptq:
     modelid: 
       - google/flan-t5-xl
-    dtype: 
-      - woq-int8
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/google/flan-t5-xl"
     gptqpath: "/data1/rlsqmodel/woq-int8-w/google/flan-t5-xl/gptq_checkpoint_g128.pt"
@@ -123,18 +119,18 @@ modelargs:
     localrank:
       - 1
 
-  amistral_gptq:
-    modelid: 
-      - mistralai/Mistral-7B-v0.1
-    dtype: 
-      - woq-int8
-    outputdir: "/data/weeklymodel/gptq/mistralai/Mistral-7B-v0.1"
-    scriptname: single_instance/run_quantization.py
-    gptqpath: "/data1/rlsqmodel/woq-int8-w/mistralai/Mistral-7B-v0.1/gptq_checkpoint_g128.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # amistral_gptq:
+  #   modelid: 
+  #     - mistralai/Mistral-7B-v0.1
+  #   dtype: 
+  #     - woq-int8
+  #   outputdir: "/data/weeklymodel/gptq/mistralai/Mistral-7B-v0.1"
+  #   scriptname: single_instance/run_quantization.py
+  #   gptqpath: "/data1/rlsqmodel/woq-int8-w/mistralai/Mistral-7B-v0.1/gptq_checkpoint_g128.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   ampt_gptq:
     modelid: 
