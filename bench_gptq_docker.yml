@@ -113,7 +113,7 @@ modelargs:
       - google/flan-t5-xl
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/google/flan-t5-xl"
-    gptqpath: "/data1/rlsqmodel/woq-int8-w/google/flan-t5-xl/gptq_checkpoint_g128.pt"
+    gptqpath: "/data/weeklymodel/gptq/google/flan-t5-xl/gptq_checkpoint_g128.pt"
     batchsize: 
       - 1
     localrank:
@@ -139,7 +139,7 @@ modelargs:
       - woq-int8
     scriptname: single_instance/run_quantization.py
     outputdir: "/data/weeklymodel/gptq/mosaicml/mpt-7b"
-    gptqpath: "/data1/rlsqmodel/woq-int8-w/mosaicml/mpt-7b/gptq_checkpoint_g128.pt"
+    gptqpath: "/data/weeklymodel/gptq/mosaicml/mpt-7b/gptq_checkpoint_g128.pt"
     batchsize: 
       - 1
     localrank:
