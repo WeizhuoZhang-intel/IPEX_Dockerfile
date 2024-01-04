@@ -62,7 +62,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 3
+      - 6
     greedy: 
       - False
     shard: True
@@ -96,7 +96,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 3
+      - 6
     greedy: 
       - False
     shard: True
