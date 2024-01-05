@@ -12,12 +12,12 @@ envconfig:
 modelargs:
   llama7b_bf16:
     maxnewtokens: 
-      - 32
-      - 128
+      # - 32
+      # - 128
       # - 512
     inputtokens:
-      - 32
-      - 128
+      # - 32
+      # - 128
     sample: "false"
     batchsize: 
       - 1
