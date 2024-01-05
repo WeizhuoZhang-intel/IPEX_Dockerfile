@@ -17,7 +17,7 @@ modelargs:
       # - 512
     inputtokens:
       - 32
-      - 128
+      # - 128
     sample: "false"
     batchsize: 
       - 1
