@@ -226,7 +226,7 @@ def generate_commands(yml_file,mode):
                                 lines.append("export dataset=datasetforTGI128.json")
                             elif input_token == '512':
                                 lines.append("export dataset=datasetforTGI128.json")
-                            filename = "tgi_static_" +{data['envconfig']['MODEL'].replace('/','-')} + "_"  + str(input_token) + "-" + str(output_token) + "-" + str(bs) + "file"+str(num)+".log"
+                            filename = "tgi_static_" +str({data['envconfig']['MODEL'].replace('/','-')}) + "_"  + str(input_token) + "-" + str(output_token) + "-" + str(bs) + "file"+str(num)+".log"
                             lines.append(f"export filen={filename}")
                             inputkey = "INPUT"+ str(input_token)
                             lines.append(f"python staticbenchmark_serving.py --backend tgi --tokenizer {data['envconfig']['MODEL']} --request-rate inf --host {data['envconfig']['TRUEIP']} --port 8088 --dataset $dataset --num-prompts={bs} --len={output_token} | tee -a $repopath/data/$filen")
