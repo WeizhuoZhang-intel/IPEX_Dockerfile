@@ -221,11 +221,11 @@ def generate_commands(yml_file,mode):
 
             for output_token in data['modelargs'][mode]['maxnewtokens']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
-                    if input_token == '32':
+                    if input_token == 32:
                         lines.append("export dataset=datasetforTGI32.json")
-                    elif input_token == '128':
+                    elif input_token == 128:
                         lines.append("export dataset=datasetforTGI128.json")
-                    elif input_token == '512':
+                    elif input_token == 512:
                         lines.append("export dataset=datasetforTGI128.json")
                     for bs in data['modelargs'][mode]['batchsize']:
                         for num in range(data['envconfig']['ITER']):
