@@ -218,14 +218,15 @@ def generate_commands(yml_file,mode):
 
             for output_token in data['modelargs'][mode]['maxnewtokens']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
+                    if input_token == '32':
+                        lines.append("export dataset=datasetforTGI32.json")
+                    elif input_token == '128':
+                        lines.append("export dataset=datasetforTGI128.json")
+                    elif input_token == '512':
+                        lines.append("export dataset=datasetforTGI128.json")
                     for bs in data['modelargs'][mode]['batchsize']:
                         for num in range(data['envconfig']['ITER']):
-                            if input_token == '32':
-                                lines.append("export dataset=datasetforTGI32.json")
-                            elif input_token == '128':
-                                lines.append("export dataset=datasetforTGI128.json")
-                            elif input_token == '512':
-                                lines.append("export dataset=datasetforTGI128.json")
+
                             filename = "tgi_static_" +str({data['envconfig']['MODEL'].replace('/','-')}) + "_"  + str(input_token) + "-" + str(output_token) + "-" + str(bs) + "file"+str(num)+".log"
                             lines.append(f"export filen={filename}")
                             inputkey = "INPUT"+ str(input_token)
