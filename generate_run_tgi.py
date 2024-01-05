@@ -215,7 +215,7 @@ def generate_commands(yml_file,mode):
                             lines.append("sleep 2s")
 
         if mode.endswith('staticbsx'):
-            
+            lines.append("pip install aiohttp")
             for output_token in data['modelargs'][mode]['maxnewtokens']:
                 for input_token in data['modelargs'][mode]['inputtokens']:
                     for bs in data['modelargs'][mode]['batchsize']:
