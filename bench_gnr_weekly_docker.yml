@@ -30,7 +30,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/EleutherAI/gpt-j-6B"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -54,7 +54,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/EleutherAI/gpt-j-6B"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -78,7 +78,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/meta-llama/Llama-2-7b-hf"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -102,7 +102,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/meta-llama/Llama-2-7b-hf"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -126,7 +126,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/meta-llama/Llama-2-13b-hf"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -150,7 +150,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/meta-llama/Llama-2-13b-hf"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -173,7 +173,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/meta-llama/Llama-2-70b-hf"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -197,7 +197,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/meta-llama/Llama-2-70b-hf"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -222,7 +222,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/EleutherAI/gpt-neox-20b"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -246,7 +246,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/facebook/opt-30b"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -271,7 +271,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/facebook/opt-30b"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -295,7 +295,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/tiiuae/falcon-40b"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -320,7 +320,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/tiiuae/falcon-40b"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -345,7 +345,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/tiiuae/falcon-40b"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -369,7 +369,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/baichuan-inc/Baichuan2-13B-Chat"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -394,7 +394,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/baichuan-inc/Baichuan2-13B-Chat"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -417,7 +417,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/baichuan-inc/Baichuan2-7B-Chat"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -442,7 +442,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/baichuan-inc/Baichuan2-7B-Chat"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -466,7 +466,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/baichuan-inc/Baichuan-13B-Chat"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
@@ -491,7 +491,7 @@ modelargs:
       - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard/baichuan-inc/Baichuan-13B-Chat"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       - 512
