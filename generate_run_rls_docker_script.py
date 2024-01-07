@@ -1398,7 +1398,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         else:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
-
+                        lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
 
         if mode.endswith('shard'):
             lines.append("# Run Workload")  
