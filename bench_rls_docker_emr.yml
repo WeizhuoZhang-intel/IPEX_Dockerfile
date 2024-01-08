@@ -150,7 +150,7 @@ modelargs:
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       # - bigscience/bloom-1b7
@@ -235,7 +235,7 @@ modelargs:
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       # - bigscience/bloom-1b7
