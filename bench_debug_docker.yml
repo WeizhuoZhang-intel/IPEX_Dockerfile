@@ -882,8 +882,8 @@ modelargs:
       # - EleutherAI/gpt-neox-20b
       # - tiiuae/falcon-40b
       # - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      - facebook/opt-30b
+      - facebook/opt-1.3b
+      # - facebook/opt-30b
       # - Salesforce/codegen-2B-multi
       # - THUDM/chatglm3-6b
       # - THUDM/chatglm2-6b
@@ -891,9 +891,9 @@ modelargs:
       # - baichuan-inc/Baichuan2-7B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
       # - bigcode/starcoder
-      # - google/flan-t5-xl
+      - google/flan-t5-xl
       # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
+      - mosaicml/mpt-7b
     scriptname: run.py
     dtype: 
       - bfloat16
@@ -920,7 +920,7 @@ modelargs:
       # - baichuan-inc/Baichuan2-7B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
       # - bigcode/starcoder
-      # - google/flan-t5-xl
+      - google/flan-t5-xl
       # # - mistralai/Mistral-7B-v0.1
       # - mosaicml/mpt-7b
     scriptname: run.py
@@ -932,36 +932,36 @@ modelargs:
     localrank:
       - 2
       
-  model_defaultacc:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
-      # - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      - facebook/opt-30b
-      # - Salesforce/codegen-2B-multi
-      # - THUDM/chatglm3-6b
-      # - THUDM/chatglm2-6b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - baichuan-inc/Baichuan2-7B-Chat
-      # - Baichuan-inc/Baichuan-13B-Chat
-      # - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
-    scriptname: single_instance/run_gpt-j_quantization.py
-    dtype: 
-      - bfloat16
-      # - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_defaultacc:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #     # - Salesforce/codegen-2B-multi
+  #     # - THUDM/chatglm3-6b
+  #     # - THUDM/chatglm2-6b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - Baichuan-inc/Baichuan-13B-Chat
+  #     # - bigcode/starcoder
+  #     # - google/flan-t5-xl
+  #     # - mistralai/Mistral-7B-v0.1
+  #     # - mosaicml/mpt-7b
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - bfloat16
+  #     # - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   # falcon_defaultacc:
   #   modelid: 
   #     - EleutherAI/gpt-j-6B
