@@ -60,7 +60,7 @@ modelargs:
   #   greedy: 
   #     - False
 
-  gptj_woq8acconfile:
+  gptj_woq8accnofile:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
@@ -88,7 +88,7 @@ modelargs:
       - 1
     localrank:
       - 1
-      
+
   # gptj_woq8:
   #   modelid: 
   #     # - EleutherAI/gpt-j-6B
