@@ -435,6 +435,31 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
+        if mode.endswith('static8quant'):
+            lines.append("# Run Workload")  
+            lines.append("export WORK_DIR=./")
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
+                lines.append(f"python single_instance/run_quantization.py --ipex-smooth-quant --alpha {data['modelargs'][mode]['alpha']} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --int8 -m {model_id}")
+                for rank in data['modelargs'][mode]['localrank']:
+                    lines.append(f"export local_rank={rank}")
+                    lines.append("deepspeed_core_config ${local_rank}")
+                    lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+                    
+                
+                    for dtype in data['modelargs'][mode]['dtype']:
+                        for bs in data['modelargs'][mode]['batchsize']:
+                            if 'fp32' in dtype:
+                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['outputdir']}/{model_id}/best_model.pt --accuracy-only -m {model_id} --dtype int8 --batch-size {bs} --ipex --jit --tasks lambada_openai \
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
+                            # elif 'bs1' in dtype:
+                            #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --accuracy-only -m {model_id} --dtype int8 --batch-size {bs} --ipex --jit --tasks lambada_openai \
+                            #             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log") 
+                            else:
+                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['outputdir']}/{model_id}/best_model.pt --accuracy-only -m {model_id} --dtype int8 --batch-size {bs} --int8-bf16-mixed --ipex --jit --tasks lambada_openai \
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")                                         
+            
+                    lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
 
 
 
