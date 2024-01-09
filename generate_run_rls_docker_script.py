@@ -440,7 +440,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export WORK_DIR=./")
             for model_id in data['modelargs'][mode]['modelid']:
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
-                lines.append(f"python single_instance/run_quantization.py --ipex-smooth-quant --alpha {data['modelargs'][mode]['alpha']} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --int8 -m {model_id}")
+                lines.append(f"python single_instance/run_quantization.py --ipex-smooth-quant --alpha {data['modelargs'][mode]['alpha']} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --int8 -m {model_id} --dataset NeelNanda/pile-10k")
                 for rank in data['modelargs'][mode]['localrank']:
                     lines.append(f"export local_rank={rank}")
                     lines.append("deepspeed_core_config ${local_rank}")
