@@ -1278,7 +1278,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             lines.append(f"python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks hellaswag --batch-size 1\
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
                         elif 'mpt' in model_id:
-                            lines.append(f"python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                            lines.append(f"python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks hellaswag --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         else:
                             lines.append(f"python single_instance/run_accuracy.py --accuracy-only -m {model_id} --dtype {dtype} --ipex --jit --tasks lambada_openai --batch-size 1 \
@@ -1355,7 +1355,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --accuracy-only -m {model_id} --dtype int8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json --batch-size {bs} \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")                            
                             elif 'mpt' in model_id:
-                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --accuracy-only -m {model_id} --dtype int8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --batch-size {bs} --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --accuracy-only -m {model_id} --dtype int8 --int8-bf16-mixed --ipex --jit --tasks hellaswag --batch-size {bs} --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")                                
                             
                             else:
@@ -1399,7 +1399,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only --batch-size 1 \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                    
                 elif 'mpt' in model_id:
-                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks hellaswag --accuracy-only --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                    
                 
                 else:
@@ -1423,7 +1423,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --int8-bf16-mixed --ipex --jit --tasks hellaswag --accuracy-only --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         elif 'mpt' in model_id:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --int8-bf16-mixed --ipex --jit --tasks hellaswag --accuracy-only --ipex-weight-only-quantization --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         
                         else:
