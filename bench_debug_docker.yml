@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 50
+  iternum: 20
   hw: SPR
 modelargs:
 
@@ -1435,7 +1435,7 @@ modelargs:
     inputtokens:
       - 128
       # - 512
-      # - 1024
+      - 1024
       # - 2016
     batchsize: 
       - 1
@@ -1478,7 +1478,7 @@ modelargs:
     inputtokens:
       - 128
       # - 512
-      # - 1024
+      - 1024
       # - 2016
     batchsize: 
       - 1
