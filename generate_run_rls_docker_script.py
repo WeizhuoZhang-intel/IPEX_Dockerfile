@@ -584,6 +584,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}/{model_id}")
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
@@ -735,6 +736,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export WORK_DIR=./")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}/{model_id}")
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
