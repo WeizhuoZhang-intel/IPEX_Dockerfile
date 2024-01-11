@@ -332,15 +332,15 @@ modelargs:
   #   localrank:
   #     - 2
 
-  model_static8quant:
-    modelid: 
-      - facebook/opt-1.3b
-    dtype: 
-      - static-fp32-int8
-      - static-bf16-int8
-    outputdir: "/data0/static8"
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    alpha: 0.9
+  # model_static8quant:
+  #   modelid: 
+  #     - facebook/opt-1.3b
+  #   dtype: 
+  #     - static-fp32-int8
+  #     - static-bf16-int8
+  #   outputdir: "/data0/static8"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   alpha: 0.9
