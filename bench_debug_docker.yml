@@ -904,7 +904,7 @@ modelargs:
 
   model_woqdsacc:
     modelid: 
-      - EleutherAI/gpt-j-6b
+      # - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # # - meta-llama/Llama-2-70b-hf
