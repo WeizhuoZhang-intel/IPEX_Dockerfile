@@ -1231,19 +1231,19 @@ def generate_commands(yml_file,mode,extra_kmp):
                     # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                     # lines.append("wait")
                     if 'codegen' in model_id:
-                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 56 \
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
                                         --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks hellaswag \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_woq-int4_{data['launcher']['hw']}.log")                        
                     elif 'neox' in model_id:
-                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 56 \
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
                                         --dtype int8 --accuracy-only --jit --tasks lambada_openai \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_woq-int4_{data['launcher']['hw']}.log")
                     elif 'mpt' in model_id:
-                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 56 \
-                                        --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks lambada_openai --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
+                                        --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks hellaswag --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_woq-int4_{data['launcher']['hw']}.log")
                     else:
-                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 56 \
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
                                         --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks lambada_openai \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_woq-int4_{data['launcher']['hw']}.log")
 
