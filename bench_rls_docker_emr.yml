@@ -108,6 +108,7 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
+      - databricks/dolly-v2-12b
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
       # - tiiuae/falcon-40b
@@ -192,6 +193,7 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
+      - databricks/dolly-v2-12b
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
       # - tiiuae/falcon-40b
@@ -272,3 +274,5 @@ modelargs:
     greedy: 
       - False
     shard: False
+
+ 
