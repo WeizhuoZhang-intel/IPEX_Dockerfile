@@ -179,16 +179,16 @@ modelargs:
   #     - 1
 
 
-  # llama7_woq8acc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   dtype: 
-  #     - woq-int8
-  #   quantizedmodelpath: "/data1/weeklymodel/woq-int8-w/meta-llama/Llama-2-7b-hf/best_model.pt"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  llama7_woq8acc:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+    dtype: 
+      - woq-int8
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
   # qllama13_woq8acc:
   #   modelid: 
