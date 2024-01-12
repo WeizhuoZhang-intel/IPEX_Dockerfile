@@ -1553,7 +1553,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data0/rls2.2/shard"
+    outputdir: "/data/weeklymodel/shard"
     inputtokens:
       - 128
       # - 512
