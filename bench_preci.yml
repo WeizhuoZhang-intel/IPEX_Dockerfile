@@ -102,7 +102,7 @@ modelargs:
   deepspeed_llama:
     modelid: 
       - meta-llama/Llama-2-7b-hf
-    scriptname: llm/run.py
+    scriptname: llm/distributed/run_generation_with_deepspeed.py
     dtype: 
       - bfloat16
     localrank:
