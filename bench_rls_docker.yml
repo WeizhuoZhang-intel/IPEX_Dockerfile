@@ -179,9 +179,9 @@ modelargs:
       - databricks/dolly-v2-12b
       - tiiuae/falcon-40b
       - facebook/opt-30b
-      - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan2-7B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
       - bigcode/starcoder
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
