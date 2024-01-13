@@ -152,7 +152,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append("# Run workload")
                 lines.append(f"mprof clean")
                 for input_token in data['modelargs'][mode]['inputtokens']:
-                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname2']} --input-tokens {input_token} --benchmark --quant-with-amp --token-latency --deployment-mode --num-iter 20 -m {model_id} --quantized-model-path saved_results/best_model.pt 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
+                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --quant-with-amp --token-latency --num-iter 20 -m {model_id} --quantized-model-path saved_results/best_model.pt 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
                     lines.append("ut_result=${PIPESTATUS[0]}")
                     lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log $ut_result $quant_peak_mem")
                     lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{input_token}.dat")

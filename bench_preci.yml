@@ -57,7 +57,6 @@ modelargs:
     modelid:
       - EleutherAI/gpt-j-6b
     scriptname: llm/single_instance/run_quantization.py
-    scriptname2: llm/single_instance/run_generation.py
     dtype: int8
     maxnewtokens: 32
     quantize: true
