@@ -25,11 +25,11 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - baichuan-inc/Baichuan2-13B-Chat
-      - EleutherAI/gpt-neox-20b
+      # - meta-llama/Llama-2-70b-hf
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - EleutherAI/gpt-neox-20b
       - databricks/dolly-v2-12b
-      - facebook/opt-30b
+      # - facebook/opt-30b
       - bigcode/starcoder
     scriptname: run.py
     device:
@@ -57,7 +57,6 @@ modelargs:
       - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
-      - tiiuae/falcon-40b
       - facebook/opt-30b
       - bigcode/starcoder
     scriptname: run.py
@@ -86,11 +85,7 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - baichuan-inc/Baichuan2-13B-Chat
-      - EleutherAI/gpt-neox-20b
       - databricks/dolly-v2-12b
-      - facebook/opt-30b
       - bigcode/starcoder
     scriptname: run.py
     device:
@@ -119,7 +114,6 @@ modelargs:
       - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
-      - tiiuae/falcon-40b
       - facebook/opt-30b
       - bigcode/starcoder
     scriptname: run.py
