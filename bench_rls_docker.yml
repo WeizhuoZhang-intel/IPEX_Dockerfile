@@ -142,32 +142,32 @@ modelargs:
   #     - False
   #   shard: False
 
-  # opt_bf16ds:
-  #   modelid: 
-  #     - bigscience/bloom-1b7
-  #     - facebook/opt-1.3b
-  #     - Salesforce/codegen-2B-multi
-  #     - google/flan-t5-xl
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data0/rls2.2/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #   greedy: 
-  #     - False
-  #   shard: False
+  opt_bf16ds:
+    modelid: 
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      - Salesforce/codegen-2B-multi
+      - google/flan-t5-xl
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/shard"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+    greedy: 
+      - False
+    shard: False
 
   # llama123_woqds:
   #   modelid: 
