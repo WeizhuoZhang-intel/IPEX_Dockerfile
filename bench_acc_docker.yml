@@ -344,3 +344,19 @@ modelargs:
   #   localrank:
   #     - 4
   #   alpha: 0.9
+
+  model_static8acc:
+    modelid: 
+      - facebook/opt-1.3b
+      - baichuan-inc/Baichuan2-13B-Chat
+      - EleutherAI/gpt-j-6b
+      - facebook/opt-30b
+      - THUDM/chatglm2-6b
+    dtype: 
+      - static-fp32-int8
+    quantizedmodelpath: "/data0/rls2.2/static8"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    alpha: 0.9
