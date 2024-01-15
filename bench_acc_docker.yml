@@ -345,6 +345,40 @@ modelargs:
   #     - 4
   #   alpha: 0.9
 
+  agptj_static8:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-13b-hf
+      # - tiiuae/falcon-40b
+      # - THUDM/chatglm2-6b
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      - tiiuae/falcon-40b
+      - meta-llama/Llama-2-70b-hf
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/localdisk/mint/rls2.2/qconfig"
+    quantizedmodelpath: "/localdisk/mint/rls2.2/qconfig"
+    configpath: "/localdisk/mint/rls2.2/qconfig"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
   model_static8acc:
     modelid: 
       # - facebook/opt-1.3b
