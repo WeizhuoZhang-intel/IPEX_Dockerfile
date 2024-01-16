@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
-  hw: SPR
+  iternum: 40
+  hw: EMR
 modelargs:
 
   # model_bf16:
