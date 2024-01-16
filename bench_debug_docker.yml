@@ -286,7 +286,7 @@ modelargs:
       # - Baichuan-inc/Baichuan-13B-Chat
       # - bigcode/starcoder
       - google/flan-t5-xl
-      - mistralai/Mistral-7B-v0.1
+      # - mistralai/Mistral-7B-v0.1
       - databricks/dolly-v2-12b
       # - mosaicml/mpt-7b
     scriptname: run.py
@@ -299,9 +299,9 @@ modelargs:
     outputdir: "/data0/rls2.2/shard"
     inputtokens:
       - 128
-      - 512
-      - 1024
-      - 2016
+      # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
