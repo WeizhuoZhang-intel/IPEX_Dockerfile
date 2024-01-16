@@ -162,7 +162,7 @@ modelargs:
       - cpu
     dtype: 
       - ds-woq-int8
-      - ds-woq-int4
+      # - ds-woq-int4
     maxnewtokens: 
       - 32
     outputdir: "/data/rls2.2/shard"
