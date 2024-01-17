@@ -64,35 +64,35 @@ modelargs:
   #     - False
   #     # - True
 
-  agptj_gptq:
-    modelid: 
-      - bigcode/starcoder
-    scriptname: single_instance/run_quantization.py
-    outputdir: "/data0/rls2.2/gptq"
-    # gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
+  # agptj_gptq:
+  #   modelid: 
+  #     - bigcode/starcoder
+  #   scriptname: single_instance/run_quantization.py
+  #   outputdir: "/data0/rls2.2/gptq"
+  #   # gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
 
-  gptj_gptqacc:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - mistralai/Mistral-7B-v0.1
-      # - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - Salesforce/codegen-2B-multi
-      # - mosaicml/mpt-7b
-      - bigcode/starcoder
-    scriptname: single_instance/run_quantization.py
-    dtype: 
-      - woq-int4
-    quantizedmodelpath: "/data0/rls2.2/gptq"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # gptj_gptqacc:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - mistralai/Mistral-7B-v0.1
+  #     # - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - Salesforce/codegen-2B-multi
+  #     # - mosaicml/mpt-7b
+  #     - bigcode/starcoder
+  #   scriptname: single_instance/run_quantization.py
+  #   dtype: 
+  #     - woq-int4
+  #   quantizedmodelpath: "/data0/rls2.2/gptq"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   model_defaultacc:
     modelid: 
