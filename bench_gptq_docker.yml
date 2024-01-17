@@ -94,18 +94,18 @@ modelargs:
   #   localrank:
   #     - 1
 
-  model_defaultacc:
-    modelid: 
-      - databricks/dolly-v2-12b
-    scriptname: single_instance/run_gpt-j_quantization.py
-    dtype: 
-      - bfloat16
-      - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_defaultacc:
+  #   modelid: 
+  #     - databricks/dolly-v2-12b
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - bfloat16
+  #     - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   gptj_woq8acc:
     modelid: 
@@ -116,6 +116,17 @@ modelargs:
     dtype: 
       - woq-int8
     quantizedmodelpath: "/data0/rls2.2/woq-int8/"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  gptj_gptqacc:
+    modelid: 
+      - databricks/dolly-v2-12b
+    scriptname: single_instance/run_quantization.py
+    dtype: 
+      - woq-int4
+    quantizedmodelpath: "/data0/rls2.2/gptq"
     batchsize: 
       - 1
     localrank:
