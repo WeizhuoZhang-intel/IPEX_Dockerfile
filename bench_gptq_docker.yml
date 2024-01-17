@@ -64,12 +64,12 @@ modelargs:
   #     - False
   #     # - True
 
-  # agptj_gptq:
-  #   modelid: 
-  #     - bigcode/starcoder
-  #   scriptname: single_instance/run_quantization.py
-  #   outputdir: "/data0/rls2.2/gptq"
-  #   # gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
+  agptj_gptq:
+    modelid: 
+      - bigcode/starcoder
+    scriptname: single_instance/run_quantization.py
+    outputdir: "/localdisk/mint/rls2.2/gptq"
+    # gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
 
   # gptj_gptqacc:
   #   modelid: 
@@ -107,26 +107,26 @@ modelargs:
   #   localrank:
   #     - 1
 
-  gptj_woq8acc:
-    modelid: 
-      - databricks/dolly-v2-12b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    quantizedmodelpath: "/data0/rls2.2/woq-int8/"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # gptj_woq8acc:
+  #   modelid: 
+  #     - databricks/dolly-v2-12b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8/"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
   gptj_gptqacc:
     modelid: 
       - databricks/dolly-v2-12b
     scriptname: single_instance/run_quantization.py
     dtype: 
       - woq-int4
-    quantizedmodelpath: "/data0/rls2.2/gptq"
+    quantizedmodelpath: "/localdisk/mint/rls2.2/gptq"
     batchsize: 
       - 1
     localrank:
