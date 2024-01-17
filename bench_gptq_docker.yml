@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 50
+  iternum: 10
   hw: SPR
 modelargs:
   agptj_woq8:
@@ -53,9 +53,9 @@ modelargs:
     quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
     inputtokens:
       - 128
-      - 512
-      - 1024
-      - 2016
+      # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
