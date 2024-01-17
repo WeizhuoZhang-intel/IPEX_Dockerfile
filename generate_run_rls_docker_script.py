@@ -236,7 +236,7 @@ function collect_accnorm_logs_llm() {
     sleep 5s
 
     acc_value=$(tail -n 5 $log_dir/$1 | awk -F'|' '/acc / {gsub(/^[ \\t]+|[ \\t]+$/, "", $5); print $5}')
-    acc_norm_value=$(tail -n 5 $log_dir/$1 | awk -F'|' '/acc_norm// {gsub(/^[ \\t]+|[ \\t]+$/, "", $5); print $5}')
+    acc_norm_value=$(tail -n 5 $log_dir/$1 | awk -F'|' '/acc_norm/ {gsub(/^[ \\t]+|[ \\t]+$/, "", $5); print $5}')
 
     printf $1 |tee -a ${log_dir}/accsummary.log
     printf ", ${acc_norm},${acc_value} \\n" |tee -a ${log_dir}/accsummary.log
