@@ -380,7 +380,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         for output_token in data['modelargs'][mode]['maxnewtokens']:
