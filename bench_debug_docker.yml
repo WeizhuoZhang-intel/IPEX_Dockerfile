@@ -147,29 +147,29 @@ modelargs:
       - False
     shard: False
 
-  model_bf16ds:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rls2.2/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # model_bf16ds:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   llama13_woqds:
     modelid: 
@@ -204,30 +204,30 @@ modelargs:
     greedy: 
       - False
     shard: False
-  llama13_woqds:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data/rls2.2/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 4
-    greedy: 
-      - False
-    shard: False
+  # llama13_woqds:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 4
+  #   greedy: 
+  #     - False
+  #   shard: False
 
 
   # opt13_woq4:
