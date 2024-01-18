@@ -297,11 +297,11 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - static-bf16-int8
+      - static-fp32-int8
     maxnewtokens: 
       - 32
-    outputdir: "/data0/rls2.2/static8-bf16"
-    quantizedmodelpath: "/data0/rls2.2/static8-bf16"
+    outputdir: "/data0/rls2.2/static8"
+    quantizedmodelpath: "/data0/rls2.2/static8"
     configpath: "/data0/rls2.2/static8"
     inputtokens:
       - 128
@@ -393,10 +393,10 @@ modelargs:
     modelid: 
       # - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-13b-hf
       # - tiiuae/falcon-40b
       # - THUDM/chatglm2-6b
-      - facebook/opt-1.3b
+      # - facebook/opt-1.3b
       # - facebook/opt-30b
       # - meta-llama/Llama-2-70b-hf
       # - baichuan-inc/Baichuan2-13B-Chat
