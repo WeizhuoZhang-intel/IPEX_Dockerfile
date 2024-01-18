@@ -421,6 +421,53 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
+
+        if mode.endswith('autotune'):
+            lines.append("# Run Workload")  
+            lines.append("export WORK_DIR=./")
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}")
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for beam in data['modelargs'][mode]['greedy']:
+                                for bs in data['modelargs'][mode]['batchsize']:
+                                    for rank in data['modelargs'][mode]['localrank']:
+                                        lines.append(f"export local_rank={rank}")
+                                        lines.append("deepspeed_core_config ${local_rank}")
+                                        lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+
+                                        
+                                        lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        
+                                        if 'fp32' in dtype:
+                                            if beam == True:  
+                                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
+                                                            --benchmark -m {model_id} --alpha auto --ipex-smooth-quant  --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency   \
+                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            else:  
+                                                if 'falcon' in model_id:
+                                                    lines.append(f"OMP_NUM_THREADS=56 numactl -m 0 -C 0-55 python run.py  \
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --alpha auto --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --config-file utils/model_config/tiiuae_falcon-40b_config.json   \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
+                                                else: 
+                                                    lines.append(f"python run.py  \
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --alpha auto --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency    \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")       
+                                        elif 'bf16' in dtype:
+                                            if beam == True:   
+                                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
+                                                            --benchmark -m {model_id} --ipex-smooth-quant --alpha auto --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency   \
+                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            else:   
+                                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
+                                                            --benchmark -m {model_id} --ipex-smooth-quant --alpha auto --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency   \
+                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                           
+                                
+                                        lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+
+
+
         if mode.endswith('static81'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")

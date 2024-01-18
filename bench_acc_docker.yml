@@ -283,11 +283,12 @@ modelargs:
 
   agptj_static8:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
       # - tiiuae/falcon-40b
-      - THUDM/chatglm2-6b
-      - facebook/opt-1.3b
+      # - THUDM/chatglm2-6b
+      # - facebook/opt-1.3b
       # - facebook/opt-30b
       # - meta-llama/Llama-2-70b-hf
       # - baichuan-inc/Baichuan2-13B-Chat
@@ -316,11 +317,12 @@ modelargs:
 
   model_static8acc:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
       # - tiiuae/falcon-40b
-      - THUDM/chatglm2-6b
-      - facebook/opt-1.3b
+      # - THUDM/chatglm2-6b
+      # - facebook/opt-1.3b
       # - facebook/opt-30b
       # - meta-llama/Llama-2-70b-hf
       # - baichuan-inc/Baichuan2-13B-Chat
