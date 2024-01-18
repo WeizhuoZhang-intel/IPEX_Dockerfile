@@ -281,39 +281,39 @@ modelargs:
   #     - 4
   #   alpha: 0.9
 
-  # agptj_static8:
-  #   modelid: 
-  #     # - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     # - meta-llama/Llama-2-13b-hf
-  #     # - tiiuae/falcon-40b
-  #     # - THUDM/chatglm2-6b
-  #     # - facebook/opt-1.3b
-  #     # - facebook/opt-30b
-  #     # - meta-llama/Llama-2-70b-hf
-  #     # - baichuan-inc/Baichuan2-13B-Chat
-  #     # - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data0/rls2.2/static8"
-  #   quantizedmodelpath: "/data0/rls2.2/static8"
-  #   configpath: "/data0/rls2.2/static8"
-  #   inputtokens:
-  #     - 128
-  #     # - 512
-  #     # - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  agptj_static8:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      # - tiiuae/falcon-40b
+      # - THUDM/chatglm2-6b
+      - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - meta-llama/Llama-2-70b-hf
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-bf16-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/static8-bf16"
+    quantizedmodelpath: "/data0/rls2.2/static8-bf16"
+    configpath: "/data0/rls2.2/static8"
+    inputtokens:
+      - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
   # model_static8acc:
   #   modelid: 
@@ -356,54 +356,54 @@ modelargs:
   #   localrank:
   #     - 1
   #   alpha: 0.9
-  model_autotune:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - tiiuae/falcon-40b
-      # - THUDM/chatglm2-6b
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - meta-llama/Llama-2-70b-hf
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-fp32-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/localdisk/mint/rls2.2/static8"
-    quantizedmodelpath: "/localdisk/mint/rls2.2/static8"
-    configpath: "/localdisk/mint/rls2.2/static8"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # model_autotune:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - tiiuae/falcon-40b
+  #     # - THUDM/chatglm2-6b
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/localdisk/mint/rls2.2/static8"
+  #   quantizedmodelpath: "/localdisk/mint/rls2.2/static8"
+  #   configpath: "/localdisk/mint/rls2.2/static8"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   model_static8acc:
     modelid: 
       # - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-13b-hf
       # - tiiuae/falcon-40b
       # - THUDM/chatglm2-6b
-      # - facebook/opt-1.3b
+      - facebook/opt-1.3b
       # - facebook/opt-30b
       # - meta-llama/Llama-2-70b-hf
       # - baichuan-inc/Baichuan2-13B-Chat
       # - meta-llama/Llama-2-70b-hf
     dtype: 
-      - static-fp32-int8
-    quantizedmodelpath: "/localdisk/mint/rls2.2/static8"
+      - static-bf16-int8
+    quantizedmodelpath: "/data0/rls2.2/static8-bf16"
     batchsize: 
       - 1
     localrank:
