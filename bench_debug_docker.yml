@@ -39,7 +39,7 @@ modelargs:
       # - baichuan-inc/Baichuan2-7B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
       # - bigcode/starcoder
-      - google/flan-t5-xl
+      # - google/flan-t5-xl
       - mistralai/Mistral-7B-v0.1
       # - mosaicml/mpt-7b
     scriptname: run.py
