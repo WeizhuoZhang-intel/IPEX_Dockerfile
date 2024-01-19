@@ -21,45 +21,45 @@ launcher:
   hw: SPR
 modelargs:
 
-  model_bf16:
-    modelid: 
-      # - EleutherAI/gpt-j-6B
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
-      # - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - Salesforce/codegen-2B-multi
-      # - THUDM/chatglm3-6b
-      # - THUDM/chatglm2-6b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - baichuan-inc/Baichuan2-7B-Chat
-      # - Baichuan-inc/Baichuan-13B-Chat
-      # - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # model_bf16:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - tiiuae/falcon-40b
+  #     # - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - Salesforce/codegen-2B-multi
+  #     # - THUDM/chatglm3-6b
+  #     # - THUDM/chatglm2-6b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - Baichuan-inc/Baichuan-13B-Chat
+  #     # - bigcode/starcoder
+  #     # - google/flan-t5-xl
+  #     # - mistralai/Mistral-7B-v0.1
+  #     # - mosaicml/mpt-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # model_bf16compiler:
   #   modelid: 
@@ -228,6 +228,50 @@ modelargs:
   #   greedy: 
   #     - False
   #   shard: False
+
+  gptj_woq8:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - databricks/dolly-v2-12b
+      # - tiiuae/falcon-40b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      # - THUDM/chatglm3-6b
+      # - THUDM/chatglm2-6b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # - mosaicml/mpt-7b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      - 1024
+      - 128
+      # - 512
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
 
 
   # opt13_woq4:
