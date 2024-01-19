@@ -731,28 +731,28 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
-                                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                             --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency--autotp  \
                                                                 2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
-                                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
+                                                lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
                                                             --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency--autotp  \
                                                                 2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                         else:
 
                                             if beam == True:   
-                                                lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                             --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --autotp --shard-model    \
                                                                 2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'mpt' in model_id:
-                                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                    lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --autotp --shard-model  --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
 
                                                 else:
 
-                                                    lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                    lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --autotp --shard-model    \
                                                                     2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                 
@@ -993,52 +993,52 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             if beam == True:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     else:
 
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                 else:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     else:
 
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     elif 'mpt' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                        
                                                     
                                                     else:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                                 else:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                                     elif 'mpt' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
                                                     
                                                     else:
 
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                         else:
@@ -1046,48 +1046,48 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             if beam == True:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     else:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                 else:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     else:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
                                                     elif 'mpt' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
                                                     
                                                     else:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")      
                                                 else:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")     
                                                     elif 'mpt' in model_id:
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                     
                                                     else:                                                      
-                                                        lines.append(f"deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp --autotp --shard-model    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                 
@@ -1168,42 +1168,42 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             if beam == True:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     else:
 
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                 else:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     else:
 
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                     else:
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                                 else:
                                                     if 'neox' in model_id or 'dolly' in model_id:
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                                     else:
 
-                                                        lines.append(f"timeout 20m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
+                                                        lines.append(f"timeout 30m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                         else:
