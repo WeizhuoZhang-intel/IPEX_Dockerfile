@@ -207,6 +207,33 @@ function collect_perf_logs_llm() {
 }
 '''
 
+collect_acc_result = '''
+function collect_acc_logs_llm() {
+    # latency
+    sleep 5s
+    ppl_value=$(tail -n 5 $log_dir/$1 | grep 'lambada_openai.*ppl' | awk -F'|' '{print $5}' | tr -d '[:space:]')
+    acc_value=$(tail -n 5 $log_dir/$1 | awk -F'|' '/acc/ {gsub(/^[ \\t]+|[ \\t]+$/, "", $5); print $5}')
+
+    printf $1 |tee -a ${log_dir}/accsummary.log
+    printf ", ${ppl_value},${acc_value} \\n" |tee -a ${log_dir}/accsummary.log
+}
+'''
+collect_accnorm_result = '''
+function collect_accnorm_logs_llm() {
+    # latency
+    sleep 5s
+
+    acc_value=$(tail -n 5 $log_dir/$1 | awk -F'|' '/acc / {gsub(/^[ \\t]+|[ \\t]+$/, "", $5); print $5}')
+    acc_norm_value=$(tail -n 5 $log_dir/$1 | awk -F'|' '/acc_norm/ {gsub(/^[ \\t]+|[ \\t]+$/, "", $5); print $5}')
+
+    printf $1 |tee -a ${log_dir}/accsummary.log
+    printf ", ${acc_norm},${acc_value} \\n" |tee -a ${log_dir}/accsummary.log
+}
+'''
+
+
+
+
 def generate_commands(yml_file,mode,extra_kmp):
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader)
     generated_file = "run_"+mode+".sh"
@@ -215,7 +242,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/mnt/aitrgdata/mint/ww51accuracy/log")
+        lines.append("export log_dir=/mnt/aitrgdata/mint/rls2.2/log")
         lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
@@ -1143,17 +1170,28 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
                 if 'falcon' in model_id: 
-                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only --config-file utils/model_config/tiiuae_falcon-40b_config.json --batch-size 1 \
+                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai  --config-file utils/model_config/tiiuae_falcon-40b_config.json --batch-size 1 \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                
                 elif 'codegen' in model_id:
-                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks hellaswag --accuracy-only --batch-size 1 \
+                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks hellaswag  --batch-size 1 \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                    
                 elif 'gpt-j' in model_id:
-                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only --batch-size 1 \
+                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai  --batch-size 1 \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                    
+                elif 'mpt' in model_id:
+                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks hellaswag  --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                                    2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                    
+                # elif 'dolly' in model_id:
+                #     lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks hellaswag  --batch-size 1 \
+                #                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                  
                 else:
-                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex --jit --tasks lambada_openai --accuracy-only --batch-size 1 \
+                    lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai  --batch-size 1 \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
+                
+                if 'mpt' in model_id or 'codegen' in model_id:
+                    lines.append(f"collect_accnorm_logs_llm llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
+                else:
+                    lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
 
         if mode.endswith('woqdsacc'):
 
@@ -1161,32 +1199,54 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     if 'int8' in dtype:
-                        if 'neox' in model_id:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 1 \
+                        if 'neox' in model_id or 'dolly' in model_id:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
                         elif 'falcon' in model_id:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --config-file utils/model_config/tiiuae_falcon-40b_config.json --batch-size 56 \
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --config-file utils/model_config/tiiuae_falcon-40b_config.json --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         elif 'codegen' in model_id:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --int8-bf16-mixed --ipex --jit --tasks hellaswag --accuracy-only --ipex-weight-only-quantization --batch-size 56 \
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
+                        elif 'mpt' in model_id:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
+                        # elif 'dolly' in model_id:
+                        #     lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 \
+                        #                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                           
                         else:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 56 \
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
-                    elif 'int4' in dtype:
-                        if 'neox' in model_id:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --dtype float32 --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 56 \
-                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
-                        elif 'falcon' in model_id:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 56 --config-file utils/model_config/tiiuae_falcon-40b_config.json\
-                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
-                        elif 'codegen' in model_id:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --int8-bf16-mixed --ipex --jit --tasks hellaswag --accuracy-only --ipex-weight-only-quantization --batch-size 56 \
-                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
+                        if 'codegen' in model_id or 'mpt' in model_id:
+                            lines.append(f"collect_accnorm_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
                         else:
-                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --int8-bf16-mixed --ipex --jit --tasks lambada_openai --accuracy-only --ipex-weight-only-quantization --batch-size 56 \
-                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
 
+                    elif 'int4' in dtype:
+                        if 'neox' in model_id or 'dolly' in model_id:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                        elif 'falcon' in model_id:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 --config-file utils/model_config/tiiuae_falcon-40b_config.json\
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
+                        elif 'codegen' in model_id:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
+                        elif 'mpt' in model_id:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                            
+                        # elif 'dolly' in model_id:
+                        #     lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
+                        #                     2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                           
+                        else:
+                            lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                        if 'codegen' in model_id or 'mpt' in model_id:
+                            lines.append(f"collect_accnorm_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                        else:
+                            lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+
+        
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])

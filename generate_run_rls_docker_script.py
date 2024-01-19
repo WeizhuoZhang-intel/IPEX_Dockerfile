@@ -1588,6 +1588,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                         else:
                             lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
 
+        
+        
         if mode.endswith('shard'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
