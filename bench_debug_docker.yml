@@ -24,7 +24,7 @@ modelargs:
   model_bf16:
     modelid: 
       # - EleutherAI/gpt-j-6B
-      # - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
@@ -40,7 +40,7 @@ modelargs:
       # - Baichuan-inc/Baichuan-13B-Chat
       # - bigcode/starcoder
       # - google/flan-t5-xl
-      - mistralai/Mistral-7B-v0.1
+      # - mistralai/Mistral-7B-v0.1
       # - mosaicml/mpt-7b
     scriptname: run.py
     device:
@@ -48,11 +48,11 @@ modelargs:
     dtype: 
       - bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     inputtokens:
       - 128
       # - 512
-      # - 1024
+      - 1024
       # - 2016
     batchsize: 
       - 1
