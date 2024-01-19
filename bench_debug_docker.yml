@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 40
+  iternum: 20
   hw: SPR
 modelargs:
 
