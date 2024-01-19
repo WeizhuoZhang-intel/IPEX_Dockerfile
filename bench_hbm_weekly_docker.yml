@@ -39,7 +39,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/shard"
+    outputdir: "/localdisk/shard"
     inputtokens:
       - 128
       - 512
@@ -56,7 +56,7 @@ modelargs:
   llamaa13a_bf16dsp:
     modelid: 
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
       - facebook/opt-30b
       - bigcode/starcoder
@@ -67,7 +67,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/shard"
+    outputdir: "/localdisk/shard"
     inputtokens:
       - 128
       - 512
@@ -100,7 +100,7 @@ modelargs:
       # - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/shard"
+    outputdir: "/localdisk/shard"
     inputtokens:
       - 128
       - 512
@@ -117,7 +117,7 @@ modelargs:
   llama413_woqdsp:
     modelid: 
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
       - facebook/opt-30b
       - bigcode/starcoder
@@ -129,7 +129,7 @@ modelargs:
       # - ds-woq-int4
     maxnewtokens: 
       - 32
-    outputdir: "/shard"
+    outputdir: "/localdisk/shard"
     inputtokens:
       - 128
       - 512
