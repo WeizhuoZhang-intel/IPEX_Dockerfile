@@ -52,6 +52,7 @@ source ./tools/env_activate.sh
 # Please adjust the settings per your hardware.
 
 # ----------------------------------------------------------------------- FOR PERFORMANCE ---------------------------------------------------------------------------------------
+# static int8 with smoothquant
 OMP_NUM_THREADS=56 numactl -m 0 -C 0-55 python run.py  --benchmark -m facebook/opt-1.3b --ipex-smooth-quant --qconfig-summary-file opt-1b3_qconfig.json --output-dir "saved_results" --input-tokens 32 --max-new-tokens 32 --token-latency
 
 OMP_NUM_THREADS=56 numactl -m 0 -C 0-55 python run.py  --benchmark -m meta-llama/Llama-2-7b-hf --ipex-smooth-quant --qconfig-summary-file llama-2-7b_qconfig.json --output-dir "saved_results" --input-tokens 32 --max-new-tokens 32 --token-latency
