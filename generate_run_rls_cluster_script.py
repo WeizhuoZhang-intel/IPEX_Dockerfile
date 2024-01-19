@@ -251,6 +251,8 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("# device info")
         lines.append(fetch_device_info)
         lines.append(collect_result)    
+        lines.append(collect_acc_result)   
+        lines.append(collect_accnorm_result)  
         lines.append(deepspeed_ccl_func)
         lines.append(timeprocess)
         lines.append(startprocess)
