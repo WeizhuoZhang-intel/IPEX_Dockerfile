@@ -292,6 +292,29 @@ modelargs:
     greedy: 
       - False
 
+  gptj_gptqacc:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - EleutherAI/gpt-neox-20b
+      - databricks/dolly-v2-12b
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+      - mosaicml/mpt-7b
+      - mistralai/Mistral-7B-v0.1
+    scriptname: single_instance/run_gpt-j_quantization.py
+    dtype: 
+      - woq-int4-bf16
+    quantizedmodelpath: "/data0/rls2.2/gptq-bf16"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
   # bmodel_static8acc:
   #   modelid: 
   #     # - facebook/opt-1.3b
