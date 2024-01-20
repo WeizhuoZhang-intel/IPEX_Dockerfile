@@ -17,18 +17,20 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 50
+  iternum: 40
   hw: GNR
 modelargs:
   llama13_bf16ds:
     modelid: 
       - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - databricks/dolly-v2-12b
-      # - bigcode/starcoder
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      - facebook/opt-30b
+      - baichuan-inc/Baichuan2-13B-Chat
+      - Baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
     scriptname: run.py
     device:
       - cpu
@@ -36,16 +38,48 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/data/weeklymodel/shard"
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
     inputtokens:
       - 128
-      # - 512
-      # - 1024
-      # - 2016
+      - 512
+      - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
       - 3
+    greedy: 
+      - False
+    shard: False
+
+  llama132_bf16ds:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      - facebook/opt-30b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 6
     greedy: 
       - False
     shard: False
@@ -78,65 +112,65 @@ modelargs:
   #     - False
   #   shard: False
 
-  # llama13_woqds:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     - databricks/dolly-v2-12b
-  #     - bigcode/starcoder
-  #     - mistralai/Mistral-7B-v0.1
-  #     - mosaicml/mpt-7b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data/weeklymodel/shard"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 3
-  #   greedy: 
-  #     - False
-  #   shard: False
+  llama13_woqds:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - EleutherAI/gpt-neox-20b
+      - facebook/opt-30b
+      - baichuan-inc/Baichuan2-13B-Chat
+      - Baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 3
+    greedy: 
+      - False
+    shard: False
 
-  # llama413_woqds:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #     - meta-llama/Llama-2-70b-hf
-  #     - EleutherAI/gpt-neox-20b
-  #     - facebook/opt-30b
-  #     - bigcode/starcoder
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data/weeklymodel/shard"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 6
-  #   greedy: 
-  #     - False
-  #   shard: False
+  llama413_woqds:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+      - EleutherAI/gpt-neox-20b
+      - facebook/opt-30b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 6
+    greedy: 
+      - False
+    shard: False
 
 
 
