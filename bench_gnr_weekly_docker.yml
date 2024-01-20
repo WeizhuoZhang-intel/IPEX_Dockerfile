@@ -55,15 +55,15 @@ modelargs:
 
   llama13_bf16ds:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      - facebook/opt-30b
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # # - EleutherAI/gpt-neox-20b
+      # - facebook/opt-30b
       - baichuan-inc/Baichuan2-13B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
     scriptname: run.py
     device:
       - cpu
@@ -73,9 +73,9 @@ modelargs:
       - 32
     outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
     inputtokens:
-      - 128
-      - 512
-      - 1024
+      # - 128
+      # - 512
+      # - 1024
       - 2016
     batchsize: 
       - 1
@@ -92,7 +92,7 @@ modelargs:
       # - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
-      - facebook/opt-30b
+      # - facebook/opt-30b
       # - baichuan-inc/Baichuan2-13B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
       # - bigcode/starcoder
@@ -147,15 +147,15 @@ modelargs:
 
   llama13_woqds:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
-      - facebook/opt-30b
-      - baichuan-inc/Baichuan2-13B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
+      # - facebook/opt-30b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
     scriptname: run.py
     device:
       - cpu
@@ -167,9 +167,9 @@ modelargs:
     outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
     inputtokens:
       - 128
-      - 512
-      - 1024
-      - 2016
+      # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
@@ -178,32 +178,32 @@ modelargs:
       - False
     shard: False
 
-  llama413_woqds:
-    modelid: 
-      - meta-llama/Llama-2-70b-hf
-      - EleutherAI/gpt-neox-20b
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 6
-    greedy: 
-      - False
-    shard: False
+  # llama413_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-70b-hf
+  #     - EleutherAI/gpt-neox-20b
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 6
+  #   greedy: 
+  #     - False
+  #   shard: False
 
 
 
