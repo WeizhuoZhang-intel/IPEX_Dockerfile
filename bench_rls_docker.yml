@@ -274,7 +274,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - woq-int4
+      - woq-int4-bf16
     maxnewtokens: 
       - 32
     outputdir: "/data0/rls2.2/gptq-bf16"
