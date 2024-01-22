@@ -52,7 +52,7 @@ modelargs:
   #   localrank:
   #     - 1
 
-  model_bf16dsacc:
+  model_bf16dsaccnoipex:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
@@ -65,7 +65,7 @@ modelargs:
     localrank:
       - 1
 
-  model_woqdsacc:
+  model_woqdsaccnoipex:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
