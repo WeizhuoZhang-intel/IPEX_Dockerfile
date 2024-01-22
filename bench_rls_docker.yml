@@ -371,7 +371,7 @@ modelargs:
   #   greedy: 
   #     - False
 
-    gptj_woq8acc:
+  gptj_woq8acc:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
