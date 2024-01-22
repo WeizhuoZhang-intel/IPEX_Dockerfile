@@ -52,43 +52,43 @@ modelargs:
   #   localrank:
   #     - 1
 
-  # model_bf16dsacc:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   dtype: 
-  #     - bfloat16
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  model_bf16dsacc:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    dtype: 
+      - bfloat16
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
-  # model_woqdsacc:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     # - meta-llama/Llama-2-70b-hf
-  #     - EleutherAI/gpt-neox-20b
-  #     - tiiuae/falcon-40b
-  #     - bigscience/bloom-1b7
-  #     - facebook/opt-1.3b
-  #     - facebook/opt-30b
-  #     - Salesforce/codegen-2B-multi
-  #     - baichuan-inc/Baichuan2-13B-Chat
-  #     - baichuan-inc/Baichuan2-7B-Chat
-  #     - Baichuan-inc/Baichuan-13B-Chat
-  #     - mistralai/Mistral-7B-v0.1
-  #   scriptname: run.py
-  #   dtype: 
-  #     - ds-woq-int8
-  #     - ds-woq-int4
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
+  model_woqdsacc:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - tiiuae/falcon-40b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - mistralai/Mistral-7B-v0.1
+    scriptname: run.py
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    batchsize: 
+      - 1
+    localrank:
+      - 2
 
   # model_bf16pt:
   #   modelid: 
@@ -411,88 +411,88 @@ modelargs:
   #   alpha: 0.9
 
 
-  agptj_woq8:
-    modelid: 
-      - bigcode/starcoder
-      - baichuan-inc/Baichuan2-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # agptj_woq8:
+  #   modelid: 
+  #     - bigcode/starcoder
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/woq-int8"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
-  agptj1_woq8:
-    modelid: 
-      - bigscience/bloom-1b7
-      - facebook/opt-30b      
-      - EleutherAI/gpt-neox-20b
-      - databricks/dolly-v2-12b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-fp32-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-fp32-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-fp32-int8"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # agptj1_woq8:
+  #   modelid: 
+  #     - bigscience/bloom-1b7
+  #     - facebook/opt-30b      
+  #     - EleutherAI/gpt-neox-20b
+  #     - databricks/dolly-v2-12b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-fp32-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/woq-fp32-int8"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-fp32-int8"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
-  gptj_woq8acc:
-    modelid: 
-      - bigcode/starcoder
-      - baichuan-inc/Baichuan2-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    quantizedmodelpath: "/data0/rls2.2/woq-int8/"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # gptj_woq8acc:
+  #   modelid: 
+  #     - bigcode/starcoder
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8/"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
-  gptj1_woq8acc:
-    modelid: 
-      - bigscience/bloom-1b7
-      - facebook/opt-30b      
-      - EleutherAI/gpt-neox-20b
-      - databricks/dolly-v2-12b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-fp32-int8
-    quantizedmodelpath: "/data0/rls2.2/woq-fp32-int8"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # gptj1_woq8acc:
+  #   modelid: 
+  #     - bigscience/bloom-1b7
+  #     - facebook/opt-30b      
+  #     - EleutherAI/gpt-neox-20b
+  #     - databricks/dolly-v2-12b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-fp32-int8
+  #   quantizedmodelpath: "/data0/rls2.2/woq-fp32-int8"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
