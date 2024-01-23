@@ -242,7 +242,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/mnt/aitrgdata/mint/rls2.2/static8")
+        lines.append("export log_dir=/mnt/aitrgdata/mint/rls2.2/fp32")
         lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
@@ -1105,8 +1105,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                             lines.append(f"collect_accnorm_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
                         else:
                             lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
-
-
 
         if mode.endswith('customacc'):
             for model_id in data['modelargs'][mode]['modelid']:
