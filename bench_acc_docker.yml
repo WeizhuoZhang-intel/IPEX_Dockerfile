@@ -414,7 +414,8 @@ modelargs:
   agptj_woq8:
     modelid: 
       # - bigcode/starcoder
-      - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-13B-Chat
+      - google/flan-t5-xl
     scriptname: run.py
     device:
       - cpu
@@ -467,8 +468,14 @@ modelargs:
 
   gptj_woq8acc:
     modelid: 
-      # - bigcode/starcoder
-      - baichuan-inc/Baichuan2-13B-Chat
+      - bigcode/starcoder
+      # - baichuan-inc/Baichuan2-13B-Chat
+      - google/flan-t5-xl
+      - EleutherAI/gpt-neox-20b
+      - tiiuae/falcon-40b
+      - Salesforce/codegen-2B-multi
+      - THUDM/chatglm2-6b
+      - mosaicml/mpt-7b
     scriptname: run.py
     device:
       - cpu
