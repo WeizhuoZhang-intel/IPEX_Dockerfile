@@ -119,7 +119,7 @@ modelargs:
       - mosaicml/mpt-7b
     dtype: 
       - static-fp32-int8
-    output-dir: "/mnt/aitrgdata/mint/rls2.2/autotune"
+    outputdir: "/mnt/aitrgdata/mint/rls2.2/autotune"
     batchsize: 
       - 1
     localrank:
