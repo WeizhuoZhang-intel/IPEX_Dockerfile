@@ -120,11 +120,20 @@ modelargs:
     dtype: 
       - static-fp32-int8
     outputdir: "/mnt/aitrgdata/mint/rls2.2/autotune"
-    batchsize: 
-      - 1
     localrank:
       - 1
     alpha: 0.9
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    maxnewtokens: 
+      - 32
+    batchsize: 
+      - 1
+    greedy: 
+      - False
 
   model_static8acc:
     modelid: 
