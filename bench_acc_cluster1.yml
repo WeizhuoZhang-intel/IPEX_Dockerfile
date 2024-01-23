@@ -22,15 +22,15 @@ launcher:
 modelargs:
   model_bf16dsacc:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       - tiiuae/falcon-40b
       # - bigscience/bloom-1b7
       # - facebook/opt-1.3b
       # - facebook/opt-30b
-      # - Salesforce/codegen-2B-multi
+      - Salesforce/codegen-2B-multi
       # - baichuan-inc/Baichuan2-13B-Chat
       # - baichuan-inc/Baichuan2-7B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
@@ -48,8 +48,8 @@ modelargs:
 
   model_woqdsacc:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       - tiiuae/falcon-40b
@@ -60,8 +60,8 @@ modelargs:
       # - baichuan-inc/Baichuan2-13B-Chat
       # - baichuan-inc/Baichuan2-7B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
-      - mistralai/Mistral-7B-v0.1
-      - bigcode/starcoder
+      # - mistralai/Mistral-7B-v0.1
+      # - bigcode/starcoder
       - google/flan-t5-xl
       # - mosaicml/mpt-7b
     scriptname: run.py
