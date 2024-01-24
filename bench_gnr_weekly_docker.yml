@@ -21,7 +21,7 @@ launcher:
   hw: GNR
 modelargs:
 
-  llama13_shard:
+  allama13_shard:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
