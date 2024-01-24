@@ -1165,6 +1165,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                     lines.append(f"OMP_NUM_THREADS=56 numactl -m 0 -C 0-55 python run.py  \
                                                                 --benchmark -m {model_id} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile  --config-file utils/model_config/tiiuae_falcon-40b_config.json   \
                                                                     2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
+                                                elif 'mpt' in model_id:
+                                                    lines.append(f"python run.py  \
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile  --config-file=utils/model_config/mosaicml_mpt-7b_config.json   \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                     
                                                 else: 
                                                     lines.append(f"python run.py  \
                                                                 --benchmark -m {model_id} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile     \
