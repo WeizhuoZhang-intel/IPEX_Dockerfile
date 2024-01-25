@@ -17,39 +17,58 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
+  iternum: 40
   hw: SPR
 modelargs:
-  llama13_bf16ds:
+  agptj_woq8:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # # - EleutherAI/gpt-neox-20b
-      # - facebook/opt-30b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - Baichuan-inc/Baichuan-13B-Chat
-      # - bigcode/starcoder
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - ds-bfloat16
+      - woq-int8
     maxnewtokens: 
-      - 128
-    outputdir: "/home/mint/shard"
+      - 256
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
     inputtokens:
-      # - 128
-      # - 512
+      - 256
       - 1024
-      # - 2016
+      - 2048
     batchsize: 
       - 1
-    localrank:
       - 2
+      - 4
+      - 8
+      - 16
+    localrank:
+      - 1
+    greedy: 
+      # - False
+      - True
+
+  model_bf16:
+    modelid: 
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 256
+    inputtokens:
+      - 256
+      - 1024
+      - 2048
+    batchsize: 
+      - 1
+      - 2
+      - 4
+      - 8
+      - 16
+    localrank:
+      - 1
     greedy: 
       - True
-    shard: False
-
-
