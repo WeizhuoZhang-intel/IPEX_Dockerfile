@@ -103,39 +103,39 @@ modelargs:
   #     - False
   #   shard: False
 
-  agptj_static8:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - tiiuae/falcon-40b
-      # - THUDM/chatglm2-6b
-      - facebook/opt-1.3b
-      # - facebook/opt-30b
-      - baichuan-inc/Baichuan2-13B-Chat
-      # - baichuan-inc/Baichuan2-7B-Chat
-      # - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-fp32-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/static8"
-    quantizedmodelpath: "/data0/rls2.2/static8"
-    configpath: "/data0/rls2.2/static8"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # agptj_static8:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - tiiuae/falcon-40b
+  #     # - THUDM/chatglm2-6b
+  #     - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/static8"
+  #   quantizedmodelpath: "/data0/rls2.2/static8"
+  #   configpath: "/data0/rls2.2/static8"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # model_static8acc:
   #   modelid: 
@@ -162,24 +162,24 @@ modelargs:
   agptj_woq8:
     modelid: 
       # - bigcode/starcoder
-      # - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan2-13B-Chat
       # - google/flan-t5-xl
-      - tiiuae/falcon-40b
-      - databricks/dolly-v2-12b
+      # - tiiuae/falcon-40b
+      # - databricks/dolly-v2-12b
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - woq-int8
+      - woq-int8-fp32
     maxnewtokens: 
       - 32
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    outputdir: "/data0/rls2.2/woq-int8-fp32"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
     inputtokens:
       - 128
-      - 512
-      - 1024
-      - 2016
+      # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
@@ -216,24 +216,17 @@ modelargs:
   #     - False
   #     # - True
 
-  # gptj_woq8acc:
-  #   modelid: 
-  #     - bigcode/starcoder
-  #     # - baichuan-inc/Baichuan2-13B-Chat
-  #     - google/flan-t5-xl
-  #     - EleutherAI/gpt-neox-20b
-  #     - tiiuae/falcon-40b
-  #     - Salesforce/codegen-2B-multi
-  #     - THUDM/chatglm2-6b
-  #     - mosaicml/mpt-7b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - woq-int8
-  #   quantizedmodelpath: "/data0/rls2.2/woq-int8/"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  gptj_woq8acc:
+    modelid: 
+      - baichuan-inc/Baichuan2-13B-Chat
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8-fp32
+    quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
