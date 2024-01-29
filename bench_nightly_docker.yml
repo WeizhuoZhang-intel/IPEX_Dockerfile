@@ -159,54 +159,26 @@ modelargs:
 
 
 
-  agptj_woq8:
-    modelid: 
-      # - bigcode/starcoder
-      - baichuan-inc/Baichuan-13B-Chat
-      # - google/flan-t5-xl
-      # - tiiuae/falcon-40b
-      # - databricks/dolly-v2-12b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8-fp32
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-int8-fp32"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
-
-  # agptj1_woq8:
+  # agptj_woq8:
   #   modelid: 
-  #     - bigscience/bloom-1b7
-  #     - facebook/opt-30b      
-  #     - EleutherAI/gpt-neox-20b
-  #     - databricks/dolly-v2-12b
+  #     # - bigcode/starcoder
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #     # - google/flan-t5-xl
+  #     # - tiiuae/falcon-40b
+  #     # - databricks/dolly-v2-12b
   #   scriptname: run.py
   #   device:
   #     - cpu
   #   dtype: 
-  #     - woq-fp32-int8
+  #     - woq-int8-fp32
   #   maxnewtokens: 
   #     - 32
-  #   outputdir: "/data0/rls2.2/woq-fp32-int8"
-  #   quantizedmodelpath: "/data0/rls2.2/woq-fp32-int8"
+  #   outputdir: "/data0/rls2.2/woq-int8-fp32"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
   #   inputtokens:
-  #     # - 128
+  #     - 128
   #     # - 512
-  #     - 1024
+  #     # - 1024
   #     # - 2016
   #   batchsize: 
   #     - 1
@@ -216,17 +188,112 @@ modelargs:
   #     - False
   #     # - True
 
-  gptj_woq8acc:
+  # # agptj1_woq8:
+  # #   modelid: 
+  # #     - bigscience/bloom-1b7
+  # #     - facebook/opt-30b      
+  # #     - EleutherAI/gpt-neox-20b
+  # #     - databricks/dolly-v2-12b
+  # #   scriptname: run.py
+  # #   device:
+  # #     - cpu
+  # #   dtype: 
+  # #     - woq-fp32-int8
+  # #   maxnewtokens: 
+  # #     - 32
+  # #   outputdir: "/data0/rls2.2/woq-fp32-int8"
+  # #   quantizedmodelpath: "/data0/rls2.2/woq-fp32-int8"
+  # #   inputtokens:
+  # #     # - 128
+  # #     # - 512
+  # #     - 1024
+  # #     # - 2016
+  # #   batchsize: 
+  # #     - 1
+  # #   localrank:
+  # #     - 1
+  # #   greedy: 
+  # #     - False
+  # #     # - True
+
+  # gptj_woq8acc:
+  #   modelid: 
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8-fp32
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  agptjint8_gptqquant:
     modelid: 
-      - baichuan-inc/Baichuan-13B-Chat
-    scriptname: run.py
+      - bigcode/starcoder
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+    scriptname: single_instance/run_quantization.py
     device:
       - cpu
     dtype: 
-      - woq-int8-fp32
-    quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
+      - woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/gptq"
+    quantizedmodelpath: "/data0/rls2.2/gptq"
+    configpath: "/data0/rls2.2/gptq"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
       - 1
+    greedy: 
+      - False
 
+  gptjint8_gptqperf:
+    modelid: 
+      - bigcode/starcoder
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/gptq"
+    quantizedmodelpath: "/data0/rls2.2/gptq"
+    configpath: "/data0/rls2.2/gptq"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+  
+  gptjint8_gptqacc:
+    modelid: 
+      - bigcode/starcoder
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+    scriptname: single_instance/run_gpt-j_quantization.py
+    dtype: 
+      - woq-int4
+    quantizedmodelpath: "/data0/rls2.2/gptq"
+    batchsize: 
+      - 1
+    localrank:
+      - 1

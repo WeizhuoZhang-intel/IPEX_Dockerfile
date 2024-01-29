@@ -1903,7 +1903,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             
                             else:
                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp --lowp-mode BF16 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['configpath']}/{model_id}/gptq_checkpoint_g128.pt")
-                        elif 'int8' in dtype:
+                        else:
                             if 'falcon' in model_id: 
                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp --lowp-mode INT8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['configpath']}/{model_id}/gptq_checkpoint_g128.pt --config-file utils/model_config/tiiuae_falcon-40b_config.json")
                             elif 'neox' in model_id or 'dolly' in model_id:
