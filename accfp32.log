@@ -1,0 +1,23 @@
+llm_accuracy_EleutherAI-gpt-j-6b_float32_SPR.log, 4.1088,0.6831
+llm_accuracy_meta-llama-Llama-2-7b-hf_float32_SPR.log, 3.3942,0.7392
+llm_accuracy_meta-llama-Llama-2-13b-hf_float32_SPR.log, 3.0447,0.7677
+llm_accuracy_meta-llama-Llama-2-70b-hf_float32_SPR.log, 2.6605,0.7964
+llm_accuracy_databricks-dolly-v2-12b_float32_SPR.log, 5.0588,0.6435
+llm_accuracy_tiiuae-falcon-40b_float32_SPR.log, 2.8237,0.7722
+llm_accuracy_bigscience-bloom-1b7_float32_SPR.log, 12.6636,0.4623
+llm_accuracy_facebook-opt-1.3b_float32_SPR.log, 6.6448,0.5789
+llm_accuracy_facebook-opt-30b_float32_SPR.log, 3.6393,0.7149
+llm_accuracy_Salesforce-codegen-2B-multi_float32_SPR.log, ,0.3128
+llm_accuracy_THUDM-chatglm3-6b_float32_SPR.log, 10.2517,0.5909
+llm_accuracy_THUDM-chatglm2-6b_float32_SPR.log, 41587328.8481,0.0000
+llm_accuracy_baichuan-inc-Baichuan2-13B-Chat_float32_SPR.log, 3.1983,0.7151
+llm_accuracy_baichuan-inc-Baichuan2-7B-Chat_float32_SPR.log, 3.8449,0.6767
+llm_accuracy_Baichuan-inc-Baichuan-13B-Chat_float32_SPR.log, 3.7290,0.6757
+llm_accuracy_bigcode-starcoder_float32_SPR.log, 14.5656,0.4572
+llm_accuracy_google-flan-t5-xl_float32_SPR.log, 4.1310,0.7231
+llm_accuracy_mistralai-Mistral-7B-v0.1_float32_SPR.log, 3.1819,0.7590
+llm_accuracy_mosaicml-mpt-7b_float32_SPR.log, ,0.5718
+llm_accuracy_EleutherAI-gpt-neox-20b_float32_SPR.log, ,0.7233
+
+
+
