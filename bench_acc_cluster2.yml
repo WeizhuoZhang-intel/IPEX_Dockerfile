@@ -45,34 +45,34 @@ modelargs:
   #   outputdir: "/mnt/aitrgdata/mint/rls2.2/gptq"
   #   # gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
 
-  amodel_autotune:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-      - bigscience/bloom-1b7
-      - databricks/dolly-v2-12b
-      - Salesforce/codegen-2B-multi
-      - baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
-      - google/flan-t5-xl
-      - mistralai/Mistral-7B-v0.1
-      - mosaicml/mpt-7b
-    dtype: 
-      - static-fp32-int8
-    outputdir: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
-    localrank:
-      - 1
-    alpha: 0.9
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    maxnewtokens: 
-      - 32
-    batchsize: 
-      - 1
-    greedy: 
-      - False
+  # amodel_autotune:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #     - bigscience/bloom-1b7
+  #     - databricks/dolly-v2-12b
+  #     - Salesforce/codegen-2B-multi
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #     - bigcode/starcoder
+  #     - google/flan-t5-xl
+  #     - mistralai/Mistral-7B-v0.1
+  #     - mosaicml/mpt-7b
+  #   dtype: 
+  #     - static-fp32-int8
+  #   outputdir: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
+  #   localrank:
+  #     - 1
+  #   alpha: 0.9
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   maxnewtokens: 
+  #     - 32
+  #   batchsize: 
+  #     - 1
+  #   greedy: 
+  #     - False
 
   amodel_autotune1:
     modelid: 
