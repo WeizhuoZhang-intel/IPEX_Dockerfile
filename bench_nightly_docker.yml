@@ -232,6 +232,8 @@ modelargs:
 
   agptjint8_gptqquant:
     modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
       - bigcode/starcoder
       - databricks/dolly-v2-12b
       - tiiuae/falcon-40b
@@ -259,6 +261,8 @@ modelargs:
 
   gptjint8_gptqperf:
     modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
       - bigcode/starcoder
       - databricks/dolly-v2-12b
       - tiiuae/falcon-40b
@@ -286,6 +290,8 @@ modelargs:
   
   gptjint8_gptqacc:
     modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
       - bigcode/starcoder
       - databricks/dolly-v2-12b
       - tiiuae/falcon-40b
