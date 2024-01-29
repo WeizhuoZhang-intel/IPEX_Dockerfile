@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
+  iternum: 20
   hw: SPR
 modelargs:
   # llama13_bf16ds:
@@ -259,34 +259,34 @@ modelargs:
   #   greedy: 
   #     - False
 
-  gptjint8_gptqperf:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - bigcode/starcoder
-      - databricks/dolly-v2-12b
-      - tiiuae/falcon-40b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/gptq"
-    quantizedmodelpath: "/data0/rls2.2/gptq"
-    configpath: "/data0/rls2.2/gptq"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # gptjint8_gptqperf:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - bigcode/starcoder
+  #     - databricks/dolly-v2-12b
+  #     - tiiuae/falcon-40b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/gptq"
+  #   quantizedmodelpath: "/data0/rls2.2/gptq"
+  #   configpath: "/data0/rls2.2/gptq"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
   
   gptjint8_gptqacc:
     modelid: 
