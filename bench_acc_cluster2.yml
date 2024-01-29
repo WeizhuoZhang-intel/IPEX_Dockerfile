@@ -74,17 +74,18 @@ modelargs:
   #   greedy: 
   #     - False
 
-  amodel_autotune1:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-    dtype: 
-      - woq-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    alpha: 0.9
+  # amodel_autotune1:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   dtype: 
+  #     - static-fp32-int8
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
+  #   outputdir: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   alpha: 0.9
 
   model_static8acc:
     modelid: 
@@ -99,8 +100,9 @@ modelargs:
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
     dtype: 
-      - woq-int8
+      - static-fp32-int8
     quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
+    outputdir: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
     batchsize: 
       - 1
     localrank:
