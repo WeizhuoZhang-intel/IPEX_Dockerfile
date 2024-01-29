@@ -230,34 +230,34 @@ modelargs:
   #   localrank:
   #     - 1
 
-  agptjint8_gptqquant:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - bigcode/starcoder
-      - databricks/dolly-v2-12b
-      - tiiuae/falcon-40b
-    scriptname: single_instance/run_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/gptq"
-    quantizedmodelpath: "/data0/rls2.2/gptq"
-    configpath: "/data0/rls2.2/gptq"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # agptjint8_gptqquant:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - bigcode/starcoder
+  #     - databricks/dolly-v2-12b
+  #     - tiiuae/falcon-40b
+  #   scriptname: single_instance/run_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/gptq"
+  #   quantizedmodelpath: "/data0/rls2.2/gptq"
+  #   configpath: "/data0/rls2.2/gptq"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   gptjint8_gptqperf:
     modelid: 

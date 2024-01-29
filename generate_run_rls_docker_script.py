@@ -1455,7 +1455,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             --dtype int8   --quant-with-amp --tasks hellaswag \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                        
                         elif 'falcon' in model_id:
-                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
+                            lines.append(f"python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
                                             --dtype int8   --quant-with-amp --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                        
                         elif 'neox' in model_id or 'dolly' in model_id:
@@ -1508,7 +1508,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             elif 'falcon' in model_id: 
 
-                                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python {data['modelargs'][mode]['scriptname']} \
+                                                lines.append(f"python {data['modelargs'][mode]['scriptname']} \
                                                             -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --benchmark --quant-with-amp --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --ipex-weight-only-quantization --weight-dtype INT4 --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                             elif 'mpt' in model_id:
