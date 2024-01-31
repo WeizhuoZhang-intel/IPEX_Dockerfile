@@ -71,7 +71,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 128
-    outputdir: "/run/media/root/7ec30db2-572a-4172-af01-0da56a2965e8/shard"
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/shard"
     inputtokens:
       # - 128
       # - 512
