@@ -20,55 +20,62 @@ launcher:
   iternum: 5
   hw: SPR
 modelargs:
-  agptj_static8:
+  # agptj_static8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     - tiiuae/falcon-40b
+  #     # - THUDM/chatglm2-6b
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/mnt/aitrgdata/mint/qconfig"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/qconfig"
+  #   configpath: "/mnt/aitrgdata/mint/qconfig"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+
+  amodel_autotune3:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      - tiiuae/falcon-40b
-      # - THUDM/chatglm2-6b
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - baichuan-inc/Baichuan2-7B-Chat
-      - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
+      - EleutherAI/gpt-neox-20b
     dtype: 
       - static-fp32-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/mnt/aitrgdata/mint/qconfig"
-    quantizedmodelpath: "/mnt/aitrgdata/mint/qconfig"
-    configpath: "/mnt/aitrgdata/mint/qconfig"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
+    quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
+    outputdir: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
     batchsize: 
       - 1
     localrank:
       - 1
-    greedy: 
-      - False
+    alpha: 0.9
 
   model_static8acc:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
       - tiiuae/falcon-40b
-      # - THUDM/chatglm2-6b
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - baichuan-inc/Baichuan2-7B-Chat
-      - meta-llama/Llama-2-70b-hf
+      - THUDM/chatglm2-6b
+      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan2-7B-Chat
     dtype: 
       - static-fp32-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/qconfig"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
     batchsize: 
       - 1
     localrank:
