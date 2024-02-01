@@ -1197,22 +1197,22 @@ def generate_commands(yml_file,mode,extra_kmp):
             # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/")
             lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/THUDM/chatglm3-6b/")
 
-            lines.append("python run.py -m meta-llama/Llama-2-7b-hf --ipex-smooth-quant --batch-size 56 --calib-len 2048 --fallback-add --alpha auto --init-alpha 0.8 --alpha-min 0.8 --alpha-max 0.99 --alpha-step 0.01 --shared-criterion 'mean' --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-7b-hf/  \
+            lines.append(f"python run.py -m meta-llama/Llama-2-7b-hf --ipex-smooth-quant --batch-size 56 --calib-len 2048 --fallback-add --alpha auto --init-alpha 0.8 --alpha-min 0.8 --alpha-max 0.99 --alpha-step 0.01 --shared-criterion 'mean' --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-7b-hf/  \
                          2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-7b-hf_static8_autotune_SPR.log")
             
             lines.append("wait")
 
-            lines.append("python run.py -m meta-llama/Llama-2-13b-hf --ipex-smooth-quant --batch-size 56 --calib-len 1024 --fallback-add --calib-shuffle --calib-padding --alpha auto --init-alpha 0.8 --alpha-min 0.75 --alpha-max 0.99 --alpha-step 0.01 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-13b-hf/  \
+            lines.append(f"python run.py -m meta-llama/Llama-2-13b-hf --ipex-smooth-quant --batch-size 56 --calib-len 1024 --fallback-add --calib-shuffle --calib-padding --alpha auto --init-alpha 0.8 --alpha-min 0.75 --alpha-max 0.99 --alpha-step 0.01 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-13b-hf/  \
                          2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-13b-hf_static8_autotune_SPR.log")
             lines.append("wait")
             # lines.append("python run.py -m EleutherAI/gpt-j-6b --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']}/EleutherAI/gpt-j-6b/ --batch-size 56 --calib-iters 100 --calib-shuffle --fallback-add --alpha 0.85 \
             #              2>&1 | tee -a $log_dir/llm_default_EleutherAI-gpt-j-6b_static8_autotune_SPR.log")
 
-            lines.append("python run.py -m facebook/opt-30b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-30b/  \
+            lines.append(f"python run.py -m facebook/opt-30b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-30b/  \
                          2>&1 | tee -a $log_dir/llm_default_facebook-opt-30b_static8_autotune_SPR.log")
             lines.append("wait")
 
-            lines.append("python run.py -m THUDM/chatglm3-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/THUDM/chatglm3-6b/  \
+            lines.append(f"python run.py -m THUDM/chatglm3-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/THUDM/chatglm3-6b/  \
                          2>&1 | tee -a $log_dir/llm_default_THUDM-chatglm3-6b_static8_autotune_SPR.log")
                         
             lines.append("wait")
@@ -1222,10 +1222,10 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/") 
             lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/")
 
-            lines.append("python run.py -m meta-llama/Llama-2-70b-hf --ipex-smooth-quant --batch-size 56 --calib-shuffle --fallback-add --alpha 0.8 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/  \
+            lines.append(f"python run.py -m meta-llama/Llama-2-70b-hf --ipex-smooth-quant --batch-size 56 --calib-shuffle --fallback-add --alpha 0.8 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/  \
                          2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-70b-hf_static8_autotune_SPR.log")
             lines.append("wait")            
-            lines.append("python run.py -m facebook/opt-1.3b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/  \
+            lines.append(f"python run.py -m facebook/opt-1.3b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/  \
                          2>&1 | tee -a $log_dir/llm_default_facebook-opt-1.3b_static8_autotune_SPR.log")
             
             lines.append("wait")
@@ -1237,18 +1237,18 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-13B-Chat/")
             lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/THUDM/chatglm2-6b/")
 
-            lines.append("python run.py -m tiiuae/falcon-40b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.9 --output-dir {data['modelargs'][mode]['outputdir']}/tiiuae/falcon-40b/  \
+            lines.append(f"python run.py -m tiiuae/falcon-40b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.9 --output-dir {data['modelargs'][mode]['outputdir']}/tiiuae/falcon-40b/  \
                          2>&1 | tee -a $log_dir/llm_default_tiiuae-falcon-40b_static8_autotune_SPR.log")
             lines.append("wait")      
                   
-            lines.append("python run.py -m baichuan-inc/Baichuan2-7B-Chat --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.95 --output-dir {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-7B-Chat/  \
+            lines.append(f"python run.py -m baichuan-inc/Baichuan2-7B-Chat --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.95 --output-dir {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-7B-Chat/  \
                          2>&1 | tee -a $log_dir/llm_default_baichuan-inc-Baichuan2-7B-Chat_static8_autotune_SPR.log")
             lines.append("wait")
-            lines.append("python run.py -m baichuan-inc/Baichuan2-13B-Chat --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.65 --output-dir {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-13B-Chat/  \
+            lines.append(f"python run.py -m baichuan-inc/Baichuan2-13B-Chat --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.65 --output-dir {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-13B-Chat/  \
                          2>&1 | tee -a $log_dir/llm_default_baichuan-inc-Baichuan2-13B-Chat_static8_autotune_SPR.log")
             
             lines.append("wait")
-            lines.append("python run.py -m THUDM/chatglm2-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.75 --output-dir {data['modelargs'][mode]['outputdir']}/THUDM/chatglm2-6b/  \
+            lines.append(f"python run.py -m THUDM/chatglm2-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.75 --output-dir {data['modelargs'][mode]['outputdir']}/THUDM/chatglm2-6b/  \
                          2>&1 | tee -a $log_dir/llm_default_THUDM-chatglm2-6b_static8_autotune_SPR.log")
             
             lines.append("wait")
