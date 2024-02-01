@@ -60,7 +60,7 @@ modelargs:
   #   greedy: 
   #     - False
 
-  gptj_woq8:
+  agptj_woq8:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
@@ -99,7 +99,7 @@ modelargs:
       - False
       # - True
 
-  gptjfp32_woq8:
+  agptjfp32_woq8:
     modelid: 
       - EleutherAI/gpt-neox-20b
       - databricks/dolly-v2-12b
