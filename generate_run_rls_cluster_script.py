@@ -1219,14 +1219,18 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         if mode.endswith('autotune2'):
             lines.append("# Run Workload")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/") 
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/")
+            # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/") 
+            # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/")
+            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/EleutherAI/gpt-j-6b/")
 
-            lines.append(f"python run.py -m meta-llama/Llama-2-70b-hf --ipex-smooth-quant --batch-size 56 --calib-shuffle --fallback-add --alpha 0.8 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/  \
-                         2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-70b-hf_static8_autotune_SPR.log")
-            lines.append("wait")            
-            lines.append(f"python run.py -m facebook/opt-1.3b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/  \
-                         2>&1 | tee -a $log_dir/llm_default_facebook-opt-1.3b_static8_autotune_SPR.log")
+            # lines.append(f"python run.py -m meta-llama/Llama-2-70b-hf --ipex-smooth-quant --batch-size 56 --calib-shuffle --fallback-add --alpha 0.8 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/  \
+            #              2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-70b-hf_static8_autotune_SPR.log")
+            # lines.append("wait")            
+            # lines.append(f"python run.py -m facebook/opt-1.3b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/  \
+            #              2>&1 | tee -a $log_dir/llm_default_facebook-opt-1.3b_static8_autotune_SPR.log")
+            lines.append("wait") 
+            lines.append(f"python run.py -m EleutherAI/gpt-j-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --fallback-add --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/EleutherAI/gpt-j-6b/  \
+                         2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-70b-hf_static8_autotune_SPR.log") 
             
             lines.append("wait")
 

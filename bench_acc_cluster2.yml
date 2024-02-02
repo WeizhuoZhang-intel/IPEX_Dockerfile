@@ -114,8 +114,8 @@ modelargs:
 
   model_static8acc:
     modelid: 
-      - meta-llama/Llama-2-70b-hf
-      - facebook/opt-1.3b
+      # - meta-llama/Llama-2-70b-hf
+      - EleutherAI/gpt-j-6b
     dtype: 
       - static-fp32-int8
     quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
