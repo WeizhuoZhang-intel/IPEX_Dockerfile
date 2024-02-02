@@ -1647,6 +1647,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                             else:
                                 lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
 
+
+
         if mode.endswith('woq8acc'):
             for model_id in data['modelargs'][mode]['modelid']:
                 for rank in data['modelargs'][mode]['localrank']:

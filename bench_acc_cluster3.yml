@@ -54,28 +54,82 @@ modelargs:
   #   greedy: 
   #     - False
 
-  amodel_autotune3:
+  # amodel_autotune3:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #   dtype: 
+  #     - static-fp32-int8
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
+  #   outputdir: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   alpha: 0.9
+
+  # model_static8acc:
+  #   modelid: 
+  #     - tiiuae/falcon-40b
+  #     - THUDM/chatglm2-6b
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #   dtype: 
+  #     - static-fp32-int8
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+
+  agptj_static8:
     modelid: 
-      - EleutherAI/gpt-neox-20b
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - tiiuae/falcon-40b
+      - THUDM/chatglm2-6b
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - baichuan-inc/Baichuan2-7B-Chat
+      - baichuan-inc/Baichuan2-13B-Chat
+    scriptname: run.py
+    device:
+      - cpu
     dtype: 
       - static-fp32-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
-    outputdir: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
+    maxnewtokens: 
+      - 32
+    outputdir: "/mnt/aitrgdata/mint/rls2.2/RC4/static8"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/static8"
+    configpath: "/mnt/aitrgdata/mint/newqconfig"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
     batchsize: 
       - 1
     localrank:
       - 1
-    alpha: 0.9
+    greedy: 
+      - False
 
-  model_static8acc:
+  bmodel_static8acc:
     modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
       - tiiuae/falcon-40b
       - THUDM/chatglm2-6b
-      - baichuan-inc/Baichuan2-13B-Chat
+      - facebook/opt-1.3b
+      - facebook/opt-30b
       - baichuan-inc/Baichuan2-7B-Chat
+      - baichuan-inc/Baichuan2-13B-Chat
     dtype: 
       - static-fp32-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/static8"
     batchsize: 
       - 1
     localrank:

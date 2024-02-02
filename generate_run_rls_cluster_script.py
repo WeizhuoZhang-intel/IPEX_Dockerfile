@@ -242,7 +242,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/mnt/aitrgdata/mint/rls2.2/RC4/autotune")
+        lines.append("export log_dir=/mnt/aitrgdata/mint/rls2.2/RC4/static8")
         lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
@@ -353,7 +353,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 
                                         lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_pt-{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
-
         if mode.endswith('static8'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
@@ -370,33 +369,48 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
 
                                         
-                                        lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                         
                                         if 'fp32' in dtype:
                                             if beam == True:  
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile    \
-                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                                                2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:  
                                                 if 'falcon' in model_id:
                                                     lines.append(f"python run.py  \
-                                                                --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile  \
-                                                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
+                                                
+                                                elif 'mpt' in model_id:
+                                                    lines.append(f"python run.py  \
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile  --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                    
+                                                
                                                 else: 
                                                     lines.append(f"python run.py  \
                                                                 --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile     \
-                                                                    2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")       
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")       
                                         elif 'bf16' in dtype:
                                             if beam == True:   
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency --profile    \
-                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                                                2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
-                                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
-                                                            --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency --profile    \
-                                                                2>&1 | tee -a $log_dir/llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                           
+                                                if 'falcon' in model_id:
+                                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json   \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")        
+                                                elif 'mpt' in model_id:
+                                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency --profile  --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                   
+                                                else:
+                                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
+                                                                --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency --profile    \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                           
                                 
-                                        lines.append(f"collect_perf_logs_llm llm_default_{model_id.replace('/','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                        lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
 
@@ -1258,6 +1272,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("wait")
 
 
+
         if mode.endswith('static8acc'):
             for model_id in data['modelargs'][mode]['modelid']:
                 for rank in data['modelargs'][mode]['localrank']:
@@ -1267,15 +1282,31 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for dtype in data['modelargs'][mode]['dtype']:
                         for bs in data['modelargs'][mode]['batchsize']:
                             if 'fp32' in dtype:
-                                lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks lambada_openai \
-                                        2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                if 'falcon' in model_id: 
+                                    lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                elif 'mpt' in model_id:
+                                    lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks hellaswag --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                    
+                                elif 'codegen' in model_id:
+                                    lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks hellaswag \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                
+                                else:
+                                    lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks lambada_openai \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             # elif 'bs1' in dtype:
                             #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}  -m {model_id} --dtype int8 --batch-size {bs} --ipex  --tasks lambada_openai \
-                            #             2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log") 
+                            #             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log") 
                             else:
                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --quant-with-amp --ipex --tasks lambada_openai \
-                                        2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
-                            lines.append(f"collect_acc_logs_llm llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                
+                            if 'codegen' in model_id in model_id or 'mpt' in model_id:
+                                lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            else:
+                                lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+
+
 
 
         if mode.endswith('woq8acc'):

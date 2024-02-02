@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 40
+  iternum: 20
   hw: SPR
 modelargs:
   # model_bf16:
@@ -60,73 +60,73 @@ modelargs:
   #   greedy: 
   #     - False
 
-  agptj_woq8:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      - tiiuae/falcon-40b
-      - facebook/opt-1.3b
-      # - Salesforce/codegen-2B-multi
-      - THUDM/chatglm3-6b
-      - THUDM/chatglm2-6b
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # agptj_woq8:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     - tiiuae/falcon-40b
+  #     - facebook/opt-1.3b
+  #     # - Salesforce/codegen-2B-multi
+  #     - THUDM/chatglm3-6b
+  #     - THUDM/chatglm2-6b
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #     - bigcode/starcoder
+  #     # - google/flan-t5-xl
+  #     # - mistralai/Mistral-7B-v0.1
+  #     # - mosaicml/mpt-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/woq-int8"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
-  agptjfp32_woq8:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-      - databricks/dolly-v2-12b
-      - bigscience/bloom-1b7
-      - facebook/opt-30b
-      - Baichuan-inc/Baichuan-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8-fp32
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-int8-fp32"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # agptjfp32_woq8:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #     - databricks/dolly-v2-12b
+  #     - bigscience/bloom-1b7
+  #     - facebook/opt-30b
+  #     - Baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8-fp32
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/woq-int8-fp32"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
   # llama13_bf16ds:
   #   modelid: 
@@ -211,39 +211,39 @@ modelargs:
   #     - False
   #   shard: False
 
-  # agptj_static8:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     - meta-llama/Llama-2-70b-hf
-  #     - tiiuae/falcon-40b
-  #     - THUDM/chatglm2-6b
-  #     - facebook/opt-1.3b
-  #     - facebook/opt-30b
-  #     - baichuan-inc/Baichuan2-7B-Chat
-  #     - baichuan-inc/Baichuan2-13B-Chat
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data0/rls2.2/static8"
-  #   quantizedmodelpath: "/data0/rls2.2/static8"
-  #   configpath: "/data0/newqconfig"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  agptj_static8:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - tiiuae/falcon-40b
+      - THUDM/chatglm2-6b
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - baichuan-inc/Baichuan2-7B-Chat
+      - baichuan-inc/Baichuan2-13B-Chat
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/static8"
+    quantizedmodelpath: "/data0/rls2.2/static8"
+    configpath: "/data0/newqconfig"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
   # agptjint8_gptqquant:
   #   modelid: 
@@ -447,82 +447,82 @@ modelargs:
   #   localrank:
   #     - 1
 
-  # bmodel_static8acc:
+  bmodel_static8acc:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - tiiuae/falcon-40b
+      - THUDM/chatglm2-6b
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - baichuan-inc/Baichuan2-7B-Chat
+      - baichuan-inc/Baichuan2-13B-Chat
+    dtype: 
+      - static-fp32-int8
+    quantizedmodelpath: "/data0/rls2.2/static8"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
+  # gptj_woq8acc:
   #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
   #     - tiiuae/falcon-40b
-  #     - THUDM/chatglm2-6b
   #     - facebook/opt-1.3b
-  #     - facebook/opt-30b
-  #     - baichuan-inc/Baichuan2-7B-Chat
+  #     # - Salesforce/codegen-2B-multi
+  #     - THUDM/chatglm3-6b
+  #     - THUDM/chatglm2-6b
   #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #     - bigcode/starcoder
+  #     # - google/flan-t5-xl
+  #     # - mistralai/Mistral-7B-v0.1
+  #     # - mosaicml/mpt-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
   #   dtype: 
-  #     - static-fp32-int8
-  #   quantizedmodelpath: "/data0/rls2.2/static8"
+  #     - woq-int8
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8/"
   #   batchsize: 
   #     - 1
   #   localrank:
   #     - 1
 
-  gptj_woq8acc:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      - tiiuae/falcon-40b
-      - facebook/opt-1.3b
-      # - Salesforce/codegen-2B-multi
-      - THUDM/chatglm3-6b
-      - THUDM/chatglm2-6b
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    quantizedmodelpath: "/data0/rls2.2/woq-int8/"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # gptjfp32_woq8acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-neox-20b
+  #     - databricks/dolly-v2-12b
+  #     - bigscience/bloom-1b7
+  #     - facebook/opt-30b
+  #     - Baichuan-inc/Baichuan-13B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8-fp32
+  #   outputdir: "/data0/rls2.2/woq-int8-fp32"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
-  gptjfp32_woq8acc:
-    modelid: 
-      - EleutherAI/gpt-neox-20b
-      - databricks/dolly-v2-12b
-      - bigscience/bloom-1b7
-      - facebook/opt-30b
-      - Baichuan-inc/Baichuan-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8-fp32
-    outputdir: "/data0/rls2.2/woq-int8-fp32"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8-fp32"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-
-  model_defaultacc:
-    modelid: 
-      - THUDM/chatglm2-6b
-    scriptname: single_instance/run_gpt-j_quantization.py
-    dtype: 
-      - bfloat16
-      - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_defaultacc:
+  #   modelid: 
+  #     - THUDM/chatglm2-6b
+  #   scriptname: single_instance/run_gpt-j_quantization.py
+  #   dtype: 
+  #     - bfloat16
+  #     - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
