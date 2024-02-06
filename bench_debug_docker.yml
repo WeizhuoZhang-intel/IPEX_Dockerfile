@@ -18,57 +18,81 @@ launcher:
   numactlN: 0
   numactlM: 0
   iternum: 40
-  hw: SPR
+  hw: HBM
 modelargs:
-  agptj_woq8:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 256
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
-    inputtokens:
-      - 256
-      - 1024
-      - 2048
-    batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
-      - 16
-    localrank:
-      - 1
-    greedy: 
-      # - False
-      - True
+  # agptj_woq8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 256
+  #   outputdir: "/data0/rls2.2/woq-int8"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
+  #   inputtokens:
+  #     - 256
+  #     - 1024
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #     - 2
+  #     - 4
+  #     - 8
+  #     - 16
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     # - False
+  #     - True
 
-  model_bf16:
+  # model_bf16:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 256
+  #   inputtokens:
+  #     - 256
+  #     - 1024
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #     - 2
+  #     - 4
+  #     - 8
+  #     - 16
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - True
+
+  llama13_bf16ds:
     modelid: 
-      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - bfloat16
+      - ds-bfloat16
     maxnewtokens: 
-      - 256
+      - 32
+    outputdir: "/localdisk/mengfeil/workspace/shard"
     inputtokens:
-      - 256
+      - 128
+      - 512
       - 1024
-      - 2048
+      - 2016
     batchsize: 
       - 1
-      - 2
-      - 4
-      - 8
-      - 16
     localrank:
-      - 1
+      - 8
     greedy: 
-      - True
+      - False
+    shard: False
