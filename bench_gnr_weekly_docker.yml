@@ -55,9 +55,9 @@ modelargs:
 
   llama13_bf16ds:
     modelid: 
-      - EleutherAI/gpt-j-6b
+      # - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       # # - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
@@ -147,11 +147,11 @@ modelargs:
 
   llama13_woqds:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
-      - tiiuae/falcon-40b
+      # - tiiuae/falcon-40b
     scriptname: run.py
     device:
       - cpu
