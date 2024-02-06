@@ -60,7 +60,6 @@ modelargs:
       - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       # # - EleutherAI/gpt-neox-20b
-      - facebook/opt-30b
       - tiiuae/falcon-40b
       # - baichuan-inc/Baichuan2-13B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
@@ -152,7 +151,6 @@ modelargs:
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
-      - facebook/opt-30b
       - tiiuae/falcon-40b
     scriptname: run.py
     device:
