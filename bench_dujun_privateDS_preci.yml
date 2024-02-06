@@ -40,7 +40,7 @@ modelargs:
   default_llama:
     modelid: 
       - meta-llama/Llama-2-7b-hf
-    scriptname: run_generation.py
+    scriptname: run.py
     device:
       - cpu
     dtype:
@@ -57,36 +57,36 @@ modelargs:
     numwarmup: 5
     batchsize: 1
     tokenlatency: true
-  gptj_int8:
-    modelid: EleutherAI/gpt-j-6B
-    scriptname: run_gpt-j_int8.py
-    device:
-      - cpu
-    dtype: int8
-    maxnewtokens: 32
-    outputdir: "./saved_results"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "./saved_results/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-    prompt: None
-    numiter: 100
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: false
+  # gptj_int8:
+  #   modelid: EleutherAI/gpt-j-6b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: int8
+  #   maxnewtokens: 32
+  #   outputdir: "./saved_results"
+  #   quantize: true
+  #   lambada: true
+  #   ipex: true
+  #   jit: true
+  #   int8: true
+  #   incsmoothquant: true
+  #   ipexsmmothquant: true
+  #   int8bf16mixed: true
+  #   quantizedmodelpath: "./saved_results/best_model.pt"
+  #   benchmark: true
+  #   inputtokens:
+  #     - 32
+  #   prompt: None
+  #   numiter: 100
+  #   numwarmup: 10
+  #   batchsize: 1
+  #   tokenlatency: true
+  #   greedy: false
   deepspeed_gptj:
     modelid: 
-      - EleutherAI/gpt-j-6B
-    scriptname: run_generation_with_deepspeed.py
+      - EleutherAI/gpt-j-6b
+    scriptname: run.py
     device: 
       - cpu
     dtype: 
@@ -110,7 +110,7 @@ modelargs:
   deepspeed_llama:
     modelid: 
       - meta-llama/Llama-2-7b-hf
-    scriptname: run_generation_with_deepspeed.py
+    scriptname: run.py
     device: 
       - cpu
     dtype: 
