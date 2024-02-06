@@ -113,6 +113,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("set -x")
         lines.append("# Install Memory Profiler")
         lines.append(f"pip install -U memory_profiler")
+        lines.append("export HF_HOME=/root/.cache/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
         lines.append("huggingface-cli login --token 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")
