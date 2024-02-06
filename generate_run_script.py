@@ -139,6 +139,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("")
         if mode.startswith('default'):
             lines.append("# Run workload")
+            lines.append("huggingface-cli login --token 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")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
@@ -166,6 +167,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             #     lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{input_token}.dat")
         elif mode.startswith('deepspeed'):
             lines.append("# DS Env config")
+            lines.append("huggingface-cli login --token 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")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             lines.append("unset KMP_AFFINITY")
             lines.append("# Run workload")
