@@ -58,9 +58,10 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
+      - meta-llama/Llama-2-70b-hf
       # # - EleutherAI/gpt-neox-20b
-      # - facebook/opt-30b
+      - facebook/opt-30b
+      - tiiuae/falcon-40b
       # - baichuan-inc/Baichuan2-13B-Chat
       # - Baichuan-inc/Baichuan-13B-Chat
       # - bigcode/starcoder
@@ -150,12 +151,9 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - facebook/opt-30b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - Baichuan-inc/Baichuan-13B-Chat
-      # - bigcode/starcoder
+      - meta-llama/Llama-2-70b-hf
+      - facebook/opt-30b
+      - tiiuae/falcon-40b
     scriptname: run.py
     device:
       - cpu
@@ -164,7 +162,7 @@ modelargs:
       # - ds-woq-int4
     maxnewtokens: 
       - 128
-    outputdir: "/run/media/root/7ec30db2-572a-4172-af01-0da56a2965e8/shard"
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/shard"
     inputtokens:
       # - 128
       # - 512
