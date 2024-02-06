@@ -1,6 +1,14 @@
 # LLM GPT-j (Large Language Model) based on Intel Extension For PyTorch
 We provide the `Dockerfile.llm` used for building docker image with PyTorch, IPEX and Patched Transformers installed. The GPT-j model is using [EleutherAI/gpt-j-6B](https://huggingface.co/EleutherAI/gpt-j-6B).
 
+## Prerequisite
+The scripts and `prompt.json` should be copied from [intel-nlp-toolkit](https://github.com/intel-innersource/frameworks.ai.nlp-toolkit.intel-nlp-toolkit.git)
+```
+    git clone -b llm --depth 1 https://github.com/intel-innersource/frameworks.ai.nlp-toolkit.intel-nlp-toolkit.git intel-nlp-toolkit
+    cp intel-nlp-toolkit/examples/huggingface/pytorch/text-generation/inference/*.py IPEX_Dockerfile/
+    cp intel-nlp-toolkit/examples/huggingface/pytorch/text-generation/inference/*.json IPEX_Dockerfile/
+```
+
 ## File structure
 - `Dockerfile.llm`: The dockerfile used for dependencies installation.
 - `run_gptj.json`: The inference benchmark script enabled ipex optimization path is used for measuring the performane of GPT-j.
@@ -46,7 +54,7 @@ export LD_PRELOAD=/root/anaconda3/envs/llm/lib/libiomp5.so:/root/anaconda3/envs/
 export CORES=$(lscpu | grep "Core(s) per socket" | awk '{print $NF}')
 
 # Run GPT-j workload
-bash run.sh
+bash launch.sh
 
 # Or
 OMP_NUM_THREADS=${CORES} numactl -N 0 -m 0 python run_gptj.py --ipex --jit --dtype bfloat16 --max-new-tokens 32
