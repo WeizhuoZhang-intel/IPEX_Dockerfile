@@ -19,7 +19,7 @@ launcher:
 modelargs:
   default_gptj:
     modelid: 
-      - EleutherAI/gpt-j-6B
+      - EleutherAI/gpt-j-6b
     scriptname: run.py
     device:
       - cpu
