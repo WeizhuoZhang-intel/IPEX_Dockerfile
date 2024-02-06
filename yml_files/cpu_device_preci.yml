@@ -24,7 +24,6 @@ modelargs:
     dtype:
       - bfloat16
     inputtokens:
-      - 32
       - 2016
     maxnewtokens: 32
     prompt: None
