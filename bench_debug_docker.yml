@@ -18,7 +18,7 @@ launcher:
   numactlN: 0
   numactlM: 0
   iternum: 30
-  hw: HBM
+  hw: SPR
 modelargs:
   agptj_woq8:
     modelid: 
