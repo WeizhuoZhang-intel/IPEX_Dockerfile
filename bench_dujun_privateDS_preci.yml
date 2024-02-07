@@ -27,8 +27,11 @@ modelargs:
       - bfloat16
     inputtokens:
       - 32
-      - 2016
-    maxnewtokens: 32
+      - 2048
+    maxnewtokens: 
+      - 32
+      - 128
+      - 512
     prompt: None
     greedy: false
     ipex: true

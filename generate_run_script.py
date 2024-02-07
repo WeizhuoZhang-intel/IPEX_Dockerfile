@@ -144,7 +144,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         lines.append(f"mprof clean")
-                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} -m {model_id} --input-tokens {input_token} --dtype {dtype} --ipex --profile --token-latency --benchmark --num-iter 20 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
+                        lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} -m {model_id} --input-tokens {input_token} --dtype {dtype} --disable-deployment-mode --profile --token-latency --benchmark --num-iter 15 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log")
                         lines.append("ut_result=${PIPESTATUS[0]}")
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log $ut_result")
                         lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}_mprofile.dat")
@@ -176,7 +176,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for input_token in data['modelargs'][mode]['inputtokens']:
                         lines.append(f"mprof clean")
                         lines.append("export FI_PROVIDER=tcp")
-                        lines.append(f"mprof run deepspeed --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} --ipex --token-latency --num-iter 20 --profile  --autotp 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
+                        lines.append(f"mprof run deepspeed --bind_cores_to_rank {data['modelargs'][mode]['scriptname']} --benchmark -m {model_id} --dtype {dtype} --input-tokens {input_token} --disable-deployment-mode --token-latency --num-iter 15 --profile  --autotp 2>&1 | tee -a $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log") 
                         lines.append("ut_result=${PIPESTATUS[0]}")
                         lines.append(f"collect_perf_logs_llm llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}.log $ut_result")
                         lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{model_id.replace('/','_')}_{dtype}_{input_token}_mprofile.dat")
