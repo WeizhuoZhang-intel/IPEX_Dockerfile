@@ -73,7 +73,7 @@ modelargs:
       # - bigcode/starcoder
       # - google/flan-t5-xl
       # - mistralai/Mistral-7B-v0.1
-      - mosaicml/mpt-7b
+      # - mosaicml/mpt-7b
     scriptname: run.py
     device: 
       - cpu
@@ -93,8 +93,8 @@ modelargs:
       - 2016
     maxnewtokens: 
       - 32
-      - 128
-      - 512
+      # - 128
+      # - 512
     prompt: None
     ipex: true
     jit: true
