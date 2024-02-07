@@ -16,10 +16,24 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
+  iternum: 15
+  hw: SPR
 modelargs:
   default_gptj:
     modelid: 
       - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - facebook/opt-30b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # - mosaicml/mpt-7b
     scriptname: run.py
     device:
       - cpu
@@ -33,106 +47,60 @@ modelargs:
       - 128
       - 512
     prompt: None
-    greedy: false
+    greedy: 
+      - False
     ipex: true
     jit: true
     numiter: 50
     numwarmup: 5
-    batchsize: 1
+    batchsize: 
+      - 1
+    localrank:
+      - 2
     tokenlatency: true
-  default_llama:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype:
-      - bfloat16
-    inputtokens:
-      - 32
-      - 2048
-    maxnewtokens: 32
-    prompt: None
-    greedy: false
-    ipex: true
-    jit: true
-    numiter: 50
-    numwarmup: 5
-    batchsize: 1
-    tokenlatency: true
-
-  gptj_int8:
-    modelid: EleutherAI/gpt-j-6b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: int8
-    maxnewtokens: 32
-    outputdir: "./saved_results"
-    quantize: true
-    lambada: true
-    ipex: true
-    jit: true
-    int8: true
-    incsmoothquant: true
-    ipexsmmothquant: true
-    int8bf16mixed: true
-    quantizedmodelpath: "./saved_results/best_model.pt"
-    benchmark: true
-    inputtokens:
-      - 32
-    prompt: None
-    numiter: 100
-    numwarmup: 10
-    batchsize: 1
-    tokenlatency: true
-    greedy: false
     
   deepspeed_gptj:
     modelid: 
       - EleutherAI/gpt-j-6b
-    scriptname: run.py
-    device: 
-      - cpu
-    dtype: 
-      - bfloat16
-    localrank:
-    batchsize: 1
-    numiter: 50
-    numwarmup: 5
-    benchmark: true
-    cuda: true
-    greedy: true
-    ki: false
-    maxnewtokens: 32
-    inputtokens:
-      - 2016
-    prompt: None
-    ipex: true
-    jit: true
-    printmemory: true
-    tokenlatency: true
-  deepspeed_llama:
-    modelid: 
       - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - tiiuae/falcon-40b
+      - tiiuae/falcon-7b
+      - facebook/opt-30b
+      - baichuan-inc/Baichuan2-13B-Chat
+      - baichuan-inc/Baichuan2-7B-Chat
+      - bigcode/starcoder
+      - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mosaicml/mpt-7b
     scriptname: run.py
     device: 
       - cpu
     dtype: 
-      - bfloat16
-    localrank:
-    batchsize: 1
+      - ds-bfloat16
+    batchsize: 
+      - 1
     numiter: 50
     numwarmup: 5
+    greedy: 
+      - False
     benchmark: true
     cuda: true
     greedy: true
     ki: false
-    maxnewtokens: 32
     inputtokens:
+      - 32
       - 2048
+    maxnewtokens: 
+      - 32
+      - 128
+      - 512
     prompt: None
     ipex: true
     jit: true
     printmemory: true
-    tokenlatency: true  
+    localrank:
+      - 2
+    tokenlatency: true
+
