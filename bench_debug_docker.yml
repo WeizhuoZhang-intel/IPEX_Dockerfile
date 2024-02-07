@@ -17,65 +17,55 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 40
+  iternum: 30
   hw: HBM
 modelargs:
-  # agptj_woq8:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - woq-int8
-  #   maxnewtokens: 
-  #     - 256
-  #   outputdir: "/data0/rls2.2/woq-int8"
-  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
-  #   inputtokens:
-  #     - 256
-  #     - 1024
-  #     - 2048
-  #   batchsize: 
-  #     - 1
-  #     - 2
-  #     - 4
-  #     - 8
-  #     - 16
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     # - False
-  #     - True
+  agptj_woq8:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      - 128
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
-  # model_bf16:
-  #   modelid: 
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 256
-  #   inputtokens:
-  #     - 256
-  #     - 1024
-  #     - 2048
-  #   batchsize: 
-  #     - 1
-  #     - 2
-  #     - 4
-  #     - 8
-  #     - 16
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - True
+
+  model_bf16:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 128
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
   llama13_bf16ds:
     modelid: 
-      - meta-llama/Llama-2-70b-hf
+      - meta-llama/Llama-2-7b-hf
     scriptname: run.py
     device:
       - cpu
@@ -83,16 +73,36 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 32
-    outputdir: "/localdisk/mengfeil/workspace/shard"
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
     inputtokens:
       - 128
-      - 512
-      - 1024
-      - 2016
     batchsize: 
       - 1
     localrank:
-      - 8
+      - 2
+    greedy: 
+      - False
+    shard: False
+
+  llama13_woqds:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      - 128
+    batchsize: 
+      - 1
+    localrank:
+      - 2
     greedy: 
       - False
     shard: False
