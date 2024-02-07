@@ -87,7 +87,6 @@ modelargs:
       - False
     benchmark: true
     cuda: true
-    greedy: true
     ki: false
     inputtokens:
       - 32
