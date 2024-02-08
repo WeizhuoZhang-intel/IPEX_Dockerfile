@@ -32,6 +32,8 @@ modelargs:
       - bigcode/starcoder
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
+      # - tiiuae/falcon-40b
+      - bigcode/starcoder
     scriptname: run.py
     device:
       - cpu
@@ -56,8 +58,7 @@ modelargs:
   llamaa13a_bf16dsp:
     modelid: 
       - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      - EleutherAI/gpt-neox-20b
+      - meta-llama/Llama-2-70b-hf
       - facebook/opt-30b
       - bigcode/starcoder
     scriptname: run.py
@@ -86,11 +87,14 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
       - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan-13B-Chat
+      # - facebook/opt-30b
+      - bigcode/starcoder
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
-      - databricks/dolly-v2-12b
+      # - tiiuae/falcon-40b
       - bigcode/starcoder
     scriptname: run.py
     device:
@@ -109,7 +113,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 3
+      - 4
     greedy: 
       - False
     shard: False
@@ -117,7 +121,7 @@ modelargs:
   llama413_woqdsp:
     modelid: 
       - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
+      - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
       - facebook/opt-30b
       - bigcode/starcoder
@@ -138,7 +142,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 6
+      - 8
     greedy: 
       - False
     shard: False
