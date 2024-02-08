@@ -16,7 +16,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 12
+  iternum: 20
   hw: SPR
 modelargs:
   # default_gptj:
@@ -62,8 +62,8 @@ modelargs:
   deepspeed_gptj:
     modelid: 
       - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - tiiuae/falcon-40b
       # - tiiuae/falcon-7b
@@ -90,7 +90,7 @@ modelargs:
     ki: false
     inputtokens:
       - 32
-      # - 2016
+      - 2016
     maxnewtokens: 
       - 32
       # - 128
@@ -102,46 +102,46 @@ modelargs:
     localrank:
       - 2
     tokenlatency: true
-  # deepspeed_baichuan:
-  #   modelid: 
-  #     # - EleutherAI/gpt-j-6b
-  #     # - meta-llama/Llama-2-7b-hf
-  #     # - meta-llama/Llama-2-13b-hf
-  #     # - meta-llama/Llama-2-70b-hf
-  #     # - tiiuae/falcon-40b
-  #     # - tiiuae/falcon-7b
-  #     # - facebook/opt-30b
-  #     - baichuan-inc/Baichuan2-13B-Chat
-  #     # - baichuan-inc/Baichuan2-7B-Chat
-  #     # - bigcode/starcoder
-  #     # - google/flan-t5-xl
-  #     # - mistralai/Mistral-7B-v0.1
-  #     # - mosaicml/mpt-7b
-  #   scriptname: run.py
-  #   device: 
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   batchsize: 
-  #     - 1
-  #   numiter: 50
-  #   numwarmup: 5
-  #   greedy: 
-  #     - False
-  #   benchmark: true
-  #   cuda: true
-  #   ki: false
-  #   inputtokens:
-  #     # - 32
-  #     - 2016
-  #   maxnewtokens: 
-  #     - 32
-  #     # - 128
-  #     # - 512
-  #   prompt: None
-  #   ipex: true
-  #   jit: true
-  #   printmemory: true
-  #   localrank:
-  #     - 2
-  #   tokenlatency: true
+  deepspeed_baichuan:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - facebook/opt-30b
+      - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # - mosaicml/mpt-7b
+    scriptname: run.py
+    device: 
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    batchsize: 
+      - 1
+    numiter: 50
+    numwarmup: 5
+    greedy: 
+      - False
+    benchmark: true
+    cuda: true
+    ki: false
+    inputtokens:
+      # - 32
+      - 2016
+    maxnewtokens: 
+      - 32
+      # - 128
+      # - 512
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    localrank:
+      - 2
+    tokenlatency: true
