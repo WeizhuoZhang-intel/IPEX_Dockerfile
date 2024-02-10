@@ -25,11 +25,11 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - baichuan-inc/Baichuan2-13B-Chat
-      - EleutherAI/gpt-neox-20b
-      - databricks/dolly-v2-12b
-      - facebook/opt-30b
+      # - EleutherAI/gpt-neox-20b
+      # - databricks/dolly-v2-12b
+      # - facebook/opt-30b
       - bigcode/starcoder
     scriptname: run.py
     device:
@@ -55,8 +55,8 @@ modelargs:
   llamaa13_bf16ds:
     modelid: 
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - EleutherAI/gpt-neox-20b
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       - facebook/opt-30b
       - bigcode/starcoder
@@ -86,11 +86,11 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - baichuan-inc/Baichuan2-13B-Chat
-      - EleutherAI/gpt-neox-20b
+      # - EleutherAI/gpt-neox-20b
       - databricks/dolly-v2-12b
-      - facebook/opt-30b
+      # - facebook/opt-30b
       - bigcode/starcoder
     scriptname: run.py
     device:
@@ -109,7 +109,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 3
+      - 4
     greedy: 
       - False
     shard: False
@@ -117,7 +117,7 @@ modelargs:
   llama413_woqds:
     modelid: 
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       - facebook/opt-30b
@@ -139,7 +139,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 6
+      - 8
     greedy: 
       - False
     shard: False
