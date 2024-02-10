@@ -20,7 +20,7 @@ launcher:
   iternum: 50
   hw: HBM
 modelargs:
-  llama13_bf16ds:
+  llama13_bf16dsm:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
@@ -52,7 +52,7 @@ modelargs:
       - False
     shard: False
 
-  llamaa13_bf16ds:
+  llamaa13_bf16dsm:
     modelid: 
       - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -81,7 +81,7 @@ modelargs:
       - False
     shard: False
 
-  llama13_woqds:
+  llama13_woqdsm:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
@@ -114,7 +114,7 @@ modelargs:
       - False
     shard: False
 
-  llama413_woqds:
+  llama413_woqdsm:
     modelid: 
       - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
