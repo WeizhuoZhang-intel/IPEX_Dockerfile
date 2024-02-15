@@ -147,12 +147,12 @@ def generate_commands(yml_file,mode,extra_kmp):
             # int8 test for GPT-J and LLaMA
             lines.append(f"mprof clean")
             for model_id in data['modelargs'][mode]['modelid']:
-                lines.append(f"mprof run python {data['modelargs'][mode]['scriptname']} --ipex-smooth-quant --quant-with-amp -m {model_id}")
+                lines.append(f"mprof run python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --quant-with-amp --weight-dtype {data['modelargs'][mode]['dtype']} -m {model_id}")
                 lines.append("quant_peak_mem=$(mprof peak | grep mprofile | awk '{print $2}')")
                 lines.append("# Run workload")
                 lines.append(f"mprof clean")
                 for input_token in data['modelargs'][mode]['inputtokens']:
-                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --quant-with-amp --ipex --token-latency --num-iter 20 -m {model_id} --quantized-model-path saved_results/best_model.pt 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
+                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -N {data['launcher']['numactlN']} -m {data['launcher']['numactlM']} mprof run python {data['modelargs'][mode]['scriptname']} --input-tokens {input_token} --benchmark --ipex-weight-only-quantization --quant-with-amp --weight-dtype {data['modelargs'][mode]['dtype']} --token-latency --num-iter 20 -m {model_id} --quantized-model-path saved_results/best_model.pt 2>&1 | tee -a $log_dir/llm_{mode}_{input_token}.log")
                     lines.append("ut_result=${PIPESTATUS[0]}")
                     lines.append(f"collect_perf_logs_llm llm_{mode}_{input_token}.log $ut_result $quant_peak_mem")
                     lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{input_token}.dat")
@@ -176,12 +176,6 @@ def generate_commands(yml_file,mode,extra_kmp):
 
 if __name__ == '__main__':
     #for mode in 'default','gptj_int8','llama_int8','deepspeed':
-    if args.yml_file == "":
-        yml_file = 'bench_preci.yml'
-        if args.deepspeed:
-            yml_file = 'bench_ds_preci.yml'
-    else:
-        yml_file = args.yml_file
-    data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
+    data = yaml.load(open(args.yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
-        generate_commands(yml_file, mode, args.extra_kmp)
+        generate_commands(args.yml_file, mode, args.extra_kmp)
