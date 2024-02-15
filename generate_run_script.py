@@ -130,7 +130,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(collect_result)    
 
         lines.append("pip install --upgrade huggingface_hub")
-        lines.append("huggingface-cli login --token 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")
+        lines.append("bash token.sh")
         
         lines.append("")
         if mode.startswith('default'):
