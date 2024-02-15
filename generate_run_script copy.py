@@ -115,9 +115,8 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"pip install -U memory_profiler")
         lines.append("export HF_HOME=/root/.cache/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
-        lines.append("pip install --upgrade huggingface_hub")
-        lines.append("huggingface-cli login --token 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")
         lines.append("# Env config")
+        lines.append("bash token.sh")
         lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
@@ -133,13 +132,10 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(fetch_device_info)
         lines.append(collect_result)    
 
-        lines.append("pip install --upgrade huggingface_hub")
-        lines.append("huggingface-cli login --token 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")
         
         lines.append("")
         if mode.startswith('default'):
             lines.append("# Run workload")
-            lines.append("huggingface-cli login --token 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")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
@@ -167,7 +163,6 @@ def generate_commands(yml_file,mode,extra_kmp):
             #     lines.append(f"mv mprofile_*.dat $log_dir/llm_{mode}_{input_token}.dat")
         elif mode.startswith('deepspeed'):
             lines.append("# DS Env config")
-            lines.append("huggingface-cli login --token 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")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             lines.append("unset KMP_AFFINITY")
             lines.append("# Run workload")
