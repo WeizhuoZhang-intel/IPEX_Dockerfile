@@ -230,8 +230,8 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"export WORKDIR={args.workdir}")
         lines.append(f"export log_dir={args.logdir}")
         lines.append("export TRANSFORMERS_OFFLINE=0")
-        lines.append("pip install --upgrade huggingface_hub")
-        lines.append("huggingface-cli login --token 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")
+        lines.append("bash token.sh")
+
 
         lines.append("# device info")
         lines.append(fetch_device_info)
