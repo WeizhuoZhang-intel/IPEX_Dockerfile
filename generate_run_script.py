@@ -178,7 +178,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
-        lines.append("huggingface-cli login --token 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")
+        lines.append("bash token.sh")
         # lines.append("export DNNL_VERBOSE=1")
         # if extra_kmp:
         lines.append(f"export KMP_TPAUSE={data['envconfig']['LLM_EXTRA_KMP']['KMP_TPAUSE']}")
@@ -478,7 +478,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("export DS_SHM_ALLREDUCE=1")
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
-            lines.append("huggingface-cli login --token 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")
+            lines.append("bash token.sh")
             
             for rank in data['modelargs'][mode]['localrank']:
                     for model_id in data['modelargs'][mode]['modelid']:
