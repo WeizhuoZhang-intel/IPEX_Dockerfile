@@ -38,6 +38,7 @@ modelargs:
       - bigcode/starcoder
       - google/flan-t5-xl
       - mistralai/Mistral-7B-v0.1
+      - mistralai/Mixtral-8x7B-v0.1
       - mosaicml/mpt-7b
       - stabilityai/stablelm-2-1_6b
     scriptname: run.py
@@ -68,6 +69,7 @@ modelargs:
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
       - stabilityai/stablelm-2-1_6b
+      - mistralai/Mixtral-8x7B-v0.1
     scriptname: run.py
     dtype: 
       - ds-woq-int8
@@ -97,6 +99,7 @@ modelargs:
       - bigcode/starcoder
       - google/flan-t5-xl
       - mistralai/Mistral-7B-v0.1
+      - mistralai/Mixtral-8x7B-v0.1
       - mosaicml/mpt-7b
       - stabilityai/stablelm-2-1_6b
     scriptname: single_instance/run_quantization.py
@@ -129,7 +132,8 @@ modelargs:
       # - bigcode/starcoder
       # - google/flan-t5-xl
       # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
+      # - mosaicml/mpt-7b\
+      - mistralai/Mixtral-8x7B-v0.1
       - stabilityai/stablelm-2-1_6b
     scriptname: single_instance/run_quantization.py
     dtype: 
