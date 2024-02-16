@@ -41,6 +41,7 @@ modelargs:
       - bigcode/starcoder
       - google/flan-t5-xl
       - mistralai/Mistral-7B-v0.1
+      - mistralai/Mixtral-8x7B-v0.1
       - mosaicml/mpt-7b
     scriptname: run.py
     device:

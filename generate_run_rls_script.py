@@ -180,8 +180,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         # lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
         lines.append("export TRANSFORMERS_OFFLINE=0")
-        lines.append("pip install --upgrade huggingface_hub")
-        lines.append("huggingface-cli login --token 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")
+        lines.append("bash token.sh")
         # lines.append("export DNNL_VERBOSE=1")
         # if extra_kmp:
         lines.append(f"export KMP_TPAUSE={data['envconfig']['LLM_EXTRA_KMP']['KMP_TPAUSE']}")
@@ -1125,8 +1124,6 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("# DS Env config")
             lines.append("unset KMP_AFFINITY")
             # lines.append("export TRANSFORMERS_OFFLINE=0")
-            # lines.append("pip install --upgrade huggingface_hub")
-            # lines.append("huggingface-cli login --token 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")   
             lines.append("# Run workload")  
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
             for model_id in data['modelargs'][mode]['modelid']:
@@ -1152,7 +1149,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         #     # lines.append("unset KMP_AFFINITY")
         #     # lines.append("export TRANSFORMERS_OFFLINE=0")
         #     # lines.append("pip install --upgrade huggingface_hub")
-        #     # lines.append("huggingface-cli login --token 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")   
+        #     #    
         #     lines.append("# Run workload")  
         #     lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
         #     for model_id in data['modelargs'][mode]['modelid']:
@@ -1178,7 +1175,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             # lines.append("unset KMP_AFFINITY")
             # lines.append("export TRANSFORMERS_OFFLINE=0")
             # lines.append("pip install --upgrade huggingface_hub")
-            # lines.append("huggingface-cli login --token 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")   
+            #    
             lines.append("# Run workload")  
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
             for model_id in data['modelargs'][mode]['modelid']:
@@ -1225,7 +1222,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             # lines.append("unset KMP_AFFINITY")
             # lines.append("export TRANSFORMERS_OFFLINE=0")
             # lines.append("pip install --upgrade huggingface_hub")
-            # lines.append("huggingface-cli login --token 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")   
+            #    
             lines.append("# Run workload")  
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
             for model_id in data['modelargs'][mode]['modelid']:
@@ -1266,7 +1263,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             # lines.append("export TRANSFORMERS_OFFLINE=0")
             # lines.append("pip install --upgrade huggingface_hub")
-            # lines.append("huggingface-cli login --token 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")   
+            #    
             lines.append("# Run workload")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -1279,7 +1276,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             # lines.append("export TRANSFORMERS_OFFLINE=0")
             # lines.append("pip install --upgrade huggingface_hub")
-            # lines.append("huggingface-cli login --token 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")   
+            #    
             lines.append("# Run workload")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             for model_id in data['modelargs'][mode]['modelid']:

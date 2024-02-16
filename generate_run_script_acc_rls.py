@@ -129,7 +129,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("pip install --upgrade huggingface_hub")
-        lines.append("huggingface-cli login --token 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")   
+        lines.append("bash token.sh")   
         
         lines.append("log_dir=${1:-log_dir}")
         lines.append("mkdir -p $log_dir")
@@ -143,7 +143,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
-            lines.append("huggingface-cli login --token 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")   
+            lines.append("bash token.sh")   
             lines.append("# Run workload")
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")
             for model_id in data['modelargs'][mode]['modelid']:
@@ -155,7 +155,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
-            lines.append("huggingface-cli login --token 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")   
+            lines.append("bash token.sh")   
             lines.append("# Run workload")    
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
@@ -171,7 +171,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
-            lines.append("huggingface-cli login --token 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")   
+            lines.append("bash token.sh")   
             lines.append("# Run workload")  
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
             for model_id in data['modelargs'][mode]['modelid']:
@@ -196,7 +196,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
-            lines.append("huggingface-cli login --token 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")   
+            lines.append("bash token.sh")   
             lines.append("# Run workload")  
             lines.append(f"export OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']}")  
             for model_id in data['modelargs'][mode]['modelid']:
@@ -245,7 +245,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             lines.append("unset KMP_AFFINITY")
             lines.append("export TRANSFORMERS_OFFLINE=0")
             lines.append("pip install --upgrade huggingface_hub")
-            lines.append("huggingface-cli login --token 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")   
+            lines.append("bash token.sh")   
             lines.append("export FI_PROVIDER=tcp")
             # lines.append("source /root/oneCCL_install/env/setvars.sh")
             lines.append("# Run workload")    
