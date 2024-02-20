@@ -125,39 +125,39 @@ modelargs:
   #     - False
   #   shard: False
 
-  agptj_static8:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - tiiuae/falcon-40b
-      # - THUDM/chatglm2-6b
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - baichuan-inc/Baichuan2-7B-Chat
-      # - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-fp32-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/static8"
-    quantizedmodelpath: "/data0/rls2.2/static8"
-    configpath: "/data0/rls2.2/static8"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # agptj_static8:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - tiiuae/falcon-40b
+  #     # - THUDM/chatglm2-6b
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/static8"
+  #   quantizedmodelpath: "/data0/rls2.2/static8"
+  #   configpath: "/data0/rls2.2/static8"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
   # model_static8acc:
   #   modelid: 
@@ -321,3 +321,53 @@ modelargs:
   #     - 1
   #   localrank:
   #     - 1
+
+  agptj_woq8:
+    modelid: 
+      - Qwen/Qwen-7B-Chat
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      - 128
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+  gptj_woq8acc:
+    modelid: 
+      - Qwen/Qwen-7B-Chat
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
