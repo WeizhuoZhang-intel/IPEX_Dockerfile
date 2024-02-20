@@ -324,9 +324,9 @@ modelargs:
 
   agptj_woq8:
     modelid: 
-      - Qwen/Qwen-7B-Chat
+      # - Qwen/Qwen-7B-Chat
       - mistralai/Mixtral-8x7B-v0.1
-      - stabilityai/stablelm-2-1_6b
+      # - stabilityai/stablelm-2-1_6b
     scriptname: run.py
     device:
       - cpu
@@ -345,29 +345,29 @@ modelargs:
     greedy: 
       - False
 
-  gptj_woq8acc:
-    modelid: 
-      - Qwen/Qwen-7B-Chat
-      - mistralai/Mixtral-8x7B-v0.1
-      - stabilityai/stablelm-2-1_6b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # gptj_woq8acc:
+  #   modelid: 
+  #     - Qwen/Qwen-7B-Chat
+  #     - mistralai/Mixtral-8x7B-v0.1
+  #     - stabilityai/stablelm-2-1_6b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/woq-int8"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
