@@ -193,7 +193,7 @@ def generate_commands(yml_file,mode):
         lines.append("# Env config")
         lines.append(f"export WORKSPACE={args.path}")
         lines.append(f"export repopath={data['envconfig']['REPOPATH']}")
-        lines.append(f"source /home/mengfeil/miniconda3/bin/activate tgi")
+        lines.append(f"source /home/mingxuzh/miniconda/bin/activate tgi")
         lines.append("export http_proxy=")
         lines.append("export https_proxy=")
         lines.append(collect_tgi_result) 
