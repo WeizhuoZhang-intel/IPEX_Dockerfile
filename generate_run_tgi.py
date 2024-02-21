@@ -227,6 +227,8 @@ def generate_commands(yml_file,mode):
                         lines.append("export dataset=datasetforTGI128.json")
                     elif input_token == 512:
                         lines.append("export dataset=datasetforTGI512.json")
+                    elif input_token == 2016:
+                        lines.append("export dataset=datasetforTGI2016.json")
                     for bs in data['modelargs'][mode]['batchsize']:
                         for num in range(data['envconfig']['ITER']):
 
