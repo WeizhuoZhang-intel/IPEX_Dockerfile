@@ -1022,7 +1022,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                 else:
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt")
 
-
         if mode.endswith('gptqacc'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
@@ -1038,17 +1037,33 @@ def generate_commands(yml_file,mode,extra_kmp):
                         # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                         # lines.append("wait")
                         if 'codegen' in model_id:
-                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 1 \
-                                            --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks hellaswag \
-                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")                        
-                        elif 'neox' in model_id:
-                            lines.append(f"python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 1 \
-                                            --dtype int8 --accuracy-only --jit --tasks lambada_openai \
-                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
+                                            --dtype int8   --quant-with-amp --tasks hellaswag \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                        
+                        elif 'falcon' in model_id:
+                            lines.append(f"python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
+                                            --dtype int8   --quant-with-amp --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                        
+                        elif 'neox' in model_id or 'dolly' in model_id:
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
+                                            --dtype int8   --tasks lambada_openai \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                        elif 'mpt' in model_id:
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
+                                            --dtype int8   --quant-with-amp --tasks hellaswag --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                         else:
-                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --batch-size 1 \
-                                            --dtype int8 --accuracy-only --jit --int8-bf16-mixed --tasks lambada_openai \
-                                            2>&1 | tee -a $log_dir/llm_accuracy_{model_id.replace('/','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
+                                            --dtype int8   --quant-with-amp --tasks lambada_openai \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+
+                        if 'codegen' in model_id in model_id or 'mpt' in model_id:
+                            lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                        else:
+                            lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+
+
+
 
 
         if mode.endswith('gptqperf'):
