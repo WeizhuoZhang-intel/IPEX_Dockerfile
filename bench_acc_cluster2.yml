@@ -20,7 +20,7 @@ launcher:
   iternum: 5
   hw: SPR
 modelargs:
-  gptj_gptq:
+  agptj_gptq:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
