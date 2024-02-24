@@ -22,24 +22,24 @@ launcher:
 modelargs:
   model_bf16dsacc:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - databricks/dolly-v2-12b
-      - tiiuae/falcon-40b
-      - bigscience/bloom-1b7
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-      - Salesforce/codegen-2B-multi
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
-      - google/flan-t5-xl
-      - mistralai/Mistral-7B-v0.1
-      - mosaicml/mpt-7b
-      - mistralai/Mixtral-8x7B-v0.1
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - databricks/dolly-v2-12b
+      # - tiiuae/falcon-40b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # - mosaicml/mpt-7b
+      # - mistralai/Mixtral-8x7B-v0.1
       - stabilityai/stablelm-2-1_6b
       - Qwen/Qwen-7B-Chat
     scriptname: run.py
@@ -136,9 +136,9 @@ modelargs:
       # - google/flan-t5-xl
       # - mistralai/Mistral-7B-v0.1
       # - mosaicml/mpt-7b
-      - mistralai/Mixtral-8x7B-v0.1
+      # - mistralai/Mixtral-8x7B-v0.1
       - stabilityai/stablelm-2-1_6b
-      - Qwen/Qwen-7B-Chat
+      # - Qwen/Qwen-7B-Chat
     scriptname: single_instance/run_quantization.py
     dtype: 
       # - bfloat16
