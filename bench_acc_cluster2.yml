@@ -22,9 +22,9 @@ launcher:
 modelargs:
   agptj_gptq:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       - databricks/dolly-v2-12b
       - tiiuae/falcon-40b
