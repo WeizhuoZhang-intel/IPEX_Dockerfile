@@ -18,6 +18,9 @@ llm_accuracy_google-flan-t5-xl_float32_SPR.log, 4.1310,0.7231
 llm_accuracy_mistralai-Mistral-7B-v0.1_float32_SPR.log, 3.1819,0.7590
 llm_accuracy_mosaicml-mpt-7b_float32_SPR.log, ,0.5718
 llm_accuracy_EleutherAI-gpt-neox-20b_float32_SPR.log, ,0.7233
+llm_accuracy_mistralai-Mixtral-8x7B-v0.1_float32_SPR.log, ,0.7852
+llm_accuracy_stabilityai-stablelm-2-1-6b_float32_SPR.log, ,0.6621
+llm_accuracy_Qwen-Qwen-7B-Chat_float32_SPR.log, ,0.6810
 
 
 
