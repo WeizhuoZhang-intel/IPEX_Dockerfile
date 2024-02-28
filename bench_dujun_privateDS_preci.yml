@@ -102,7 +102,7 @@ modelargs:
     localrank:
       - 2
     tokenlatency: true
-  deepspeed_baichuan:
+  stockds_baichuan:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
