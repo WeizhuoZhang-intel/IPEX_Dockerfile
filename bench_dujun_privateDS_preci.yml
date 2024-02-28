@@ -59,7 +59,7 @@ modelargs:
   #     - 2
   #   tokenlatency: true
     
-  deepspeed_gptj:
+  stockds_gptj:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
