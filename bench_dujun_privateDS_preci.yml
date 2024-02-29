@@ -64,8 +64,9 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - tiiuae/falcon-40b
+      - meta-llama/Llama-2-70b-hf
+      - tiiuae/falcon-40b
+      - bigcode/starcoder
       # - tiiuae/falcon-7b
       # - facebook/opt-30b
       # - baichuan-inc/Baichuan2-13B-Chat
