@@ -180,13 +180,16 @@ modelargs:
       - 32
     outputdir: "/data0/rls2.2/shard"
     inputtokens:
+      - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
       - 1
       - 2
       - 4
       - 8
       - 16
-    batchsize: 
-      - 1
     localrank:
       - 2
     greedy: 
