@@ -39,9 +39,9 @@ modelargs:
       - google/flan-t5-xl
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
-      # - mistralai/Mixtral-8x7B-v0.1
-      # - stabilityai/stablelm-2-1_6b
-      # - Qwen/Qwen-7B-Chat
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      - Qwen/Qwen-7B-Chat
     scriptname: run.py
     dtype: 
       - bfloat16
@@ -69,9 +69,9 @@ modelargs:
       - google/flan-t5-xl
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
-      # - mistralai/Mixtral-8x7B-v0.1
-      # - stabilityai/stablelm-2-1_6b
-      # - Qwen/Qwen-7B-Chat
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      - Qwen/Qwen-7B-Chat
     scriptname: run.py
     dtype: 
       - ds-woq-int8
