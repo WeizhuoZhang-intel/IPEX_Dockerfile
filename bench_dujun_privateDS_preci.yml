@@ -16,7 +16,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 6
+  iternum: 10
   hw: SPR
 modelargs:
   # default_gptj:
@@ -64,7 +64,7 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - tiiuae/falcon-40b
       - bigcode/starcoder
       - facebook/opt-30b
