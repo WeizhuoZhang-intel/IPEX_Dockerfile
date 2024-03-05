@@ -102,6 +102,39 @@ modelargs:
     localrank:
       - 2
     tokenlatency: true
+
+  deepspeed_mpt:
+    modelid: 
+      - mosaicml/mpt-7
+    scriptname: run.py
+    device: 
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    batchsize: 
+      - 1
+    numiter: 50
+    numwarmup: 5
+    greedy: 
+      - False
+    benchmark: true
+    cuda: true
+    ki: false
+    inputtokens:
+      - 32
+      # - 2016
+    maxnewtokens: 
+      - 32
+      # - 128
+      # - 512
+    prompt: None
+    ipex: true
+    jit: true
+    printmemory: true
+    localrank:
+      - 2
+    tokenlatency: true
+
   # deepspeed_baichuan:
   #   modelid: 
   #     # - EleutherAI/gpt-j-6b
