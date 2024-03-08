@@ -113,7 +113,7 @@ modelargs:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       - tiiuae/falcon-40b
       - facebook/opt-30b
@@ -154,7 +154,7 @@ modelargs:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       - EleutherAI/gpt-neox-20b
       - databricks/dolly-v2-12b
