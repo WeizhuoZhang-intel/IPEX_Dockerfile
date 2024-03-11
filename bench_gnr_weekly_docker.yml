@@ -53,37 +53,37 @@ modelargs:
   #     - True
   #   shard: False
 # ---------------------------------------------------------------
-  llama13_bf16dsno:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      # # - EleutherAI/gpt-neox-20b
-      - tiiuae/falcon-40b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      # - Baichuan-inc/Baichuan-13B-Chat
-      # - bigcode/starcoder
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 3
-    greedy: 
-      - True
-    shard: False
+  # llama13_bf16dsno:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - meta-llama/Llama-2-70b-hf
+  #     # # - EleutherAI/gpt-neox-20b
+  #     - tiiuae/falcon-40b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - Baichuan-inc/Baichuan-13B-Chat
+  #     # - bigcode/starcoder
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 3
+  #   greedy: 
+  #     - True
+  #   shard: False
 # ---------------------------------------------------------------
   # llama132_bf16ds:
   #   modelid: 
@@ -147,11 +147,11 @@ modelargs:
 
   llama13_woqdsno:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
-      # - tiiuae/falcon-40b
+      - tiiuae/falcon-40b
     scriptname: run.py
     device:
       - cpu
