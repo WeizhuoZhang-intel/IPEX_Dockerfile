@@ -9,7 +9,7 @@ llm_accuracy_facebook-opt-1.3b_float32_SPR.log, 6.6448,0.5789
 llm_accuracy_facebook-opt-30b_float32_SPR.log, 3.6393,0.7149
 llm_accuracy_Salesforce-codegen-2B-multi_float32_SPR.log, ,0.3128
 llm_accuracy_THUDM-chatglm3-6b_float32_SPR.log, 10.2517,0.5909
-llm_accuracy_THUDM-chatglm2-6b_float32_SPR.log, 41587328.8481,0.0000
+llm_accuracy_THUDM-chatglm2-6b_float32_SPR.log, 41587328.8481,0.5323
 llm_accuracy_baichuan-inc-Baichuan2-13B-Chat_float32_SPR.log, 3.1983,0.7151
 llm_accuracy_baichuan-inc-Baichuan2-7B-Chat_float32_SPR.log, 3.8449,0.6767
 llm_accuracy_Baichuan-inc-Baichuan-13B-Chat_float32_SPR.log, 3.7290,0.6757
