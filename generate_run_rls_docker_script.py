@@ -296,7 +296,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype {dtype} --batch-size {bs} --ipex --token-latency --profile  --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")    
-                                            elif 'falcon' in model_id:
+                                            elif 'falcon-40b' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype {dtype} --batch-size {bs} --ipex --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                  
@@ -333,7 +333,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype {dtype} --batch-size {bs} --ipex --token-latency --profile --torch-compile    \
                                                             2>&1 | tee -a $log_dir/llm_compile_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                         else:   
-                                            if 'falcon' in model_id:
+                                            if 'falcon-40b' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_generation.py \
                                                             --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype {dtype} --batch-size {bs} --ipex --token-latency --profile --torch-compile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_compile_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
@@ -405,7 +405,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                             --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile    \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:  
-                                                if 'falcon' in model_id:
+                                                if 'falcon-40b' in model_id:
                                                     lines.append(f"python run.py  \
                                                                 --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
@@ -425,7 +425,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                             --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency --profile    \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
-                                                if 'falcon' in model_id:
+                                                if 'falcon-40b' in model_id:
                                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                                 --benchmark -m {model_id} --ipex-smooth-quant --qconfig-summary-file {data['modelargs'][mode]['configpath']}/{model_id}/best_configure.json --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --quant-with-amp --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json   \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")        
@@ -466,7 +466,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                             --benchmark -m {model_id} --ipex-smooth-quant  --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile  \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:  
-                                                if 'falcon' in model_id:
+                                                if 'falcon-40b' in model_id:
                                                     lines.append(f"OMP_NUM_THREADS=56 numactl -m 0 -C 0-55 python run.py  \
                                                                 --benchmark -m {model_id} --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
@@ -580,7 +580,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True: 
-                                            if 'falcon' in model_id:  
+                                            if 'falcon-40b' in model_id:  
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --weight-dtype INT8 --quant-with-amp --batch-size {bs} --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -599,7 +599,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         else:   
                                             if 'fp32' in dtype:
 
-                                                if 'falcon' in model_id:
+                                                if 'falcon-40b' in model_id:
                                                     lines.append(f"python run.py  \
                                                                 --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --weight-dtype INT8 --batch-size {bs} --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
@@ -628,7 +628,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                                             else:
 
-                                                if 'falcon' in model_id:
+                                                if 'falcon-40b' in model_id:
                                                     lines.append(f"python run.py  \
                                                                 --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --weight-dtype INT8 --quant-with-amp --batch-size {bs} --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
@@ -674,7 +674,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
                                             
                                         if beam == True:   
-                                            if 'falcon' in model_id:
+                                            if 'falcon-40b' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --weight-dtype INT4 --quant-with-amp --batch-size {bs} --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -691,7 +691,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                             --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --gptq --weight-dtype INT4 --quant-with-amp --batch-size {bs} --token-latency --profile    \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                         else:   
-                                            if 'falcon' in model_id:
+                                            if 'falcon-40b' in model_id:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --ipex-weight-only-quantization --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --gptq --weight-dtype INT4 --quant-with-amp --batch-size {bs} --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")    
@@ -750,7 +750,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         else:
 
                                             if beam == True:   
-                                                if 'falcon' in model_id:
+                                                if 'falcon-40b' in model_id:
                                                     lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp   \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -763,7 +763,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                     lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp    --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")   
-                                                elif 'falcon' in model_id:
+                                                elif 'falcon-40b' in model_id:
 
                                                     lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
@@ -821,7 +821,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         else:
 
                                             if beam == True:   
-                                                if 'falcon' in model_id:
+                                                if 'falcon-40b' in model_id:
                                                     lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --autotp   \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -834,7 +834,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                     lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --autotp    --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")   
-                                                elif 'falcon' in model_id:
+                                                elif 'falcon-40b' in model_id:
 
                                                     lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
@@ -896,7 +896,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                 --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --autotp   --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
 
-                                                elif 'falcon' in model_id:
+                                                elif 'falcon-40b' in model_id:
                                                     lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                 --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile  --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                     
@@ -997,7 +997,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                        
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -1053,7 +1053,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --autotp    \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -1072,7 +1072,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                        
@@ -1101,7 +1101,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --group-size 128 \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile --autotp    \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                      
@@ -1142,7 +1142,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --group-size 128 \
                                                                     --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                      
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
@@ -1219,7 +1219,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                        
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -1275,7 +1275,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --autotp    \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp  --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -1294,7 +1294,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile   --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                        
@@ -1323,7 +1323,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --group-size 128 \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile --autotp    \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp  --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                      
@@ -1364,7 +1364,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --group-size 128 \
                                                                     --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                      
-                                                    elif 'falcon' in model_id:
+                                                    elif 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                     --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
@@ -1419,7 +1419,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 if 'int4' in dtype:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp  --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                        
@@ -1444,7 +1444,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'int4' in dtype: 
-                                                    if 'falcon' in model_id: 
+                                                    if 'falcon-40b' in model_id: 
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp  --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
@@ -1462,7 +1462,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                                 else:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
@@ -1484,7 +1484,7 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                                             if beam == True:   
                                                 if 'int4' in dtype:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
@@ -1498,7 +1498,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                 else:
                                                     
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json   \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                        
@@ -1513,7 +1513,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'int4' in dtype:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
@@ -1531,7 +1531,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")      
                                                 else:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                          
@@ -1645,7 +1645,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'int4' in dtype:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp  --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
@@ -1658,7 +1658,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp  --autotp  \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
                                                 else:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
                                                                     --benchmark -m {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                         
@@ -1694,7 +1694,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 if 'int4' in dtype:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --autotp  --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
@@ -1712,7 +1712,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                     --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization  --batch-size {bs} --weight-dtype INT4 --ipex --token-latency --profile  --quant-with-amp --autotp    \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")      
                                                 else:
-                                                    if 'falcon' in model_id:
+                                                    if 'falcon-40b' in model_id:
                                                         lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --autotp --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                                         2>&1 | tee -a $log_dir/llm_mode-m_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                           
@@ -1745,7 +1745,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append("pwd")
                 lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id}")
                 # lines.append("wait")
-                if 'falcon' in model_id: 
+                if 'falcon-40b' in model_id: 
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt --config-file utils/model_config/tiiuae_falcon-40b_config.json")
                 elif 'neox' in model_id or 'dolly' in model_id:
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id}  -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt")                    
@@ -1773,7 +1773,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
                                             --dtype int8   --quant-with-amp --tasks hellaswag \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                        
-                        elif 'falcon' in model_id:
+                        elif 'falcon-40b' in model_id:
                             lines.append(f"python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
                                             --dtype int8   --quant-with-amp --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                        
@@ -1825,7 +1825,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python {data['modelargs'][mode]['scriptname']} \
                                                             -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --benchmark  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --ipex-weight-only-quantization --weight-dtype INT4 --token-latency --profile  \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-                                            elif 'falcon' in model_id: 
+                                            elif 'falcon-40b' in model_id: 
 
                                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} \
                                                             -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --benchmark --quant-with-amp --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --batch-size {bs} --ipex-weight-only-quantization --weight-dtype INT4 --token-latency --profile --config-file utils/model_config/tiiuae_falcon-40b_config.json \
@@ -1863,7 +1863,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if 'codegen' in model_id:
                             lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks hellaswag --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                        elif 'falcon' in model_id:
+                        elif 'falcon-40b' in model_id:
                             lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks lambada_openai --batch-size 1 --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         elif 'mpt' in model_id:
@@ -1928,7 +1928,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for dtype in data['modelargs'][mode]['dtype']:
                         for bs in data['modelargs'][mode]['batchsize']:
                             if 'fp32' in dtype:
-                                if 'falcon' in model_id: 
+                                if 'falcon-40b' in model_id: 
                                     lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks lambada_openai --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                 elif 'mpt' in model_id:
@@ -1969,7 +1969,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 elif 'neox' in model_id or 'dolly' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex  --tasks lambada_openai --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                                elif 'falcon' in model_id:
+                                elif 'falcon-40b' in model_id:
                                     lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex  --tasks lambada_openai --batch-size {bs} --config-file utils/model_config/tiiuae_falcon-40b_config.json\
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'mpt' in model_id:
@@ -1989,7 +1989,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 elif 'neox' in model_id or 'dolly' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex  --tasks lambada_openai --batch-size {bs}  \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                                elif 'falcon' in model_id:
+                                elif 'falcon-40b' in model_id:
                                     lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --quant-with-amp --ipex  --tasks lambada_openai --batch-size {bs} --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'mpt' in model_id:
@@ -2023,7 +2023,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         elif 'neox' in model_id or 'dolly' in model_id:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}  -m {model_id} --dtype int8 --ipex  --tasks lambada_openai --batch-size 56 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                        elif 'falcon' in model_id:
+                        elif 'falcon-40b' in model_id:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}  -m {model_id} --dtype int8 --quant-with-amp --ipex  --tasks lambada_openai --batch-size 56 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         else:
@@ -2039,7 +2039,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             # lines.append("cd ./distributed")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
-                if 'falcon' in model_id: 
+                if 'falcon-40b' in model_id: 
                     lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai --batch-size 1 --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                
                 elif 'codegen' in model_id:
@@ -2067,7 +2067,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             # lines.append("cd ./distributed")
             lines.append("unset KMP_AFFINITY")
             for model_id in data['modelargs'][mode]['modelid']:
-                if 'falcon' in model_id: 
+                if 'falcon-40b' in model_id: 
                     lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --tasks lambada_openai --batch-size 1 --disable-jit \
                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                
                 elif 'codegen' in model_id:
@@ -2107,7 +2107,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         elif 'Baichuan-13B' in model_id or 'opt-30b' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                        elif 'falcon' in model_id:
+                        elif 'falcon-40b' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization  --batch-size 1 --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         elif 'starcoder' in model_id:
@@ -2135,7 +2135,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if 'neox' in model_id or 'dolly' in model_id or 'Baichuan-13B' in model_id or 'opt-30b' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                        elif 'falcon' in model_id:
+                        elif 'falcon-40b' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 --config-file utils/model_config/tiiuae_falcon-40b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         elif 'codegen' in model_id:
@@ -2165,7 +2165,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if 'neox' in model_id or 'dolly' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                        elif 'falcon' in model_id:
+                        elif 'falcon-40b' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         elif 'codegen' in model_id:
@@ -2189,7 +2189,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         if 'neox' in model_id or 'dolly' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --dtype float32 --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                        elif 'falcon' in model_id:
+                        elif 'falcon-40b' in model_id:
                             lines.append(f"deepspeed  --num_gpus 2 --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --weight-dtype INT4 --lowp-mode INT8 --quant-with-amp --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                         elif 'codegen' in model_id:
@@ -2226,7 +2226,7 @@ def generate_commands(yml_file,mode,extra_kmp):
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                         if 'bf16' in dtype:
-                            if 'falcon' in model_id: 
+                            if 'falcon-40b' in model_id: 
                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp --lowp-mode BF16 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['configpath']}/{model_id}/gptq_checkpoint_g128.pt --config-file utils/model_config/tiiuae_falcon-40b_config.json")
                             elif 'neox' in model_id or 'dolly' in model_id:
                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id}  -m {model_id} --lowp-mode BF16 --low-precision-checkpoint {data['modelargs'][mode]['configpath']}/{model_id}/gptq_checkpoint_g128.pt")                    
@@ -2236,7 +2236,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             else:
                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp --lowp-mode BF16 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['configpath']}/{model_id}/gptq_checkpoint_g128.pt")
                         else:
-                            if 'falcon' in model_id: 
+                            if 'falcon-40b' in model_id: 
                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp --lowp-mode INT8 -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['configpath']}/{model_id}/gptq_checkpoint_g128.pt --config-file utils/model_config/tiiuae_falcon-40b_config.json")
                             elif 'neox' in model_id or 'dolly' in model_id:
                                 lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id}  -m {model_id} --lowp-mode INT8 --low-precision-checkpoint {data['modelargs'][mode]['configpath']}/{model_id}/gptq_checkpoint_g128.pt")                    
