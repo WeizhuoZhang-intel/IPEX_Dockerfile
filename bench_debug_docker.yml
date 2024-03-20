@@ -44,30 +44,54 @@ modelargs:
     greedy: 
       - False
       - True
-  # agptj_woq8:
-  #   modelid: 
-  #     - tiiuae/falcon-7b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - woq-int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data0/rls2.2/woq-int8"
-  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  #     # - True
+  agptj_woq8:
+    modelid: 
+      - tiiuae/falcon-7b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
+  agptj_bf16:
+    modelid: 
+      - tiiuae/falcon-7b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
 
   # llama13_bf16ds:
   #   modelid: 
