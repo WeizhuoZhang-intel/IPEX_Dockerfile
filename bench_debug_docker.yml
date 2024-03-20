@@ -20,16 +20,18 @@ launcher:
   iternum: 20
   hw: EMR
 modelargs:
-  model_bf16:
+  model_inductor:
     modelid: 
-      - tiiuae/falcon-7b
+      - EleutherAI/gpt-j-6B
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
       - cpu
     dtype: 
       - bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     inputtokens:
       # - 128
       # - 512
@@ -41,76 +43,77 @@ modelargs:
       - 1
     greedy: 
       - False
-  agptj_woq8:
-    modelid: 
-      - tiiuae/falcon-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+      - True
+  # agptj_woq8:
+  #   modelid: 
+  #     - tiiuae/falcon-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/woq-int8"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
-  llama13_bf16ds:
-    modelid: 
-      - tiiuae/falcon-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/shard"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # llama13_bf16ds:
+  #   modelid: 
+  #     - tiiuae/falcon-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  llama123_woqds:
-    modelid: 
-      - tiiuae/falcon-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/shard"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # llama123_woqds:
+  #   modelid: 
+  #     - tiiuae/falcon-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
