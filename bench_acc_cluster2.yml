@@ -28,6 +28,7 @@ modelargs:
       - meta-llama/Llama-2-70b-hf
       - databricks/dolly-v2-12b
       - tiiuae/falcon-40b
+      - tiiuae/falcon-7b
       - bigscience/bloom-1b7
       - facebook/opt-1.3b
       - facebook/opt-30b
@@ -45,8 +46,8 @@ modelargs:
       # - microsoft/git-base
       # - facebook/mbart-large-50-many-to-many-mmt
     scriptname: single_instance/run_quantization.py
-    outputdir: "/mnt/aitrgdata/mint/2024ww08/gptq"
-    gptqpath: "/data/weeklymodel/gptq/EleutherAI/gpt-j-6B/gptq_checkpoint_g128.pt"
+    outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
+    gptqpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
 
   # gptj_gptqacc:
   #   modelid: 
