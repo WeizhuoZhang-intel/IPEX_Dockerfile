@@ -1755,6 +1755,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 else:
                     lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt")
 
+
         if mode.endswith('gptqacc'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
