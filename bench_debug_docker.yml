@@ -18,7 +18,7 @@ launcher:
   numactlN: 0
   numactlM: 0
   iternum: 20
-  hw: EMR
+  hw: SPR
 modelargs:
   model_inductor:
     modelid: 
@@ -54,8 +54,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    outputdir: "/backup/woq-int8"
+    quantizedmodelpath: "/backup/woq-int8"
     inputtokens:
       # - 128
       # - 512
