@@ -20,71 +20,98 @@ launcher:
   iternum: 20
   hw: SPR
 modelargs:
-  model_inductor:
+  # model_inductor:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6B
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
+  # agptj_woq8:
+  #   modelid: 
+  #     - tiiuae/falcon-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/backup/woq-int8"
+  #   quantizedmodelpath: "/backup/woq-int8"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
+  # agptj_bf16:
+  #   modelid: 
+  #     - tiiuae/falcon-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/woq-int8"
+  #   quantizedmodelpath: "/data0/rls2.2/woq-int8"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
+
+  agptj_static8:
     modelid: 
-      - EleutherAI/gpt-j-6B
       - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      - tiiuae/falcon-7b
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - bfloat16
+      - static-fp32-int8
     maxnewtokens: 
       - 128
+    outputdir: "/data0/2024ww06"
+    quantizedmodelpath: "/data0/2024ww06"
+    configpath: "/data0/newqconfig"
     inputtokens:
-      # - 128
-      # - 512
+      - 128
+      - 512
       - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
-  agptj_woq8:
-    modelid: 
-      - tiiuae/falcon-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/backup/woq-int8"
-    quantizedmodelpath: "/backup/woq-int8"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
-  agptj_bf16:
-    modelid: 
-      - tiiuae/falcon-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/woq-int8"
-    quantizedmodelpath: "/data0/rls2.2/woq-int8"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
+      - 2016
     batchsize: 
       - 1
     localrank:
@@ -93,51 +120,27 @@ modelargs:
       - False
       # - True
 
-  # llama13_bf16ds:
-  #   modelid: 
-  #     - tiiuae/falcon-7b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data0/rls2.2/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #   greedy: 
-  #     - False
-  #   shard: False
+  model_static8acc:
+    modelid: 
+      - tiiuae/falcon-7b
+    dtype: 
+      - static-fp32-int8
+    quantizedmodelpath: "/data0/2024ww06"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    alpha: 0.95
 
-  # llama123_woqds:
-  #   modelid: 
-  #     - tiiuae/falcon-7b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/data0/rls2.2/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #   greedy: 
-  #     - False
-  #   shard: False
+  model_defaultacc:
+    modelid: 
+      - tiiuae/falcon-7b
+    scriptname: single_instance/run_quantization.py
+    dtype: 
+      # - bfloat16
+      - float32
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1

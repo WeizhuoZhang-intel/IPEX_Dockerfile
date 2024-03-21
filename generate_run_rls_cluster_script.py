@@ -7,6 +7,7 @@ parser.add_argument("-d","--deepspeed",action="store_true",default=False,help="o
 parser.add_argument("--acc_cluster1",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--acc_cluster2",action="store_true",default=False,help="only for rls track")
 parser.add_argument("--acc_cluster3",action="store_true",default=False,help="only for rls track")
+parser.add_argument("--acc_cluster4",action="store_true",default=False,help="only for rls track")
 args = parser.parse_args()
 
 fetch_device_info = '''
@@ -1804,6 +1805,8 @@ if __name__ == '__main__':
         yml_file = 'bench_acc_cluster2.yml'
     if args.acc_cluster3:    
         yml_file = 'bench_acc_cluster3.yml'
+    if args.acc_cluster4:    
+        yml_file = 'bench_acc_cluster4.yml'
     data = yaml.load(open(yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(yml_file, mode, args.extra_kmp)
