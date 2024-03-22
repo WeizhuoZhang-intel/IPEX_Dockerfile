@@ -40,7 +40,7 @@ modelargs:
     dtype: 
       - ds-bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/localdisk/shard"
     inputtokens:
       - 128
@@ -67,7 +67,7 @@ modelargs:
     dtype: 
       - ds-bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/localdisk/shard"
     inputtokens:
       - 128
@@ -103,7 +103,7 @@ modelargs:
       - ds-woq-int8
       # - ds-woq-int4
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/localdisk/shard"
     inputtokens:
       - 128
@@ -132,7 +132,7 @@ modelargs:
       - ds-woq-int8
       # - ds-woq-int4
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/localdisk/shard"
     inputtokens:
       - 128

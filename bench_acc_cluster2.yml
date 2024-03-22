@@ -17,10 +17,41 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 5
+  iternum: 35
   hw: SPR
 modelargs:
-  agptj_gptq:
+  # agptj_gptq:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - meta-llama/Llama-2-70b-hf
+  #     - databricks/dolly-v2-12b
+  #     - tiiuae/falcon-40b
+  #     - tiiuae/falcon-7b
+  #     - bigscience/bloom-1b7
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #     - Salesforce/codegen-2B-multi
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     # - baichuan-inc/Baichuan2-7B-Chat
+  #     # - Baichuan-inc/Baichuan-13B-Chat
+  #     - bigcode/starcoder
+  #     # - google/flan-t5-xl
+  #     - mistralai/Mistral-7B-v0.1
+  #     - mosaicml/mpt-7b
+  #     - mistralai/Mixtral-8x7B-v0.1
+  #     - stabilityai/stablelm-2-1_6b
+  #     # - Qwen/Qwen-7B-Chat
+  #     # - microsoft/git-base
+  #     # - facebook/mbart-large-50-many-to-many-mmt
+  #   scriptname: single_instance/run_quantization.py
+  #   outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
+  #   gptqpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
+
+
+
+  agptjint8_gptqquant:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
@@ -33,131 +64,233 @@ modelargs:
       - facebook/opt-1.3b
       - facebook/opt-30b
       - Salesforce/codegen-2B-multi
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
       - bigcode/starcoder
-      - google/flan-t5-xl
+      # - google/flan-t5-xl
       - mistralai/Mistral-7B-v0.1
       - mosaicml/mpt-7b
       - mistralai/Mixtral-8x7B-v0.1
       - stabilityai/stablelm-2-1_6b
-      - Qwen/Qwen-7B-Chat
-      # - microsoft/git-base
-      # - facebook/mbart-large-50-many-to-many-mmt
+      # - Qwen/Qwen-7B-Chat
     scriptname: single_instance/run_quantization.py
-    outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
-    gptqpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
+    device:
+      - cpu
+    dtype: 
+      - woq-int4
+    maxnewtokens: 
+      - 32
+    outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
-  # gptj_gptqacc:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     - meta-llama/Llama-2-70b-hf
-  #     - databricks/dolly-v2-12b
-  #     - tiiuae/falcon-40b
-  #     - bigscience/bloom-1b7
-  #     - facebook/opt-1.3b
-  #     - facebook/opt-30b
-  #     - Salesforce/codegen-2B-multi
-  #     - baichuan-inc/Baichuan2-13B-Chat
-  #     - baichuan-inc/Baichuan2-7B-Chat
-  #     - Baichuan-inc/Baichuan-13B-Chat
-  #     - bigcode/starcoder
-  #     - google/flan-t5-xl
-  #     - mistralai/Mistral-7B-v0.1
-  #     - mosaicml/mpt-7b
-  #     - mistralai/Mixtral-8x7B-v0.1
-  #     - stabilityai/stablelm-2-1_6b
-  #     - Qwen/Qwen-7B-Chat
-  #   scriptname: single_instance/run_gpt-j_quantization.py
-  #   dtype: 
-  #     - woq-int4-int8
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/2024ww08/gptq"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
+  agptjbf16_gptqquant:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+      - tiiuae/falcon-7b
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+      # - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mosaicml/mpt-7b
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+    scriptname: single_instance/run_quantization.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int4-bf16
+    maxnewtokens: 
+      - 32
+    outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
-  # amodel_autotune:
-  #   modelid: 
-  #     - EleutherAI/gpt-neox-20b
-  #     - bigscience/bloom-1b7
-  #     - databricks/dolly-v2-12b
-  #     - Salesforce/codegen-2B-multi
-  #     - baichuan-inc/Baichuan-13B-Chat
-  #     - bigcode/starcoder
-  #     - google/flan-t5-xl
-  #     - mistralai/Mistral-7B-v0.1
-  #     - mosaicml/mpt-7b
-  #   dtype: 
-  #     - static-fp32-int8
-  #   outputdir: "/mnt/aitrgdata/mint/rls2.2/RC3/autotune"
-  #   localrank:
-  #     - 1
-  #   alpha: 0.9
-  #   inputtokens:
-  #     - 128
-  #     # - 512
-  #     # - 1024
-  #     # - 2016
-  #   maxnewtokens: 
-  #     - 32
-  #   batchsize: 
-  #     - 1
-  #   greedy: 
-  #     - False
+  gptjint8_gptqacc:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+      - tiiuae/falcon-7b
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+      # - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mosaicml/mpt-7b
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+    scriptname: single_instance/run_accuracy.py
+    dtype: 
+      - woq-int4-int8
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
-  # amodel_autotune2:
-  #   modelid: 
-  #     - EleutherAI/gpt-neox-20b
-  #   dtype: 
-  #     - static-fp32-int8
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
-  #   outputdir: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   alpha: 0.9
+  gptjbf16_gptqacc:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+      - tiiuae/falcon-7b
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+      # - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mosaicml/mpt-7b
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+    scriptname: single_instance/run_accuracy.py
+    dtype: 
+      - woq-int4-bf16
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
 
-  # gptj_static8a:
-  #   modelid: 
-  #     - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/mnt/aitrgdata/mint/newqconfig"
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/newqconfig"
-  #   configpath: "/mnt/aitrgdata/mint/newqconfig"
-  #   inputtokens:
-  #     - 128
-  #     # - 512
-  #     # - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  gptjint8_gptqperf:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+      - tiiuae/falcon-7b
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+      # - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mosaicml/mpt-7b
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
 
-  # model_static8acc:
-  #   modelid: 
-  #     # - meta-llama/Llama-2-70b-hf
-  #     - EleutherAI/gpt-j-6b
-  #   dtype: 
-  #     - static-fp32-int8
-  #   quantizedmodelpath: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
-  #   outputdir: "/mnt/aitrgdata/mint/rls2.2/RC4/autotune"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   alpha: 0.9
-
+  gptjbf16_gptqperf:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
+      - tiiuae/falcon-7b
+      - bigscience/bloom-1b7
+      - facebook/opt-1.3b
+      - facebook/opt-30b
+      - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+      # - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mosaicml/mpt-7b
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int4-bf16
+    maxnewtokens: 
+      - 128
+    outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False

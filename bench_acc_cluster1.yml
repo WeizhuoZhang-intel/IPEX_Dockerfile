@@ -115,6 +115,64 @@ modelargs:
     localrank:
       - 1
 
+  model_bf16:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+      - 2
+      - 4
+      - 8
+      - 16
+    localrank:
+      - 1
+    greedy: 
+      - False
+
+  agptj_woq8:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/data0/rls2.2/woq-int8"
+    quantizedmodelpath: "/data0/rls2.2/woq-int8"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+      - 2
+      - 4
+      - 8
+      - 16
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
+
+
   # model2_defaultacc:
   #   modelid: 
   #     # - EleutherAI/gpt-j-6b
