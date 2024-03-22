@@ -125,7 +125,7 @@ modelargs:
     dtype: 
       - bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     inputtokens:
       - 128
       - 512
@@ -152,7 +152,7 @@ modelargs:
     dtype: 
       - woq-int8
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/data0/rls2.2/woq-int8"
     quantizedmodelpath: "/data0/rls2.2/woq-int8"
     inputtokens:

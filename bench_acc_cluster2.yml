@@ -80,7 +80,7 @@ modelargs:
     dtype: 
       - woq-int4
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
     quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
     configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
@@ -125,7 +125,7 @@ modelargs:
     dtype: 
       - woq-int4-bf16
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
     quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
     configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"

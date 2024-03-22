@@ -147,7 +147,7 @@ modelargs:
       - ds-woq-int8
       # - ds-woq-int4
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/data/rls2.2/shard"
     inputtokens:
       - 128
@@ -195,7 +195,7 @@ modelargs:
       - ds-woq-int8
       # - ds-woq-int4
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/data/rls2.2/shard"
     inputtokens:
       - 128
