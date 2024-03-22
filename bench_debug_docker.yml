@@ -108,10 +108,10 @@ modelargs:
     quantizedmodelpath: "/data0/2024ww06"
     configpath: "/data0/newqconfig"
     inputtokens:
-      - 128
-      - 512
+      # - 128
+      # - 512
       - 1024
-      - 2016
+      # - 2016
     batchsize: 
       - 1
     localrank:
