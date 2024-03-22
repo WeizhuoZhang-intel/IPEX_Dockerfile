@@ -83,7 +83,7 @@ modelargs:
       - 128
     outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
     quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
-    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/int8"
+    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
     inputtokens:
       - 128
       - 512
@@ -128,7 +128,7 @@ modelargs:
       - 128
     outputdir: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
     quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
-    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq/bf16"
+    configpath: "/mnt/aitrgdata/mint/ipex23prepare/gptq"
     inputtokens:
       - 128
       - 512
