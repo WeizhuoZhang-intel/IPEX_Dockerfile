@@ -95,7 +95,7 @@ modelargs:
 
   agptj_static8:
     modelid: 
-      # - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-7b-hf
       - tiiuae/falcon-7b
     scriptname: run.py
     device:
@@ -108,10 +108,10 @@ modelargs:
     quantizedmodelpath: "/data0/2024ww06"
     configpath: "/data0/newqconfig"
     inputtokens:
-      - 128
-      - 512
-      - 1024
-      # - 2016
+      # - 128
+      # - 512
+      # - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
