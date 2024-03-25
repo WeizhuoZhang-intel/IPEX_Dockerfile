@@ -154,8 +154,8 @@ modelargs:
       - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       - facebook/opt-30b
-      - THUDM/chatglm3-6b
-      - THUDM/chatglm2-6b
+      # - THUDM/chatglm3-6b
+      # - THUDM/chatglm2-6b
       - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan2-7B-Chat
       - Baichuan-inc/Baichuan-13B-Chat
@@ -169,11 +169,12 @@ modelargs:
     dtype: 
       - ds-bfloat16
     maxnewtokens: 
-      - 128
+      - 32
     outputdir: "/backup/shard"
     inputtokens:
+      # - 32
       - 128
-      - 512
+      # - 512
       - 1024
       - 2016
     batchsize: 
