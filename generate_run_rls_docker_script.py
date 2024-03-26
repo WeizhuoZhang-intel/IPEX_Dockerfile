@@ -314,6 +314,8 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('inductor'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
+            lines.append("pip uninstall -y intel-extension-for-pytorch")
+            lines.append("pip uninstall -y intel-extension-for-pytorch")
             lines.append("pip uninstall -y transformers")
             lines.append("pip uninstall -y transformers")
             lines.append("cd transformers")
