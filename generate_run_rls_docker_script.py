@@ -314,6 +314,12 @@ def generate_commands(yml_file,mode,extra_kmp):
         if mode.endswith('inductor'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
+            lines.append("pip uninstall -y transformers")
+            lines.append("pip uninstall -y transformers")
+            lines.append("cd transformers")
+            lines.append("git apply again.patch")
+            lines.append("python setup.py install")
+            lines.append("cd ..")
             for model_id in data['modelargs'][mode]['modelid']:
                 for dtype in data['modelargs'][mode]['dtype']:
                     for input_token in data['modelargs'][mode]['inputtokens']:
