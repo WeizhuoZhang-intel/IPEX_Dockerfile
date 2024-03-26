@@ -17,25 +17,25 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 30
+  iternum: 12
   hw: SPR
 modelargs:
   model_inductor:
     modelid: 
       - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
       - cpu
     dtype: 
       - bfloat16
     maxnewtokens: 
-      - 128
+      - 32
     inputtokens:
-      # - 128
+      - 32
       # - 512
-      - 1024
+      # - 1024
       # - 2016
     batchsize: 
       - 1
@@ -43,7 +43,7 @@ modelargs:
       - 1
     greedy: 
       - False
-      - True
+      # - True
   # agptj_woq8:
   #   modelid: 
   #     - tiiuae/falcon-7b
