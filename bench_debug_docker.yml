@@ -29,7 +29,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - bfloat16
+      - inductor-bf16
     maxnewtokens: 
       - 32
     inputtokens:
