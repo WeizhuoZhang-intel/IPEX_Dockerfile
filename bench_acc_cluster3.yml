@@ -290,7 +290,7 @@ modelargs:
       - 128
     inputtokens:
       - 128
-      - 512
+      # - 512
       - 1024
       - 2016
     batchsize: 
@@ -304,9 +304,10 @@ modelargs:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-13b-hf
       - THUDM/chatglm3-6b
-      - baichuan-inc/Baichuan2-13B-Chat
+      - tiiuae/falcon-7b
+      # - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan2-7B-Chat
     scriptname: run.py
     device:
@@ -317,7 +318,7 @@ modelargs:
       - 128
     inputtokens:
       - 128
-      - 512
+      # - 512
       - 1024
       - 2016
     batchsize: 
@@ -364,7 +365,7 @@ modelargs:
     quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
     inputtokens:
       - 128
-      - 512
+      # - 512
       - 1024
       - 2016
     batchsize: 
