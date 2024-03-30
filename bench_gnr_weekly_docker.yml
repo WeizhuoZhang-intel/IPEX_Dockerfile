@@ -81,6 +81,7 @@ modelargs:
       - 1
     localrank:
       - 3
+      - 6
     greedy: 
       - True
     shard: False
@@ -170,6 +171,7 @@ modelargs:
       - 1
     localrank:
       - 3
+      - 6
     greedy: 
       - True
     shard: False
