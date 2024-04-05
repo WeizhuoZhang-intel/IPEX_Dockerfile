@@ -53,6 +53,7 @@ modelargs:
       - 4
     greedy: 
       - False
+      - True
     shard: False
 
   llamaa13a_bf16dsp:
@@ -80,6 +81,7 @@ modelargs:
       - 8
     greedy: 
       - False
+      - True
     shard: False
 
   llama13_woqdsp:
@@ -116,6 +118,7 @@ modelargs:
       - 4
     greedy: 
       - False
+      - True
     shard: False
 
   llama413_woqdsp:
@@ -145,6 +148,7 @@ modelargs:
       - 8
     greedy: 
       - False
+      - True
     shard: False
 
  
