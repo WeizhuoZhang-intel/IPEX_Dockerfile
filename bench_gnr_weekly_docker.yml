@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 40
+  iternum: 35
   hw: GNR
 modelargs:
 
@@ -84,6 +84,7 @@ modelargs:
       - 6
     greedy: 
       - True
+      - False
     shard: False
 # ---------------------------------------------------------------
   # llama132_bf16ds:
@@ -174,6 +175,7 @@ modelargs:
       - 6
     greedy: 
       - True
+      - False
     shard: False
 
   # llama413_woqds:
