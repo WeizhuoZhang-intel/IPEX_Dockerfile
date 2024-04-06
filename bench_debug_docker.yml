@@ -20,40 +20,40 @@ launcher:
   iternum: 35
   hw: EMR
 modelargs:
-  # llama13_bf16ds:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/dataset/llama/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #     # - 2048
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #     - 4
-  #   greedy: 
-  #     - False
-  #     - True
-  #   shard: False
+  llama13_bf16dsno:
+    modelid: 
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/dataset/llama/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      # - 2048
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+      - 4
+    greedy: 
+      - False
+      - True
+    shard: False
 
   allama13_tensor:
     modelid: 
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
     scriptname: run.py
     device:
       - cpu
