@@ -131,8 +131,7 @@ if model_type != "llava":
         trust_remote_code=True
     )
     tokenizer = model_class[1].from_pretrained(args.model_id, trust_remote_code=True)
-else:
-    tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_id)
+
 model = model.eval()
 model = model.to(memory_format=torch.channels_last)
 
