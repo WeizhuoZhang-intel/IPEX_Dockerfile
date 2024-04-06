@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 35
+  iternum: 20
   hw: EMR
 modelargs:
   llama13_bf16dsno:
@@ -42,7 +42,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 2
+      # - 2
       - 4
     greedy: 
       - False
@@ -71,7 +71,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 2
+      # - 2
       - 4
     greedy: 
       - False
