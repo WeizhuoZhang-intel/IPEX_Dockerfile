@@ -2316,6 +2316,59 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"collect_perf_logs_llm llm_ipexllm_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
+
+        if mode.endswith('tensor'):
+            lines.append("# Run Workload")  
+            lines.append("export WORK_DIR=./")
+            lines.append("source /home/ubuntu/miniconda3/envs/py310/lib/python3.10/site-packages/intel_extension_for_pytorch/env/setvars.sh")
+            for model_id in data['modelargs'][mode]['modelid']:
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for beam in data['modelargs'][mode]['greedy']:
+                                for bs in data['modelargs'][mode]['batchsize']:
+                                    for rank in data['modelargs'][mode]['localrank']:
+
+                                        if rank == 2:
+                                            lines.append("export I_MPI_PIN_DOMAIN=[0xffffffff,0xffffffff00000000]")
+                                            lines.append("export CCL_WORKER_COUNT=4")
+                                            lines.append("CCL_WORKER_AFFINITY=0,1,2,3,32,33,34,35")
+                                            lines.append("export OMP_NUM_THREADS=32")
+                                            
+
+                                        
+                                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                                
+                                            if beam == True:   
+                                                lines.append(f"RUN_WORKLOAD='python single_instance/run_generation.py -m {model_id} --deployment-mode  --benchmark --num-iter {data['launcher']['iternum']} --token-latency --num-warmup 10 --batch-size {bs} --greedy --input-tokens {input_token} --max-new-tokens {output_token} --ipex --dtype bfloat16'   \
+                                                                2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            else:   
+                                                lines.append(f"RUN_WORKLOAD='python single_instance/run_generation.py -m {model_id} --deployment-mode  --benchmark --num-iter {data['launcher']['iternum']} --token-latency --num-warmup 10 --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token} --ipex --dtype bfloat16' \
+                                                                2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
+                                            lines.append("mpiexec.hydra -l -np 2 ${RUN_WORKLOAD}")
+                                            lines.append(f"collect_perf_logs_llm llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+
+                                        elif rank == 4:
+                                            lines.append("export I_MPI_PIN_DOMAIN=[0xffffffff,0xffffffff00000000,0xffffffff0000000000000000,0xffffffff000000000000000000000000]")
+                                            lines.append("export CCL_WORKER_COUNT=4")
+                                            lines.append("CCL_WORKER_AFFINITY=0,1,2,3,32,33,34,35,64,65,66,67,96,97,98,99")
+                                            lines.append("export OMP_NUM_THREADS=32")
+                                            
+
+                                        
+                                            lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                                
+                                            if beam == True:   
+                                                lines.append(f"RUN_WORKLOAD='python single_instance/run_generation.py -m {model_id} --deployment-mode  --benchmark --num-iter {data['launcher']['iternum']} --token-latency --num-warmup 10 --batch-size {bs} --greedy --input-tokens {input_token} --max-new-tokens {output_token} --ipex --dtype bfloat16'   \
+                                                                2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            else:   
+                                                lines.append(f"RUN_WORKLOAD='python single_instance/run_generation.py -m {model_id} --deployment-mode  --benchmark --num-iter {data['launcher']['iternum']} --token-latency --num-warmup 10 --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token} --ipex --dtype bfloat16' \
+                                                                2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
+                                            lines.append("mpiexec.hydra -l -np 4 ${RUN_WORKLOAD}")
+                                            lines.append(f"collect_perf_logs_llm llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+
+
+
         lines.append(f"sleep 5s")
         lines.append("")
         runfile.writelines([line + "\n" for line in lines])

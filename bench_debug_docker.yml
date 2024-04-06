@@ -17,166 +17,197 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 40
-  hw: SPR
+  iternum: 35
+  hw: EMR
 modelargs:
   llama13_bf16ds:
     modelid: 
-      # - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
     scriptname: run.py
     device:
       - cpu
     dtype: 
       - ds-bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/dataset/llama/shard"
     inputtokens:
       # - 128
       # - 512
       - 1024
-      - 2016
-      - 2048
+      # - 2016
+      # - 2048
     batchsize: 
       - 1
     localrank:
       - 2
+      - 4
     greedy: 
       - False
       - True
     shard: False
 
-  llama123_woqds:
+  allama13_tensor:
     modelid: 
-      # - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - ds-woq-int8
-      - ds-woq-int4
+      - ds-bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/dataset/llama/shard"
     inputtokens:
+      # - 128
+      # - 512
       - 1024
-      - 2016
-      - 2048
+      # - 2016
+      # - 2048
     batchsize: 
       - 1
     localrank:
       - 2
+      - 4
     greedy: 
       - False
       - True
     shard: False
+  # llama123_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/dataset/llama/shard"
+  #   inputtokens:
+  #     - 1024
+  #     - 2016
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #     - True
+  #   shard: False
 
-  agptj_static8:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-fp32-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/dataset/qconfig"
-    quantizedmodelpath: "/dataset/qconfig"
-    configpath: "/dataset/qconfig"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      - 2016
-      - 2048
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # agptj_static8:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - static-fp32-int8
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/dataset/qconfig"
+  #   quantizedmodelpath: "/dataset/qconfig"
+  #   configpath: "/dataset/qconfig"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     - 2016
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
-  agptjint8_gptqquant:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-    scriptname: single_instance/run_quantization.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/dataset/gptq"
-    quantizedmodelpath: "/dataset/gptq"
-    configpath: "/dataset/gptq"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      - 2016
-      - 2048
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
+  # agptjint8_gptqquant:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: single_instance/run_quantization.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/dataset/gptq"
+  #   quantizedmodelpath: "/dataset/gptq"
+  #   configpath: "/dataset/gptq"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     - 2016
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
 
-  gptjbf16_gptqperf:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/dataset/gptq"
-    quantizedmodelpath: "/dataset/gptq"
-    configpath: "/dataset/gptq"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      - 2016
-      - 2048
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # gptjbf16_gptqperf:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/dataset/gptq"
+  #   quantizedmodelpath: "/dataset/gptq"
+  #   configpath: "/dataset/gptq"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     - 2016
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
-  model_bf16:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      - 2016
-      - 2048
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # model_bf16:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 32
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     - 2016
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
