@@ -189,36 +189,36 @@ modelargs:
 
 
 
-  llama13_tensor:
-    modelid: 
-      - /root/.cache/huggingface/hub/llama3/new
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/dataset/llama/shard"
-    inputtokens:
-      # - 128
-      # - 512
-      # - 1024
-      # # - 2016
-      # - 2048
-      # - 4096
-      - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-      # - 4
-    greedy: 
-      # - False
-      - True
-    shard: False
+  # llama13_tensor:
+  #   modelid: 
+  #     - /root/.cache/huggingface/hub/llama3/new
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/dataset/llama/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # # - 2016
+  #     # - 2048
+  #     # - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     # - 4
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: False
 
 
 
