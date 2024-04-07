@@ -254,7 +254,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("# Env config")
         lines.append("export WORKDIR=/root/workspace/llm")
         lines.append("export HF_HOME=/root/.cache/huggingface")
-        lines.append("export TRANSFORMERS_OFFLINE=1")
+        lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("bash token.sh")
         lines.append("log_dir=/root/workspace/log")
 
@@ -2393,8 +2393,10 @@ def generate_commands(yml_file,mode,extra_kmp):
 
                                         elif rank == 4:
                                             lines.append("export I_MPI_PIN_DOMAIN=[0xffffffff,0xffffffff00000000,0xffffffff0000000000000000,0xffffffff000000000000000000000000]")
-                                            lines.append("export CCL_WORKER_COUNT=4")
-                                            lines.append("CCL_WORKER_AFFINITY=0,1,2,3,32,33,34,35,64,65,66,67,96,97,98,99")
+                                            lines.append("export CCL_WORKER_COUNT=1")
+                                            lines.append("CCL_WORKER_AFFINITY=128,160,192,224")
+                                            # lines.append("export CCL_WORKER_COUNT=4")
+                                            # lines.append("CCL_WORKER_AFFINITY=0,1,2,3,32,33,34,35,64,65,66,67,96,97,98,99")
                                             lines.append("export OMP_NUM_THREADS=32")
                                             
 
