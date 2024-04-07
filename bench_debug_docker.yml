@@ -272,10 +272,10 @@ modelargs:
     inputtokens:
       # - 128
       # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
+      # - 1024
+      # # - 2016
+      # - 2048
+      # - 4096
       - 8192
     batchsize: 
       - 1
@@ -284,7 +284,7 @@ modelargs:
       # - 4
     greedy: 
       - False
-      - True
+      # - True
     shard: False
 
   # agptj_static8:
