@@ -23,7 +23,7 @@ launcher:
 modelargs:
   allama13_bf16dsno:
     modelid: 
-      - meta-llama/Llama-2-7b-hf
+      - /data0/huggingface/hub/llama3
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
     scriptname: run.py
@@ -85,7 +85,7 @@ modelargs:
   allama123_woqdsno:
     modelid: 
       # - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
+      - /data0/huggingface/hub/llama3
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
@@ -191,7 +191,7 @@ modelargs:
 
   llama13_tensor:
     modelid: 
-      - meta-llama/Llama-2-7b-hf
+      - /data0/huggingface/hub/llama3
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
     scriptname: run.py
