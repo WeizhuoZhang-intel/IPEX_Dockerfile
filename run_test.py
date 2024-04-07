@@ -25,10 +25,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # supported models
-MODEL_CLASSES = {
-    "llama": IPEXModelForCausalLM,
-    "auto": IPEXModelForCausalLM,
-}
+MODEL_CLASSES = IPEXModelForCausalLM
 
 
 
@@ -100,10 +97,8 @@ amp_enabled = True if args.dtype != "float32" else False
 amp_dtype = getattr(torch, args.dtype)
 
 # load model
-model_type = next(
-    (x for x in MODEL_CLASSES.keys() if x in args.model_id.lower()), "auto"
-)
-model_class = MODEL_CLASSES[model_type]
+model_type = "llama"
+model_class = IPEXModelForCausalLM
 if args.config_file is None:
     config = AutoConfig.from_pretrained(
         args.model_id, torchscript=args.deployment_mode, trust_remote_code=True
@@ -114,27 +109,23 @@ else:
     )
 if not hasattr(config, "text_max_length") and args.prompt is None:
     config.text_max_length = int(args.input_tokens) + int(args.max_new_tokens)
-if model_type == "mpt" and args.prompt is None:
-    config.max_seq_len = int(args.input_tokens) + int(args.max_new_tokens)
-if model_type == "llava":
-    config.use_cache=True
+
 
 if not hasattr(config, "lm_head_generation"):
     config.lm_head_generation = True
 
 if model_type != "llava":
-    model = model_class[0].from_pretrained(
+    model = IPEXModelForCausalLM.from_pretrained(
         args.model_id,
         torch_dtype=amp_dtype,
         config=config,
-        low_cpu_mem_usage=True,
-        trust_remote_code=True
+        trust_remote_code=True,
+        export=True,
     )
-    tokenizer = model_class[1].from_pretrained(args.model_id, trust_remote_code=True)
+    tokenizer = LlamaTokenizer.from_pretrained(args.model_id, trust_remote_code=True)
 else:
     tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_id)
 model = model.eval()
-model = model.to(memory_format=torch.channels_last)
 
 num_beams = 1 if args.greedy else 4
 # generate args
@@ -208,16 +199,16 @@ if args.benchmark:
             ) as prof:
                 for i in range(5):
                     input_ids = tokenizer(prompt, return_tensors="pt").input_ids
-                    output = pipeline("text-generation", model=model, tokenizer=tokenizer)
-                    results = output("He's a dreadful magician and")
-                    # output = model.generate(input_ids, **generate_kwargs)
+                    # output = pipeline("text-generation", model=model, tokenizer=tokenizer)
+                    # results = output("He's a dreadful magician and")
+                    output = model.generate(input_ids, **generate_kwargs)
                     prof.step()
         for i in range(num_iter):
             tic = time.time()
             input_ids = tokenizer(prompt, return_tensors="pt").input_ids
-            output = pipeline("text-generation", model=model, tokenizer=tokenizer)
-            results = output("He's a dreadful magician and")
-            # output = model.generate(input_ids, **generate_kwargs)
+            # output = pipeline("text-generation", model=model, tokenizer=tokenizer)
+            # results = output("He's a dreadful magician and")
+            output = model.generate(input_ids, **generate_kwargs)
             gen_ids = output[0] if args.token_latency else output
             gen_text = tokenizer.batch_decode(gen_ids[:, input_ids.shape[1]:] if model_type=="llava" else gen_ids, skip_special_tokens=True)
 

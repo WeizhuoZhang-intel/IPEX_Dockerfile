@@ -122,15 +122,13 @@ if model_type != "llava":
         args.model_id,
         torch_dtype=amp_dtype,
         config=config,
-        low_cpu_mem_usage=True,
         trust_remote_code=True,
         export=True
     )
-    tokenizer = model_class[1].from_pretrained(args.model_id, trust_remote_code=True)
+    tokenizer = LlamaTokenizer.from_pretrained(args.model_id, trust_remote_code=True)
 else:
     tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_id)
 model = model.eval()
-model = model.to(memory_format=torch.channels_last)
 
 num_beams = 1 if args.greedy else 4
 # generate args
@@ -210,14 +208,12 @@ if args.benchmark:
                     prof.step()
         for i in range(num_iter):
             tic = time.time()
-            input_ids = tokenizer(prompt, return_tensors="pt").input_ids
             output = pipeline("text-generation", model=model, tokenizer=tokenizer)
-            results = output("He's a dreadful magician and")
-            # output = model.generate(input_ids, **generate_kwargs)
-            gen_ids = output[0] if args.token_latency else output
-            gen_text = tokenizer.batch_decode(gen_ids[:, input_ids.shape[1]:] if model_type=="llava" else gen_ids, skip_special_tokens=True)
+            results = output(prompt)
+
 
             toc = time.time()
+            print("results", results)
             input_tokens_lengths = [x.shape[0] for x in input_ids]
             output_tokens_lengths = [x.shape[0] for x in gen_ids]
             total_new_tokens = [
