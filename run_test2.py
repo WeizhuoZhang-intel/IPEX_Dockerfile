@@ -97,8 +97,8 @@ amp_enabled = True if args.dtype != "float32" else False
 amp_dtype = getattr(torch, args.dtype)
 
 # load model
-model_type = IPEXModelForCausalLM
-model_class = MODEL_CLASSES[model_type]
+model_type = "llama"
+model_class = IPEXModelForCausalLM
 if args.config_file is None:
     config = AutoConfig.from_pretrained(
         args.model_id, torchscript=args.deployment_mode, trust_remote_code=True
@@ -118,12 +118,13 @@ if not hasattr(config, "lm_head_generation"):
     config.lm_head_generation = True
 
 if model_type != "llava":
-    model = model_class[0].from_pretrained(
+    model = IPEXModelForCausalLM.from_pretrained(
         args.model_id,
         torch_dtype=amp_dtype,
         config=config,
         low_cpu_mem_usage=True,
-        trust_remote_code=True
+        trust_remote_code=True,
+        export=True
     )
     tokenizer = model_class[1].from_pretrained(args.model_id, trust_remote_code=True)
 else:
