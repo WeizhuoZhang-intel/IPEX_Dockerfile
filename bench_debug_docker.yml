@@ -21,36 +21,36 @@ launcher:
   warmup: 5
   hw: EMR
 modelargs:
-  allama13_bf16dsno:
-    modelid: 
-      - /root/.cache/huggingface/hub/llama3/new
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/dataset/llama/shard"
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
-      - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-      # - 4
-    greedy: 
-      - False
-      - True
-    shard: False
+  # allama13_bf16dsno:
+  #   modelid: 
+  #     - /root/.cache/huggingface/hub/llama3/new
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/dataset/llama/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #     - 2048
+  #     - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     # - 4
+  #   greedy: 
+  #     - False
+  #     - True
+  #   shard: False
 
   # llama7_bf16dsno:
   #   modelid: 
@@ -113,17 +113,17 @@ modelargs:
       - cpu
     dtype: 
       - ds-woq-int8
-      - ds-woq-int4
+      # - ds-woq-int4
     maxnewtokens: 
       - 128
     outputdir: "/data0/rls2.2/shard"
     inputtokens:
       # - 128
       # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
+      # - 1024
+      # # - 2016
+      # - 2048
+      # - 4096
       - 8192
     batchsize: 
       - 1
@@ -131,7 +131,7 @@ modelargs:
       - 2
       # - 4
     greedy: 
-      - False
+      # - False
       - True
     shard: False
 
@@ -205,10 +205,10 @@ modelargs:
     inputtokens:
       # - 128
       # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
+      # - 1024
+      # # - 2016
+      # - 2048
+      # - 4096
       - 8192
     batchsize: 
       - 1
@@ -216,7 +216,7 @@ modelargs:
       - 2
       # - 4
     greedy: 
-      - False
+      # - False
       - True
     shard: False
 
