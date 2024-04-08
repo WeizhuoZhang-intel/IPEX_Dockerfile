@@ -256,37 +256,37 @@ modelargs:
   #   shard: False
 
 
-  llama13_tensor4:
-    modelid: 
-      - /root/.cache/huggingface/hub/llama3/new
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/dataset/llama/shard"
-    inputtokens:
-      # - 128
-      # - 512
-      # - 1024
-      # # - 2016
-      # - 2048
-      # - 4096
-      - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-      # - 4
-    greedy: 
-      # - False
-      - True
-    shard: False
+  # llama13_tensor4:
+  #   modelid: 
+  #     - /root/.cache/huggingface/hub/llama3/new
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/dataset/llama/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # # - 2016
+  #     # - 2048
+  #     # - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     # - 4
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: False
 
 
 
@@ -637,3 +637,82 @@ modelargs:
   #   greedy: 
   #     - False
   #     - True
+
+
+  model_bf16:
+    modelid: 
+      - /root/.cache/huggingface/hub/llama3/new
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      - True
+
+  agptj_woq8:
+    modelid: 
+      - /root/.cache/huggingface/hub/llama3/new
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/data0/llama3/woq-int8"
+    quantizedmodelpath: "/data0/llama3/woq-int8"
+    inputtokens:
+      - 1024
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      - True
+
+  agptj_woq4:
+    modelid: 
+      - /root/.cache/huggingface/hub/llama3/new
+      - meta-llama/Llama-2-7b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/data0/llama3/woq-int4"
+    quantizedmodelpath: "/data0/llama3/woq-int4"
+    inputtokens:
+      - 1024
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      - True
