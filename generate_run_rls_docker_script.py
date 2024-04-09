@@ -254,7 +254,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("# Env config")
         lines.append("export WORKDIR=/root/workspace/llm")
         lines.append("export HF_HOME=/root/.cache/huggingface")
-        lines.append("export TRANSFORMERS_OFFLINE=0")
+        lines.append("export TRANSFORMERS_OFFLINE=1")
         lines.append("bash token.sh")
         lines.append("log_dir=/root/workspace/log")
 
