@@ -18,6 +18,7 @@ launcher:
   numactlN: 0
   numactlM: 0
   iternum: 35
+  warmup: 5
   hw: GNR
 modelargs:
 
