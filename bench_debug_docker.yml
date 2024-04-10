@@ -725,7 +725,7 @@ modelargs:
   #     - False
   #     - True
 
-  agptj_static8:
+  gptj_static8:
     modelid: 
       # # - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
