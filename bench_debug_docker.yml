@@ -641,7 +641,7 @@ modelargs:
   #     - True
 
 # --------------------------------------------------------------------------------------
-  model_bf16:
+  model_bf162S:
     modelid: 
       # - /root/.cache/huggingface/hub/llama3/new
       - meta-llama/Llama-2-7b-hf
@@ -670,7 +670,7 @@ modelargs:
       - False
       - True
 
-  agptj_woq8:
+  agptj_woq82S:
     modelid: 
       # - /root/.cache/huggingface/hub/llama3/new
       - meta-llama/Llama-2-7b-hf
