@@ -641,7 +641,7 @@ modelargs:
   #     - True
 
 # --------------------------------------------------------------------------------------
-  model_bf162S:
+  model_bf16:
     modelid: 
       # - /root/.cache/huggingface/hub/llama3/new
       - meta-llama/Llama-2-7b-hf
@@ -670,7 +670,7 @@ modelargs:
       - False
       - True
 
-  agptj_woq82S:
+  agptj_woq8:
     modelid: 
       # - /root/.cache/huggingface/hub/llama3/new
       - meta-llama/Llama-2-7b-hf
@@ -745,7 +745,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - static-fp32-int8
+      - static-bf16-int8
     maxnewtokens: 
       - 32
     outputdir: "/home/mengfeil/static8"
