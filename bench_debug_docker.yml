@@ -670,7 +670,7 @@ modelargs:
       - False
       - True
 
-  agptj_woq8:
+  gptj_woq8:
     modelid: 
       # - /root/.cache/huggingface/hub/llama3/new
       - meta-llama/Llama-2-7b-hf
@@ -725,7 +725,7 @@ modelargs:
   #     - False
   #     - True
 
-  gptj_static8:
+  agptj_static8:
     modelid: 
       # # - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
