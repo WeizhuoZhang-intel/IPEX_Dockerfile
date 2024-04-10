@@ -132,14 +132,14 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 128
-    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b"
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b/shard"
     inputtokens:
       # - 128
       # - 512
       - 1024
-      # - 2048
-      # - 4096
-      # - 8192
+      - 2048
+      - 4096
+      - 8192
     batchsize: 
       - 1
     localrank:
@@ -167,9 +167,9 @@ modelargs:
       # - 128
       # - 512
       - 1024
-      # - 2048
-      # - 4096
-      # - 8192
+      - 2048
+      - 4096
+      - 8192
     batchsize: 
       - 1
     localrank:
@@ -207,6 +207,6 @@ modelargs:
       # - 6
     greedy: 
       - True
-      - False
+      # - False
     shard: False
  
