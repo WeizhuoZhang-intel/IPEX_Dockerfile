@@ -244,7 +244,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/mnt/aitrgdata/mint/ipex23")
+        lines.append("export log_dir=/home1/ubuntu/mint/llm")
         lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("bash token.sh")
@@ -381,6 +381,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                          2>&1 | tee -a $log_dir/llm_default_THUDM-chatglm2-6b_static8_autotune_SPR.log")
             
             lines.append("wait")
+
+
 
         if mode.endswith('bf16'):
             lines.append("# Run Workload")  
@@ -702,8 +704,6 @@ def generate_commands(yml_file,mode,extra_kmp):
 
 
 
-
-
         if mode.endswith('woq8'):
             lines.append("# Run Workload")  
             lines.append("export WORK_DIR=./")
@@ -797,6 +797,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                     2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                 
                                         lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+
+
+
+
+
 
         if mode.endswith('woq4'):
             lines.append("# Run Workload")  
