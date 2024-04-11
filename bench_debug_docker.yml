@@ -641,62 +641,62 @@ modelargs:
   #     - True
 
 # --------------------------------------------------------------------------------------
-  # model_bf16:
-  #   modelid: 
-  #     # - /root/.cache/huggingface/hub/llama3/new
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 32
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     # - 512
-  #     - 1024
-  #     - 2016
-  #     # - 2048
-  #     # - 4096
-  #     # - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  #     - True
+  model_bf16:
+    modelid: 
+      # - /root/.cache/huggingface/hub/llama3/new
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      - 32
+      - 128
+      # - 512
+      - 1024
+      - 2016
+      # - 2048
+      # - 4096
+      # - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      - True
 
-  # gptj_woq8:
-  #   modelid: 
-  #     # - /root/.cache/huggingface/hub/llama3/new
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - woq-int8
-  #   maxnewtokens: 
-  #     - 32
-  #   outputdir: "/home/mengfeil/woq8"
-  #   quantizedmodelpath: "/home/mengfeil/woq8"
-  #   inputtokens:
-  #     - 32
-  #     - 128
-  #     # - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  #     - True
+  gptj_woq8:
+    modelid: 
+      # - /root/.cache/huggingface/hub/llama3/new
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/home/mengfeil/woq8"
+    quantizedmodelpath: "/home/mengfeil/woq8"
+    inputtokens:
+      - 32
+      - 128
+      # - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      - True
 
   agptj_static8:
     modelid: 
