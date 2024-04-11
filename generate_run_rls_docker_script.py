@@ -252,7 +252,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export WORKDIR=/root/workspace/llm")
+        lines.append("export WORKDIR=/home/ubuntu/mint/llm")
         lines.append("export HF_HOME=/root/.cache/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=1")
         lines.append("bash token.sh")
