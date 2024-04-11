@@ -682,8 +682,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 32
-    outputdir: "/home/mengfeil/woq8"
-    quantizedmodelpath: "/home/mengfeil/woq8"
+    outputdir: "/home1/mengfeil/woq8"
+    quantizedmodelpath: "/home1/mengfeil/woq8"
     inputtokens:
       - 32
       - 128
@@ -721,9 +721,9 @@ modelargs:
       - static-bf16-int8
     maxnewtokens: 
       - 32
-    outputdir: "/home/mengfeil/static8"
-    quantizedmodelpath: "/home/mengfeil/static8"
-    configpath: "/home/mengfeil/static8"
+    outputdir: "/home1/mengfeil/static8"
+    quantizedmodelpath: "/home1/mengfeil/static8"
+    configpath: "/home1/mengfeil/static8"
     inputtokens:
       - 32
       - 128
