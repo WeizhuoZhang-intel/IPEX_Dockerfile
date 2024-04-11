@@ -646,7 +646,7 @@ modelargs:
       # - /root/.cache/huggingface/hub/llama3/new
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
-      - /home/ubuntu/new_8
+      - /home1/ubuntu/new_8
     scriptname: run.py
     device:
       - cpu
@@ -676,7 +676,7 @@ modelargs:
       # - /root/.cache/huggingface/hub/llama3/new
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
-      - /home/ubuntu/new_8
+      - /home1/ubuntu/new_8
     scriptname: run.py
     device:
       - cpu
@@ -684,8 +684,8 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 128
-    outputdir: "/home/ubuntu/mint/woq8"
-    quantizedmodelpath: "/home/ubuntu/mint/woq8"
+    outputdir: "/home1/ubuntu/mint/woq8"
+    quantizedmodelpath: "/home1/ubuntu/mint/woq8"
     inputtokens:
       # - 32
       # - 128
