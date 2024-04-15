@@ -244,9 +244,9 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/home1/ubuntu/mint/llm")
-        lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
-        lines.append("export TRANSFORMERS_OFFLINE=0")
+        lines.append("export log_dir=/home2/ubuntu/log")
+        lines.append("export HF_HOME=/home2/ubuntu")
+        lines.append("export TRANSFORMERS_OFFLINE=1")
         lines.append("bash token.sh")
 
         lines.append("# device info")
