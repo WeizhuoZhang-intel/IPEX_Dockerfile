@@ -21,7 +21,7 @@ launcher:
   warmup: 5
   hw: SPR
 modelargs:
-  allama13_bf16dsno:
+  allama13_bf16ds:
     modelid: 
       - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
       # - meta-llama/Llama-2-7b-hf
@@ -84,7 +84,7 @@ modelargs:
   #     - True
   #   shard: False
 
-  allama123_woqdsno:
+  allama123_woqds:
     modelid: 
       # - EleutherAI/gpt-j-6b
       - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
