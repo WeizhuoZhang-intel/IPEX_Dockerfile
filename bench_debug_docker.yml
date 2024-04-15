@@ -19,7 +19,7 @@ launcher:
   numactlM: 0
   iternum: 15
   warmup: 5
-  hw: SPR
+  hw: GNR
 modelargs:
   # allama13_bf16dsno:
   #   modelid: 
