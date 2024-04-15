@@ -21,9 +21,9 @@ launcher:
   warmup: 5
   hw: SPR
 modelargs:
-  allama13_bf16ds:
+  allama13_bf16dsno:
     modelid: 
-      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
+      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b/new_70_bk
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -46,7 +46,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 3
+      - 6
       # - 4
     greedy: 
       - False
@@ -84,10 +84,10 @@ modelargs:
   #     - True
   #   shard: False
 
-  allama123_woqds:
+  allama123_woqdsno:
     modelid: 
       # - EleutherAI/gpt-j-6b
-      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
+      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b/new_70_bk
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -131,7 +131,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 3
+      - 6
       # - 4
     greedy: 
       - False
