@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 25
+  iternum: 20
   warmup: 5
   hw: SPR
 modelargs:
@@ -338,47 +338,77 @@ modelargs:
   #     - True
   #   shard: False
 
-  model_bf16:
-    modelid: 
-      - /home2/ubuntu/token_llama_8
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
-      - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # model_bf16ds:
+  #   modelid: 
+  #     - /home2/ubuntu/token_llama_8
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #     - 2048
+  #     - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
-  gptj_woq8:
+  # gptj_woq8:
+  #   modelid: 
+  #     - /home2/ubuntu/token_llama_8
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/home2/ubuntu/woq8"
+  #   quantizedmodelpath: "/home2/ubuntu/woq8"
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #     - 2048
+  #     - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
+
+  allama13_bf16ds:
     modelid: 
       - /home2/ubuntu/token_llama_8
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
     scriptname: run.py
     device:
       - cpu
     dtype: 
-      - woq-int8
+      - ds-bfloat16
     maxnewtokens: 
       - 128
-    outputdir: "/home2/ubuntu/woq8"
-    quantizedmodelpath: "/home2/ubuntu/woq8"
+    outputdir: "/home2/ubuntu/shard"
     inputtokens:
-      # - 32
       # - 128
       # - 512
       - 1024
@@ -389,7 +419,36 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 1
+      - 2
+      # - 4
     greedy: 
-      - False
+      # - False
       - True
+    shard: False
+
+  llama123_woqds:
+    modelid: 
+      - /home2/ubuntu/token_llama_8
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/home2/ubuntu/shard"
+    inputtokens:
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+    greedy: 
+      # - False
+      - True
+    shard: False
