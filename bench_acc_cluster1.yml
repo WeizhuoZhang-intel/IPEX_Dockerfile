@@ -365,95 +365,146 @@ modelargs:
   #     - False
   #     - True
 
-  # gptj_woq8:
-  #   modelid: 
-  #     - /home2/ubuntu/token_llama_8
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - woq-int8
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/home2/ubuntu/woq8"
-  #   quantizedmodelpath: "/home2/ubuntu/woq8"
-  #   inputtokens:
-  #     # - 32
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  #     - True
+  model_bf16:
+    modelid: 
+      - /home2/ubuntu/llama2-8b-shard
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - True
 
-  # allama13_bf16dsno:
-  #   modelid: 
-  #     - /home2/ubuntu/llama2-8b-shard
-  #     # - meta-llama/Llama-2-7b-hf
-  #     # - meta-llama/Llama-2-13b-hf
-  #     # - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/home2/ubuntu/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #     # - 4
-  #   greedy: 
-  #     # - False
-  #     - True
-  #   shard: False
+  gptj_woq8:
+    modelid: 
+      - /home2/ubuntu/llama2-8b-shard
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/home2/ubuntu/woq8"
+    quantizedmodelpath: "/home2/ubuntu/woq8"
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      # - False
+      - True
 
-  # llama123_woqdsno:
-  #   modelid: 
-  #     - /home2/ubuntu/llama2-8b-shard
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/home2/ubuntu/shard"
-  #   inputtokens:
-  #     - 1024
-  #     # - 2016
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #   greedy: 
-  #     # - False
-  #     - True
-  #   shard: False
+  gptj_nf4:
+    modelid: 
+      - /home2/ubuntu/llama2-8b-shard
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - nf4
+    maxnewtokens: 
+      - 128
+    outputdir: "/home2/ubuntu/nf4"
+    quantizedmodelpath: "/home2/ubuntu/nf4"
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      # - False
+      - True
 
-  allama123_nf4:
+  allama13_bf16dsno:
+    modelid: 
+      - /home2/ubuntu/llama2-8b-shard
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/home2/ubuntu/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+      # - 4
+    greedy: 
+      # - False
+      - True
+    shard: False
+
+  llama123_woqdsno:
+    modelid: 
+      - /home2/ubuntu/llama2-8b-shard
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/home2/ubuntu/shard"
+    inputtokens:
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+    greedy: 
+      # - False
+      - True
+    shard: False
+
+  allama123_nf4ds:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
@@ -485,7 +536,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - nf4
+      - ds-nf4
       # - ds-woq-int4
     maxnewtokens: 
       - 128

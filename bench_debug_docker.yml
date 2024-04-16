@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
-  warmup: 10
+  iternum: 15
+  warmup: 5
   hw: SPR
 modelargs:
   # model_bf16:
@@ -131,6 +131,7 @@ modelargs:
       # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
       # - meta-llama/Llama-2-7b-hf
       - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-7b-shard
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-70b-shard
     scriptname: run.py
     device:
       - cpu
@@ -158,35 +159,103 @@ modelargs:
       - True
     shard: False
 
-  # llama7_bf16dsno:
-  #   modelid: 
-  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-  #     # - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # # - 2016
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     # - 2
-  #     - 6
-  #   greedy: 
-  #     # - False
-  #     - True
-  #   shard: False
+  allama770_woqdsno:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
+      # - meta-llama/Llama-2-7b-hf
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-7b-shard
+      # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-70b-shard
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 3
+      # - 4
+    greedy: 
+      # - False
+      - True
+    shard: False
+
+  llama7_bf16dsno:
+    modelid: 
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-7b-shard
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-70b-shard
+      # - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      # - 2
+      - 6
+    greedy: 
+      # - False
+      - True
+    shard: False
+
+  llama770_bf16dsno:
+    modelid: 
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-7b-shard
+      # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-70b-shard
+      # - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      # - 2
+      - 3
+    greedy: 
+      # - False
+      - True
+    shard: False
+
 
   # allama123_tensor:
   #   modelid: 
@@ -243,62 +312,69 @@ modelargs:
   #     - True
   #   shard: False
 
-  # allama123_nf4:
-  #   modelid: 
-  #     # - EleutherAI/gpt-j-6b
-  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
-  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-  #     # - meta-llama/Llama-2-7b-hf
-  #     # - meta-llama/Llama-2-13b-hf
-  #     # - meta-llama/Llama-2-70b-hf
-  #     # - EleutherAI/gpt-neox-20b
-  #     # - databricks/dolly-v2-12b
-  #     # - tiiuae/falcon-7b
-  #     # - tiiuae/falcon-40b
-  #     # - bigscience/bloom-1b7
-  #     # - facebook/opt-1.3b
-  #     # - facebook/opt-30b
-  #     # - Salesforce/codegen-2B-multi
-  #     # - THUDM/chatglm3-6b
-  #     # - THUDM/chatglm2-6b
-  #     # - baichuan-inc/Baichuan2-13B-Chat
-  #     # - baichuan-inc/Baichuan2-7B-Chat
-  #     # - Baichuan-inc/Baichuan-13B-Chat
-  #     # - bigcode/starcoder
-  #     # - google/flan-t5-xl
-  #     # - mistralai/Mistral-7B-v0.1
-  #     # - mistralai/Mixtral-8x7B-v0.1
-  #     # - mosaicml/mpt-7b
-  #     # - stabilityai/stablelm-2-1_6b
-  #     # - Qwen/Qwen-7B-Chat
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - nf4
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # # - 2016
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 3
-  #     - 6
-  #   greedy: 
-  #     # - False
-  #     - True
-  #   shard: False
+  zllama123_nf4ds:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
+      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-nf4
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 3
+      - 6
+    greedy: 
+      # - False
+      - True
+    shard: False
 
-
+  zllama70_nf4ds:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
+      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b-shard
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-nf4
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      # - 3
+      - 6
+    greedy: 
+      # - False
+      - True
+    shard: False
 
   # llama7_woqdsno:
   #   modelid: 
