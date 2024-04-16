@@ -17,39 +17,44 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 40
+  iternum: 20
   hw: SPR
 modelargs:
   llama13_bf16ds:
     modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - tiiuae/falcon-40b
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
       - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
+      - facebook/opt-1.3b
+      - facebook/opt-30b
       - Salesforce/codegen-2B-multi
+      - THUDM/chatglm3-6b
+      - THUDM/chatglm2-6b
       - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan2-7B-Chat
       - Baichuan-inc/Baichuan-13B-Chat
       - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
+      - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mistralai/Mixtral-8x7B-v0.1
+      - mosaicml/mpt-7b
+      - stabilityai/stablelm-2-1_6b
+      - Qwen/Qwen-7B-Chat
     scriptname: run.py
     device:
       - cpu
     dtype: 
       - ds-bfloat16
     maxnewtokens: 
-      - 32
+      - 128
     outputdir: "/data0/rls2.2/shard"
     inputtokens:
-      - 128
-      - 512
+      # - 128
+      # - 512
       - 1024
       - 2016
     batchsize: 
@@ -100,47 +105,47 @@ modelargs:
   #     - False
   #   shard: False
 
-  llama123_woqds:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - databricks/dolly-v2-12b
-      # - tiiuae/falcon-40b
-      - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      - Salesforce/codegen-2B-multi
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 32
-    outputdir: "/data0/rls2.2/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # llama123_woqds:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - databricks/dolly-v2-12b
+  #     # - tiiuae/falcon-40b
+  #     - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     - Salesforce/codegen-2B-multi
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #     - Baichuan-inc/Baichuan-13B-Chat
+  #     - bigcode/starcoder
+  #     # - google/flan-t5-xl
+  #     # - mistralai/Mistral-7B-v0.1
+  #     # - mosaicml/mpt-7b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 32
+  #   outputdir: "/data0/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   # llama123big_woqds:
   #   modelid: 
@@ -432,58 +437,62 @@ modelargs:
   #     # - True
 
 
-  model_bf16dsacc:
-    modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - databricks/dolly-v2-12b
-      # - tiiuae/falcon-40b
-      - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      - Salesforce/codegen-2B-multi
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
-    scriptname: run.py
-    dtype: 
-      - bfloat16
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_bf16dsacc:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Llama-2-70b-hf
+  #     # - EleutherAI/gpt-neox-20b
+  #     # - databricks/dolly-v2-12b
+  #     # - tiiuae/falcon-40b
+  #     - bigscience/bloom-1b7
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #     - Salesforce/codegen-2B-multi
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #     - Baichuan-inc/Baichuan-13B-Chat
+  #     - bigcode/starcoder
+  #     # - google/flan-t5-xl
+  #     # - mistralai/Mistral-7B-v0.1
+  #     # - mosaicml/mpt-7b
+  #   scriptname: run.py
+  #   dtype: 
+  #     - bfloat16
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   model_bf16dsacc:
     modelid: 
-      # - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - EleutherAI/gpt-neox-20b
-      # - databricks/dolly-v2-12b
-      # - tiiuae/falcon-40b
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - tiiuae/falcon-40b
       - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
+      - facebook/opt-1.3b
+      - facebook/opt-30b
       - Salesforce/codegen-2B-multi
+      - THUDM/chatglm3-6b
+      - THUDM/chatglm2-6b
       - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan2-7B-Chat
       - Baichuan-inc/Baichuan-13B-Chat
       - bigcode/starcoder
-      # - google/flan-t5-xl
-      # - mistralai/Mistral-7B-v0.1
-      # - mosaicml/mpt-7b
+      - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mistralai/Mixtral-8x7B-v0.1
+      - mosaicml/mpt-7b
+      - stabilityai/stablelm-2-1_6b
+      - Qwen/Qwen-7B-Chat
     scriptname: run.py
     dtype: 
       - bfloat16
     batchsize: 
       - 1
     localrank:
-      - 1
+      - 2
