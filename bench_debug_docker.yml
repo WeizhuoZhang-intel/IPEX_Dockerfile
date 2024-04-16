@@ -21,6 +21,77 @@ launcher:
   warmup: 10
   hw: SPR
 modelargs:
+  model_bf16:
+    modelid: 
+      # - /root/.cache/huggingface/hub/llama3/new
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - /home1/ubuntu/new_llama_8
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 32
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      - 2016
+      # - 2048
+      # - 4096
+      # - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
+
+  agptj_static8:
+    modelid: 
+      # # - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - THUDM/chatglm3-6b
+      # - THUDM/chatglm2-6b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # # - baichuan-inc/Baichuan2-13B-Chat
+      # # - baichuan-inc/Baichuan2-7B-Chat
+      # # - Baichuan-inc/Baichuan-13B-Chat
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-bf16-int8
+    maxnewtokens: 
+      - 32
+    outputdir: "/home1/mengfeil/static8"
+    quantizedmodelpath: "/home1/mengfeil/static8"
+    configpath: "/home1/mengfeil/static8"
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
+
+      
   # allama13_bf16dsno:
   #   modelid: 
   #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b-shard
@@ -106,7 +177,7 @@ modelargs:
   #   greedy: 
   #     - False
   #     # - True
-    shard: False
+    # shard: False
 
   # llama7_bf16dsno:
   #   modelid: 
@@ -752,35 +823,6 @@ modelargs:
   #     - False
   #     - True
 
-  gptj_bf16:
-    modelid: 
-      # - /root/.cache/huggingface/hub/llama3/new
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - /home1/ubuntu/new_llama_8
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 32
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      - 2016
-      # - 2048
-      # - 4096
-      # - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
 
   # gptj_woq8:
   #   modelid: 
@@ -814,45 +856,7 @@ modelargs:
   #     - False
   #     - True
 
-  agptj_static8:
-    modelid: 
-      # # - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Llama-2-70b-hf
-      # - tiiuae/falcon-40b
-      # - tiiuae/falcon-7b
-      # - THUDM/chatglm3-6b
-      # - THUDM/chatglm2-6b
-      # - bigscience/bloom-1b7
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-      # # - baichuan-inc/Baichuan2-13B-Chat
-      # # - baichuan-inc/Baichuan2-7B-Chat
-      # # - Baichuan-inc/Baichuan-13B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - static-bf16-int8
-    maxnewtokens: 
-      - 32
-    outputdir: "/home1/mengfeil/static8"
-    quantizedmodelpath: "/home1/mengfeil/static8"
-    configpath: "/home1/mengfeil/static8"
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+
 
 
   # model_ipexllm:
