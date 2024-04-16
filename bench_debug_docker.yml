@@ -752,8 +752,7 @@ modelargs:
   #     - False
   #     - True
 
-# --------------------------------------------------------------------------------------
-  model_bf16:
+  gptj_bf16:
     modelid: 
       # - /root/.cache/huggingface/hub/llama3/new
       - meta-llama/Llama-2-7b-hf
