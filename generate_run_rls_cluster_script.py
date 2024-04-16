@@ -1699,6 +1699,42 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"collect_perf_logs_llm llm_mode-p_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
+        if mode.endswith('nf4'):
+            lines.append("# Run Workload") 
+            # lines.append("cp prompt.json ./distributed") 
+            lines.append("export WORK_DIR=./")
+            lines.append("unset KMP_AFFINITY")
+            for model_id in data['modelargs'][mode]['modelid']:
+                # lines.append(f"rm -rf {data['modelargs'][mode]['outputdir']}")
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for beam in data['modelargs'][mode]['greedy']:
+                                for bs in data['modelargs'][mode]['batchsize']:
+                                    for rank in data['modelargs'][mode]['localrank']:
+                                        lines.append(f"export local_rank={rank}")
+                                        lines.append("deepspeed_core_config ${local_rank}")
+                                        lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                                        lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+
+                                        
+                                        lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+
+                                        if beam == True:   
+                                            lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list distributed/run_generation_with_deepspeed_nf4.py  \
+                                                            --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype NF4 --batch-size {bs} --ipex --token-latency --profile --dtype bfloat16 --deployment-mode    \
+                                                            2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                        else:                                                        
+                                            lines.append(f"timeout 97m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list distributed/run_generation_with_deepspeed_nf4.py  \
+                                                            --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype NF4 --batch-size {bs} --ipex --token-latency --profile  --dtype bfloat16 --deployment-mode    \
+                                                            2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
+                            
+                                        lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+
+
+
+
         if mode.endswith('bf16dsm'):
             lines.append("# Run Workload") 
             # lines.append("cp prompt.json ./distributed") 
