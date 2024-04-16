@@ -18,6 +18,7 @@ launcher:
   numactlN: 0
   numactlM: 0
   iternum: 20
+  warmup: 10
   hw: SPR
 modelargs:
   llama13_bf16ds:
