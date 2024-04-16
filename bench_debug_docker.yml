@@ -257,7 +257,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 6
+      - 3
       # - 4
     greedy: 
       # - False

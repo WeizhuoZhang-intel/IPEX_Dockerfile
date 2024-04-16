@@ -2466,10 +2466,12 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 for bs in data['modelargs'][mode]['batchsize']:
                                     for rank in data['modelargs'][mode]['localrank']:
 
-                                        if rank == 6:
-                                            lines.append("export I_MPI_PIN_DOMAIN=[0xffffffffff,0xffffffffff0000000000,0xffffffffff00000000000000000000,0xffffffffff000000000000000000000000000000,0xffffffffff0000000000000000000000000000000000000000,0xffffffffff00000000000000000000000000000000000000000000000000]")
+                                        if rank == 3:
+                                            # lines.append("export I_MPI_PIN_DOMAIN=[0xffffffffff,0xffffffffff0000000000,0xffffffffff00000000000000000000,0xffffffffff000000000000000000000000000000,0xffffffffff0000000000000000000000000000000000000000,0xffffffffff00000000000000000000000000000000000000000000000000]")
+                                            lines.append("export I_MPI_PIN_DOMAIN=[0xffffffffff,0xffffffffff0000000000,0xffffffffff00000000000000000000]")
                                             lines.append("export CCL_WORKER_COUNT=4")
-                                            lines.append("CCL_WORKER_AFFINITY=0,1,2,3,40,41,42,43,80,81,82,83,120,121,122,123,160,161,162,163,200,201,202,203")
+                                            # lines.append("CCL_WORKER_AFFINITY=0,1,2,3,40,41,42,43,80,81,82,83,120,121,122,123,160,161,162,163,200,201,202,203")
+                                            lines.append("CCL_WORKER_AFFINITY=0,1,2,3,40,41,42,43,80,81,82,83")
                                             lines.append("export OMP_NUM_THREADS=40")
                                             
 
@@ -2478,12 +2480,12 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 
                                             if beam == True:   
                                                 lines.append(f"RUN_WORKLOAD='python single_instance/run_generation.py -m {model_id} --deployment-mode  --benchmark --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --token-latency --batch-size {bs} --greedy --input-tokens {input_token} --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --dtype bfloat16 --weight-dtype INT8 --profile'")
-                                                lines.append(f"mpiexec.hydra -l -np 6 $RUN_WORKLOAD 2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                                lines.append(f"mpiexec.hydra -l -np 3 $RUN_WORKLOAD 2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:   
                                                 # lines.append(f"RUN_WORKLOAD='python single_instance/run_generation.py -m {model_id} --deployment-mode  --benchmark --num-iter {data['launcher']['iternum']} --token-latency --num-warmup 10 --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token} --ipex --dtype bfloat16' \
                                                 #                 2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                                 lines.append(f"RUN_WORKLOAD='python single_instance/run_generation.py -m {model_id} --deployment-mode  --benchmark --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --token-latency --batch-size {bs} --input-tokens {input_token} --max-new-tokens {output_token} --ipex --ipex-weight-only-quantization --dtype bfloat16 --weight-dtype INT8 --profile'")
-                                                lines.append(f"mpiexec.hydra -l -np 6 $RUN_WORKLOAD 2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                                lines.append(f"mpiexec.hydra -l -np 3 $RUN_WORKLOAD 2>&1 | tee -a $log_dir/llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             lines.append(f"collect_perf_logs_llm llm_tensor_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
                                         elif rank == 4:
