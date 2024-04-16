@@ -2469,9 +2469,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         if rank == 3:
                                             # lines.append("export I_MPI_PIN_DOMAIN=[0xffffffffff,0xffffffffff0000000000,0xffffffffff00000000000000000000,0xffffffffff000000000000000000000000000000,0xffffffffff0000000000000000000000000000000000000000,0xffffffffff00000000000000000000000000000000000000000000000000]")
                                             lines.append("export I_MPI_PIN_DOMAIN=[0xffffffffff,0xffffffffff0000000000,0xffffffffff00000000000000000000]")
-                                            lines.append("export CCL_WORKER_COUNT=4")
+                                            # lines.append("export CCL_WORKER_COUNT=4")
                                             # lines.append("CCL_WORKER_AFFINITY=0,1,2,3,40,41,42,43,80,81,82,83,120,121,122,123,160,161,162,163,200,201,202,203")
-                                            lines.append("CCL_WORKER_AFFINITY=0,1,2,3,40,41,42,43,80,81,82,83")
+                                            # lines.append("CCL_WORKER_AFFINITY=0,1,2,3,40,41,42,43,80,81,82,83")
                                             lines.append("export OMP_NUM_THREADS=40")
                                             
 
