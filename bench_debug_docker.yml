@@ -190,7 +190,7 @@ modelargs:
       - 6
       # - 4
     greedy: 
-      - False
+      # - False
       - True
     shard: False
 
