@@ -394,9 +394,9 @@ modelargs:
   #     - False
   #     - True
 
-  allama13_bf16ds:
+  allama13_bf16dsno:
     modelid: 
-      - /home2/ubuntu/token_llama_8
+      - /home2/ubuntu/llama2-8b-shard
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -426,9 +426,9 @@ modelargs:
       - True
     shard: False
 
-  llama123_woqds:
+  llama123_woqdsno:
     modelid: 
-      - /home2/ubuntu/token_llama_8
+      - /home2/ubuntu/llama2-8b-shard
     scriptname: run.py
     device:
       - cpu
