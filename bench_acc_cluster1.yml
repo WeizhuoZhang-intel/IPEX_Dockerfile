@@ -376,10 +376,10 @@ modelargs:
     maxnewtokens: 
       - 128
     inputtokens:
-      - 128
-      - 512
       - 1024
-      - 2016
+      - 2048
+      - 4096
+      - 8192
     batchsize: 
       - 1
     localrank:
