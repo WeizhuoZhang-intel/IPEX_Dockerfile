@@ -152,35 +152,35 @@ modelargs:
   #   shard: False
 
 
-  allama13_woqdsno:
-    modelid: 
-      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b/new_llama
-      - meta-llama/Llama-2-7b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b/shard"
-    inputtokens:
-      # - 128
-      # - 512
-      # - 1024
-      # - 2048
-      # - 4096
-      - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 3
-      # - 6
-    greedy: 
-      # - True
-      - False
-    shard: False
+  # allama13_woqdsno:
+  #   modelid: 
+  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b/new_llama
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2048
+  #     # - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 3
+  #     # - 6
+  #   greedy: 
+  #     # - True
+  #     - False
+  #   shard: False
 
 
   # llama13_woqdsno:
@@ -212,3 +212,14 @@ modelargs:
   #     - False
   #   shard: False
  
+   model_woqdsacc:
+    modelid: 
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama-real/8b_instruction_tuned-hf
+    scriptname: run.py
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    batchsize: 
+      - 1
+    localrank:
+      - 2
