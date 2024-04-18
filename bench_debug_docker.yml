@@ -21,6 +21,74 @@ launcher:
   warmup: 5
   hw: SPR
 modelargs:
+  llama7_bf16dsno:
+    modelid: 
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama-real/8b_instruction_tuned-hf
+      # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-70b-shard
+      # - meta-llama/Llama-2-70b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
+    localrank:
+      # - 2
+      - 6
+    greedy: 
+      # - False
+      - True
+    shard: False
+
+
+  # allama123_woqdsno:
+  #   modelid: 
+  #     # - EleutherAI/gpt-j-6b
+  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
+  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
+  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b-shard
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # # - 2016
+  #     # - 2048
+  #     # - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 6
+  #     # - 4
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: False
+
   # model_bf16:
   #   modelid: 
   #     # - /root/.cache/huggingface/hub/llama3/new
@@ -124,40 +192,6 @@ modelargs:
   #     # - True
   #   shard: False
 
-  # allama123_woqdsno:
-  #   modelid: 
-  #     # - EleutherAI/gpt-j-6b
-  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
-  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-  #     # - meta-llama/Llama-2-7b-hf
-  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-70b-shard
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 6
-  #     # - 4
-  #   greedy: 
-  #     # - False
-  #     - True
-  #   shard: False
 
   # allama770_woqdsno:
   #   modelid: 
@@ -194,36 +228,7 @@ modelargs:
   #     - True
   #   shard: False
 
-  # llama7_bf16dsno:
-  #   modelid: 
-  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-  #     # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama2-70b-shard
-  #     # - meta-llama/Llama-2-70b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     # - 1024
-  #     # # # - 2016
-  #     # - 2048
-  #     # - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     # - 2
-  #     - 6
-  #   greedy: 
-  #     # - False
-  #     - True
-  #   shard: False
+
 
   # llama770_bf16dsno:
   #   modelid: 
@@ -939,56 +944,56 @@ modelargs:
 
 
 
-  model_ipexllm:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 128
-      # - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # model_ipexllm:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
-  model2_ipexllm:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-      # - facebook/opt-1.3b
-      # - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - float32
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 128
-      # - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # model2_ipexllm:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #     # - facebook/opt-1.3b
+  #     # - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - float32
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True

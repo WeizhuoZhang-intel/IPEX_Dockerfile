@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
+  iternum: 20
   warmup: 5
   hw: SPR
 modelargs:
@@ -365,56 +365,56 @@ modelargs:
   #     - False
   #     - True
 
-  model_bf16:
-    modelid: 
-      - /home2/ubuntu/llama2-8b-shard
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 1024
-      - 2048
-      - 4096
-      - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - True
+  # model_bf16:
+  #   modelid: 
+  #     - /home2/ubuntu/llama2-8b-shard
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 1024
+  #     - 2048
+  #     - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - True
 
-  gptj_woq8:
-    modelid: 
-      - /home2/ubuntu/llama2-8b-shard
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 128
-    outputdir: "/home2/ubuntu/woq8"
-    quantizedmodelpath: "/home2/ubuntu/woq8"
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
-      - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      # - False
-      - True
+  # gptj_woq8:
+  #   modelid: 
+  #     - /home2/ubuntu/llama2-8b-shard
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/home2/ubuntu/woq8"
+  #   quantizedmodelpath: "/home2/ubuntu/woq8"
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #     - 2048
+  #     - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     # - False
+  #     - True
 
   # gptj_nf4:
   #   modelid: 
@@ -462,10 +462,10 @@ modelargs:
     inputtokens:
       # - 128
       # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
+      # - 1024
+      # # - 2016
+      # - 2048
+      # - 4096
       - 8192
     batchsize: 
       - 1
@@ -490,10 +490,10 @@ modelargs:
       - 128
     outputdir: "/home2/ubuntu/shard"
     inputtokens:
-      - 1024
-      # - 2016
-      - 2048
-      - 4096
+      # - 1024
+      # # - 2016
+      # - 2048
+      # - 4096
       - 8192
     batchsize: 
       - 1
