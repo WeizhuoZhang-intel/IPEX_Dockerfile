@@ -212,7 +212,7 @@ modelargs:
   #     - False
   #   shard: False
  
-   model_woqdsacc:
+  model_woqdsacc:
     modelid: 
       - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama-real/llama
     scriptname: run.py
