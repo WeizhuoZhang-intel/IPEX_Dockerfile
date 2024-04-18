@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 10
-  warmup: 5
+  iternum: 5
+  warmup: 3
   hw: SPR
 modelargs:
   # llama7_bf16dsno:
