@@ -222,4 +222,4 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 2
+      - 6
