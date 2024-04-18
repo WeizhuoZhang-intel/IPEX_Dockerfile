@@ -212,21 +212,21 @@ modelargs:
   #     - False
   #   shard: False
  
-  model_woqdsacc:
-    modelid: 
-      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama-real/llama
-    scriptname: run.py
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    batchsize: 
-      - 32
-      - 64
-      - 128
-      - 256
-      - 512
-    localrank:
-      - 6
+  # model_woqdsacc:
+  #   modelid: 
+  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama-real/llama
+  #   scriptname: run.py
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   batchsize: 
+  #     - 32
+  #     - 64
+  #     - 128
+  #     - 256
+  #     - 512
+  #   localrank:
+  #     - 6
 
   # model_defaultacc:
   #   modelid: 
