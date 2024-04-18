@@ -220,7 +220,11 @@ modelargs:
       - ds-woq-int8
       # - ds-woq-int4
     batchsize: 
-      - 1
+      - 32
+      - 64
+      - 128
+      - 256
+      - 512
     localrank:
       - 6
 
