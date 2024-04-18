@@ -54,56 +54,56 @@ modelargs:
   #   shard: False
 
 
-  # allama123_woqdsno:
-  #   modelid: 
-  #     # - EleutherAI/gpt-j-6b
-  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
-  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-  #     # - meta-llama/Llama-2-7b-hf
-  #     # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 6
-  #     # - 4
-  #   greedy: 
-  #     # - False
-  #     - True
-  #   shard: False
-
-  model_woqdsacc:
+  allama123_woqdsno:
     modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
+      # - meta-llama/Llama-2-7b-hf
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
       - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
     scriptname: run.py
+    device:
+      - cpu
     dtype: 
       - ds-woq-int8
       # - ds-woq-int4
-    batchsize: 
-      # - 32
-      # - 64
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    inputtokens:
       # - 128
-      - 256
       # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
+      - 8192
+    batchsize: 
+      - 1
     localrank:
       - 6
+      # - 4
+    greedy: 
+      # - False
+      - True
+    shard: False
+
+  # model_woqdsacc:
+  #   modelid: 
+  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
+  #   scriptname: run.py
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   batchsize: 
+  #     # - 32
+  #     # - 64
+  #     # - 128
+  #     - 256
+  #     # - 512
+  #   localrank:
+  #     - 6
 
 
   # model_bf16:
