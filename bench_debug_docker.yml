@@ -61,7 +61,7 @@ modelargs:
       # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
       # - meta-llama/Llama-2-7b-hf
       # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/llama-real/llama
+      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
     scriptname: run.py
     device:
       - cpu
