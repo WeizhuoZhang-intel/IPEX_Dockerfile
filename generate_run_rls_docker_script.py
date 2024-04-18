@@ -2081,7 +2081,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks hellaswag --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                                         
                             else:
-                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks piqa --batch-size 1 \
+                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks piqa --batch-size 40 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             
 
