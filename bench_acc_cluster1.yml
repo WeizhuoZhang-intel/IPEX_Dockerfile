@@ -447,7 +447,7 @@ modelargs:
 
   allama13_bf16dsno:
     modelid: 
-      - /home2/ubuntu/llama2-8b-shard
+      - /home2/ubuntu/llama-real/8b_llama3_instruct-chat
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -462,10 +462,10 @@ modelargs:
     inputtokens:
       # - 128
       # - 512
-      # - 1024
-      # # - 2016
-      # - 2048
-      # - 4096
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
       - 8192
     batchsize: 
       - 1
@@ -479,7 +479,8 @@ modelargs:
 
   llama123_woqdsno:
     modelid: 
-      - /home2/ubuntu/llama2-8b-shard
+      # - /home2/ubuntu/llama2-8b-shard
+      - /home2/ubuntu/llama-real/8b_llama3_instruct-chat
     scriptname: run.py
     device:
       - cpu
@@ -490,10 +491,10 @@ modelargs:
       - 128
     outputdir: "/home2/ubuntu/shard"
     inputtokens:
-      # - 1024
-      # # - 2016
-      # - 2048
-      # - 4096
+      - 1024
+      # - 2016
+      - 2048
+      - 4096
       - 8192
     batchsize: 
       - 1
