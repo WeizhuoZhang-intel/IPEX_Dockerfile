@@ -999,15 +999,15 @@ modelargs:
   #     - True
 
 
-  model_defaultacc:
-    modelid: 
-      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
-    scriptname: single_instance/run_quantization.py
-    dtype: 
-      # - bfloat16
-      - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 6
+  # model_defaultacc:
+  #   modelid: 
+  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
+  #   scriptname: single_instance/run_quantization.py
+  #   dtype: 
+  #     # - bfloat16
+  #     - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 6
