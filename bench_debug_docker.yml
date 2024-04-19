@@ -86,8 +86,8 @@ modelargs:
       - 2
       # - 4
     greedy: 
-      # - False
-      - True
+      - False
+      # - True
     shard: False
 
   # model_woqdsacc:
