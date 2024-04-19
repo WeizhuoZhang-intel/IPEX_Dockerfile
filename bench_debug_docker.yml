@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 5
-  warmup: 3
+  iternum: 15
+  warmup: 10
   hw: SPR
 modelargs:
   # llama7_bf16dsno:
@@ -56,12 +56,13 @@ modelargs:
 
   allama123_woqdsno:
     modelid: 
-      # - EleutherAI/gpt-j-6b
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
       # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/token_llama_8
       # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
       # - meta-llama/Llama-2-7b-hf
       # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/llama2-7b-shard
-      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
+      # - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/realw/llama-70b
     scriptname: run.py
     device:
       - cpu
@@ -75,14 +76,14 @@ modelargs:
       # - 128
       # - 512
       - 1024
-      # # - 2016
-      - 2048
-      - 8192
-      - 4096
+      - 2016
+      # - 2048
+      # - 8192
+      # - 4096
     batchsize: 
       - 1
     localrank:
-      - 6
+      - 2
       # - 4
     greedy: 
       # - False
