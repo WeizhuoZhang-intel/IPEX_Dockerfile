@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
+  iternum: 15
   warmup: 10
   hw: SPR
 modelargs:
@@ -366,7 +366,7 @@ modelargs:
     quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
     inputtokens:
       - 128
-      # - 512
+      - 512
       - 1024
       - 2016
     batchsize: 
@@ -376,6 +376,30 @@ modelargs:
     greedy: 
       - False
 
+  agit_woq8:
+    modelid: 
+      - liuhaotian/llava-v1.5-7b
+      - microsoft/git-base
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/mnt/aitrgdata/mint/woq-int8"
+    quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
   # agptjgreedy_woq8:
   #   modelid: 
   #     - EleutherAI/gpt-j-6b
@@ -431,6 +455,8 @@ modelargs:
       - mosaicml/mpt-7b
       - stabilityai/stablelm-2-1_6b
       - Qwen/Qwen-7B-Chat
+      - liuhaotian/llava-v1.5-7b
+      - microsoft/git-base
     scriptname: run.py
     device:
       - cpu
