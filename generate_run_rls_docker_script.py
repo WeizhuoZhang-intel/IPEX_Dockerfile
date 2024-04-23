@@ -2192,7 +2192,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for dtype in data['modelargs'][mode]['dtype']:
                         for bs in data['modelargs'][mode]['batchsize']:
                             if 'fp32' in dtype:
-                                if 'codegen' in model_id:                             
+                                if 'codegen' in model_id or 'phi-2' in model_id:                             
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --tasks hellaswag --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'neox' in model_id or 'dolly' in model_id:
@@ -2212,7 +2212,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
 
                             else:
-                                if 'codegen' in model_id:                             
+                                if 'codegen' in model_id or 'phi-2' in model_id:                             
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks hellaswag --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'neox' in model_id or 'dolly' in model_id:
