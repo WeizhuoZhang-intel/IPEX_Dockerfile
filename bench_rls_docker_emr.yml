@@ -187,7 +187,7 @@ modelargs:
       - False
     shard: False
 
-  llama131_woqds:
+  llama131_woqdsno:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
