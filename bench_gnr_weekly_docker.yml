@@ -105,32 +105,32 @@ modelargs:
   #   localrank:
   #     - 1
 
-  model_bf16:
-    modelid: 
-      - microsoft/phi-2
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
-      - 16
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # model_bf16:
+  #   modelid: 
+  #     - microsoft/phi-2
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #     - 2
+  #     - 4
+  #     - 8
+  #     - 16
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
   agptj_woq8:
     modelid: 
@@ -142,73 +142,26 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 128
-    outputdir: "/mnt/aitrgdata/mint/woq-int8"
-    quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint"
+    quantizedmodelpath: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint"
     inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
-      - 16
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
-
-
-  amodel_multiins4:
-    modelid: 
-      - microsoft/phi-2
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
       - 128
-    inputtokens:
-      # - 128
       # - 512
-      - 1024
+      # - 1024
       # - 2016
     batchsize: 
       - 1
+      # - 2
+      # - 4
+      # - 8
+      # - 16
     localrank:
       - 1
     greedy: 
-      - False
+      # - False
       - True
 
-  amodel_multiins8:
-    modelid: 
-      - microsoft/phi-2
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
-
-  aagptj_woq8ins4:
+  gptj_woq8acc:
     modelid: 
       - microsoft/phi-2
     scriptname: run.py
@@ -218,45 +171,116 @@ modelargs:
       - woq-int8
     maxnewtokens: 
       - 128
-    outputdir: "/mnt/aitrgdata/mint/woq-int8"
-    quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint"
+    quantizedmodelpath: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint"
     inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
-
-  aagptj_woq8ins8:
-    modelid: 
-      - microsoft/phi-2
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
       - 128
-    outputdir: "/mnt/aitrgdata/mint/woq-int8"
-    quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
-    inputtokens:
-      # - 128
-      # - 512
+      - 512
       - 1024
-      # - 2016
+      - 2016
     batchsize: 
       - 1
     localrank:
       - 1
     greedy: 
       - False
-      - True
+      # - True
+
+  # amodel_multiins4:
+  #   modelid: 
+  #     - microsoft/phi-2
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
+
+  # amodel_multiins8:
+  #   modelid: 
+  #     - microsoft/phi-2
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
+
+  # aagptj_woq8ins4:
+  #   modelid: 
+  #     - microsoft/phi-2
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/mnt/aitrgdata/mint/woq-int8"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
+
+  # aagptj_woq8ins8:
+  #   modelid: 
+  #     - microsoft/phi-2
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/mnt/aitrgdata/mint/woq-int8"
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/woq-int8"
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
 
   # llama13_bf16ds:
