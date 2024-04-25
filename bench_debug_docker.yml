@@ -288,7 +288,7 @@ modelargs:
     dtype: 
       - ds-bfloat16
     maxnewtokens: 
-      - 128
+      - 32
     outputdir: "/data0/rls2.3/shard"
     inputtokens:
       - 128
