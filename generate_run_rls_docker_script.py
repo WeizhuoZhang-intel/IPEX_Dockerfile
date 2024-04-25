@@ -1267,7 +1267,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 else:
                                                     if 'neox' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp --group-size 256    \
+                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp --dtype float32 --group-size 256 --lowp-mode FP32   \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                         
                                                     elif 'gpt-j' in model_id:
@@ -2340,7 +2340,9 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 elif 'Baichuan2-13B-Chat' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks hellaswag --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                            
+                                elif 'bloom' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --tasks lambada_openai --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log") 
                                 
                                 elif 'llava' in model_id or 'git-base' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks coco2017_cap_val --batch-size {bs} \
@@ -2458,7 +2460,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         for bs in data['modelargs'][mode]['batchsize']:
                             if 'int8' in dtype:
                                 if 'neox' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --lowp-mode FP32 --dtype float32 --group-size 256 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                     
                                 elif 'gpt-j' in model_id:
@@ -2481,11 +2483,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization  --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'starcoder' in model_id or 'stablelm' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp  --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp  --ipex  --tasks lambada_openai --group-size 128 --ipex-weight-only-quantization --batch-size 1 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                 
                                 elif 'bloom' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1  \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --ipex  --tasks lambada_openai --group-size 128 --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log") 
                                 
                                 elif 'codegen' in model_id or 'phi' in model_id:
