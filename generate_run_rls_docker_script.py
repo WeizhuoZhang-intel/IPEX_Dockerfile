@@ -1270,6 +1270,12 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp --group-size 256    \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                         
+                                                    elif 'gpt-j' in model_id:
+                                                        lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --dtype float32 --shard-model --autotp     \
+                                                                        2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
+                                                    
                                                     elif 'starcoder' in model_id or 'stablelm' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp --group-size 128   \
@@ -1302,6 +1308,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
                                             else:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id or 'Baichuan-13B' in model_id or 'opt-30b' in model_id:
@@ -1378,7 +1385,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                 
                                         lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
-
 
 
         if mode.endswith('woqdsno'):
@@ -1503,6 +1509,12 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile   --autotp --group-size 256    \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                         
+                                                    elif 'gpt-j' in model_id:
+                                                        lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --dtype float32  --autotp     \
+                                                                        2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
+                                                    
                                                     elif 'starcoder' in model_id or 'stablelm' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp --group-size 128   \
@@ -1535,6 +1547,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
                                             else:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id or 'Baichuan-13B' in model_id or 'opt-30b' in model_id:
@@ -1611,6 +1624,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                 
                                         lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+
+
 
 
 
@@ -2443,9 +2458,14 @@ def generate_commands(yml_file,mode,extra_kmp):
                         for bs in data['modelargs'][mode]['batchsize']:
                             if 'int8' in dtype:
                                 if 'neox' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 --group-size 256 \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                     
+                                elif 'gpt-j' in model_id:
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1  \
+                                                    2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
+                                
+                               
                                 elif 'dolly' in model_id:
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 --lowp-mode FP32 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
@@ -2453,7 +2473,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --dtype float32 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                 elif 'Baichuan2-13B-Chat' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 --group-size 64 \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
                                
                                 
@@ -2461,15 +2481,15 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization  --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'starcoder' in model_id or 'stablelm' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --group-size 128 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp  --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                 
                                 elif 'bloom' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --group-size 128 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1  \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log") 
                                 
                                 elif 'codegen' in model_id or 'phi' in model_id:
-                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 --group-size 128 \
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'mpt' in model_id:
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\

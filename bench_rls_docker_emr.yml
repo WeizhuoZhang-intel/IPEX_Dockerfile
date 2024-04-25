@@ -21,6 +21,29 @@ launcher:
   warmup: 10
   hw: EMR
 modelargs:
+  model_bf16:
+    modelid: 
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 1
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - True
+
   # llama13_bf16dsno:
   #   modelid: 
   #     - EleutherAI/gpt-j-6b
