@@ -70,7 +70,6 @@ modelargs:
 
   git_bf16ds:
     modelid: 
-      - tiiuae/falcon-7b
       - mistralai/Mixtral-8x7B-v0.1
       - microsoft/phi-2
       - microsoft/Phi-3-mini-128k-instruct
