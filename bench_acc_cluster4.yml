@@ -21,6 +21,46 @@ launcher:
   warmup: 10
   hw: SPR
 modelargs:
+  amodel_autotune:
+    modelid: 
+      - EleutherAI/gpt-neox-20b
+      - databricks/dolly-v2-12b
+      - Salesforce/codegen-2B-multi
+      - baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+      - google/flan-t5-xl
+      - mistralai/Mistral-7B-v0.1
+      - mistralai/Mixtral-8x7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      - Qwen/Qwen-7B-Chat
+      - liuhaotian/llava-v1.5-7b
+      - microsoft/git-base
+      - microsoft/phi-2
+      - microsoft/Phi-3-mini-128k-instruct
+      - microsoft/Phi-3-mini-4k-instruct
+      - IEITYuan/Yuan2-102B-hf
+      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Meta-Llama-3-70B
+    dtype: 
+      - static-fp32-int8
+    outputdir: "/mnt/aitrgdata/mint/ipex23rc3/autotune"
+    localrank:
+      - 1
+    alpha: 0.9
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    maxnewtokens: 
+      - 32
+    batchsize: 
+      - 1
+    greedy: 
+      - False
+
+
+
   # model_bf16:
   #   modelid: 
   #     - EleutherAI/gpt-j-6b
@@ -252,59 +292,59 @@ modelargs:
   #     - 1
 
 
-  modelcom_bf16:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # modelcom_bf16:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
-  model_ipexllm:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # model_ipexllm:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
   # model2_ipexllm:
   #   modelid: 

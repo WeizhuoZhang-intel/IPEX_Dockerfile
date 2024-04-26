@@ -28,6 +28,7 @@ modelargs:
       - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       - databricks/dolly-v2-12b
+      - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       - tiiuae/falcon-7b
       - bigscience/bloom-1b7
@@ -44,6 +45,9 @@ modelargs:
       - mistralai/Mixtral-8x7B-v0.1
       - stabilityai/stablelm-2-1_6b
       - Qwen/Qwen-7B-Chat
+      - microsoft/git-base
+      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Meta-Llama-3-70B
     scriptname: run.py
     dtype: 
       - bfloat16
@@ -59,6 +63,7 @@ modelargs:
       - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
       - databricks/dolly-v2-12b
+      - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       - tiiuae/falcon-7b
       - bigscience/bloom-1b7
@@ -75,6 +80,9 @@ modelargs:
       - mistralai/Mixtral-8x7B-v0.1
       - stabilityai/stablelm-2-1_6b
       - Qwen/Qwen-7B-Chat
+      - microsoft/git-base
+      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Meta-Llama-3-70B
     scriptname: run.py
     dtype: 
       - ds-woq-int8
@@ -111,6 +119,12 @@ modelargs:
       # - Qwen/Qwen-7B-Chat
       - liuhaotian/llava-v1.5-7b
       - microsoft/git-base
+      - microsoft/phi-2
+      - microsoft/Phi-3-mini-128k-instruct
+      - microsoft/Phi-3-mini-4k-instruct
+      - IEITYuan/Yuan2-102B-hf
+      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Meta-Llama-3-70B
     scriptname: single_instance/run_quantization.py
     dtype: 
       - bfloat16

@@ -244,7 +244,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/mnt/aitrgdata/mint/23rlsrc2/woq4log")
+        lines.append("export log_dir=/mnt/aitrgdata/mint/23rlsrc3/log")
         lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("bash token.sh")
@@ -313,74 +313,18 @@ def generate_commands(yml_file,mode,extra_kmp):
  
    
         if mode.endswith('autotune1'):
+
             lines.append("# Run Workload") 
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-7b-hf/")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-13b-hf/")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/facebook/opt-30b/")
-            # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-13b-hf/")
-            # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/EleutherAI/gpt-j-6b/")
-            # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/THUDM/chatglm3-6b/")
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
 
-            lines.append(f"python run.py -m meta-llama/Llama-2-7b-hf --ipex-smooth-quant --batch-size 56 --calib-len 2048 --fallback-add --alpha auto --init-alpha 0.8 --alpha-min 0.8 --alpha-max 0.99 --alpha-step 0.01 --shared-criterion 'mean' --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-7b-hf/  \
-                         2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-7b-hf_static8_autotune_SPR.log")
-            
-            lines.append("wait")
 
-            lines.append(f"python run.py -m meta-llama/Llama-2-13b-hf --ipex-smooth-quant --batch-size 56 --calib-len 1024 --fallback-add --calib-shuffle --calib-padding --alpha auto --init-alpha 0.8 --alpha-min 0.75 --alpha-max 0.99 --alpha-step 0.01 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-13b-hf/  \
-                         2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-13b-hf_static8_autotune_SPR.log")
-            lines.append("wait")
-            # lines.append("python run.py -m EleutherAI/gpt-j-6b --ipex-smooth-quant --output-dir {data['modelargs'][mode]['outputdir']}/EleutherAI/gpt-j-6b/ --batch-size 56 --calib-iters 100 --calib-shuffle --fallback-add --alpha 0.85 \
-            #              2>&1 | tee -a $log_dir/llm_default_EleutherAI-gpt-j-6b_static8_autotune_SPR.log")
+                lines.append(f"python run.py  --benchmark -m {model_id} --ipex-smooth-quant --alpha auto --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} \
+                            2>&1 | tee -a $log_dir/llm_autotune_{(model_id.replace('/','-')).replace('_','-')}_static-int8_SPR.log")
+                
 
-            lines.append(f"python run.py -m facebook/opt-30b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-30b/  \
-                         2>&1 | tee -a $log_dir/llm_default_facebook-opt-30b_static8_autotune_SPR.log")
-            lines.append("wait")
-
-            lines.append(f"python run.py -m THUDM/chatglm3-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/THUDM/chatglm3-6b/  \
-                         2>&1 | tee -a $log_dir/llm_default_THUDM-chatglm3-6b_static8_autotune_SPR.log")
                         
-            lines.append("wait")
-
-        if mode.endswith('autotune2'):
-            lines.append("# Run Workload")
-            # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/") 
-            # lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/EleutherAI/gpt-j-6b/")
-
-            # lines.append(f"python run.py -m meta-llama/Llama-2-70b-hf --ipex-smooth-quant --batch-size 56 --calib-shuffle --fallback-add --alpha 0.8 --output-dir {data['modelargs'][mode]['outputdir']}/meta-llama/Llama-2-70b-hf/  \
-            #              2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-70b-hf_static8_autotune_SPR.log")
-            # lines.append("wait")            
-            # lines.append(f"python run.py -m facebook/opt-1.3b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/facebook/opt-1.3b/  \
-            #              2>&1 | tee -a $log_dir/llm_default_facebook-opt-1.3b_static8_autotune_SPR.log")
-            lines.append("wait") 
-            lines.append(f"python run.py -m EleutherAI/gpt-j-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --fallback-add --alpha 0.85 --output-dir {data['modelargs'][mode]['outputdir']}/EleutherAI/gpt-j-6b/  \
-                         2>&1 | tee -a $log_dir/llm_default_meta-llama-Llama-2-70b-hf_static8_autotune_SPR.log") 
-            
-            lines.append("wait")
-
-        if mode.endswith('autotune3'):
-            lines.append("# Run Workload") 
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/tiiuae/falcon-40b/")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-7B-Chat/")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-13B-Chat/")
-            lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/THUDM/chatglm2-6b/")
-
-            lines.append(f"python run.py -m tiiuae/falcon-40b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.9 --output-dir {data['modelargs'][mode]['outputdir']}/tiiuae/falcon-40b/  \
-                         2>&1 | tee -a $log_dir/llm_default_tiiuae-falcon-40b_static8_autotune_SPR.log")
-            lines.append("wait")      
-                  
-            lines.append(f"python run.py -m baichuan-inc/Baichuan2-7B-Chat --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.95 --output-dir {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-7B-Chat/  \
-                         2>&1 | tee -a $log_dir/llm_default_baichuan-inc-Baichuan2-7B-Chat_static8_autotune_SPR.log")
-            lines.append("wait")
-            lines.append(f"python run.py -m baichuan-inc/Baichuan2-13B-Chat --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.65 --output-dir {data['modelargs'][mode]['outputdir']}/baichuan-inc/Baichuan2-13B-Chat/  \
-                         2>&1 | tee -a $log_dir/llm_default_baichuan-inc-Baichuan2-13B-Chat_static8_autotune_SPR.log")
-            
-            lines.append("wait")
-            lines.append(f"python run.py -m THUDM/chatglm2-6b --ipex-smooth-quant --batch-size 56 --calib-iters 100 --calib-shuffle --alpha 0.75 --output-dir {data['modelargs'][mode]['outputdir']}/THUDM/chatglm2-6b/  \
-                         2>&1 | tee -a $log_dir/llm_default_THUDM-chatglm2-6b_static8_autotune_SPR.log")
-            
-            lines.append("wait")
+                lines.append("wait")
 
 
 
@@ -1257,9 +1201,15 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 else:
                                                     if 'neox' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp --group-size 256    \
+                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --shard-model --autotp --dtype float32 --group-size 256 --lowp-mode FP32   \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                         
+                                                    elif 'gpt-j' in model_id:
+                                                        lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --dtype float32 --shard-model --autotp     \
+                                                                        2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
+                                                    
                                                     elif 'starcoder' in model_id or 'stablelm' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp --group-size 128   \
@@ -1292,6 +1242,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp --shard-model --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
                                             else:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id or 'Baichuan-13B' in model_id or 'opt-30b' in model_id:
@@ -1370,7 +1321,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
-        if mode.endswith('woqdsno'):
+        if mode.endswith('woqds'):
             lines.append("# Run Workload") 
             # lines.append("cp prompt.json ./distributed") 
             lines.append("export WORK_DIR=./")
@@ -1489,9 +1440,15 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 else:
                                                     if 'neox' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile   --autotp --group-size 256    \
+                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile   --autotp --dtype float32 --group-size 256 --lowp-mode FP32   \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                                         
+                                                    elif 'gpt-j' in model_id:
+                                                        lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                    --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --dtype float32  --autotp     \
+                                                                        2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
+                                                    
                                                     elif 'starcoder' in model_id or 'stablelm' in model_id:
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp --group-size 128   \
@@ -1524,6 +1481,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                         lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
                                                                     --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --ipex-weight-only-quantization --weight-dtype INT8 --batch-size {bs} --ipex --token-latency --profile  --quant-with-amp  --autotp     \
                                                                         2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
                                             else:   
                                                 if 'int4' in dtype:
                                                     if 'neox' in model_id or 'dolly' in model_id or 'Baichuan-13B' in model_id or 'opt-30b' in model_id:
@@ -1986,17 +1944,17 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
                 lines.append("ls utils")
                 lines.append("pwd")
-                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id}")
+                lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} 2>&1 | tee -a $log_dir/llm_gptq_{(model_id.replace('/','-')).replace('_','-')}_log.log")
                 # lines.append("wait")
                 if 'falcon-40b' in model_id: 
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt ")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt 2>&1 | tee -a $log_dir/llm_gptqquant_{(model_id.replace('/','-')).replace('_','-')}_log.log")
                 elif 'neox' in model_id or 'dolly' in model_id:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id}  -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt")                    
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id}  -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt 2>&1 | tee -a $log_dir/llm_gptqquant_{(model_id.replace('/','-')).replace('_','-')}_log.log")                    
                 elif 'mpt' in model_id:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt --config-file=utils/model_config/mosaicml_mpt-7b_config.json")                    
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt --config-file=utils/model_config/mosaicml_mpt-7b_config.json 2>&1 | tee -a $log_dir/llm_gptqquant_{(model_id.replace('/','-')).replace('_','-')}_log.log")                    
                 
                 else:
-                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt")
+                    lines.append(f"python {data['modelargs'][mode]['scriptname']} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --quant-with-amp -m {model_id} --low-precision-checkpoint {data['modelargs'][mode]['outputdir']}/{model_id}/gptq_checkpoint_g128.pt 2>&1 | tee -a $log_dir/llm_gptqquant_{(model_id.replace('/','-')).replace('_','-')}_log.log")
 
 
         if mode.endswith('gptqacc'):
@@ -2104,7 +2062,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks lambada_openai --batch-size 1 \
                         #                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                         if dtype == "float32":
-                            if 'codegen' in model_id or 'phi' in model_id:
+                            if 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks hellaswag --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             elif 'falcon-40b' in model_id:
@@ -2113,6 +2071,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                             elif 'mpt' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks hellaswag --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                                         
+                            elif 'Yuan' in model_id:
+                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks gsm8k --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                             
                             elif 'llava' in model_id or 'git-base' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks coco2017_cap_val --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
@@ -2124,7 +2086,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             
 
                         else:    
-                            if 'codegen' in model_id or 'phi' in model_id:
+                            if 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks hellaswag --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             elif 'falcon-40b' in model_id:
@@ -2136,6 +2098,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                             elif 'llava' in model_id or 'git-base' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks coco2017_cap_val --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            elif 'Yuan' in model_id:
+                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks gsm8k --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            
                             
                             
                             else:
@@ -2144,10 +2110,11 @@ def generate_commands(yml_file,mode,extra_kmp):
                             
                             
                         
-                        if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id:
+                        if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                             lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                         else:
                             lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+
 
 
 
@@ -2227,7 +2194,6 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
 
 
-
         if mode.endswith('woq8acc'):
             for model_id in data['modelargs'][mode]['modelid']:
                 for rank in data['modelargs'][mode]['localrank']:
@@ -2237,7 +2203,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     for dtype in data['modelargs'][mode]['dtype']:
                         for bs in data['modelargs'][mode]['batchsize']:
                             if 'fp32' in dtype:
-                                if 'codegen' in model_id:                             
+                                if 'codegen' in model_id or 'phi-2' in model_id:                             
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --tasks hellaswag --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'neox' in model_id or 'dolly' in model_id:
@@ -2249,6 +2215,8 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 elif 'mpt' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex  --tasks hellaswag --batch-size {bs} --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                
+                                
+                                
                                 # elif 'dolly' in model_id:
                                 #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --quant-with-amp --ipex  --tasks hellaswag --batch-size {bs} \
                                 #                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                               
@@ -2257,18 +2225,40 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
 
                             else:
-                                if 'codegen' in model_id:                             
+                                if 'codegen' in model_id or 'phi-2' in model_id or 'Phi-3' in model_id:                             
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks hellaswag --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
-                                elif 'neox' in model_id or 'dolly' in model_id:
+                                elif 'neox' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex  --tasks lambada_openai --batch-size {bs}  \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                                elif 'falcon-40b' in model_id:
+                                elif 'dolly' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex  --tasks lambada_openai --batch-size {bs} --lowp-mode FP32 \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                elif 'starcoder' in model_id or 'stablelm' in model_id:
                                     lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --quant-with-amp --ipex  --tasks lambada_openai --batch-size {bs}  \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'mpt' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --quant-with-amp --ipex  --tasks hellaswag --batch-size {bs} --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                
+                                elif 'Baichuan-13B-Chat' in model_id or 'opt-30b' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --tasks lambada_openai --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                elif 'Baichuan2-13B-Chat' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks hellaswag --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                elif 'bloom' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --tasks lambada_openai --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log") 
+                                elif 'Yuan' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks gsm8k --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                                
+                                
+                                elif 'llava' in model_id or 'git-base' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks coco2017_cap_val --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            
+                                
                                 # elif 'dolly' in model_id:
                                 #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --quant-with-amp --ipex  --tasks hellaswag --batch-size {bs} \
                                 #                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                               
@@ -2276,7 +2266,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks lambada_openai --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             
-                            if 'codegen' in model_id in model_id or 'mpt' in model_id:
+                            if 'codegen' in model_id in model_id or 'mpt' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                                 lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             else:
                                 lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
@@ -2317,7 +2307,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     if 'falcon-40b' in model_id: 
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai --batch-size 1  \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                
-                    elif 'codegen' in model_id or 'phi' in model_id:
+                    elif 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks hellaswag  --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                    
                     elif 'gpt-j' in model_id:
@@ -2332,16 +2322,21 @@ def generate_commands(yml_file,mode,extra_kmp):
                     elif 'llava' in model_id or 'git-base' in model_id:
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks coco2017_cap_val  --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
+                    elif 'Yuan' in model_id:
+                        lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks gsm8k  --batch-size 1 \
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
                     
                     
                     else:
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai  --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
                     
-                    if 'mpt' in model_id or 'codegen' in model_id or 'phi' in model_id:
+                    if 'mpt' in model_id or 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                         lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
                     else:
                         lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
+
+
 
         if mode.endswith('bf16dsaccnoipex'):
             # lines.append("cd ./distributed")

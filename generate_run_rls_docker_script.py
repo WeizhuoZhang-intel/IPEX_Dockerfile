@@ -2164,7 +2164,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks lambada_openai --batch-size 1 \
                         #                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                         if dtype == "float32":
-                            if 'codegen' in model_id or 'phi' in model_id:
+                            if 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks hellaswag --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             elif 'falcon-40b' in model_id:
@@ -2173,6 +2173,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                             elif 'mpt' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks hellaswag --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                                         
+                            elif 'Yuan' in model_id:
+                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks gsm8k --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                             
                             elif 'llava' in model_id or 'git-base' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks coco2017_cap_val --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
@@ -2184,7 +2188,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             
 
                         else:    
-                            if 'codegen' in model_id or 'phi' in model_id:
+                            if 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks hellaswag --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             elif 'falcon-40b' in model_id:
@@ -2196,6 +2200,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                             elif 'llava' in model_id or 'git-base' in model_id:
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks coco2017_cap_val --batch-size 1 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            elif 'Yuan' in model_id:
+                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --ipex  --tasks gsm8k --batch-size 1 \
+                                            2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            
                             
                             
                             else:
@@ -2204,7 +2212,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                             
                             
                         
-                        if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id:
+                        if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                             lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                         else:
                             lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
@@ -2319,7 +2327,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
 
                             else:
-                                if 'codegen' in model_id or 'phi-2' in model_id:                             
+                                if 'codegen' in model_id or 'phi-2' in model_id or 'Phi-3' in model_id:                             
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks hellaswag --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'neox' in model_id:
@@ -2348,7 +2356,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks coco2017_cap_val --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             
-                                
+                                elif 'Yuan' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks gsm8k --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+                            
                                 # elif 'dolly' in model_id:
                                 #     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --quant-with-amp --ipex  --tasks hellaswag --batch-size {bs} \
                                 #                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                               
@@ -2356,7 +2367,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks lambada_openai --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             
-                            if 'codegen' in model_id in model_id or 'mpt' in model_id or 'phi' in model_id:
+                            if 'codegen' in model_id in model_id or 'mpt' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                                 lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             else:
                                 lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
@@ -2397,7 +2408,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                     if 'falcon-40b' in model_id: 
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai --batch-size 1  \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                
-                    elif 'codegen' in model_id or 'phi' in model_id:
+                    elif 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks hellaswag  --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")                    
                     elif 'gpt-j' in model_id:
@@ -2412,16 +2423,21 @@ def generate_commands(yml_file,mode,extra_kmp):
                     elif 'llava' in model_id or 'git-base' in model_id:
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks coco2017_cap_val  --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
+                    elif 'Yuan' in model_id:
+                        lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks gsm8k  --batch-size 1 \
+                                        2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
                     
                     
                     else:
                         lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank distributed/run_accuracy_with_deepspeed.py  --model {model_id} --dtype bfloat16 --ipex  --tasks lambada_openai  --batch-size 1 \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
                     
-                    if 'mpt' in model_id or 'codegen' in model_id or 'phi' in model_id:
+                    if 'mpt' in model_id or 'codegen' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                         lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
                     else:
                         lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_ds-bfloat16_{data['launcher']['hw']}.log")
+
+
 
         if mode.endswith('bf16dsaccnoipex'):
             # lines.append("cd ./distributed")
