@@ -21,7 +21,7 @@ launcher:
   warmup: 10
   hw: SPR
 modelargs:
-  model_bf16:
+  model_ipexllm:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
     scriptname: run.py
@@ -43,7 +43,5 @@ modelargs:
     greedy: 
       - False
       - True
-
-
 
 
