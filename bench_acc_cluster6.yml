@@ -23,7 +23,7 @@ launcher:
 modelargs:
   model_ipexllm:
     modelid: 
-      - meta-llama/Meta-Llama-3-8B
+      - /home2/ubuntu/llama3-8b
     scriptname: run.py
     device:
       - cpu
