@@ -2276,7 +2276,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 elif 'mpt' in model_id:
                                     lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks hellaswag --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                    
-                                elif 'codegen' in model_id or 'Baichuan2-13B-Chat' in model_id:
+                                elif 'codegen' in model_id or 'Baichuan2-13B-Chat' in model_id or 'Phi' in model_id or 'phi' in model_id or 'stablelm' in model_id:
                                     lines.append(f"python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --ipex --tasks hellaswag \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                
                                 else:
@@ -2289,7 +2289,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --batch-size {bs} --quant-with-amp --ipex --tasks lambada_openai \
                                         2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                 
-                            if 'codegen' in model_id in model_id or 'mpt' in model_id:
+                            if 'codegen' in model_id or 'Baichuan2-13B-Chat' in model_id or 'Phi' in model_id or 'phi' in model_id or 'stablelm' in model_id:
                                 lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                             else:
                                 lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
