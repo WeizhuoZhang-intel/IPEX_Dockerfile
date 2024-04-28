@@ -1972,7 +1972,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                         lines.append("pwd")
                         # lines.append(f"python utils/run_gptq.py --model {model_id} --output-dir {data['modelargs'][mode]['outputdir']}")
                         # lines.append("wait")
-                        if 'codegen' in model_id:
+                        if 'codegen' in model_id or 'stablelm' in model_id or 'Phi' in model_id or 'phi' in model_id:
                             lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python single_instance/run_accuracy.py -m {model_id} --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt --batch-size 1 \
                                             --dtype int8   --quant-with-amp --tasks hellaswag \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                        
@@ -1993,7 +1993,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                             --dtype int8   --quant-with-amp --tasks lambada_openai \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
 
-                        if 'codegen' in model_id in model_id or 'mpt' in model_id:
+                        if 'codegen' in model_id in model_id or 'mpt' in model_id or 'stablelm' in model_id or 'Phi' in model_id or 'phi' in model_id:
                             lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                         else:
                             lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
