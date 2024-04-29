@@ -21,30 +21,7 @@ launcher:
   warmup: 10
   hw: SPR
 modelargs:
-  # model_bf16:
-  #   modelid: 
-  #     - meta-llama/Meta-Llama-3-8B
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   inputtokens:
-  #     - 1024
-  #     - 2048
-  #     - 4096
-  #     - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  #     - True
-
-  model_ipexllm:
+  model_noipex:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
     scriptname: run.py
@@ -66,5 +43,28 @@ modelargs:
     greedy: 
       - False
       - True
+
+  # model_ipexllm:
+  #   modelid: 
+  #     - meta-llama/Meta-Llama-3-8B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 1024
+  #     - 2048
+  #     - 4096
+  #     - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
 
