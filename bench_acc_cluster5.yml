@@ -352,20 +352,31 @@ modelargs:
 
 
 
-  agptj_static8:
+  agptj_static8pt:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
       - meta-llama/Llama-2-70b-hf
+      - databricks/dolly-v2-12b
+      - EleutherAI/gpt-neox-20b
       - tiiuae/falcon-40b
       - tiiuae/falcon-7b
       - bigscience/bloom-1b7
       - facebook/opt-1.3b
       - facebook/opt-30b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
+      - Salesforce/codegen-2B-multi
+      - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan-13B-Chat
+      - bigcode/starcoder
+      - mistralai/Mistral-7B-v0.1
+      - stabilityai/stablelm-2-1_6b
+      - Qwen/Qwen-7B-Chat
+      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Meta-Llama-3-70B
+      - microsoft/phi-2
+      - microsoft/Phi-3-mini-128k-instruct
+      - microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
     device:
       - cpu
@@ -378,9 +389,9 @@ modelargs:
     configpath: "/mnt/aitrgdata/mint/ipex23rc3/inc"
     inputtokens:
       - 128
-      # - 512
-      # - 1024
-      # - 2016
+      - 512
+      - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
@@ -389,28 +400,50 @@ modelargs:
       - False
       # - True
 
-  model_static8acc:
+  model_bf16:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - tiiuae/falcon-40b
-      - tiiuae/falcon-7b
-      - bigscience/bloom-1b7
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-      # - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - baichuan-inc/Baichuan-13B-Chat
+      - IEITYuan/Yuan2-102B-hf
+    scriptname: run.py
+    device:
+      - cpu
     dtype: 
-      - static-fp32-int8
-    quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23rc3/static8"
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
     batchsize: 
       - 1
     localrank:
       - 1
-  #   alpha: 0.9
+    greedy: 
+      - False
+
+  # model_static8acc:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - meta-llama/Llama-2-70b-hf
+  #     - tiiuae/falcon-40b
+  #     - tiiuae/falcon-7b
+  #     - bigscience/bloom-1b7
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #     # - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #     - baichuan-inc/Baichuan-13B-Chat
+  #   dtype: 
+  #     - static-fp32-int8
+  #   quantizedmodelpath: "/mnt/aitrgdata/mint/ipex23rc3/static8"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  # #   alpha: 0.9
 
   # model_static8acc:
   #   modelid: 
