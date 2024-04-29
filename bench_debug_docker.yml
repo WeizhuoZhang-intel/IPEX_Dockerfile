@@ -1036,8 +1036,8 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - tiiuae/falcon-40b
+      # - meta-llama/Llama-2-70b-hf
+      # - tiiuae/falcon-40b
       - tiiuae/falcon-7b
       - bigscience/bloom-1b7
       # - THUDM/chatglm3-6b
@@ -1076,7 +1076,7 @@ modelargs:
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
+      # - meta-llama/Llama-2-70b-hf
       - tiiuae/falcon-40b
       - tiiuae/falcon-7b
       - bigscience/bloom-1b7
