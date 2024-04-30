@@ -1436,13 +1436,13 @@ modelargs:
 
   model_defaultacc:
     modelid: 
-      - IEITYuan/Yuan2-102B-hf
+      - meta-llama/Llama-2-7b-hf
     scriptname: single_instance/run_quantization.py
     dtype: 
-      - bfloat16
-      # - float32
+      # - bfloat16
+      - float32
     # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
     batchsize: 
-      - 240
+      - 112
     localrank:
-      - 6
+      - 2
