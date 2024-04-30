@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
+  iternum: 12
   warmup: 10
   hw: SPR
 modelargs:
@@ -1031,71 +1031,71 @@ modelargs:
 
 
 
-  # agptj_static8:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     # - meta-llama/Llama-2-70b-hf
-  #     # - tiiuae/falcon-40b
-  #     - tiiuae/falcon-7b
-  #     - bigscience/bloom-1b7
-  #     # - THUDM/chatglm3-6b
-  #     # - THUDM/chatglm2-6b
-  #     - bigscience/bloom-1b7
-  #     - facebook/opt-1.3b
-  #     - facebook/opt-30b
-  #     # - baichuan-inc/Baichuan2-13B-Chat
-  #     # - baichuan-inc/Baichuan2-7B-Chat
-  #     - baichuan-inc/Baichuan-13B-Chat
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - static-fp32-int8
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/data1/newqconfig"
-  #   quantizedmodelpath: "/data1/newqconfig"
-  #   configpath: "/data1/newqconfig"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  #     # - True
+  agptj_static8:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # # - meta-llama/Llama-2-70b-hf
+      # # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - bigscience/bloom-1b7
+      # # - THUDM/chatglm3-6b
+      # # - THUDM/chatglm2-6b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # # - baichuan-inc/Baichuan2-13B-Chat
+      # # - baichuan-inc/Baichuan2-7B-Chat
+      # - baichuan-inc/Baichuan-13B-Chat
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/data1/rc3"
+    quantizedmodelpath: "/data1/rc3"
+    configpath: "/data1/rc3"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - False
+      # - True
 
-  # model_static8acc:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     # - meta-llama/Llama-2-70b-hf
-  #     - tiiuae/falcon-40b
-  #     - tiiuae/falcon-7b
-  #     - bigscience/bloom-1b7
-  #     # - THUDM/chatglm3-6b
-  #     # - THUDM/chatglm2-6b
-  #     - bigscience/bloom-1b7
-  #     - facebook/opt-1.3b
-  #     - facebook/opt-30b
-  #     # - baichuan-inc/Baichuan2-13B-Chat
-  #     # - baichuan-inc/Baichuan2-7B-Chat
-  #     - baichuan-inc/Baichuan-13B-Chat
-  #   dtype: 
-  #     - static-fp32-int8
-  #   quantizedmodelpath: "/data1/newqconfig"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  # #   alpha: 0.9
+  model_static8acc:
+    modelid: 
+      # - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # # - meta-llama/Llama-2-70b-hf
+      # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - bigscience/bloom-1b7
+      # # - THUDM/chatglm3-6b
+      # # - THUDM/chatglm2-6b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # # - baichuan-inc/Baichuan2-13B-Chat
+      # # - baichuan-inc/Baichuan2-7B-Chat
+      # - baichuan-inc/Baichuan-13B-Chat
+    dtype: 
+      - static-fp32-int8
+    quantizedmodelpath: "/data1/rc3"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+  #   alpha: 0.9
 
   # model_static8acc:
   #   modelid: 
@@ -1434,15 +1434,15 @@ modelargs:
   #     - True
 
 
-  model_defaultacc:
-    modelid: 
-      - meta-llama/Llama-2-7b-hf
-    scriptname: single_instance/run_quantization.py
-    dtype: 
-      # - bfloat16
-      - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    batchsize: 
-      - 112
-    localrank:
-      - 2
+  # model_defaultacc:
+  #   modelid: 
+  #     - meta-llama/Llama-2-7b-hf
+  #   scriptname: single_instance/run_quantization.py
+  #   dtype: 
+  #     # - bfloat16
+  #     - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 112
+  #   localrank:
+  #     - 2
