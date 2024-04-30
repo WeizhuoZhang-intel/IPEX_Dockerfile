@@ -2177,7 +2177,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks hellaswag --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                                                         
                             elif 'Yuan' in model_id:
-                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks mgsm_zh --batch-size 240 \
+                                lines.append(f"python single_instance/run_accuracy.py  -m {model_id} --dtype {dtype} --disable-jit  --tasks mgsm_zh --batch-size 120 \
                                             2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                              
                             elif 'llava' in model_id or 'git-base' in model_id:

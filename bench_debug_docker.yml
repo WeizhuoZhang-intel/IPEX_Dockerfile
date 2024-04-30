@@ -105,60 +105,60 @@ modelargs:
   #     - False
   #     - True
 
-  agptj_woq8:
-    modelid: 
-      - IEITYuan/Yuan2-102B-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 128
-    outputdir: "/data0/cluster/woq8"
-    quantizedmodelpath: "/data0/cluster/woq8"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 16
-    localrank:
-      - 1
-    greedy: 
-      # - False
-      - True
+  # agptj_woq8:
+  #   modelid: 
+  #     - IEITYuan/Yuan2-102B-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data0/cluster/woq8"
+  #   quantizedmodelpath: "/data0/cluster/woq8"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #     # - 2
+  #     # - 4
+  #     # - 8
+  #     # - 16
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     # - False
+  #     - True
 
 
-  gptj_woq8acc:
-    modelid: 
-      - IEITYuan/Yuan2-102B-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 128
-    outputdir: "/data0/cluster/woq8"
-    quantizedmodelpath: "/data0/cluster/woq8"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 112
-    localrank:
-      - 1
-    greedy: 
-      - False
-      # - True
+  # gptj_woq8acc:
+  #   modelid: 
+  #     - IEITYuan/Yuan2-102B-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - woq-int8
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data0/cluster/woq8"
+  #   quantizedmodelpath: "/data0/cluster/woq8"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 112
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     # - True
 
 
   # amodel_multiins4:
@@ -1434,15 +1434,15 @@ modelargs:
   #     - True
 
 
-  # model_defaultacc:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #   scriptname: single_instance/run_quantization.py
-  #   dtype: 
-  #     # - bfloat16
-  #     - float32
-  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-  #   batchsize: 
-  #     - 112
-  #   localrank:
-  #     - 2
+  model_defaultacc:
+    modelid: 
+      - IEITYuan/Yuan2-102B-hf
+    scriptname: single_instance/run_quantization.py
+    dtype: 
+      # - bfloat16
+      # - float32
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 120
+    localrank:
+      - 3
