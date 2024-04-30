@@ -1439,7 +1439,7 @@ modelargs:
       - IEITYuan/Yuan2-102B-hf
     scriptname: single_instance/run_quantization.py
     dtype: 
-      # - bfloat16
+      - bfloat16
       # - float32
     # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
     batchsize: 
