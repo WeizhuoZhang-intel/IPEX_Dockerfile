@@ -245,10 +245,10 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/mnt/aitrgdata/mint/23rlsrc3/log")
-        lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
-        # lines.append("export log_dir=/home2/ubuntu/ipexllm/log")
-        # lines.append("export HF_HOME=//home2/ubuntu/huggingface")
+        # lines.append("export log_dir=/mnt/aitrgdata/mint/23rlsrc3/log")
+        # lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
+        lines.append("export log_dir=/home2/ubuntu/phi3/log")
+        lines.append("export HF_HOME=//home2/ubuntu/huggingface")
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("bash token.sh")
 
@@ -2471,13 +2471,17 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --group-size 128 --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log") 
                                 
-                                elif 'codegen' in model_id or 'phi' in model_id:
+                                elif 'codegen' in model_id:
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 --group-size 128 \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'mpt' in model_id:
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1 --config-file=utils/model_config/mosaicml_mpt-7b_config.json\
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
-
+                                elif 'phi' in model_id or 'Phi-3' in model_id:
+                                    lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag --ipex-weight-only-quantization --batch-size 1  \
+                                                    2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
+                                
+                                
                                 elif 'llava' in model_id or 'git-base' in model_id:
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks coco2017_cap_val  --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
@@ -2487,7 +2491,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
                                 
-                                if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id:
+                                if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id or 'Phi-3' in model_id:
                                     lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                 else:
                                     lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
