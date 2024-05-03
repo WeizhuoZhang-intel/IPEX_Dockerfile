@@ -366,37 +366,37 @@ modelargs:
       - True
     shard: False
 
-  llamawoq2_woqds:
-    modelid: 
-      - microsoft/Phi-3-mini-128k-instruct
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/home2/ubuntu/shard"
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      # - 1024
-      # - 2016
-      # - 2048
-      # - 3968
-      # - 4096
-      - 130944
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-      # - 4
-    greedy: 
-      - False
-      - True
-    shard: False
+  # llamawoq2_woqds:
+  #   modelid: 
+  #     - microsoft/Phi-3-mini-128k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/home2/ubuntu/shard"
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #     # - 2048
+  #     # - 3968
+  #     # - 4096
+  #     - 130944
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #     # - 4
+  #   greedy: 
+  #     - False
+  #     - True
+  #   shard: False
 
   model_bf16ds:
     modelid: 
@@ -427,34 +427,34 @@ modelargs:
       - True
     shard: False
 
-  model128_bf16ds:
-    modelid: 
-      - microsoft/Phi-3-mini-128k-instruct
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      # - 1024
-      # - 2016
-      # - 2048
-      # - 3968
-      # - 4096
-      - 130944
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-      - True
-    shard: False
+  # model128_bf16ds:
+  #   modelid: 
+  #     - microsoft/Phi-3-mini-128k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #     # - 2048
+  #     # - 3968
+  #     # - 4096
+  #     - 130944
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #     - True
+  #   shard: False
 
   # model_bf16:
   #   modelid: 
