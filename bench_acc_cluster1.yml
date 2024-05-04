@@ -21,7 +21,34 @@ launcher:
   warmup: 10
   hw: SPR
 modelargs:
-
+  amodel_bf16ds:
+    modelid: 
+      - microsoft/Phi-3-mini-4k-instruct
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 3968
+      - 4096
+      # - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+    greedy: 
+      - False
+      - True
+    shard: False
 
   # model_bf16dsacc:
   #   modelid: 
@@ -398,34 +425,7 @@ modelargs:
   #     - True
   #   shard: False
 
-  model_bf16ds:
-    modelid: 
-      - microsoft/Phi-3-mini-4k-instruct
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 3968
-      - 4096
-      # - 8192
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-      - True
-    shard: False
+
 
   # model128_bf16ds:
   #   modelid: 
