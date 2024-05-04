@@ -21,67 +21,142 @@ launcher:
   warmup: 10
   hw: GNR
 modelargs:
-  amodel_bf16ds:
+  model_bf16dsacc:
     modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - databricks/dolly-v2-12b
+      # - EleutherAI/gpt-neox-20b
+      # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # - mosaicml/mpt-7b
+      # - mistralai/Mixtral-8x7B-v0.1
+      # - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+      # - microsoft/git-base
+      # - meta-llama/Meta-Llama-3-8B
+      # - meta-llama/Meta-Llama-3-70B
+      - microsoft/Phi-3-mini-128k-instruct
       - microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
-    device:
-      - cpu
     dtype: 
       - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 3968
-      - 4096
-      # - 8192
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
     batchsize: 
       - 1
     localrank:
       - 6
-    greedy: 
-      - False
-      - True
-    shard: False
 
-  llamawoq_woqds:
+  model_woqdsacc:
     modelid: 
+      # - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - databricks/dolly-v2-12b
+      # - EleutherAI/gpt-neox-20b
+      # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # - mosaicml/mpt-7b
+      # - mistralai/Mixtral-8x7B-v0.1
+      # - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+      # - microsoft/git-base
+      # - meta-llama/Meta-Llama-3-8B
+      # - meta-llama/Meta-Llama-3-70B
+      - microsoft/Phi-3-mini-128k-instruct
       - microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
-    device:
-      - cpu
     dtype: 
       - ds-woq-int8
       # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-      - 2048
-      - 3968
-      - 4096
-      # - 8192
     batchsize: 
       - 1
     localrank:
       - 6
-      # - 4
-    greedy: 
-      - False
-      - True
-    shard: False
+
+  # amodel_bf16ds:
+  #   modelid: 
+  #     - microsoft/Phi-3-mini-4k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #     - 2048
+  #     - 3968
+  #     - 4096
+  #     # - 8192
+  #   outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 6
+  #   greedy: 
+  #     - False
+  #     - True
+  #   shard: False
+
+  # llamawoq_woqds:
+  #   modelid: 
+  #     - microsoft/Phi-3-mini-4k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #     - 2048
+  #     - 3968
+  #     - 4096
+  #     # - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 6
+  #     # - 4
+  #   greedy: 
+  #     - False
+  #     - True
+  #   shard: False
 
   # model_bf16:
   #   modelid: 

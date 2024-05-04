@@ -2509,7 +2509,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --ipex  --tasks lambada_openai --group-size 128 --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log") 
                                 
-                                elif 'codegen' in model_id or 'phi' in model_id:
+                                elif 'codegen' in model_id or 'phi' in model_id or 'Phi' in model_id:
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks hellaswag  --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")                            
                                 elif 'mpt' in model_id:
@@ -2525,7 +2525,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                     lines.append(f"deepspeed  --num_accelerators {rank} --master_addr `hostname -I | sed -e 's/\s.*$//'` --bind_cores_to_rank ./distributed/run_accuracy_with_deepspeed.py --model {model_id} --quant-with-amp --ipex  --tasks lambada_openai  --ipex-weight-only-quantization --batch-size 1  \
                                                     2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}-{bs}_{data['launcher']['hw']}.log")
                                 
-                                if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id:
+                                if 'codegen' in model_id or 'mpt' in model_id or 'phi' in model_id or 'Phi' in model_id:
                                     lines.append(f"collect_accnorm_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
                                 else:
                                     lines.append(f"collect_acc_logs_llm llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
