@@ -41,6 +41,7 @@ modelargs:
       - 3968
       - 4096
       # - 8192
+    outputdir: "/home2/ubuntu/shard"
     batchsize: 
       - 1
     localrank:
