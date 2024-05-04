@@ -51,7 +51,7 @@ modelargs:
   #     - True
   #   shard: False
 
-  model_bf16dsacc:
+  amodel_bf16dsacc:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
@@ -88,7 +88,7 @@ modelargs:
     localrank:
       - 2
 
-  model_woqdsacc:
+  amodel_woqdsacc:
     modelid: 
       # - EleutherAI/gpt-j-6b
       # - meta-llama/Llama-2-7b-hf
