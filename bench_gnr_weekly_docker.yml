@@ -45,7 +45,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 2
+      - 6
     greedy: 
       - False
       - True
@@ -76,7 +76,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 2
+      - 6
       # - 4
     greedy: 
       - False
