@@ -78,8 +78,8 @@ modelargs:
       # - microsoft/git-base
       # - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
-      - microsoft/Phi-3-mini-128k-instruct
-      - microsoft/Phi-3-mini-4k-instruct
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
     dtype: 
       - bfloat16
@@ -115,8 +115,8 @@ modelargs:
       # - microsoft/git-base
       # - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
-      - microsoft/Phi-3-mini-128k-instruct
-      - microsoft/Phi-3-mini-4k-instruct
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
     dtype: 
       - ds-woq-int8
