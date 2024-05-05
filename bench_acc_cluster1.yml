@@ -396,7 +396,7 @@ modelargs:
 
   llamawoq2_woqds:
     modelid: 
-      - microsoft/Phi-3-mini-128k-instruct
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
     scriptname: run.py
     device:
       - cpu
@@ -430,7 +430,7 @@ modelargs:
 
   model128_bf16ds:
     modelid: 
-      - microsoft/Phi-3-mini-128k-instruct
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
     scriptname: run.py
     device:
       - cpu
