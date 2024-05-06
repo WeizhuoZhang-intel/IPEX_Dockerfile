@@ -170,32 +170,28 @@ modelargs:
   #     - 1
 
 
-  # model_bf16:
-  #   modelid: 
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #     - 2
-  #     - 4
-  #     - 8
-  #     - 16
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
+  model_bf16:
+    modelid: 
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      - 130944
+    batchsize: 
+      - 1
+      # - 2
+      # - 4
+      # - 8
+      # - 16
+    localrank:
+      - 1
+    greedy: 
+      - True
 
   # agptj_woq8:
   #   modelid: 
@@ -428,35 +424,35 @@ modelargs:
 
 
 
-  model128_bf16ds:
-    modelid: 
-      - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    outputdir: "/home2/ubuntu/shard"
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      # - 1024
-      # - 2016
-      # - 2048
-      # - 3968
-      # - 4096
-      - 130944
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      # - False
-      - True
-    shard: False
+  # model128_bf16ds:
+  #   modelid: 
+  #     - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   outputdir: "/home2/ubuntu/shard"
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #     # - 2048
+  #     # - 3968
+  #     # - 4096
+  #     - 130944
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: False
 
   # model_bf16:
   #   modelid: 

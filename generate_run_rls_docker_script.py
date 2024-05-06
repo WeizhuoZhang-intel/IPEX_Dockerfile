@@ -983,6 +983,94 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
 
 
+        if mode.endswith('bf16dsnoipex'):
+            lines.append("# Run Workload") 
+            # lines.append("cp prompt.json ./distributed") 
+            lines.append("export WORK_DIR=./")
+            lines.append("pip uninstall -y transformers")
+            lines.append("pip uninstall -y transformers")
+            lines.append("git clone -b v4.38.1 https://github.com/huggingface/transformers")
+            lines.append("cd transformers")
+            lines.append("wget https://raw.githubusercontent.com/MingxuZh/ipex-llm/main/greedy.patch")
+            lines.append("git apply greedy.patch")
+            lines.append("python setup.py clean")
+            lines.append("python setup.py install")
+            lines.append("cd ..")
+            lines.append("unset KMP_AFFINITY")
+            for model_id in data['modelargs'][mode]['modelid']:
+                lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
+                for dtype in data['modelargs'][mode]['dtype']:
+                    for input_token in data['modelargs'][mode]['inputtokens']:
+                        for output_token in data['modelargs'][mode]['maxnewtokens']:
+                            for beam in data['modelargs'][mode]['greedy']:
+                                for bs in data['modelargs'][mode]['batchsize']:
+                                    for rank in data['modelargs'][mode]['localrank']:
+                                        lines.append(f"export local_rank={rank}")
+                                        lines.append("deepspeed_core_config ${local_rank}")
+                                        lines.append("export CCL_WORKER_AFFINITY=${deepspeed_cores_list}")
+                                        lines.append("export core_list=0-$(($cores_per_node*$local_rank-1))")
+
+                                        
+                                        lines.append(f"nohup bash /root/workspace/get_mem.sh >> $log_dir/mem-usage-llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log 2>&1 || true &")
+                                        if data['modelargs'][mode]['shard'] == True:
+                                            if beam == True:   
+                                                lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                            --benchmark -m {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile --autotp  \
+                                                                2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            else:  
+                                                if 'bloom' in model_id:
+                                                    lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id} --output-dir {data['modelargs'][mode]['outputdir']} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile  --autotp    \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
+                                                else:
+
+                                                    lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py \
+                                                            --benchmark -m {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --dtype bfloat16 --num-warmup {data['launcher']['warmup']} --batch-size {bs} --disable-deployment-mode --token-latency --profile --autotp  \
+                                                                2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")  
+                                        else:
+
+                                            if beam == True:   
+                                                if 'mpt' in model_id:
+                                                    lines.append(f"timeout 77m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile  --shard-model --autotp --config-file=utils/model_config/mosaicml_mpt-7b_config.json  \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                                
+                                                elif 'llava' in model_id or 'git-base' in model_id:
+                                                    lines.append(f"timeout 87m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id} --image-url https://llava-vl.github.io/static/images/view.jpg --prompt \"What are the things I should be cautious about when I visit here\?\" --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile  --shard-model --autotp     \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                                
+                                                else:
+                                                    lines.append(f"timeout 87m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile  --shard-model --autotp     \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                            
+                                            else:   
+                                                if 'mpt' in model_id:
+                                                    lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile  --shard-model --autotp    --config-file=utils/model_config/mosaicml_mpt-7b_config.json \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")   
+                                                elif 'llava' in model_id or 'git-base' in model_id:
+
+                                                    lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id}  --image-url https://llava-vl.github.io/static/images/view.jpg --prompt \"What are the things I should be cautious about when I visit here\?\" --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile  --shard-model --autotp   \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                                   
+                                                
+                                                elif 'bloom' in model_id:
+                                                    lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile --autotp    \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
+                        
+                                                else:
+
+                                                    lines.append(f"timeout 47m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
+                                                                --benchmark -m {model_id}  --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --disable-deployment-mode --token-latency --profile  --shard-model --autotp     \
+                                                                    2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
+                                
+                                        lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+
+
+
         if mode.endswith('bf16dsno'):
             lines.append("# Run Workload") 
             # lines.append("cp prompt.json ./distributed") 
