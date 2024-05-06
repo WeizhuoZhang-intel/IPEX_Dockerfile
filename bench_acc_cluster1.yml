@@ -435,7 +435,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - bfloat16
+      - ds-bfloat16
     outputdir: "/home2/ubuntu/shard"
     maxnewtokens: 
       - 128
