@@ -21,76 +21,9 @@ launcher:
   warmup: 0
   hw: GNR
 modelargs:
-  amodel_bf16ds:
-    modelid: 
-      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-128k-instruct
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      # - 1024
-      # # - 2016
-      # - 2048
-      # - 3968
-      - 130944
-      # - 8192
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
-    batchsize: 
-      - 1
-    localrank:
-      - 6
-    greedy: 
-      # - False
-      - True
-    shard: False
-
-  amodel_bf16dsnoipex:
-    modelid: 
-      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-128k-instruct
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      # - 1024
-      # # - 2016
-      # - 2048
-      # - 3968
-      - 130944
-      # - 8192
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
-    batchsize: 
-      - 1
-    localrank:
-      - 6
-    greedy: 
-      # - False
-      - True
-    shard: False
-    
-  # allama13_shard:
+  # amodel_bf16ds:
   #   modelid: 
-  #     - microsoft/Phi-3-mini-128k-instruct
-  #     - microsoft/Phi-3-mini-4k-instruct
-  #     # - meta-llama/Llama-2-70b-hf
-  #     # - EleutherAI/gpt-neox-20b
-  #     # - facebook/opt-30b
-  #     # - baichuan-inc/Baichuan2-13B-Chat
-  #     # - Baichuan-inc/Baichuan-13B-Chat
-  #     # - bigcode/starcoder
+  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-128k-instruct
   #   scriptname: run.py
   #   device:
   #     - cpu
@@ -98,19 +31,86 @@ modelargs:
   #     - ds-bfloat16
   #   maxnewtokens: 
   #     - 128
-  #   outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
   #   inputtokens:
+  #     # - 32
   #     # - 128
   #     # - 512
-  #     - 1024
-  #     # - 2016
+  #     # - 1024
+  #     # # - 2016
+  #     # - 2048
+  #     # - 3968
+  #     - 130944
+  #     # - 8192
+  #   outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
   #   batchsize: 
   #     - 1
   #   localrank:
   #     - 6
   #   greedy: 
+  #     # - False
   #     - True
   #   shard: False
+
+  # amodel_bf16dsnoipex:
+  #   modelid: 
+  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-128k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # # - 2016
+  #     # - 2048
+  #     # - 3968
+  #     - 130944
+  #     # - 8192
+  #   outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 6
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: False
+
+  allama13_shard:
+    modelid: 
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/phi3-medium-8k
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/phi3-medium-128k
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - facebook/opt-30b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 6
+    greedy: 
+      - True
+    shard: False
 
   # model_bf16dsacc:
   #   modelid: 
@@ -139,8 +139,8 @@ modelargs:
   #     # - microsoft/git-base
   #     # - meta-llama/Meta-Llama-3-8B
   #     # - meta-llama/Meta-Llama-3-70B
-  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-128k-instruct
-  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
+  #     # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-128k-instruct
+  #     # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
   #   scriptname: run.py
   #   dtype: 
   #     - bfloat16
