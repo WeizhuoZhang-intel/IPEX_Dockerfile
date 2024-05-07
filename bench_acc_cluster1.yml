@@ -23,8 +23,8 @@ launcher:
 modelargs:
   amodel_bf16ds:
     modelid: 
-      - /home2/ubuntu/shard/microsoft/Phi-3-mini-4k-instruct
-      - /home2/ubuntu/shard/Phi-3-medium-4k/
+      - microsoft/Phi-3-mini-4k-instruct
+      - /home2/ubuntu/Phi-3-medium-4k
     scriptname: run.py
     device:
       - cpu
@@ -50,12 +50,12 @@ modelargs:
     greedy: 
       # - False
       - True
-    shard: True
+    shard: False
 
   llamawoq_woqds:
     modelid: 
-      - /home2/ubuntu/shard/microsoft/Phi-3-mini-4k-instruct
-      - /home2/ubuntu/shard/Phi-3-medium-4k/
+      - microsoft/Phi-3-mini-4k-instruct
+      - /home2/ubuntu/Phi-3-medium-4k
     scriptname: run.py
     device:
       - cpu
@@ -83,7 +83,7 @@ modelargs:
     greedy: 
       # - False
       - True
-    shard: True
+    shard: False
 
   # amodel_bf16dsacc:
   #   modelid: 
