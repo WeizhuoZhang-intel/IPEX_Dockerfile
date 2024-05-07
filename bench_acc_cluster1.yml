@@ -21,35 +21,69 @@ launcher:
   warmup: 10
   hw: SPR
 modelargs:
-  # amodel_bf16ds:
-  #   modelid: 
-  #     - microsoft/Phi-3-mini-4k-instruct
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   inputtokens:
-  #     # - 32
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #     - 2048
-  #     - 3968
-  #     - 4096
-  #     # - 8192
-  #   outputdir: "/home2/ubuntu/shard"
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #   greedy: 
-  #     - False
-  #     - True
-  #   shard: False
+  amodel_bf16ds:
+    modelid: 
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-4k-instruct
+      - /home2/ubuntu/shard/Phi-3-medium-4k/
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 3968
+      - 4096
+      # - 8192
+    outputdir: "/home2/ubuntu/shard"
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+    greedy: 
+      # - False
+      - True
+    shard: True
+
+  llamawoq_woqds:
+    modelid: 
+      - /home2/ubuntu/shard/microsoft/Phi-3-mini-4k-instruct
+      - /home2/ubuntu/shard/Phi-3-medium-4k/
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/home2/ubuntu/shard"
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      - 3968
+      - 4096
+      # - 8192
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+      # - 4
+    greedy: 
+      # - False
+      - True
+    shard: True
 
   # amodel_bf16dsacc:
   #   modelid: 
@@ -170,28 +204,28 @@ modelargs:
   #     - 1
 
 
-  model_bf16:
-    modelid: 
-      - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 130944
-    batchsize: 
-      - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 16
-    localrank:
-      - 1
-    greedy: 
-      - True
+  # model_bf16:
+  #   modelid: 
+  #     - /home2/ubuntu/shard/microsoft/Phi-3-mini-128k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 130944
+  #   batchsize: 
+  #     - 1
+  #     # - 2
+  #     # - 4
+  #     # - 8
+  #     # - 16
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - True
 
   # agptj_woq8:
   #   modelid: 
@@ -358,37 +392,7 @@ modelargs:
   #     - True
   #   shard: False
 
-  # llamawoq_woqds:
-  #   modelid: 
-  #     - microsoft/Phi-3-mini-4k-instruct
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-woq-int8
-  #     # - ds-woq-int4
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/home2/ubuntu/shard"
-  #   inputtokens:
-  #     # - 32
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #     - 2048
-  #     - 3968
-  #     - 4096
-  #     # - 8192
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #     # - 4
-  #   greedy: 
-  #     - False
-  #     - True
-  #   shard: False
+
 
   # llamawoq2_woqds:
   #   modelid: 
