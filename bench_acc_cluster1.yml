@@ -23,7 +23,7 @@ launcher:
 modelargs:
   amodel_bf16ds:
     modelid: 
-      - microsoft/Phi-3-mini-4k-instruct
+      # - microsoft/Phi-3-mini-4k-instruct
       - /home2/ubuntu/Phi-3-medium-4k
     scriptname: run.py
     device:
