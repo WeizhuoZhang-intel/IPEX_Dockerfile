@@ -66,59 +66,59 @@ modelargs:
       - False
     shard: False
 
-  git_bf16ds:
-    modelid: 
-      # - mistralai/Mixtral-8x7B-v0.1
-      # - microsoft/phi-2
-      # - microsoft/Phi-3-mini-128k-instruct
-      # - microsoft/Phi-3-mini-4k-instruct
-      - meta-llama/Meta-Llama-3-8B
-      - stabilityai/stablelm-2-1_6b
-      - Qwen/Qwen-7B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/rls2.2/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # git_bf16ds:
+  #   modelid: 
+  #     # - mistralai/Mixtral-8x7B-v0.1
+  #     # - microsoft/phi-2
+  #     # - microsoft/Phi-3-mini-128k-instruct
+  #     # - microsoft/Phi-3-mini-4k-instruct
+  #     - meta-llama/Meta-Llama-3-8B
+  #     - stabilityai/stablelm-2-1_6b
+  #     - Qwen/Qwen-7B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  model_bf16ds:
-    modelid: 
-      - microsoft/git-base
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/rls2.2/shard"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # model_bf16ds:
+  #   modelid: 
+  #     - microsoft/git-base
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
   # llama13a_bf16dsno:
   #   modelid: 
@@ -264,54 +264,54 @@ modelargs:
   #   shard: False
 
     
-  git_woqds:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-      - stabilityai/stablelm-2-1_6b
-      - Qwen/Qwen-7B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/rls2.2/shard"
-    inputtokens:
-      - 128
-      # - 512
-      # - 1024
-      # - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # git_woqds:
+  #   modelid: 
+  #     - meta-llama/Meta-Llama-3-8B
+  #     - stabilityai/stablelm-2-1_6b
+  #     - Qwen/Qwen-7B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
 
-  git_woqds:
-    modelid: 
-      - microsoft/git-base
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/rls2.2/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
+  # git_woqds:
+  #   modelid: 
+  #     - microsoft/git-base
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - False
+  #   shard: False
