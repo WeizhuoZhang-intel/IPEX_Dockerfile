@@ -51,7 +51,7 @@ modelargs:
     greedy: 
       # - False
       - True
-    shard: False
+    shard: True
 
   llamawoq_woqds:
     modelid: 
@@ -84,7 +84,7 @@ modelargs:
     greedy: 
       # - False
       - True
-    shard: False
+    shard: True
 
   # amodel_bf16dsnoipex:
   #   modelid: 
