@@ -17,13 +17,14 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
-  warmup: 10
+  iternum: 10
+  warmup: 5
   hw: EMR
 modelargs:
   llama13_bf16ds:
     modelid: 
-      - Phi-3-medium-4k
+      # - Phi-3-medium-4k
+      - Phi-3-medium-128k
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -58,10 +59,11 @@ modelargs:
     inputtokens:
       # - 128
       # - 512
-      - 1024
-      - 2048
-      - 3968
-      - 4096
+      # - 1024
+      # - 2048
+      # - 3968
+      # - 4096
+      - 130944
     batchsize: 
       - 1
     localrank:
@@ -117,9 +119,10 @@ modelargs:
   #     - False
   #   shard: False
 
-  llama13_woqdsno:
+  llama13_woqds:
     modelid: 
-      - Phi-3-medium-4k
+      # - Phi-3-medium-4k
+      - Phi-3-medium-128k
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -157,10 +160,11 @@ modelargs:
       # - 512
       # - 1024
       # - 2016
-      - 1024
-      - 2048
-      - 3968
-      - 4096
+      # - 1024
+      # - 2048
+      # - 3968
+      # - 4096
+      - 130944
     batchsize: 
       - 1
     localrank:
