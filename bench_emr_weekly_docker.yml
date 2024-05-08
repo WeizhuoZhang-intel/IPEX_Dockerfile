@@ -24,7 +24,7 @@ modelargs:
   llama13_bf16ds:
     modelid: 
       # - Phi-3-medium-4k
-      - Phi-3-medium-128k
+      - Phi-3-medium-128k/phi-3_local_shard
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -122,7 +122,7 @@ modelargs:
   llama13_woqds:
     modelid: 
       # - Phi-3-medium-4k
-      - Phi-3-medium-128k
+      - Phi-3-medium-128k/phi-3_local_shard
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
