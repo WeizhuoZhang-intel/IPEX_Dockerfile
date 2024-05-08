@@ -23,7 +23,7 @@ launcher:
 modelargs:
   llama13_bf16ds:
     modelid: 
-      - /data/mint/shard/Phi-3-medium-4k
+      - Phi-3-medium-4k
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -54,7 +54,7 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 128
-    outputdir: "/data/rls2.2/shard"
+    outputdir: "/data/mint/shard"
     inputtokens:
       # - 128
       # - 512
@@ -119,7 +119,7 @@ modelargs:
 
   llama13_woqdsno:
     modelid: 
-      - /data/mint/shard/Phi-3-medium-4k
+      - Phi-3-medium-4k
       # - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
       # - meta-llama/Llama-2-70b-hf
@@ -151,7 +151,7 @@ modelargs:
       # - ds-woq-int4
     maxnewtokens: 
       - 128
-    outputdir: "/data/rls2.2/shard"
+    outputdir: "/data/mint/shard"
     inputtokens:
       # - 128
       # - 512
