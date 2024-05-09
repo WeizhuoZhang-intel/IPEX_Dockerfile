@@ -21,58 +21,58 @@ launcher:
   warmup: 10
   hw: SPR
 modelargs:
-  # llama13_bf16ds:
-  #   modelid: 
-  #     - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     - meta-llama/Llama-2-70b-hf
-  #     - EleutherAI/gpt-neox-20b
-  #     - databricks/dolly-v2-12b
-  #     - tiiuae/falcon-7b
-  #     - tiiuae/falcon-40b
-  #     - bigscience/bloom-1b7
-  #     - facebook/opt-1.3b
-  #     - facebook/opt-30b
-  #     - Salesforce/codegen-2B-multi
-  #     # - THUDM/chatglm3-6b
-  #     # - THUDM/chatglm2-6b
-  #     - baichuan-inc/Baichuan2-13B-Chat
-  #     - baichuan-inc/Baichuan2-7B-Chat
-  #     - Baichuan-inc/Baichuan-13B-Chat
-  #     - bigcode/starcoder
-  #     - google/flan-t5-xl
-  #     - mistralai/Mistral-7B-v0.1
-  #     # - mistralai/Mixtral-8x7B-v0.1
-  #     - mosaicml/mpt-7b
-  #     - stabilityai/stablelm-2-1_6b
-  #     - Qwen/Qwen-7B-Chat
-  #     - microsoft/phi-2
-  #     - microsoft/Phi-3-mini-128k-instruct
-  #     - microsoft/Phi-3-mini-4k-instruct
-  #     - IEITYuan/Yuan2-102B-hf
-  #     - meta-llama/Meta-Llama-3-8B
-  #     - meta-llama/Meta-Llama-3-70B
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - ds-bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   outputdir: "/data0/rls2.3/shard"
-  #   inputtokens:
-  #     - 128
-  #     - 512
-  #     - 1024
-  #     - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 2
-  #   greedy: 
-  #     - False
-  #   shard: False
+  llama13_bf16ds:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - databricks/dolly-v2-12b
+      # - tiiuae/falcon-7b
+      # - tiiuae/falcon-40b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      # # - THUDM/chatglm3-6b
+      # # - THUDM/chatglm2-6b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # # - mistralai/Mixtral-8x7B-v0.1
+      # - mosaicml/mpt-7b
+      # - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+      # - microsoft/phi-2
+      # - microsoft/Phi-3-mini-128k-instruct
+      # - microsoft/Phi-3-mini-4k-instruct
+      # - IEITYuan/Yuan2-102B-hf
+      # - meta-llama/Meta-Llama-3-8B
+      # - meta-llama/Meta-Llama-3-70B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/data0/rls2.3/shard"
+    inputtokens:
+      - 128
+      # - 512
+      # - 1024
+      # - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 2
+    greedy: 
+      - False
+    shard: False
 
   # llama13greedy_bf16ds:
   #   modelid: 
@@ -304,58 +304,35 @@ modelargs:
   model_bf16:
     modelid: 
       - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - EleutherAI/gpt-neox-20b
-      - databricks/dolly-v2-12b
-      - tiiuae/falcon-7b
-      - tiiuae/falcon-40b
-      - bigscience/bloom-1b7
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-      - Salesforce/codegen-2B-multi
-      - THUDM/chatglm3-6b
-      - THUDM/chatglm2-6b
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
-      - google/flan-t5-xl
-      - mistralai/Mistral-7B-v0.1
-      - mistralai/Mixtral-8x7B-v0.1
-      - mosaicml/mpt-7b
-      - stabilityai/stablelm-2-1_6b
-      - Qwen/Qwen-7B-Chat
-      - microsoft/phi-2
-      - microsoft/Phi-3-mini-128k-instruct
-      - microsoft/Phi-3-mini-4k-instruct
-      - IEITYuan/Yuan2-102B-hf
+      # - meta-llama/Llama-2-7b-hf
+      # - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - EleutherAI/gpt-neox-20b
+      # - databricks/dolly-v2-12b
+      # - tiiuae/falcon-7b
+      # - tiiuae/falcon-40b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - Salesforce/codegen-2B-multi
+      # - THUDM/chatglm3-6b
+      # - THUDM/chatglm2-6b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+      # - bigcode/starcoder
+      # - google/flan-t5-xl
+      # - mistralai/Mistral-7B-v0.1
+      # - mistralai/Mixtral-8x7B-v0.1
+      # - mosaicml/mpt-7b
+      # - stabilityai/stablelm-2-1_6b
+      # - Qwen/Qwen-7B-Chat
+      # - microsoft/phi-2
+      # - microsoft/Phi-3-mini-128k-instruct
+      # - microsoft/Phi-3-mini-4k-instruct
+      # - IEITYuan/Yuan2-102B-hf
       # - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-
-  model2_bf16:
-    modelid: 
-      - liuhaotian/llava-v1.5-7b
-      - microsoft/git-base
     scriptname: run.py
     device:
       - cpu
@@ -374,3 +351,26 @@ modelargs:
       - 1
     greedy: 
       - False
+
+  # model2_bf16:
+  #   modelid: 
+  #     - liuhaotian/llava-v1.5-7b
+  #     - microsoft/git-base
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
