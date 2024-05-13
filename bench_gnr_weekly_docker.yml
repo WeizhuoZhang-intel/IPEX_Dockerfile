@@ -21,12 +21,41 @@ launcher:
   warmup: 10
   hw: GNR
 modelargs:
+  # model_bf16ds:
+  #   modelid:
+  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard/Phi-3-medium-128k/phi-3_local_shard
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # # - 2016
+  #     # - 2048
+  #     # # - 3968
+  #     # - 4096
+  #     - 130944
+  #     # - 8192
+  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     # - 3
+  #     - 6
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: True
+
   amodel_bf16ds:
     modelid:
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-13b-hf 
-      # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/Phi-3-medium-8k
-      # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
+      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard/Phi-3-medium-4k/phi-3_local_shard
     scriptname: run.py
     device:
       - cpu
@@ -39,27 +68,26 @@ modelargs:
       # - 128
       # - 512
       - 1024
-      # # - 2016
-      # - 2048
+      # - 2016
+      - 2048
       # - 3968
-      # - 4096
+      - 4096
       # - 130944
       # - 8192
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
     batchsize: 
       - 1
     localrank:
-      - 3
+      # - 3
       - 6
     greedy: 
-      - False
-      # - True
-    shard: False
+      # - False
+      - True
+    shard: True
 
-  llamawoq_woqds:
+  allamawoq_woqds:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-13b-hf 
+      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard/Phi-3-medium-4k/phi-3_local_shard
       # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/Phi-3-medium-8k
       # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
@@ -70,26 +98,62 @@ modelargs:
       # - ds-woq-int4
     maxnewtokens: 
       - 128
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
     inputtokens:
       # - 32
       # - 128
       # - 512
       - 1024
       # - 2016
-      # - 2048
+      - 2048
       # - 3968
-      # - 4096
+      - 4096
+      # - 130944
       # - 8192
     batchsize: 
       - 1
     localrank:
       - 6
-      - 3
+      # - 3
     greedy: 
-      - False
-      # - True
-    shard: False
+      # - False
+      - True
+    shard: True
+
+  # llamawoq_woqds:
+  #   modelid: 
+  #     - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard/Phi-3-medium-128k/phi-3_local_shard
+  #     # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/Phi-3-medium-8k
+  #     # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     # - 1024
+  #     # - 2016
+  #     # - 2048
+  #     # - 3968
+  #     # - 4096
+  #     - 130944
+  #     # - 8192
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 6
+  #     # - 3
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: True
 
   # amodel_bf16dsnoipex:
   #   modelid: 
