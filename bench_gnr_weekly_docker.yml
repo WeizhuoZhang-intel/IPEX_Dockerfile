@@ -55,7 +55,7 @@ modelargs:
 
   amodel_bf16ds:
     modelid:
-      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard/Phi-3-medium-4k/phi-3_local_shard
+      - Phi-3-medium-4k/phi-3_local_shard
     scriptname: run.py
     device:
       - cpu
@@ -87,7 +87,7 @@ modelargs:
 
   allamawoq_woqds:
     modelid: 
-      - /run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard/Phi-3-medium-4k/phi-3_local_shard
+      - Phi-3-medium-4k/phi-3_local_shard
       # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/Phi-3-medium-8k
       # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
