@@ -23,7 +23,8 @@ launcher:
 modelargs:
   model_bf16ds:
     modelid:
-      - Phi-3-medium-128k/phi-3_local_shard
+      # - Phi-3-medium-128k/phi-3_local_shard
+      - Phi-3-medium-4k/phi-3_local_shard
     scriptname: run.py
     device:
       - cpu
@@ -35,12 +36,12 @@ modelargs:
       # - 32
       # - 128
       # - 512
-      # - 1024
-      # # - 2016
-      # - 2048
-      # # - 3968
-      # - 4096
-      - 130944
+      - 1024
+      # - 2016
+      - 2048
+      # - 3968
+      - 4096
+      # - 130944
       # - 8192
     outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
     batchsize: 
@@ -122,7 +123,8 @@ modelargs:
 
   llamawoq_woqds:
     modelid: 
-      - Phi-3-medium-128k/phi-3_local_shard
+      # - Phi-3-medium-128k/phi-3_local_shard
+      - Phi-3-medium-4k/phi-3_local_shard
       # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/Phi-3-medium-8k
       # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
@@ -138,12 +140,12 @@ modelargs:
       # - 32
       # - 128
       # - 512
-      # - 1024
+      - 1024
       # - 2016
-      # - 2048
+      - 2048
       # - 3968
-      # - 4096
-      - 130944
+      - 4096
+      # - 130944
       # - 8192
     batchsize: 
       - 1
