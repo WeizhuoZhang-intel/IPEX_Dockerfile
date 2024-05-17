@@ -17,14 +17,17 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 3
-  warmup: 2
+  iternum: 15
+  warmup: 10
   hw: GNR
 modelargs:
   model_bf16ds:
     modelid:
       # - Phi-3-medium-128k/phi-3_local_shard
-      - Phi-3-medium-4k/phi-3_local_shard
+      # - Phi-3-medium-4k/phi-3_local_shard
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
       - cpu
@@ -38,21 +41,69 @@ modelargs:
       # - 512
       - 1024
       # - 2016
-      - 2048
+      # - 2048
       # - 3968
-      - 4096
+      # - 4096
       # - 130944
       # - 8192
     outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
     batchsize: 
       - 1
+      - 2
+      - 4
+      - 8
+      - 16
     localrank:
-      # - 3
+      - 3
       - 6
     greedy: 
       # - False
       - True
-    shard: True
+    shard: False
+
+  agptj_static8:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Llama-2-70b-hf
+      # - tiiuae/falcon-40b
+      # - tiiuae/falcon-7b
+      # - THUDM/chatglm3-6b
+      # - THUDM/chatglm2-6b
+      # - bigscience/bloom-1b7
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+      # - baichuan-inc/Baichuan2-13B-Chat
+      # - baichuan-inc/Baichuan2-7B-Chat
+      # - Baichuan-inc/Baichuan-13B-Chat
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - static-fp32-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/sqint8"
+    quantizedmodelpath: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/sqint8"
+    configpath: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/sqint8"
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
+      - 1
+      - 2
+      - 4
+      - 8
+      - 16
+    localrank:
+      - 1
+    greedy: 
+      - True
+      # - True
+
 
   # amodel_bf16ds:
   #   modelid:
@@ -123,10 +174,9 @@ modelargs:
 
   llamawoq_woqds:
     modelid: 
-      # - Phi-3-medium-128k/phi-3_local_shard
-      - Phi-3-medium-4k/phi-3_local_shard
-      # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/huggingface/hub/Phi-3-medium-8k
-      # - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/microsoft/Phi-3-mini-4k-instruct
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
       - cpu
@@ -142,20 +192,24 @@ modelargs:
       # - 512
       - 1024
       # - 2016
-      - 2048
+      # - 2048
       # - 3968
-      - 4096
+      # - 4096
       # - 130944
       # - 8192
     batchsize: 
       - 1
+      - 2
+      - 4
+      - 8
+      - 16
     localrank:
       - 6
-      # - 3
+      - 3
     greedy: 
       # - False
       - True
-    shard: True
+    shard: False
 
   # amodel_bf16dsnoipex:
   #   modelid: 

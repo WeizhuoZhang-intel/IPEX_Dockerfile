@@ -17,7 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 35
+  iternum: 15
+  warmup: 10
   hw: SPR
 modelargs:
   llama13_bf16ds:
@@ -46,6 +47,9 @@ modelargs:
       - mosaicml/mpt-7b
       - stabilityai/stablelm-2-1_6b
       - Qwen/Qwen-7B-Chat
+      - microsoft/phi-2
+      - microsoft/Phi-3-mini-128k-instruct
+      - microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
     device:
       - cpu
@@ -56,38 +60,9 @@ modelargs:
     outputdir: "/data0/rls2.2/shard"
     inputtokens:
       - 128
-      - 512
+      # - 512
       - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
-
-  llama13greedy_bf16ds:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - THUDM/chatglm3-6b
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/data0/rls2.2/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
+      - 2048
     batchsize: 
       - 1
     localrank:
@@ -95,6 +70,35 @@ modelargs:
     greedy: 
       - True
     shard: False
+
+  # llama13greedy_bf16ds:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - THUDM/chatglm3-6b
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data0/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - True
+  #   shard: False
 
   llama123_woqds:
     modelid: 
@@ -122,6 +126,9 @@ modelargs:
       - mosaicml/mpt-7b
       - stabilityai/stablelm-2-1_6b
       - Qwen/Qwen-7B-Chat
+      - microsoft/phi-2
+      - microsoft/Phi-3-mini-128k-instruct
+      - microsoft/Phi-3-mini-4k-instruct
     scriptname: run.py
     device:
       - cpu
@@ -133,39 +140,9 @@ modelargs:
     outputdir: "/data0/rls2.2/shard"
     inputtokens:
       - 128
-      - 512
+      # - 512
       - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 2
-    greedy: 
-      - False
-    shard: False
-
-  llamagreedy_woqds:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - THUDM/chatglm3-6b
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/data0/rls2.2/shard"
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
+      - 2048
     batchsize: 
       - 1
     localrank:
@@ -173,6 +150,36 @@ modelargs:
     greedy: 
       - True
     shard: False
+
+  # llamagreedy_woqds:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - THUDM/chatglm3-6b
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data0/rls2.2/shard"
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - True
+  #   shard: False
 
   agptj_static8:
     modelid: 
@@ -203,14 +210,14 @@ modelargs:
     inputtokens:
       - 128
       # - 512
-      # - 1024
-      # - 2016
+      - 1024
+      - 2048
     batchsize: 
       - 1
     localrank:
       - 1
     greedy: 
-      - False
+      # - False
       - True
 
   model_static8acc:
@@ -236,27 +243,27 @@ modelargs:
       - 1
     alpha: 0.9
 
-  model_inductor:
-    modelid: 
-      - EleutherAI/gpt-j-6b
-      # - meta-llama/Llama-2-7b-hf
-      # - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - inductor-bf16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      - 128
-      - 512
-      - 1024
-      - 2016
-    batchsize: 
-      - 1
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # model_inductor:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     # - meta-llama/Llama-2-7b-hf
+  #     # - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - inductor-bf16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     - 512
+  #     - 1024
+  #     - 2016
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
