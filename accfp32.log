@@ -21,6 +21,15 @@ llm_accuracy_EleutherAI-gpt-neox-20b_float32_SPR.log, ,0.7233
 llm_accuracy_mistralai-Mixtral-8x7B-v0.1_float32_SPR.log, ,0.7852
 llm_accuracy_stabilityai-stablelm-2-1-6b_float32_SPR.log, ,0.6621
 llm_accuracy_Qwen-Qwen-7B-Chat_float32_SPR.log, ,0.6810
+llm_accuracy_microsoft-git-base_float32_SPR.log, ,64.5662
+llm_accuracy_meta-llama-Meta-Llama-3-8B_SPR.log, ,0.7615
+llm_accuracy_meta-llama-Meta-Llama-3-70B_SPR.log, ,0.8243
+llm_accuracy_liuhaotian-llava-v1.5-7b_SPR.log, ,1.105
+llm_accuracy_microsoft-phi-2_SPR.log, ,0.5584
+llm_accuracy_microsoft-Phi-3-mini-128k-instruct_SPR.log, ,0.5978
+llm_accuracy_microsoft-Phi-3-mini-4k-instruct_SPR.log, ,0.6053
+llm_accuracy_IEITYuan-Yuan2-102B-hf_SPR.log, ,0.552
+
 
 
 
