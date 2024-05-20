@@ -318,6 +318,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
                                 
                                         lines.append(f"collect_perf_logs_llm llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
+                                        lines.append("sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'")
 
 
 
