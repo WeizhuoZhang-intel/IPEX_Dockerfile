@@ -78,32 +78,32 @@ modelargs:
 
 
 
-  amodel_bf16:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-    batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
-      # - 16
-    localrank:
-      - 1
-    greedy: 
-      - False
-      - True
+  # amodel_bf16:
+  #   modelid: 
+  #     - meta-llama/Meta-Llama-3-8B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #   batchsize: 
+  #     - 1
+  #     - 2
+  #     - 4
+  #     - 8
+  #     # - 16
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - False
+  #     - True
 
   model_noipex:
     modelid: 
