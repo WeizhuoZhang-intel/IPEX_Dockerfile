@@ -49,32 +49,36 @@ modelargs:
   #     - True
 
 
-  # model_bf16:
-  #   modelid: 
-  #     # - EleutherAI/gpt-j-6b
-  #     - meta-llama/Llama-2-7b-hf
-  #     - meta-llama/Llama-2-13b-hf
-  #     # - facebook/opt-1.3b
-  #     # - facebook/opt-30b
-  #   scriptname: run.py
-  #   device:
-  #     - cpu
-  #   dtype: 
-  #     - bfloat16
-  #   maxnewtokens: 
-  #     - 128
-  #   inputtokens:
-  #     # - 128
-  #     # - 512
-  #     - 1024
-  #     # - 2016
-  #   batchsize: 
-  #     - 1
-  #   localrank:
-  #     - 1
-  #   greedy: 
-  #     - False
-  #     - True
+  model_bf16:
+    modelid: 
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      # - facebook/opt-1.3b
+      # - facebook/opt-30b
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+    batchsize: 
+      - 1
+      - 2
+      - 4
+      - 8
+      - 16
+    localrank:
+      - 1
+    greedy: 
+      - False
+      - True
 
 
 
@@ -107,7 +111,10 @@ modelargs:
 
   model_noipex:
     modelid: 
-      - meta-llama/Meta-Llama-3-8B
+      - EleutherAI/gpt-j-6b
+      - meta-llama/Llama-2-7b-hf
+      - meta-llama/Llama-2-13b-hf
+      # - meta-llama/Meta-Llama-3-8B
     scriptname: run.py
     device:
       - cpu
@@ -125,7 +132,7 @@ modelargs:
       - 2
       - 4
       - 8
-      # - 16
+      - 16
     localrank:
       - 1
     greedy: 
