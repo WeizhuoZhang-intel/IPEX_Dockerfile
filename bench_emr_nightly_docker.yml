@@ -53,7 +53,7 @@ modelargs:
       - True
     shard: False
 
-  llama123_woqds:
+  llama_woqds:
     modelid: 
       - meta-llama/Llama-2-13b-hf
       # - meta-llama/Meta-Llama-3-70B
@@ -77,7 +77,7 @@ modelargs:
       # - 8
       # - 16
       - 32
-      # - 64
+      - 64
     localrank:
       # - 2
       - 4
@@ -85,7 +85,7 @@ modelargs:
       - True
     shard: False
 
-  llama123_bf16ds:
+  llama_bf16ds:
     modelid: 
       - meta-llama/Llama-2-13b-hf
       # - meta-llama/Meta-Llama-3-70B
@@ -130,15 +130,15 @@ modelargs:
     outputdir: "/data/mint/shard"
     inputtokens:
       - 256
-      - 512
-      - 1024
+      # - 512
+      # - 1024
     batchsize: 
       # - 1
       # - 2
       # - 4
       # - 8
       # - 16
-      - 32
+      - 40
     localrank:
       # - 2
       - 4
