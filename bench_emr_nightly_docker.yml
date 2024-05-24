@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 7
-  warmup: 4
+  iternum: 5
+  warmup: 3
   hw: EMR
 modelargs:
   llama123_woqds:
@@ -36,7 +36,7 @@ modelargs:
     outputdir: "/data/mint/shard"
     inputtokens:
       - 256
-      - 512
+      # - 512
       # - 1024
     batchsize: 
       # - 1
@@ -56,6 +56,41 @@ modelargs:
       - True
     shard: False
  
+  llama123_woqds:
+    modelid: 
+      - meta-llama/Meta-Llama-3-8B
+      # - meta-llama/Meta-Llama-3-70B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/data/mint/shard"
+    inputtokens:
+      # - 256
+      - 512
+      # - 1024
+    batchsize: 
+      # - 1
+      # - 2
+      # - 4
+      # - 6
+      # - 8
+      # - 10
+      # - 12
+      # - 16
+      - 128
+      # - 64
+    localrank:
+      # - 2
+      - 4
+    greedy: 
+      - True
+    shard: False
+
    llama123_woqds:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
@@ -82,7 +117,7 @@ modelargs:
       # - 10
       # - 12
       # - 16
-      - 128
+      - 96
       # - 64
     localrank:
       # - 2
@@ -91,42 +126,7 @@ modelargs:
       - True
     shard: False
 
-   llama123_woqds:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/mint/shard"
-    inputtokens:
-      - 256
-      # - 512
-      # - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 6
-      # - 8
-      # - 10
-      # - 12
-      # - 16
-      - 128
-      # - 64
-    localrank:
-      - 2
-      # - 4
-    greedy: 
-      - True
-    shard: False
-
-   llama123_woqds:
+   llama123_bf16ds:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
@@ -142,7 +142,7 @@ modelargs:
     inputtokens:
       - 256
       - 512
-      - 1024
+      # - 1024
     batchsize: 
       # - 1
       # - 2
@@ -160,3 +160,5 @@ modelargs:
     greedy: 
       - True
     shard: False
+
+ 
