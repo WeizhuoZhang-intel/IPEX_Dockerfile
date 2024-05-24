@@ -39,10 +39,15 @@ modelargs:
       - 1024
       # - 2048
     batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      - 10
+      - 6
+      - 12
+      - 14
+      - 16
     localrank:
       - 2
     greedy: 
@@ -67,10 +72,15 @@ modelargs:
       - 512
       - 1024
     batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      - 10
+      - 6
+      - 12
+      - 14
+      - 16
     localrank:
       - 2
     greedy: 
@@ -92,10 +102,13 @@ modelargs:
       - 512
       - 1024
     batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      - 6
+      - 10
+      - 12
     localrank:
       - 1
     greedy: 
@@ -118,10 +131,14 @@ modelargs:
       - 512
       - 1024
     batchsize: 
-      - 1
-      - 2
-      - 4
-      - 8
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      - 6
+      - 10
+      - 12
+      - 14
     localrank:
       - 1
     greedy: 
