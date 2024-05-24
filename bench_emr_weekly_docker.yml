@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
+  iternum: 15
   warmup: 10
   hw: EMR
 modelargs:
