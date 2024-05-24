@@ -17,11 +17,11 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
-  warmup: 10
+  iternum: 10
+  warmup: 5
   hw: SPR
 modelargs:
-  llama13_bf16ds:
+  llama256_bf16ds:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
@@ -35,18 +35,98 @@ modelargs:
     outputdir: "/home/shard"
     inputtokens:
       - 256
-      - 512
-      - 1024
-      # - 2048
     batchsize: 
       # - 1
       # - 2
       # - 4
       # - 8
-      - 10
-      - 6
-      - 12
-      - 14
+      - 24
+      - 32
+      - 48
+      - 64
+    localrank:
+      - 2
+    greedy: 
+      - True
+    shard: False
+
+  llama512_bf16ds:
+    modelid: 
+      - meta-llama/Meta-Llama-3-8B
+      # - meta-llama/Meta-Llama-3-70B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/home/shard"
+    inputtokens:
+      - 512
+    batchsize: 
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      # - 10
+      # - 6
+      # - 12
+      # - 14
+      # - 16
+      - 24
+      - 32
+      - 48
+    localrank:
+      - 2
+    greedy: 
+      - True
+    shard: False
+
+  llama1024_bf16ds:
+    modelid: 
+      - meta-llama/Meta-Llama-3-8B
+      # - meta-llama/Meta-Llama-3-70B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/home/shard"
+    inputtokens:
+      - 1024
+    batchsize: 
+      - 24
+      - 32
+      - 48
+    localrank:
+      - 2
+    greedy: 
+      - True
+    shard: False
+
+  llama256woqds:
+    modelid: 
+      - meta-llama/Meta-Llama-3-8B
+      # - meta-llama/Meta-Llama-3-70B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/home/shard"
+    inputtokens:
+      - 256
+    batchsize: 
+      # - 1
+      # - 2
+      # - 4
+      # - 8
       - 16
     localrank:
       - 2
@@ -87,7 +167,7 @@ modelargs:
       - True
     shard: False
 
-  model_bf16:
+  model256_bf16:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
     scriptname: run.py
@@ -99,22 +179,53 @@ modelargs:
       - 128
     inputtokens:
       - 256
-      - 512
-      - 1024
+      # - 512
+      # - 1024
     batchsize: 
       # - 1
       # - 2
       # - 4
       # - 8
-      - 6
-      - 10
-      - 12
+      # - 6
+      # - 10
+      # - 12
+      - 16
+      - 24
+      - 32
     localrank:
       - 1
     greedy: 
       - True
 
-  agptj_woq8:
+  model512_bf16:
+    modelid: 
+      - meta-llama/Meta-Llama-3-8B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      # - 256
+      - 512
+      # - 1024
+    batchsize: 
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      # - 6
+      # - 10
+      # - 12
+    localrank:
+      - 1
+    greedy: 
+      - True
+
+
+  agptj256_woq8:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
     scriptname: run.py
@@ -128,17 +239,83 @@ modelargs:
     quantizedmodelpath: "/home/woq-int8"
     inputtokens:
       - 256
+      # - 512
+      # - 1024
+    batchsize: 
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      # - 6
+      # - 10
+      # - 12
+      # - 14
+      - 16
+      - 32
+      - 64
+    localrank:
+      - 1
+    greedy: 
+      - True
+
+  agptj512_woq8:
+    modelid: 
+      - meta-llama/Meta-Llama-3-8B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/home/woq-int8"
+    quantizedmodelpath: "/home/woq-int8"
+    inputtokens:
+      # - 256
       - 512
+      # - 1024
+    batchsize: 
+      # - 1
+      # - 2
+      # - 4
+      # - 8
+      # - 6
+      # - 10
+      # - 12
+      # - 14
+      - 16
+      - 24
+      - 32
+    localrank:
+      - 1
+    greedy: 
+      - True
+
+  agptj512_woq8:
+    modelid: 
+      - meta-llama/Meta-Llama-3-8B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/home/woq-int8"
+    quantizedmodelpath: "/home/woq-int8"
+    inputtokens:
       - 1024
     batchsize: 
       # - 1
       # - 2
       # - 4
       # - 8
-      - 6
-      - 10
-      - 12
-      - 14
+      # - 6
+      # - 10
+      # - 12
+      # - 14
+      - 16
+      - 24
     localrank:
       - 1
     greedy: 

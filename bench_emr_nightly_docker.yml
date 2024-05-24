@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
-  warmup: 10
+  iternum: 10
+  warmup: 5
   hw: EMR
 modelargs:
   llama13_bf16ds:
@@ -43,9 +43,12 @@ modelargs:
       # - 2
       # - 4
       # - 8
-      - 6
-      - 10
-      - 12
+      # - 6
+      # - 10
+      # - 12
+      # - 16
+      - 32
+      - 64
     localrank:
       - 2
       - 4
@@ -72,12 +75,15 @@ modelargs:
       - 1024
     batchsize: 
       # - 1
-      - 2
-      - 4
-      - 6
-      - 8
-      - 10
-      - 12
+      # - 2
+      # - 4
+      # - 6
+      # - 8
+      # - 10
+      # - 12
+      # - 16
+      - 32
+      - 64
     localrank:
       - 2
       - 4
