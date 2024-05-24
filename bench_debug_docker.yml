@@ -41,9 +41,10 @@ modelargs:
       # - 4
       # - 8
       # - 24
-      - 32
-      # - 48
-      - 64
+      # - 32
+      # # - 48
+      # - 64
+      - 128
     localrank:
       - 2
     greedy: 
@@ -75,8 +76,9 @@ modelargs:
       # - 14
       # - 16
       # - 24
-      - 32
-      - 48
+      # - 32
+      - 96
+      - 128
     localrank:
       - 2
     greedy: 
@@ -99,8 +101,8 @@ modelargs:
       - 1024
     batchsize: 
       # - 24
-      - 32
-      - 48
+      - 64
+      # - 48
     localrank:
       - 2
     greedy: 
@@ -123,14 +125,16 @@ modelargs:
     inputtokens:
       - 256
       - 512
-      - 1024
+      # - 1024
     batchsize: 
       # - 1
       # - 2
       # - 4
       # - 8
-      - 32
-      - 64
+      # - 32
+      # - 64
+      - 96
+      - 128
     localrank:
       - 2
     greedy: 
@@ -159,37 +163,10 @@ modelargs:
       # - 6
       # - 10
       # - 12
-      - 16
-      # - 24
-      - 32
-    localrank:
-      - 1
-    greedy: 
-      - True
-
-  model512_bf16:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 256
-      - 512
-      # - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 6
-      # - 10
-      # - 12
-      - 32
+      # - 16
+      # # - 24
+      # - 32
+      - 48
     localrank:
       - 1
     greedy: 
@@ -217,7 +194,7 @@ modelargs:
       # - 6
       # - 10
       # - 12
-      - 32
+      - 16
     localrank:
       - 1
     greedy: 
@@ -249,8 +226,8 @@ modelargs:
       # - 12
       # - 14
       # - 16
-      - 32
-      - 64
+      # - 32
+      - 48
     localrank:
       - 1
     greedy: 
@@ -281,9 +258,11 @@ modelargs:
       # - 10
       # - 12
       # - 14
-      - 16
-      # - 24
-      - 32
+      # - 16
+      # # - 24
+      # - 32
+      - 48
+      # - 64
     localrank:
       - 1
     greedy: 
@@ -312,8 +291,9 @@ modelargs:
       # - 10
       # - 12
       # - 14
-      - 16
-      # - 24
+      # - 16
+      - 24
+      - 32
     localrank:
       - 1
     greedy: 
