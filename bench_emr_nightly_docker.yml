@@ -21,110 +21,104 @@ launcher:
   warmup: 3
   hw: EMR
 modelargs:
-  llama123_woqds:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/mint/shard"
-    inputtokens:
-      - 256
-      # - 512
-      # - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 6
-      # - 8
-      # - 10
-      # - 12
-      # - 16
-      - 128
-      # - 64
-    localrank:
-      - 2
-      - 4
-    greedy: 
-      - True
-    shard: False
+  # llama123_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Meta-Llama-3-70B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data/mint/shard"
+  #   inputtokens:
+  #     - 256
+  #     - 512
+  #     - 1024
+  #   batchsize: 
+  #     - 8
+  #     - 16
+  #     - 32
+  #     - 64
+  #   localrank:
+  #     - 2
+  #     - 4
+  #   greedy: 
+  #     - True
+  #   shard: False
  
-  llama123_woqds:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/mint/shard"
-    inputtokens:
-      # - 256
-      - 512
-      # - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 6
-      # - 8
-      # - 10
-      # - 12
-      # - 16
-      - 128
-      # - 64
-    localrank:
-      # - 2
-      - 4
-    greedy: 
-      - True
-    shard: False
+  # llama123_woqds:
+  #   modelid: 
+  #     - meta-llama/Meta-Llama-3-8B
+  #     # - meta-llama/Meta-Llama-3-70B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data/mint/shard"
+  #   inputtokens:
+  #     # - 256
+  #     - 512
+  #     # - 1024
+  #   batchsize: 
+  #     # - 1
+  #     # - 2
+  #     # - 4
+  #     # - 6
+  #     # - 8
+  #     # - 10
+  #     # - 12
+  #     # - 16
+  #     - 128
+  #     # - 64
+  #   localrank:
+  #     # - 2
+  #     - 4
+  #   greedy: 
+  #     - True
+  #   shard: False
 
-  llama123_woqds:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/data/mint/shard"
-    inputtokens:
-      # - 256
-      # - 512
-      - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 6
-      # - 8
-      # - 10
-      # - 12
-      # - 16
-      - 96
-      # - 64
-    localrank:
-      # - 2
-      - 4
-    greedy: 
-      - True
-    shard: False
+  # llama123_woqds:
+  #   modelid: 
+  #     - meta-llama/Meta-Llama-3-8B
+  #     # - meta-llama/Meta-Llama-3-70B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/data/mint/shard"
+  #   inputtokens:
+  #     # - 256
+  #     # - 512
+  #     - 1024
+  #   batchsize: 
+  #     # - 1
+  #     # - 2
+  #     # - 4
+  #     # - 6
+  #     # - 8
+  #     # - 10
+  #     # - 12
+  #     # - 16
+  #     - 96
+  #     # - 64
+  #   localrank:
+  #     # - 2
+  #     - 4
+  #   greedy: 
+  #     - True
+  #   shard: False
 
   llama123_bf16ds:
     modelid: 
