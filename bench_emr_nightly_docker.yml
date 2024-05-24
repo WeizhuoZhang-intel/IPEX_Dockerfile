@@ -128,7 +128,7 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - ds-woq-int8
+      - ds-bfloat16
       # - ds-woq-int4
     maxnewtokens: 
       - 128
