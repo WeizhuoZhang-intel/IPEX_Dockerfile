@@ -91,7 +91,7 @@ modelargs:
       - True
     shard: False
 
-   llama123_woqds:
+  llama123_woqds:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
@@ -126,7 +126,7 @@ modelargs:
       - True
     shard: False
 
-   llama123_bf16ds:
+  llama123_bf16ds:
     modelid: 
       - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B

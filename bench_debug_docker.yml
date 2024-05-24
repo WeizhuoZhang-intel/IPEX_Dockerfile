@@ -23,7 +23,7 @@ launcher:
 modelargs:
   llama256_bf16ds:
     modelid: 
-      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Llama-2-13b-hf
       # - meta-llama/Meta-Llama-3-70B
     scriptname: run.py
     device:
@@ -35,74 +35,21 @@ modelargs:
     outputdir: "/home/shard"
     inputtokens:
       - 256
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 24
-      # - 32
-      # # - 48
-      # - 64
-      - 128
-    localrank:
-      - 2
-    greedy: 
-      - True
-    shard: False
-
-  llama512_bf16ds:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/home/shard"
-    inputtokens:
       - 512
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 10
-      # - 6
-      # - 12
-      # - 14
-      # - 16
-      # - 24
-      # - 32
-      - 96
-      - 128
-    localrank:
-      - 2
-    greedy: 
-      - True
-    shard: False
-
-  llama1024_bf16ds:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/home/shard"
-    inputtokens:
       - 1024
     batchsize: 
+      # - 1
+      # - 2
+      # - 4
+      # - 8
       # - 24
+      - 8
+      - 16
+      - 32
       - 64
-      # - 48
+      # # - 48
+      # - 64
+      # - 128
     localrank:
       - 2
     greedy: 
@@ -111,7 +58,7 @@ modelargs:
 
   llama123_woqds:
     modelid: 
-      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Llama-2-13b-hf
       # - meta-llama/Meta-Llama-3-70B
     scriptname: run.py
     device:
@@ -125,16 +72,12 @@ modelargs:
     inputtokens:
       - 256
       - 512
-      # - 1024
+      - 1024
     batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 32
-      # - 64
-      - 96
-      - 128
+      - 8
+      - 16
+      - 32
+      - 64
     localrank:
       - 2
     greedy: 
@@ -143,7 +86,7 @@ modelargs:
 
   model256_bf16:
     modelid: 
-      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
       - cpu
@@ -153,48 +96,13 @@ modelargs:
       - 128
     inputtokens:
       - 256
-      # - 512
-      # - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 6
-      # - 10
-      # - 12
-      # - 16
-      # # - 24
-      # - 32
-      - 48
-    localrank:
-      - 1
-    greedy: 
-      - True
-
-  model1024_bf16:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - bfloat16
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 256
-      # - 512
+      - 512
       - 1024
     batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 6
-      # - 10
-      # - 12
+      - 8
       - 16
+      - 32
+      - 48
     localrank:
       - 1
     greedy: 
@@ -202,7 +110,7 @@ modelargs:
 
   agptj256_woq8:
     modelid: 
-      - meta-llama/Meta-Llama-3-8B
+      - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
       - cpu
@@ -214,86 +122,13 @@ modelargs:
     quantizedmodelpath: "/home/woq-int8"
     inputtokens:
       - 256
-      # - 512
-      # - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 6
-      # - 10
-      # - 12
-      # - 14
-      # - 16
-      # - 32
-      - 48
-    localrank:
-      - 1
-    greedy: 
-      - True
-
-  agptj512_woq8:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 128
-    outputdir: "/home/woq-int8"
-    quantizedmodelpath: "/home/woq-int8"
-    inputtokens:
-      # - 256
       - 512
-      # - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 6
-      # - 10
-      # - 12
-      # - 14
-      # - 16
-      # # - 24
-      # - 32
-      - 48
-      # - 64
-    localrank:
-      - 1
-    greedy: 
-      - True
-
-  agptj1024_woq8:
-    modelid: 
-      - meta-llama/Meta-Llama-3-8B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - woq-int8
-    maxnewtokens: 
-      - 128
-    outputdir: "/home/woq-int8"
-    quantizedmodelpath: "/home/woq-int8"
-    inputtokens:
       - 1024
     batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 6
-      # - 10
-      # - 12
-      # - 14
-      # - 16
-      - 24
+      - 8
+      - 16
       - 32
+      - 48
     localrank:
       - 1
     greedy: 
