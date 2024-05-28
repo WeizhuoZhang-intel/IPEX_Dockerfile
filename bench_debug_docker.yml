@@ -17,80 +17,81 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 5
-  warmup: 3
+  iternum: 10
+  warmup: 5
   hw: SPR
 modelargs:
-  llama256_bf16ds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-bfloat16
-    maxnewtokens: 
-      - 128
-    outputdir: "/home/shard"
-    inputtokens:
-      - 256
-      - 512
-      - 1024
-    batchsize: 
-      # - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 24
-      - 4
-      - 2
-      - 1
-      - 8
-      - 16
-      - 32
-      # - 64
-      # # - 48
-      # - 64
-      # - 128
-    localrank:
-      - 2
-    greedy: 
-      - True
-    shard: False
+  # llama256_bf16ds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Meta-Llama-3-70B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/home/shard"
+  #   inputtokens:
+  #     - 256
+  #     - 512
+  #     - 1024
+  #   batchsize: 
+  #     # - 1
+  #     # - 2
+  #     # - 4
+  #     # - 8
+  #     # - 24
+  #     - 4
+  #     - 2
+  #     - 1
+  #     - 8
+  #     - 16
+  #     - 32
+  #     # - 64
+  #     # # - 48
+  #     # - 64
+  #     # - 128
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - True
+  #   shard: False
 
-  llama123_woqds:
-    modelid: 
-      - meta-llama/Llama-2-13b-hf
-      # - meta-llama/Meta-Llama-3-70B
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    maxnewtokens: 
-      - 128
-    outputdir: "/home/shard"
-    inputtokens:
-      - 256
-      - 512
-      - 1024
-    batchsize: 
-      - 4
-      - 2
-      - 1
-      - 8
-      - 16
-      - 32
-    localrank:
-      - 2
-    greedy: 
-      - True
-    shard: False
+  # llama123_woqds:
+  #   modelid: 
+  #     - meta-llama/Llama-2-13b-hf
+  #     # - meta-llama/Meta-Llama-3-70B
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   maxnewtokens: 
+  #     - 128
+  #   outputdir: "/home/shard"
+  #   inputtokens:
+  #     - 256
+  #     - 512
+  #     - 1024
+  #   batchsize: 
+  #     - 4
+  #     - 2
+  #     - 1
+  #     - 8
+  #     - 16
+  #     - 32
+  #   localrank:
+  #     - 2
+  #   greedy: 
+  #     - True
+  #   shard: False
 
   model256_bf16:
     modelid: 
+      - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
@@ -100,23 +101,25 @@ modelargs:
     maxnewtokens: 
       - 128
     inputtokens:
-      - 256
-      - 512
+      # - 256
+      # - 512
       - 1024
     batchsize: 
-      - 4
-      - 2
+      # - 4
+      # - 2
       - 1
-      - 8
-      - 16
-      - 32
+      # - 8
+      # - 16
+      # - 32
     localrank:
       - 1
     greedy: 
       - True
+      - False
 
   agptj256_woq8:
     modelid: 
+      - meta-llama/Llama-2-7b-hf
       - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
@@ -128,17 +131,18 @@ modelargs:
     outputdir: "/home/woq-int8"
     quantizedmodelpath: "/home/woq-int8"
     inputtokens:
-      - 256
-      - 512
+      # - 256
+      # - 512
       - 1024
     batchsize: 
-      - 4
-      - 2
+      # - 4
+      # - 2
       - 1
-      - 8
-      - 16
-      - 32
+      # - 8
+      # - 16
+      # - 32
     localrank:
       - 1
     greedy: 
       - True
+      - False
