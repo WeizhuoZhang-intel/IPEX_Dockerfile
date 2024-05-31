@@ -245,7 +245,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("#!/bin/bash")
         lines.append("set -x")
         lines.append("# Env config")
-        lines.append("export log_dir=/mnt/aitrgdata/mint/2024ww21/log")
+        lines.append("export log_dir=/mnt/aitrgdata/mint/rls23100rc0/log")
         lines.append("export HF_HOME=/mnt/aitrgdata/datasets/huggingface")
         # lines.append("export log_dir=/home2/ubuntu/llama3-profile/log")
         # lines.append("export HF_HOME=//home2/ubuntu/huggingface")
