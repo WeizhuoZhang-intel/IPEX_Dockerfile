@@ -382,6 +382,8 @@ modelargs:
       - microsoft/phi-2
       - microsoft/Phi-3-mini-128k-instruct
       - microsoft/Phi-3-mini-4k-instruct
+      - microsoft/Phi-3-mini-4k-instruct
+      - microsoft/Phi-3-mini-128k-instruct
       # - IEITYuan/Yuan2-102B-hf
       # - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
@@ -485,11 +487,11 @@ modelargs:
       - mosaicml/mpt-7b
       - stabilityai/stablelm-2-1_6b
       - Qwen/Qwen-7B-Chat
-      - liuhaotian/llava-v1.5-7b
-      - microsoft/git-base
       - microsoft/phi-2
       - microsoft/Phi-3-mini-128k-instruct
       - microsoft/Phi-3-mini-4k-instruct
+      - microsoft/Phi-3-mini-4k-instruct
+      - microsoft/Phi-3-mini-128k-instruct
       # - IEITYuan/Yuan2-102B-hf
       # - meta-llama/Meta-Llama-3-8B
       # - meta-llama/Meta-Llama-3-70B
