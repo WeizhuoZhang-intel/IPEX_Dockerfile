@@ -17,11 +17,11 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 20
+  iternum: 15
   warmup: 10
   hw: EMR
 modelargs:
-  llama13_bf16dsno:
+  llama13_bf16ds:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
@@ -29,14 +29,14 @@ modelargs:
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
       - databricks/dolly-v2-12b
-      # - tiiuae/falcon-7b
+      - tiiuae/falcon-7b
       # - tiiuae/falcon-40b
       - bigscience/bloom-1b7
       - facebook/opt-1.3b
       # - facebook/opt-30b
       - Salesforce/codegen-2B-multi
-      # - THUDM/chatglm3-6b
-      # - THUDM/chatglm2-6b
+      - THUDM/chatglm3-6b
+      - THUDM/chatglm2-6b
       - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan2-7B-Chat
       - Baichuan-inc/Baichuan-13B-Chat
@@ -65,6 +65,38 @@ modelargs:
     greedy: 
       - False
     shard: False
+
+  llama2_bf16ds:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+      - EleutherAI/gpt-neox-20b
+      - tiiuae/falcon-7b
+      - tiiuae/falcon-40b
+      - facebook/opt-30b
+      - THUDM/chatglm3-6b
+      - THUDM/chatglm2-6b
+      - mistralai/Mixtral-8x7B-v0.1
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    outputdir: "/data/rls2.2/shard"
+    inputtokens:
+      - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 4
+    greedy: 
+      - False
+    shard: False
+
 
   # git_bf16ds:
   #   modelid: 
@@ -167,7 +199,7 @@ modelargs:
   #     - False
   #   shard: False
 
-  llama13_woqdsno:
+  llama13_woqds:
     modelid: 
       - EleutherAI/gpt-j-6b
       - meta-llama/Llama-2-7b-hf
@@ -175,14 +207,14 @@ modelargs:
       # - meta-llama/Llama-2-70b-hf
       # - EleutherAI/gpt-neox-20b
       - databricks/dolly-v2-12b
-      # - tiiuae/falcon-7b
+      - tiiuae/falcon-7b
       # - tiiuae/falcon-40b
       - bigscience/bloom-1b7
       - facebook/opt-1.3b
       # - facebook/opt-30b
       - Salesforce/codegen-2B-multi
-      # - THUDM/chatglm3-6b
-      # - THUDM/chatglm2-6b
+      - THUDM/chatglm3-6b
+      - THUDM/chatglm2-6b
       - baichuan-inc/Baichuan2-13B-Chat
       - baichuan-inc/Baichuan2-7B-Chat
       - Baichuan-inc/Baichuan-13B-Chat
@@ -214,6 +246,36 @@ modelargs:
     greedy: 
       - False
     shard: False
+
+  llama2_woqds:
+    modelid: 
+      - meta-llama/Llama-2-70b-hf
+      - EleutherAI/gpt-neox-20b
+      - tiiuae/falcon-40b
+      - facebook/opt-30b
+      - mistralai/Mixtral-8x7B-v0.1
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    maxnewtokens: 
+      - 128
+    outputdir: "/data/rls2.2/shard"
+    inputtokens:
+      # - 128
+      - 512
+      - 1024
+      - 2016
+    batchsize: 
+      - 1
+    localrank:
+      - 4
+    greedy: 
+      - False
+    shard: False
+
 
   # llama131_woqdsno:
   #   modelid: 
