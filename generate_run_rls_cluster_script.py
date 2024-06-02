@@ -322,7 +322,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                 lines.append(f"mkdir -p {data['modelargs'][mode]['outputdir']}/{model_id}")
 
 
-                lines.append(f"python run.py  --benchmark -m {model_id} --ipex-smooth-quant --alpha auto --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} \
+                lines.append(f"python run.py  --benchmark -m {model_id} --ipex-smooth-quant --alpha auto --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --num-iter 12 \
                             2>&1 | tee -a $log_dir/llm_autotune_{(model_id.replace('/','-')).replace('_','-')}_static-int8_SPR.log")
                 
 
