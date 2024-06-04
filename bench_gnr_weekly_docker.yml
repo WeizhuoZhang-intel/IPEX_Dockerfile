@@ -17,17 +17,17 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 7
+  iternum: 10
   warmup: 5
   hw: GNR
 modelargs:
-  model_bf16ds:
+  amodel_bf16ds:
     modelid:
       # - Phi-3-medium-128k/phi-3_local_shard
       # - Phi-3-medium-4k/phi-3_local_shard
       # - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
+      - qwen-7b
+      # - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
       - cpu
@@ -41,12 +41,15 @@ modelargs:
       # - 512
       - 1024
       # - 2016
-      # - 2048
+      - 2048
       # - 3968
-      # - 4096
+      - 4096
+      - 8192
+      - 16384
+      - 32768
       # - 130944
       # - 8192
-    outputdir: "/run/media/root/4a4d014c-e6ca-4166-bff4-4bef6f9fa67e/mint/shard"
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
     batchsize: 
       - 1
       # - 2
@@ -54,12 +57,50 @@ modelargs:
       # - 8
       # - 16
     localrank:
-      - 3
-      # - 6
+      # - 3
+      - 6
     greedy: 
-      - False
+      # - False
       - True
-    shard: False
+    shard: True
+
+  model_defaultacc:
+    modelid: 
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/qwen-7b
+    scriptname: single_instance/run_quantization.py
+    dtype: 
+      # - bfloat16
+      - float32
+    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+
+  model_bf16dsacc:
+    modelid: 
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/qwen-7b
+    scriptname: run.py
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+    dtype: 
+      - bfloat16
+    batchsize: 
+      - 1
+    localrank:
+      - 6
+
+  model_woqdsacc:
+    modelid: 
+      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/qwen-7b
+    scriptname: run.py
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+    dtype: 
+      - ds-woq-int8
+      # - ds-woq-int4
+    batchsize: 
+      - 1
+    localrank:
+      - 6
 
   # agptj_static8:
   #   modelid: 
