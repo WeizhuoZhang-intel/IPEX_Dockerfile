@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 7
-  warmup: 5
+  iternum: 5
+  warmup: 3
   hw: GNR
 modelargs:
   amodel_bf16ds:
@@ -35,18 +35,19 @@ modelargs:
       - ds-bfloat16
     maxnewtokens: 
       - 128
+      - 1
     inputtokens:
       # - 32
       # - 128
       # - 512
       - 1024
       # - 2016
-      - 2048
+      # - 2048
       # - 3968
-      - 4096
-      - 8192
+      # - 4096
+      # - 8192
       - 16384
-      - 32768
+      # - 32768
       # - 130944
       # - 8192
     outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
@@ -75,21 +76,22 @@ modelargs:
     device:
       - cpu
     dtype: 
-      - ds-bfloat16
+      - ds-woq-int8
     maxnewtokens: 
       - 128
+      - 1
     inputtokens:
       # - 32
       # - 128
       # - 512
       - 1024
       # - 2016
-      - 2048
+      # - 2048
       # - 3968
-      - 4096
-      - 8192
+      # - 4096
+      # - 8192
       - 16384
-      - 32768
+      # - 32768
       # - 130944
       # - 8192
     outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
@@ -107,43 +109,43 @@ modelargs:
       - True
     shard: True
     
-  model_defaultacc:
-    modelid: 
-      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/qwen-7b
-    scriptname: single_instance/run_quantization.py
-    dtype: 
-      # - bfloat16
-      - float32
-    # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
-    batchsize: 
-      - 1
-    localrank:
-      - 1
+  # model_defaultacc:
+  #   modelid: 
+  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/qwen-7b
+  #   scriptname: single_instance/run_quantization.py
+  #   dtype: 
+  #     # - bfloat16
+  #     - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
-  model_bf16dsacc:
-    modelid: 
-      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/qwen-7b
-    scriptname: run.py
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
-    dtype: 
-      - bfloat16
-    batchsize: 
-      - 1
-    localrank:
-      - 3
+  # model_bf16dsacc:
+  #   modelid: 
+  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/qwen-7b
+  #   scriptname: run.py
+  #   outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+  #   dtype: 
+  #     - bfloat16
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 3
 
-  model_woqdsacc:
-    modelid: 
-      - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/qwen-7b
-    scriptname: run.py
-    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
-    dtype: 
-      - ds-woq-int8
-      # - ds-woq-int4
-    batchsize: 
-      - 1
-    localrank:
-      - 3
+  # model_woqdsacc:
+  #   modelid: 
+  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard/qwen-7b
+  #   scriptname: run.py
+  #   outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+  #   dtype: 
+  #     - ds-woq-int8
+  #     # - ds-woq-int4
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 3
 
   # agptj_static8:
   #   modelid: 
