@@ -933,7 +933,7 @@ def generate_commands(yml_file,mode,extra_kmp):
                                         if data['modelargs'][mode]['shard'] == True:
                                             if beam == True:   
                                                 lines.append(f"timeout 87m deepspeed --bind_cores_to_rank --num_accelerators {rank} --bind_core_list $core_list run.py  \
-                                                            --benchmark -m {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --profile --autotp  \
+                                                            --benchmark -m {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --greedy --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --dtype bfloat16 --batch-size {bs} --ipex --token-latency --autotp  \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")
                                             else:  
                                                 if 'bloom' in model_id:
