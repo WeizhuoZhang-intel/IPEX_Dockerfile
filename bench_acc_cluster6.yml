@@ -130,7 +130,7 @@ modelargs:
       # - Phi-3-medium-128k/phi-3_local_shard
       # - Phi-3-medium-4k/phi-3_local_shard
       # - EleutherAI/gpt-j-6b
-      - qwen-7b
+      - meta-llama/Llama-2-7b-hf
       # - meta-llama/Llama-2-13b-hf
     scriptname: run.py
     device:
@@ -148,9 +148,9 @@ modelargs:
       - 2048
       # - 3968
       - 4096
-      - 8192
-      - 16384
-      - 32768
+      # - 8192
+      # - 16384
+      # - 32768
       # - 130944
       # - 8192
     outputdir: "/mint/shard"
@@ -168,48 +168,48 @@ modelargs:
       - True
     shard: True
 
-  amodel_woqds:
-    modelid:
-      # - Phi-3-medium-128k/phi-3_local_shard
-      # - Phi-3-medium-4k/phi-3_local_shard
-      # - EleutherAI/gpt-j-6b
-      - qwen-7b
-      # - meta-llama/Llama-2-13b-hf
-    scriptname: run.py
-    device:
-      - cpu
-    dtype: 
-      - ds-woq-int8
-    maxnewtokens: 
-      - 128
-    inputtokens:
-      # - 32
-      # - 128
-      # - 512
-      - 1024
-      # - 2016
-      - 2048
-      # - 3968
-      - 4096
-      - 8192
-      - 16384
-      - 32768
-      # - 130944
-      # - 8192
-    outputdir: "/mint/shard"
-    batchsize: 
-      - 1
-      # - 2
-      # - 4
-      # - 8
-      # - 16
-    localrank:
-      # - 3
-      - 2
-    greedy: 
-      # - False
-      - True
-    shard: True
+  # amodel_woqds:
+  #   modelid:
+  #     # - Phi-3-medium-128k/phi-3_local_shard
+  #     # - Phi-3-medium-4k/phi-3_local_shard
+  #     # - EleutherAI/gpt-j-6b
+  #     - qwen-7b
+  #     # - meta-llama/Llama-2-13b-hf
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - ds-woq-int8
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     # - 32
+  #     # - 128
+  #     # - 512
+  #     - 1024
+  #     # - 2016
+  #     - 2048
+  #     # - 3968
+  #     - 4096
+  #     - 8192
+  #     - 16384
+  #     - 32768
+  #     # - 130944
+  #     # - 8192
+  #   outputdir: "/mint/shard"
+  #   batchsize: 
+  #     - 1
+  #     # - 2
+  #     # - 4
+  #     # - 8
+  #     # - 16
+  #   localrank:
+  #     # - 3
+  #     - 2
+  #   greedy: 
+  #     # - False
+  #     - True
+  #   shard: True
 
   # model_defaultacc:
   #   modelid: 
