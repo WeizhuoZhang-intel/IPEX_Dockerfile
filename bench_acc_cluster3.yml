@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 10
-  warmup: 5
+  iternum: 11
+  warmup: 10
   hw: SPR
 modelargs:
   agptj_static8:
