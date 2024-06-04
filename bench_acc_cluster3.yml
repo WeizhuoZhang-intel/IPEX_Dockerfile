@@ -17,8 +17,8 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
-  warmup: 10
+  iternum: 10
+  warmup: 5
   hw: SPR
 modelargs:
   agptj_static8:
@@ -40,6 +40,8 @@ modelargs:
       - microsoft/phi-2
       - microsoft/Phi-3-mini-128k-instruct
       - microsoft/Phi-3-mini-4k-instruct
+      - microsoft/Phi-3-medium-128k-instruct
+      - microsoft/Phi-3-medium-4k-instruct
       # - IEITYuan/Yuan2-102B-hf
       - meta-llama/Meta-Llama-3-8B
       - meta-llama/Meta-Llama-3-70B
@@ -91,6 +93,8 @@ modelargs:
       - microsoft/phi-2
       - microsoft/Phi-3-mini-128k-instruct
       - microsoft/Phi-3-mini-4k-instruct
+      - microsoft/Phi-3-medium-128k-instruct
+      - microsoft/Phi-3-medium-4k-instruct
       # - IEITYuan/Yuan2-102B-hf
       - meta-llama/Meta-Llama-3-8B
       - meta-llama/Meta-Llama-3-70B
