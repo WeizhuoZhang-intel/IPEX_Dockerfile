@@ -17,7 +17,7 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 10
+  iternum: 7
   warmup: 5
   hw: GNR
 modelargs:
@@ -58,12 +58,55 @@ modelargs:
       # - 16
     localrank:
       # - 3
-      - 6
+      - 3
     greedy: 
       # - False
       - True
     shard: True
 
+  amodel_woqds:
+    modelid:
+      # - Phi-3-medium-128k/phi-3_local_shard
+      # - Phi-3-medium-4k/phi-3_local_shard
+      # - EleutherAI/gpt-j-6b
+      - qwen-7b
+      # - meta-llama/Llama-2-13b-hf
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - ds-bfloat16
+    maxnewtokens: 
+      - 128
+    inputtokens:
+      # - 32
+      # - 128
+      # - 512
+      - 1024
+      # - 2016
+      - 2048
+      # - 3968
+      - 4096
+      - 8192
+      - 16384
+      - 32768
+      # - 130944
+      # - 8192
+    outputdir: "/run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/shard"
+    batchsize: 
+      - 1
+      # - 2
+      # - 4
+      # - 8
+      # - 16
+    localrank:
+      # - 3
+      - 3
+    greedy: 
+      # - False
+      - True
+    shard: True
+    
   model_defaultacc:
     modelid: 
       - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/qwen-7b
@@ -87,7 +130,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 6
+      - 3
 
   model_woqdsacc:
     modelid: 
@@ -100,7 +143,7 @@ modelargs:
     batchsize: 
       - 1
     localrank:
-      - 6
+      - 3
 
   # agptj_static8:
   #   modelid: 
