@@ -17,43 +17,65 @@ launcher:
   OMP_NUM_THREADS: ${cores_per_node}
   numactlN: 0
   numactlM: 0
-  iternum: 15
-  warmup: 10
+  iternum: 7
+  warmup: 5
   hw: SPR
 modelargs:
+  # model_bf16:
+  #   modelid: 
+  #     - EleutherAI/gpt-j-6b
+  #     - meta-llama/Llama-2-7b-hf
+  #     - meta-llama/Llama-2-13b-hf
+  #     - meta-llama/Llama-2-70b-hf
+  #     - EleutherAI/gpt-neox-20b
+  #     - databricks/dolly-v2-12b
+  #     - tiiuae/falcon-7b
+  #     - tiiuae/falcon-40b
+  #     - bigscience/bloom-1b7
+  #     - facebook/opt-1.3b
+  #     - facebook/opt-30b
+  #     - Salesforce/codegen-2B-multi
+  #     - THUDM/chatglm3-6b
+  #     - THUDM/chatglm2-6b
+  #     - baichuan-inc/Baichuan2-13B-Chat
+  #     - baichuan-inc/Baichuan2-7B-Chat
+  #     - Baichuan-inc/Baichuan-13B-Chat
+  #     - bigcode/starcoder
+  #     - google/flan-t5-xl
+  #     - mistralai/Mistral-7B-v0.1
+  #     - mistralai/Mixtral-8x7B-v0.1
+  #     - mosaicml/mpt-7b
+  #     - stabilityai/stablelm-2-1_6b
+  #     - Qwen/Qwen-7B-Chat
+  #     - microsoft/git-base
+  #     # - meta-llama/Meta-Llama-3-8B
+  #     # - meta-llama/Meta-Llama-3-70B
+  #     - microsoft/Phi-3-mini-128k-instruct
+  #     - microsoft/Phi-3-mini-4k-instruct
+  #     - microsoft/Phi-3-medium-4k-instruct
+  #     - microsoft/Phi-3-medium-128k-instruct
+  #   scriptname: run.py
+  #   device:
+  #     - cpu
+  #   dtype: 
+  #     - bfloat16
+  #   maxnewtokens: 
+  #     - 128
+  #   inputtokens:
+  #     - 128
+  #     # - 512
+  #     - 1024
+  #     - 2048
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
+  #   greedy: 
+  #     - True
+
   model_bf16:
     modelid: 
-      - EleutherAI/gpt-j-6b
-      - meta-llama/Llama-2-7b-hf
-      - meta-llama/Llama-2-13b-hf
-      - meta-llama/Llama-2-70b-hf
-      - EleutherAI/gpt-neox-20b
-      - databricks/dolly-v2-12b
-      - tiiuae/falcon-7b
-      - tiiuae/falcon-40b
-      - bigscience/bloom-1b7
-      - facebook/opt-1.3b
-      - facebook/opt-30b
-      - Salesforce/codegen-2B-multi
-      - THUDM/chatglm3-6b
-      - THUDM/chatglm2-6b
-      - baichuan-inc/Baichuan2-13B-Chat
-      - baichuan-inc/Baichuan2-7B-Chat
-      - Baichuan-inc/Baichuan-13B-Chat
-      - bigcode/starcoder
-      - google/flan-t5-xl
-      - mistralai/Mistral-7B-v0.1
-      - mistralai/Mixtral-8x7B-v0.1
-      - mosaicml/mpt-7b
-      - stabilityai/stablelm-2-1_6b
-      - Qwen/Qwen-7B-Chat
-      - microsoft/git-base
-      # - meta-llama/Meta-Llama-3-8B
-      # - meta-llama/Meta-Llama-3-70B
-      - microsoft/Phi-3-mini-128k-instruct
-      - microsoft/Phi-3-mini-4k-instruct
-      - microsoft/Phi-3-medium-4k-instruct
-      - microsoft/Phi-3-medium-128k-instruct
+      - /mint/Qwen2-7B/Qwen2-7B
     scriptname: run.py
     device:
       - cpu
@@ -62,10 +84,14 @@ modelargs:
     maxnewtokens: 
       - 128
     inputtokens:
-      - 128
+      # - 128
       # - 512
       - 1024
       - 2048
+      - 4096
+      - 8192
+      - 16384
+      - 32768
     batchsize: 
       - 1
     localrank:
@@ -73,6 +99,44 @@ modelargs:
     greedy: 
       - True
 
+  model_woq8:
+    modelid: 
+      - /mint/Qwen2-7B/Qwen2-7B
+    scriptname: run.py
+    device:
+      - cpu
+    dtype: 
+      - woq-int8
+    maxnewtokens: 
+      - 128
+    outputdir: "/mint/woq-int8"
+    quantizedmodelpath: "/mint/woq-int8"
+    inputtokens:
+      - 1024
+      - 2048
+      - 4096
+      - 8192
+      - 16384
+      - 32768
+    batchsize: 
+      - 1
+    localrank:
+      - 1
+    greedy: 
+      - True
+
+  # model_defaultacc:
+  #   modelid: 
+  #     - /run/media/root/f3154bb0-27eb-43b9-8cd5-dae9a231c767/mint/qwen-7b
+  #   scriptname: single_instance/run_quantization.py
+  #   dtype: 
+  #     # - bfloat16
+  #     - float32
+  #   # quantizedmodelpath: "/gptq/facebook/opt-30b/best_model.pt"
+  #   batchsize: 
+  #     - 1
+  #   localrank:
+  #     - 1
 
   # model_noipex:
   #   modelid: 
