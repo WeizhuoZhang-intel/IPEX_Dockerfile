@@ -793,7 +793,12 @@ def generate_commands(yml_file,mode,extra_kmp):
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --image-url https://llava-vl.github.io/static/images/view.jpg --prompt \"What are the things I should be cautious about when I visit here\?\" --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --weight-dtype INT8 --quant-with-amp --batch-size {bs} --token-latency --greedy --profile \
                                                                 2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log") 
-                                            
+                                            elif 'Llama-3-70B' in model_id:
+                                                lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
+                                                            --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --weight-dtype INT8 --quant-with-amp --batch-size {bs} --token-latency --greedy --group-size 128 --profile \
+                                                                2>&1 | tee -a $log_dir/llm_default_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{input_token}-{output_token}-{bs}_greedy_{beam}_NUMA_{rank}_{data['launcher']['hw']}.log")                                            
+                            
+
                                             else:
                                                 lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m {data['launcher']['numactlM']} -C $core_list python run.py  \
                                                             --benchmark -m {model_id} --ipex-weight-only-quantization --output-dir {data['modelargs'][mode]['outputdir']}/{model_id} --input-tokens {input_token} --max-new-tokens {output_token} --num-iter {data['launcher']['iternum']} --num-warmup {data['launcher']['warmup']} --weight-dtype INT8 --quant-with-amp --batch-size {bs} --token-latency --greedy --profile \
@@ -2298,8 +2303,10 @@ def generate_commands(yml_file,mode,extra_kmp):
                                 elif 'Yuan' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks gsm8k --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
-                                
-                                
+                                elif 'Llama-3-70B' in model_id:
+                                    lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks piqa --batch-size {bs} \
+                                                2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
+
                                 elif 'llava' in model_id or 'git-base' in model_id:
                                     lines.append(f"OMP_NUM_THREADS={data['launcher']['OMP_NUM_THREADS']} numactl -m 0 -C $core_list python single_instance/run_accuracy.py --quantized-model-path {data['modelargs'][mode]['quantizedmodelpath']}/{model_id}/best_model.pt  -m {model_id} --dtype int8 --ipex --quant-with-amp --tasks coco2017_cap_val --batch-size {bs} \
                                                 2>&1 | tee -a $log_dir/llm_accuracy_{(model_id.replace('/','-')).replace('_','-')}_{dtype}_{data['launcher']['hw']}.log")
