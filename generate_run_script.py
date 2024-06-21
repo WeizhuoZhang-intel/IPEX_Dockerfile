@@ -174,7 +174,7 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append("export TRANSFORMERS_OFFLINE=0")
         lines.append("bash token.sh")
         lines.append("# Env config")
-        # lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
+        lines.append(f"export LD_PRELOAD={data['envconfig']['LD_PRELOAD']}")
         lines.append(f"export KMP_BLOCKTIME={data['envconfig']['KMP_BLOCKTIME']}")
         lines.append(f"export KMP_AFFINITY={data['envconfig']['KMP_AFFINITY']}")
         if extra_kmp:
