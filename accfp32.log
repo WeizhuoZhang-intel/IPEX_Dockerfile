@@ -35,4 +35,4 @@ llm_accuracy_microsoft-Phi-3-medium-128k-instruct_float32_SPR.log, ,0.6408
 llm_accuracy_microsoft-Phi-3-medium-4k-instruct_float32_SPR.log, ,0.6503
 llm_accuracy_IEITYuan-Yuan2-102B-hf_float32_SPR.log, ,0.552
 llm_accuracy_openai-whisper-large-v2_float32_SPR.log, ,0.784426
-llm_accuracy_meta-llama-Meta-Llama-3.1-8B-Instruct_float32_SPR.log, ,0.784426
+llm_accuracy_meta-llama-Meta-Llama-3.1-8B-Instruct_float32_SPR.log, ,0.7355
