@@ -175,3 +175,60 @@ python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/min
 mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/tiiuae/falcon-7b
 python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/tiiuae/falcon-7b --quant-with-amp --lowp-mode BF16 -m tiiuae/falcon-7b --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/tiiuae/falcon-7b/gptq_checkpoint_g128.pt 
 python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/tiiuae/falcon-7b/best_model.pt -m tiiuae/falcon-7b --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/falcon-7b-woq-int4-bf16-acc.log
+
+
+
+
+## ---------------------------------------------- addition ------------------------------------------------------
+
+
+#!/bin/bash
+# set -x
+
+set -x
+pwd
+
+export log_dir=/mnt/aitrgdata/mint/ipex24rc0/logs
+export upath=/mnt/aitrgdata/mint/ipex24rc0/gptq
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/Qwen/Qwen-7B-Chat
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/Qwen/Qwen-7B-Chat --quant-with-amp --lowp-mode BF16 -m Qwen/Qwen-7B-Chat --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/Qwen/Qwen-7B-Chat/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/Qwen/Qwen-7B-Chat/best_model.pt -m Qwen/Qwen-7B-Chat --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/Qwen-7B-Chat-woq-int4-bf16-acc.log
+
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/THUDM/chatglm2-6b
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/THUDM/chatglm2-6b --quant-with-amp --lowp-mode BF16 -m THUDM/chatglm2-6b --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/THUDM/chatglm2-6b/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/THUDM/chatglm2-6b/best_model.pt -m THUDM/chatglm2-6b --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/chatglm2-6b-woq-int4-bf16-acc.log
+
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/THUDM/chatglm3-6b
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/THUDM/chatglm3-6b --quant-with-amp --lowp-mode BF16 -m THUDM/chatglm3-6b --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/THUDM/chatglm3-6b/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/THUDM/chatglm3-6b/best_model.pt -m THUDM/chatglm3-6b --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/chatglm3-6b-woq-int4-bf16-acc.log
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan-13B-Chat
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan-13B-Chat --quant-with-amp --lowp-mode BF16 -m baichuan-inc/Baichuan-13B-Chat --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/baichuan-inc/Baichuan-13B-Chat/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan-13B-Chat/best_model.pt -m baichuan-inc/Baichuan-13B-Chat --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/Baichuan-13B-Chat-woq-int4-bf16-acc.log
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan2-13B-Chat
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan2-13B-Chat --quant-with-amp --lowp-mode BF16 -m baichuan-inc/Baichuan2-13B-Chat --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/baichuan-inc/Baichuan2-13B-Chat/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan2-13B-Chat/best_model.pt -m baichuan-inc/Baichuan2-13B-Chat --dtype int8 --ipex --quant-with-amp --tasks hellaswag 2>&1 | tee -a $log_dir/Baichuan2-13B-Chat-woq-int4-bf16-acc.log
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan2-7B-Chat
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan2-7B-Chat --quant-with-amp --lowp-mode BF16 -m baichuan-inc/Baichuan2-7B-Chat --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/baichuan-inc/Baichuan2-7B-Chat/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/baichuan-inc/Baichuan2-7B-Chat/best_model.pt -m baichuan-inc/Baichuan2-7B-Chat --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/Baichuan2-7B-Chat-woq-int4-bf16-acc.log
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/bigcode/starcoder
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/bigcode/starcoder --quant-with-amp --lowp-mode BF16 -m bigcode/starcoder --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/bigcode/starcoder/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/bigcode/starcoder/best_model.pt -m bigcode/starcoder --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/starcoder-woq-int4-bf16-acc.log
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/meta-llama/Meta-Llama-3.1-8B-Instruct
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/meta-llama/Meta-Llama-3.1-8B-Instruct --quant-with-amp --lowp-mode BF16 -m meta-llama/Meta-Llama-3.1-8B-Instruct --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/meta-llama/Meta-Llama-3.1-8B-Instruct/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/meta-llama/Meta-Llama-3.1-8B-Instruct/best_model.pt -m meta-llama/Meta-Llama-3.1-8B-Instruct --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/llama31-woq-int4-bf16-acc.log
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/mistralai/Mistral-7B-v0.1
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/mistralai/Mistral-7B-v0.1 --quant-with-amp --lowp-mode BF16 -m mistralai/Mistral-7B-v0.1 --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/mistralai/Mistral-7B-v0.1/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/mistralai/Mistral-7B-v0.1/best_model.pt -m mistralai/Mistral-7B-v0.1 --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/mistral-7b-woq-int4-bf16-acc.log
+
+mkdir -p /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/tiiuae/falcon-11b
+python single_instance/run_quantization.py --ipex-weight-only-quantization --output-dir /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/tiiuae/falcon-11b --quant-with-amp --lowp-mode BF16 -m tiiuae/falcon-11b --low-precision-checkpoint /mnt/aitrgdata/mint/ipex24rc0/gptq/tiiuae/falcon-11b/gptq_checkpoint_g128.pt 
+python single_instance/run_accuracy.py --quantized-model-path /mnt/aitrgdata/mint/ipex24rc0/woq-int4-bf16/tiiuae/falcon-11b/best_model.pt -m tiiuae/falcon-11b --dtype int8 --ipex --quant-with-amp --tasks lambada_openai 2>&1 | tee -a $log_dir/falcon-11b-woq-int4-bf16-acc.log
