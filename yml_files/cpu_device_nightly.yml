@@ -20,7 +20,7 @@ modelargs:
   default_gptj:
     modelid:
       - EleutherAI/gpt-j-6b
-    scriptname: llm/run.py
+    scriptname: llm/inference/run.py
     dtype:
       - bfloat16
     inputtokens:
@@ -37,7 +37,7 @@ modelargs:
   default_llama:
     modelid:
       - meta-llama/Llama-2-7b-hf
-    scriptname: llm/run.py
+    scriptname: llm/inference/run.py
     dtype:
       - bfloat16
     inputtokens:
@@ -54,7 +54,7 @@ modelargs:
   gptj_int8:
     modelid:
       - EleutherAI/gpt-j-6b
-    scriptname: llm/run.py
+    scriptname: llm/inference/run.py
     dtype: INT8
     quantize: true
     lambada: true
@@ -75,7 +75,7 @@ modelargs:
   deepspeed_gptj:
     modelid: 
       - EleutherAI/gpt-j-6b
-    scriptname: llm/run.py
+    scriptname: llm/inference/run.py
     dtype: 
       - bfloat16
     localrank:
@@ -97,7 +97,7 @@ modelargs:
   deepspeed_llama:
     modelid: 
       - meta-llama/Llama-2-7b-hf
-    scriptname: llm/run.py
+    scriptname: llm/inference/run.py
     dtype: 
       - bfloat16
     localrank:
