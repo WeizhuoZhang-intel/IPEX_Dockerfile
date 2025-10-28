@@ -129,7 +129,6 @@ def generate_commands(yml_file,mode,extra_kmp):
         lines.append(fetch_device_info)
         lines.append(collect_result)    
 
-        lines.append("pip install --upgrade huggingface_hub")
         lines.append("bash token.sh")
         
         lines.append("")
@@ -179,3 +178,4 @@ if __name__ == '__main__':
     data = yaml.load(open(args.yml_file, 'r'),Loader=yaml.FullLoader) 
     for mode in data['modelargs'].keys():
         generate_commands(args.yml_file, mode, args.extra_kmp)
+
